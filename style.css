@@ -143,51 +143,116 @@ margin: 12px 0;
 }
 
 /* =====================================
-ESSAYS
+WRITING PAGE
 ===================================== */
 
-.essay {
+.writing-intro {
 
-max-width: 720px;
+margin-bottom: 40px;
+
+opacity: 0.7;
+
+}
+
+.writing-list {
+
+max-width: 700px;
+
+}
+
+.writing-entry {
+
+display: grid;
+
+grid-template-columns: 120px 1fr 60px;
+
+gap: 20px;
+
+padding: 10px 0;
+
+border-bottom: 1px solid rgba(255,255,255,0.08);
+
+}
+
+.writing-meta {
+
+opacity: 0.6;
+
+font-size: 0.9rem;
+
+}
+
+.writing-title a {
+
+text-decoration: none;
+
+font-size: 1.05rem;
+
+}
+
+.writing-title a:hover {
+
+text-decoration: underline;
+
+}
+
+.writing-format {
+
+font-size: 0.8rem;
+
+opacity: 0.5;
+
+text-align: right;
+
+}
+
+/* =====================================
+ESSAY PAGE
+===================================== */
+
+.essay-header {
+
+margin-bottom: 30px;
 
 }
 
 .essay-meta {
 
-font-size: 0.9rem;
 opacity: 0.6;
 
-margin-bottom: 40px;
+font-size: 0.9rem;
+
+margin-top: 5px;
 
 }
 
-.essay-body {
+.essay-download {
 
-line-height: 1.85;
-font-size: 17px;
+margin-top: 10px;
 
-}
-
-.essay-body p {
-
-margin: 1.4em 0;
+font-size: 0.9rem;
 
 }
 
-.essay-body blockquote {
+.essay-download a {
 
-margin: 2em 0;
-padding-left: 18px;
+text-decoration: none;
 
-border-left: 2px solid rgba(255,255,255,0.25);
-
-opacity: 0.85;
+opacity: 0.7;
 
 }
 
-.essay-body blockquote p {
+.essay-download a:hover {
 
-margin: 0.5em 0;
+opacity: 1;
+
+}
+
+.essay-pdf {
+
+margin-top: 30px;
+
+border: 1px solid rgba(255,255,255,0.1);
 
 }
 
