@@ -28,6 +28,7 @@ image: "images/art/2024/2024-01-30.jpeg",
 page: "art/2024-01-30.html"
 },
 
+{
 title: "January 28, 2024 | #2",
 year: 2024,
 image: "images/art/2024/2024-01-28_2.jpeg",
