@@ -89,7 +89,7 @@ archive.innerHTML = "";
 
 const years = {};
 
-artworks.forEach(art => {
+archive.forEach(art => {
 
 if (!years[art.year]) {
 years[art.year] = [];
