@@ -194,20 +194,20 @@ nav.append(" · ");
 /* =========================
    PREVIOUS / NEXT ARTWORK
 ========================= */
-
 function buildArtNavigation() {
 
 const nav = document.querySelector(".art-navigation");
 if (!nav) return;
 
-/* only navigate through art */
+const artItems = archive
+.filter(item => item.type === "art")
+.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-const artItems = archive.filter(item => item.type === "art");
+const currentPage = window.location.pathname.split("/").pop();
 
-const currentPath = window.location.pathname;
-const currentPage = currentPath.split("/").pop();
-
-const index = artItems.findIndex(art => art.page.includes(currentPage));
+const index = artItems.findIndex(
+art => art.page.split("/").pop() === currentPage
+);
 
 if (index === -1) return;
 
@@ -244,20 +244,7 @@ ${next ? `<a href="../${next.page}">${formatDate(next.date)} →</a>` : ""}
 
 `;
 
-document.addEventListener("keydown", (e) => {
-
-if (e.key === "ArrowLeft" && prev) {
-window.location.href = "../" + prev.page;
 }
-
-if (e.key === "ArrowRight" && next) {
-window.location.href = "../" + next.page;
-}
-
-});
-
-}
-
 
 /* =========================
    RANDOM ARTWORK BUTTON
