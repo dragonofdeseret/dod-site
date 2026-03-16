@@ -743,8 +743,8 @@ page: "art/2022-01-30.html"
 <!-- writing example
 
 type: "writing",
-title: "",
-date: "",
+title: "...",
+date: "...",
 page: "writing/ESSAY_TITLE.html",
 pdf: "pdf/ESSAY_TITLE.pdf"
 
