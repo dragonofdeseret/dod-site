@@ -27,12 +27,18 @@ year: 2024,
 image: "images/art/2024/2024-01-30.jpeg",
 page: "art/2024-01-30.html"
 },
+
+title: "January 28, 2024 | #2",
+year: 2024,
+image: "images/art/2024/2024-01-28_2.jpeg",
+page: "art/2024-01-28_2.html"
+},
    
 {
-title: "January 28, 2024",
+title: "January 28, 2024 | #1",
 year: 2024,
 image: "images/art/2024/2024-01-28_1.jpeg",
-page: "art/2024-01-28.html"
+page: "art/2024-01-28_1.html"
 },
 
  
@@ -336,9 +342,16 @@ year: 2022,
 image: "images/art/2022/2022-08-01_1.jpeg",
 page: "art/2022-08-01.html"
 },
+
+{
+title: "July 15, 2022 | 2nd Grade",
+year: 2022,
+image: "images/art/2022/2022-07-15_2.jpeg",
+page: "art/2022-07-15_2.html"
+},
   
 {
-title: "July 15, 2022",
+title: "July 15, 2022 | #1",
 year: 2022,
 image: "images/art/2022/2022-07-15_1.jpeg",
 page: "art/2022-07-15_1.html"
