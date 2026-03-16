@@ -655,6 +655,13 @@ year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
 page: "art/2022-01-30.html"
+},
+
+{ 
+title: "All is Well | May 11, 2019",
+year: 2019,
+date: "2019-05-11",
+page: "writings/alliswell.html"
 }
 
 ];

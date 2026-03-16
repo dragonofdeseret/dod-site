@@ -143,6 +143,55 @@ margin: 12px 0;
 }
 
 /* =====================================
+ESSAYS
+===================================== */
+
+.essay {
+
+max-width: 720px;
+
+}
+
+.essay-meta {
+
+font-size: 0.9rem;
+opacity: 0.6;
+
+margin-bottom: 40px;
+
+}
+
+.essay-body {
+
+line-height: 1.85;
+font-size: 17px;
+
+}
+
+.essay-body p {
+
+margin: 1.4em 0;
+
+}
+
+.essay-body blockquote {
+
+margin: 2em 0;
+padding-left: 18px;
+
+border-left: 2px solid rgba(255,255,255,0.25);
+
+opacity: 0.85;
+
+}
+
+.essay-body blockquote p {
+
+margin: 0.5em 0;
+
+}
+
+/* =====================================
 BUTTONS
 ===================================== */
 
