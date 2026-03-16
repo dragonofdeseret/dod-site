@@ -1,6 +1,7 @@
-const artworks = [
+const archive = [
   
 {
+type: "art",
 title: "August 28, 2025",
 year: 2025,
 date: "2025-08-28",
@@ -9,6 +10,7 @@ page: "art/2025-08-28.html"
 },
    
 {
+type: "art",
 title: "August 22, 2024",
 year: 2024,
 date: "2024-08-22",
@@ -17,6 +19,7 @@ page: "art/2024-08-22.html"
 },
    
 {
+type: "art",
 title: "June 25, 2024",
 year: 2024,
 date: "2024-06-25",
@@ -25,7 +28,8 @@ page: "art/2024-06-25.html"
 },
    
 {
-title: "January 30, 2024",
+type: "art",
+Title: "January 30, 2024",
 year: 2024,
 date: "2024-01-30",
 image: "images/art/2024/2024-01-30.jpeg",
@@ -33,6 +37,7 @@ page: "art/2024-01-30.html"
 },
 
 {
+type: "art",
 title: "January 28, 2024 | #2",
 year: 2024,
 date: "2024-01-28",
@@ -41,6 +46,7 @@ page: "art/2024-01-28_2.html"
 },
    
 {
+type: "art",
 title: "January 28, 2024 | #1",
 year: 2024,
 date: "2024-01-28",
@@ -49,6 +55,7 @@ page: "art/2024-01-28_1.html"
 },
  
 {
+type: "art",
 title: "December 14, 2023 | #2",
 year: 2023,
 date: "2023-12-14",
@@ -57,6 +64,7 @@ page: "art/2023-12-14_2.html"
 },
     
 {
+type: "art",
 title: "December 14, 2023 | #1",
 year: 2023,
 date: "2023-12-14",
@@ -65,6 +73,7 @@ page: "art/2023-12-14_1.html"
 },
  
 {
+type: "art",
 title: "December 10, 2023 | #3",
 year: 2023,
 date: "2023-12-10",
@@ -73,6 +82,7 @@ page: "art/2023-12-10_3.html"
 },
   
 {
+type: "art",
 title: "December 10, 2023 | #2",
 year: 2023,
 date: "2023-12-10",
@@ -81,6 +91,7 @@ page: "art/2023-12-10_2.html"
 },
     
 {
+type: "art",
 title: "December 10, 2023 | #1",
 year: 2023,
 date: "2023-12-10",
@@ -89,6 +100,7 @@ page: "art/2023-12-10_1.html"
 },
  
 {
+type: "art",
 title: "December 6, 2023 | #2",
 year: 2023,
 date: "2023-12-06",
@@ -97,6 +109,7 @@ page: "art/2023-12-06_2.html"
 },
     
 {
+type: "art",
 title: "December 6, 2023 | #1",
 year: 2023,
 date: "2023-12-06",
@@ -105,6 +118,7 @@ page: "art/2023-12-06_1.html"
 },
 
 {
+type: "art",
 title: "November 13, 2023 | #2",
 year: 2023,
 date: "2023-11-13",
@@ -113,6 +127,7 @@ page: "art/2023-11-13_2.html"
 },
     
 {
+type: "art",
 title: "November 13, 2023 | #1",
 year: 2023,
 date: "2023-11-13",
@@ -121,6 +136,7 @@ page: "art/2023-11-13_1.html"
 },
    
 {
+type: "art",
 title: "October 24, 2023",
 year: 2023,
 date: "2023-10-24",
@@ -129,6 +145,7 @@ page: "art/2023-10-24.html"
 },
    
 {
+type: "art",
 title: "October 23, 2023",
 year: 2023,
 date: "2023-10-23",
@@ -137,6 +154,7 @@ page: "art/2023-10-23.html"
 },
  
 {
+type: "art",
 title: "August 26, 2023 | #4",
 year: 2023,
 date: "2023-08-26",
@@ -145,6 +163,7 @@ page: "art/2023-08-26_4.html"
 },
   
 {
+type: "art",
 title: "August 26, 2023 | #3",
 year: 2023,
 date: "2023-08-26",
@@ -153,6 +172,7 @@ page: "art/2023-08-26_3.html"
 },
   
 {
+type: "art",
 title: "August 26, 2023 | #2",
 year: 2023,
 date: "2023-08-26",
@@ -161,6 +181,7 @@ page: "art/2023-08-26_2.html"
 },
     
 {
+type: "art",
 title: "August 26, 2023 | #1",
 year: 2023,
 date: "2023-08-26",
@@ -169,6 +190,7 @@ page: "art/2023-08-26_1.html"
 },
 
 {
+type: "art",
 title: "August 13, 2023 | #2",
 year: 2023,
 date: "2023-08-13",
@@ -177,6 +199,7 @@ page: "art/2023-08-13_2.html"
 },
    
 {
+type: "art",
 title: "August 13, 2023 | #1",
 year: 2023,
 date: "2023-08-13",
@@ -185,6 +208,7 @@ page: "art/2023-08-13_1.html"
 },
    
 {
+type: "art",
 title: "August 6, 2023",
 year: 2023,
 date: "2023-08-06",
@@ -193,6 +217,7 @@ page: "art/2023-08-06.html"
 },
  
 {
+type: "art",
 title: "July 16, 2023 | #2",
 year: 2023,
 date: "2023-07-16",
@@ -201,6 +226,7 @@ page: "art/2023-07-16_2.html"
 },
     
 {
+type: "art",
 title: "July 16, 2023 | #1",
 year: 2023,
 date: "2023-07-16",
@@ -209,6 +235,7 @@ page: "art/2023-07-16_1.html"
 },
    
 {
+type: "art",
 title: "July 5, 2023",
 year: 2023,
 date: "2023-07-05",
@@ -217,6 +244,7 @@ page: "art/2023-07-05.html"
 },
    
 {
+type: "art",
 title: "June 24, 2023",
 year: 2023,
 date: "2023-06-24",
@@ -225,6 +253,7 @@ page: "art/2023-06-24.html"
 },
    
 {
+type: "art",
 title: "May 28, 2023",
 year: 2023,
 date: "2023-05-28",
@@ -233,6 +262,7 @@ page: "art/2023-05-28.html"
 },
 
 {
+type: "art",
 title: "May 21, 2023 | #3",
 year: 2023,
 date: "2023-05-21",
@@ -241,6 +271,7 @@ page: "art/2023-05-21_3.html"
 },
  
 {
+type: "art",
 title: "May 21, 2023 | #2",
 year: 2023,
 date: "2023-05-21",
@@ -249,6 +280,7 @@ page: "art/2023-05-21_2.html"
 },
     
 {
+type: "art",
 title: "May 21, 2023 | #1",
 year: 2023,
 date: "2023-05-21",
@@ -257,6 +289,7 @@ page: "art/2023-05-21_1.html"
 },
  
 {
+type: "art",
 title: "May 18, 2023 | #2",
 year: 2023,
 date: "2023-05-18",
@@ -265,6 +298,7 @@ page: "art/2023-05-18_2.html"
 },
     
 {
+type: "art",
 title: "May 18, 2023 | #1",
 year: 2023,
 date: "2023-05-18",
@@ -273,6 +307,7 @@ page: "art/2023-05-18_1.html"
 },
  
 {
+type: "art",
 title: "May 13, 2023 | #3",
 year: 2023,
 date: "2023-05-13",
@@ -281,6 +316,7 @@ page: "art/2023-05-13_3.html"
 },
   
 {
+type: "art",
 title: "May 13, 2023 | #2",
 year: 2023,
 date: "2023-05-13",
@@ -289,6 +325,7 @@ page: "art/2023-05-13_2.html"
 },
     
 {
+type: "art",
 title: "May 13, 2023 | #1",
 year: 2023,
 date: "2023-05-13",
@@ -297,6 +334,7 @@ page: "art/2023-05-13_1.html"
 },
 
 {
+type: "art",
 title: "May 7, 2023 | #4",
 year: 2023,
 date: "2023-05-07",
@@ -305,6 +343,7 @@ page: "art/2023-05-07_4.html"
 },
  
 {
+type: "art",
 title: "May 7, 2023 | #3",
 year: 2023,
 date: "2023-05-07",
@@ -313,6 +352,7 @@ page: "art/2023-05-07_3.html"
 },
  
 {
+type: "art",
 title: "May 7, 2023 | #2",
 year: 2023,
 date: "2023-05-07",
@@ -321,6 +361,7 @@ page: "art/2023-05-07_2.html"
 },
    
 {
+type: "art",
 title: "May 7, 2023 | #1",
 year: 2023,
 date: "2023-05-07",
@@ -329,6 +370,7 @@ page: "art/2023-05-07_1.html"
 },
   
 {
+type: "art",
 title: "September 19, 2022",
 year: 2022,
 date: "2022-09-19",
@@ -337,6 +379,7 @@ page: "art/2022-09-19.html"
 },
 
 {
+type: "art",
 title: "August 28, 2022 | #3",
 year: 2022,
 date: "2022-08-28",
@@ -345,6 +388,7 @@ page: "art/2022-08-28_3.html"
 },
 
 {
+type: "art",
 title: "August 28, 2022 | #2",
 year: 2022,
 date: "2022-08-28",
@@ -353,6 +397,7 @@ page: "art/2022-08-28_2.html"
 },
   
 {
+type: "art",
 title: "August 28, 2022 | #1",
 year: 2022,
 date: "2022-08-28",
@@ -361,6 +406,7 @@ page: "art/2022-08-28_1.html"
 },
 
 {
+type: "art",
 title: "August 14, 2022 | #2",
 year: 2022,
 date: "2022-08-14",
@@ -369,6 +415,7 @@ page: "art/2022-08-14_2.html"
 },
    
 {
+type: "art",
 title: "August 14, 2022 | #1",
 year: 2022,
 date: "2022-08-14",
@@ -377,6 +424,7 @@ page: "art/2022-08-14_1.html"
 },
   
 {
+type: "art",
 title: "August 2, 2022",
 year: 2022,
 date: "2022-08-02",
@@ -385,6 +433,7 @@ page: "art/2022-08-02.html"
 },
   
 {
+type: "art",
 title: "August 1, 2022",
 year: 2022,
 date: "2022-08-01",
@@ -393,6 +442,7 @@ page: "art/2022-08-01.html"
 },
 
 {
+type: "art",
 title: "July 15, 2022 | 2nd Grade",
 year: 2022,
 date: "2022-07-15",
@@ -401,6 +451,7 @@ page: "art/2022-07-15_2.html"
 },
   
 {
+type: "art",
 title: "July 15, 2022 | #1",
 year: 2022,
 date: "2022-07-15",
@@ -409,6 +460,7 @@ page: "art/2022-07-15_1.html"
 },
   
 {
+type: "art",
 title: "June 24, 2022",
 year: 2022,
 date: "2022-06-24",
@@ -417,6 +469,7 @@ page: "art/2022-06-24.html"
 },
   
 {
+type: "art",
 title: "June 23, 2022",
 year: 2022,
 date: "2022-06-23",
@@ -425,6 +478,7 @@ page: "art/2022-06-23.html"
 },
 
 {
+type: "art",
 title: "June 18, 2022 | #4", 
 year: 2022,
 date: "2022-06-18",
@@ -433,6 +487,7 @@ page: "art/2022-06-18_4.html"
 },
 
 {
+type: "art",
 title: "June 18, 2022 | #3", 
 year: 2022,
 date: "2022-06-18",
@@ -441,6 +496,7 @@ page: "art/2022-06-18_3.html"
 },
 
 {
+type: "art",
 title: "June 18, 2022 | #2", 
 year: 2022,
 date: "2022-06-18",
@@ -449,6 +505,7 @@ page: "art/2022-06-18_2.html"
 },
   
 {
+type: "art",
 title: "June 18, 2022 | #1",
 year: 2022,
 date: "2022-06-18",
@@ -457,6 +514,7 @@ page: "art/2022-06-18_1.html"
 },
   
 {
+type: "art",
 title: "June 15, 2022",
 year: 2022,
 date: "2022-06-15",
@@ -465,6 +523,7 @@ page: "art/2022-06-15.html"
 },
   
 {
+type: "art",
 title: "June 11, 2022",
 year: 2022,
 date: "2022-06-11",
@@ -473,6 +532,7 @@ page: "art/2022-06-11.html"
 },
   
 {
+type: "art",
 title: "June 5, 2022",
 year: 2022,
 date: "2022-06-05",
@@ -481,6 +541,7 @@ page: "art/2022-06-05.html"
 },
   
 {
+type: "art",
 title: "May 29, 2022",
 year: 2022,
 date: "2022-05-29",
@@ -489,6 +550,7 @@ page: "art/2022-05-29.html"
 },
   
 {
+type: "art",
 title: "May 27, 2022",
 year: 2022,
 date: "2022-05-27",
@@ -497,6 +559,7 @@ page: "art/2022-05-27.html"
 },
   
 {
+type: "art",
 title: "May 26, 2022",
 year: 2022,
 date: "2022-05-26",
@@ -504,8 +567,8 @@ image: "images/art/2022/2022-05-26_2.jpeg",
 page: "art/2022-05-26.html"
 },
 
-
 {
+type: "art",
 title: "May 23, 2022 | #3",
 year: 2022,
 date: "2022-05-23",
@@ -514,6 +577,7 @@ page: "art/2022-05-23_3.html"
 },
 
 {
+type: "art",
 title: "May 23, 2022 | #2",
 year: 2022,
 date: "2022-05-23",
@@ -522,6 +586,7 @@ page: "art/2022-05-23_2.html"
 },
    
 {
+type: "art",
 title: "May 23, 2022 | #1",
 year: 2022,
 date: "2022-05-23",
@@ -530,6 +595,7 @@ page: "art/2022-05-23_1.html"
 },
   
 {
+type: "art",
 title: "May 15, 2022",
 year: 2022,
 date: "2022-05-15",
@@ -538,6 +604,7 @@ page: "art/2022-05-15.html"
 },
   
 {
+type: "art",
 title: "May 14, 2022",
 year: 2022,
 date: "2022-05-14",
@@ -546,6 +613,7 @@ page: "art/2022-05-14.html"
 },
   
 {
+type: "art",
 title: "April 19, 2022",
 year: 2022,
 date: "2022-04-19", 
@@ -554,6 +622,7 @@ page: "art/2022-04-19.html"
 },
   
 {
+type: "art",
 title: "April 3, 2022",
 year: 2022,
 date: "2022-04-03", 
@@ -562,6 +631,7 @@ page: "art/2022-04-03.html"
 },
   
 {
+type: "art",
 title: "April 1, 2022",
 year: 2022,
 date: "2022-04-01", 
@@ -570,6 +640,7 @@ page: "art/2022-04-01.html"
 },
   
 {
+type: "art",
 title: "March 25, 2022",
 year: 2022,
 date: "2022-03-25", 
@@ -578,6 +649,7 @@ page: "art/2022-03-25.html"
 },
   
 {
+type: "art",
 title: "March 23, 2022",
 year: 2022,
 date: "2022-03-23", 
@@ -586,6 +658,7 @@ page: "art/2022-03-23.html"
 },
   
 {
+type: "art",
 title: "March 15, 2022",
 year: 2022,
 date: "2022-03-15", 
@@ -594,6 +667,7 @@ page: "art/2022-03-15.html"
 },
 
 {
+type: "art",
 title: "March 8, 2022 | #3",   
 year: 2022,
 date: "2022-03-08", 
@@ -602,6 +676,7 @@ page: "art/2022-03-08_3.html"
 },
 
 {
+type: "art",
 title: "March 8, 2022 | #2",   
 year: 2022,
 date: "2022-03-08", 
@@ -610,6 +685,7 @@ page: "art/2022-03-08_2.html"
 },
   
 {
+type: "art",
 title: "March 8, 2022 | #1",
 year: 2022,
 date: "2022-03-08", 
@@ -618,6 +694,7 @@ page: "art/2022-03-08_1.html"
 },
 
 {
+type: "art",
 title: "March 3, 2022 | #2",
 year: 2022,
 date: "2022-03-03", 
@@ -626,6 +703,7 @@ page: "art/2022-03-03_2.html"
 },
  
 {
+type: "art",
 title: "March 3, 2022 | #1",
 year: 2022,
 date: "2022-03-03", 
@@ -634,6 +712,7 @@ page: "art/2022-03-03_1.html"
 },
 
 {
+type: "art",
 title: "February 18, 2022",
 year: 2022,
 date: "2022-02-18", 
@@ -642,6 +721,7 @@ page: "art/2022-02-18.html"
 },
 
 {
+type: "art",
 title: "February 14, 2022",
 year: 2022,
 date: "2022-02-14", 
@@ -650,18 +730,22 @@ page: "art/2022-02-14.html"
 },
 
 {
+type: "art",
 title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
 page: "art/2022-01-30.html"
-},
-
-{ 
-title: "All is Well | May 11, 2019",
-year: 2019,
-date: "2019-05-11",
-page: "writings/alliswell.html"
 }
 
 ];
+
+<!-- writing example
+
+type: "writing",
+title: "",
+date: "",
+page: "writing/ESSAY_TITLE.html",
+pdf: "pdf/ESSAY_TITLE.pdf"
+
+-->
