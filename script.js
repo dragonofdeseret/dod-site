@@ -9,13 +9,20 @@ if (!gallery) return;
 
 gallery.innerHTML = "";
 
+/* only show art entries */
+
+const artItems = archive.filter(item => item.type === "art");
+
 const years = {};
 
-archive.forEach(art => {
+artItems.forEach(art => {
+
 if (!years[art.year]) {
 years[art.year] = [];
 }
+
 years[art.year].push(art);
+
 });
 
 Object.keys(years)
@@ -53,6 +60,7 @@ gallery.appendChild(section);
 
 }
 
+
 /* =========================
    IMAGE VIEWER
 ========================= */
@@ -82,20 +90,20 @@ document.body.appendChild(viewer);
 
 function buildArchive() {
 
-const archive = document.querySelector("#archive");
-if (!archive) return;
+const container = document.querySelector("#archive");
+if (!container) return;
 
-archive.innerHTML = "";
+container.innerHTML = "";
 
 const years = {};
 
-archive.forEach(art => {
+archive.forEach(item => {
 
-if (!years[art.year]) {
-years[art.year] = [];
+if (!years[item.year]) {
+years[item.year] = [];
 }
 
-years[art.year].push(art);
+years[item.year].push(item);
 
 });
 
@@ -112,15 +120,21 @@ heading.textContent = year;
 const list = document.createElement("div");
 list.className = "archive-list";
 
-years[year].forEach(art => {
+years[year].forEach(item => {
 
 const row = document.createElement("a");
 row.className = "archive-row";
-row.href = art.page;
+row.href = item.page;
+
+let thumbnail = "";
+
+if (item.type === "art" && item.image) {
+thumbnail = `<img src="${item.image}" alt="${item.title}">`;
+}
 
 row.innerHTML = `
-<span class="archive-title">${art.title.replace(", " + art.year, "")}</span>
-<img src="${art.image}" alt="${art.title}">
+<span class="archive-title">${item.title.replace(", " + item.year, "")}</span>
+${thumbnail}
 `;
 
 list.appendChild(row);
@@ -129,14 +143,15 @@ list.appendChild(row);
 
 section.appendChild(heading);
 section.appendChild(list);
-archive.appendChild(section);
+container.appendChild(section);
 
 });
 
 }
 
+
 /* =========================
-   YEAR NAVIGATION  
+   YEAR NAVIGATION
 ========================= */
 
 function buildYearNav() {
@@ -175,27 +190,29 @@ nav.append(" · ");
 
 }
 
+
 /* =========================
    PREVIOUS / NEXT ARTWORK
 ========================= */
 
 function buildArtNavigation() {
 
-if (typeof artworks === "undefined") return;
+const nav = document.querySelector(".art-navigation");
+if (!nav) return;
+
+/* only navigate through art */
+
+const artItems = archive.filter(item => item.type === "art");
 
 const currentPath = window.location.pathname;
 const currentPage = currentPath.split("/").pop();
 
-const index = artworks.findIndex(art => art.page.includes(currentPage));
+const index = artItems.findIndex(art => art.page.includes(currentPage));
 
 if (index === -1) return;
 
-const prev = artworks[index - 1];
-const next = artworks[index + 1];
-
-const nav = document.querySelector(".art-navigation");
-
-if (!nav) return;
+const prev = artItems[index - 1];
+const next = artItems[index + 1];
 
 function formatDate(dateString) {
 
@@ -241,7 +258,6 @@ window.location.href = "../" + next.page;
 
 }
 
-buildArtNavigation();
 
 /* =========================
    RANDOM ARTWORK BUTTON
@@ -249,7 +265,10 @@ buildArtNavigation();
 
 function randomArtwork() {
 
-const random = artworks[Math.floor(Math.random() * artworks.length)];
+const artItems = archive.filter(item => item.type === "art");
+
+const random = artItems[Math.floor(Math.random() * artItems.length)];
+
 window.location.href = random.page;
 
 }
@@ -270,18 +289,25 @@ footer.innerHTML = `
 <p class="footer-note">All artwork and writing © their respective years</p>
 `;
 
-document.querySelector("main").appendChild(footer);
+const main = document.querySelector("main");
+
+if (main) {
+main.appendChild(footer);
+}
 
 }
+
 
 /* =========================
    RUN EVERYTHING
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  buildGallery();
-  buildArchive();
-  buildYearNav();
-  buildArtNavigation();
-  insertFooter();
+
+buildGallery();
+buildArchive();
+buildYearNav();
+buildArtNavigation();
+insertFooter();
+
 });
