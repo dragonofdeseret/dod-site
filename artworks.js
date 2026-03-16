@@ -491,7 +491,7 @@ page: "art/2022-05-29.html"
 {
 title: "May 27, 2022",
 year: 2022,
-date: 2022-05-27",
+date: "2022-05-27",
 image: "images/art/2022/2022-05-27_2.jpg",
 page: "art/2022-05-27.html"
 },
