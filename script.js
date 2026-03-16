@@ -181,35 +181,65 @@ nav.append(" · ");
 
 function buildArtNavigation() {
 
-const container = document.querySelector(".art-navigation");
-if (!container) return;
+if (typeof artworks === "undefined") return;
 
-const currentPage = window.location.pathname.split("/").pop();
+const currentPath = window.location.pathname;
+const currentPage = currentPath.split("/").pop();
 
 const index = artworks.findIndex(art => art.page.includes(currentPage));
 
 if (index === -1) return;
 
-const prev = artworks[index + 1];
-const next = artworks[index - 1];
+const prev = artworks[index - 1];
+const next = artworks[index + 1];
 
-container.innerHTML = "";
+const nav = document.querySelector(".art-navigation");
 
-if (prev) {
-const prevLink = document.createElement("a");
-prevLink.href = "../" + prev.page;
-prevLink.textContent = "← " + prev.title;
-container.appendChild(prevLink);
-}
+if (!nav) return;
 
-if (next) {
-const nextLink = document.createElement("a");
-nextLink.href = "../" + next.page;
-nextLink.textContent = next.title + " →";
-container.appendChild(nextLink);
-}
+function formatDate(dateString) {
+
+const date = new Date(dateString);
+
+return date.toLocaleDateString("en-US", {
+year: "numeric",
+month: "short",
+day: "numeric"
+});
 
 }
+
+nav.innerHTML = `
+
+<div class="nav-left">
+${prev ? `<a href="../${prev.page}">← ${formatDate(prev.date)}</a>` : ""}
+</div>
+
+<div class="nav-center">
+<a href="../art.html">Back to Art</a>
+</div>
+
+<div class="nav-right">
+${next ? `<a href="../${next.page}">${formatDate(next.date)} →</a>` : ""}
+</div>
+
+`;
+
+document.addEventListener("keydown", (e) => {
+
+if (e.key === "ArrowLeft" && prev) {
+window.location.href = "../" + prev.page;
+}
+
+if (e.key === "ArrowRight" && next) {
+window.location.href = "../" + next.page;
+}
+
+});
+
+}
+
+buildArtNavigation();
 
 /* =========================
    RANDOM ARTWORK BUTTON
