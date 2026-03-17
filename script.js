@@ -6,7 +6,6 @@ if (typeof archive === "undefined") {
 console.error("archive.js not loaded");
 }
 
-
 /* =========================
    BUILD ART PAGE GALLERY
 ========================= */
@@ -66,6 +65,15 @@ gallery.appendChild(section);
 
 }
 
+/* =========================
+   ACTIVE SITE NAV
+========================= */
+
+document.querySelectorAll(".site-nav a").forEach(link => {
+if (link.href === window.location.href) {
+link.classList.add("active");
+}
+});
 
 /* =========================
    MUSEUM IMAGE VIEWER

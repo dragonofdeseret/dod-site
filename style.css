@@ -23,6 +23,11 @@ text-rendering: optimizeLegibility;
 margin: 0;
 }
 
+.site-nav a.active{
+font-weight:bold;
+text-decoration:underline;
+}
+
 /* =====================================
 MAIN LAYOUT
 ===================================== */
@@ -454,6 +459,7 @@ text-indent: 1.5em;
 .art-description p:first-child {
 text-indent: 0;
 }
+
 /* =========================
    ART NAVIGATION
 ========================= */
