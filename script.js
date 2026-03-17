@@ -228,7 +228,22 @@ function enhanceArtworkPage() {
 
   if (!id) return;
 
-  const artItems = archive.filter(x => x.type === "art");
+  const artItems = archive
+  .filter(x => x.type === "art")
+  .sort((a, b) => {
+    // sort by date first
+    const dateDiff = new Date(a.date) - new Date(b.date);
+    if (dateDiff !== 0) return dateDiff;
+
+    // then sort by suffix (_1, _2, etc.)
+    const getIndex = id => {
+      const match = id.match(/_(\d+)$/);
+      return match ? parseInt(match[1]) : 0;
+    };
+
+    return getIndex(a.id) - getIndex(b.id);
+  });
+
   const index = artItems.findIndex(x => x.id === id);
 
   if (index === -1) return;
@@ -289,6 +304,8 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+  if (window.location.pathname.includes("artwork.html")) {
   enhanceArtworkPage();
+}
   buildFooter();
 });
