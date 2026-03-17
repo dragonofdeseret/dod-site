@@ -449,27 +449,29 @@ margin-top:20px;
 ARTWORK PAGE
 ==================== */
 
-/* MASTER CONTAINER  */
-
 .art-page {
+max-width: 1100px;
+margin: 0 auto;
+
 display: flex;
 flex-direction: column;
 align-items: center;
-width: 100%;
 }
 
-/* IMAGE WRAPPER */
+/* title */
+
+.art-title {
+margin-bottom: 30px;
+font-weight: normal;
+}
+
+/* image */
 
 .art-image {
 width: 100%;
-display: flex;
-justify-content: center;
 }
 
-/* IMAGE ITSELF */
-
 .art-image img {
-max-width: 1100px;
 width: 100%;
 height: auto;
 
@@ -483,29 +485,43 @@ box-shadow:
 0 0 0 1px rgba(255,255,255,0.05);
 }
 
-/* DETAILS */
+/* nav — now SAME WIDTH as image */
 
-.art-details {
-margin-top: 20px;
-opacity: 0.8;
+.art-navigation {
+width: 100%;
+margin-top: 40px;
+padding-top: 20px;
+
+border-top: 1px solid rgba(255,255,255,0.08);
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+font-size: 14px;
+}
+
+/* columns */
+
+.nav-left,
+.nav-right {
+flex: 1;
+}
+
+.nav-center {
 text-align: center;
+flex: 1;
 }
 
-/* DESCRIPTION */
+/* links */
 
-.art-description {
-margin-top: 20px;
-line-height: 1.7;
-max-width: 700px;
+.art-navigation a {
+text-decoration: none;
+color: rgba(255,255,255,0.7);
 }
 
-.art-description p {
-margin: 0;
-text-indent: 1.5em;
-}
-
-.art-description p:first-child {
-text-indent: 0;
+.art-navigation a:hover {
+color: white;
 }
 
 /* =========================
