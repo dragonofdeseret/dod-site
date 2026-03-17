@@ -9,6 +9,16 @@ date: "2025-08-28",
 image: "images/art/2025/2025-08-28.jpeg",
 description: "test"
 },
+
+{
+ id: "acid-lullabies",
+ type: "writing",
+ title: "Acid Lullabies: How LSD Reversed My Chronic Insomnia",
+ year: 2025,
+ date: "2025-02-16",
+ file: "pdf/acid-lullabies.pdf",
+ description: "A long-form exploration of LSD and chronic insomnia"
+},
    
 {
 id: "2024-08-22",

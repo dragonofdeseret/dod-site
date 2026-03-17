@@ -145,13 +145,15 @@ function buildArchive() {
       const row = document.createElement("a");
       row.className = "archive-row";
 
-      if (item.type === "art") {
-        row.href = `artwork.html?id=${item.id}`;
-      } else if (item.type === "writing") {
-        row.href = item.link || "#";
-      } else {
-        row.href = "#";
-      }
+     if (item.type === "art") {
+  row.href = `artwork.html?id=${item.id}`;
+
+} else if (item.type === "writing") {
+  row.href = `writing.html?id=${item.id}`;
+
+} else {
+  row.href = "#";
+}
 
       const title = document.createElement("div");
       title.className = "archive-title";
@@ -178,6 +180,14 @@ function buildArchive() {
       yearNav.appendChild(navLink);
     }
   });
+
+    if (item.type === "writing") {
+      const tag = document.createElement("span");
+      tag.textContent = "PDF";
+      tag.className = "archive-tag";
+      row.appendChild(tag);
+}
+
 }
 
 /* =========================
@@ -277,6 +287,58 @@ function enhanceArtworkPage() {
 }
 
 /* =========================
+   WRITING PAGE
+========================= */ 
+
+function buildWritingPage() {
+  if (!window.location.pathname.includes("writing.html")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) return;
+
+  const items = archive.filter(x => x.type === "writing");
+
+  const index = items.findIndex(x => x.id === id);
+  if (index === -1) return;
+
+  const item = items[index];
+
+  // SET CONTENT
+  const title = document.getElementById("writing-title");
+  const desc = document.getElementById("writing-description");
+  const frame = document.getElementById("pdf-frame");
+
+  if (title) title.textContent = item.title;
+  if (desc) desc.textContent = item.description || "";
+  if (frame) frame.src = item.file;
+
+  // PRELOAD NEXT / PREV
+  const prev = items[index - 1];
+  const next = items[index + 1];
+
+  [prev, next].forEach(x => {
+    if (x && x.file) {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = x.file;
+      document.head.appendChild(link);
+    }
+  });
+
+  // KEYBOARD NAV
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `writing.html?id=${prev.id}`;
+    }
+
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `writing.html?id=${next.id}`;
+    }
+  });
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -307,5 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("artwork.html")) {
   enhanceArtworkPage();
 }
+  buildWritingPage();
   buildFooter();
 });
