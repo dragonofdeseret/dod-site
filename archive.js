@@ -11,7 +11,7 @@ description: "test"
 },
    
 {
-id "2024-08-22",
+id: "2024-08-22",
 type: "art",
 title: "August 22, 2024",
 year: 2024,
