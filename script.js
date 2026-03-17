@@ -281,7 +281,7 @@ container.innerHTML = `
 }
 
 /* =========================
-   ADVANCED ART NAVIGATION
+   ART NAVIGATION
 ========================= */
 
 function buildArtNavigation() {
@@ -303,43 +303,29 @@ if (index === -1) return;
 
 const prev = artItems[index - 1];
 const next = artItems[index + 1];
-const current = artItems[index];
+
+/* FIXED DATE FORMAT (no timezone bug) */
 
 function formatDate(dateString){
-
 const [y,m,d] = dateString.split("-");
-const date = new Date(Date.UTC(y,m-1,d));
-
-return date.toLocaleDateString("en-US",{
-year:"numeric",
-month:"short",
-day:"numeric"
-});
-
+return `${y}-${m}-${d}`;
 }
 
 nav.innerHTML = `
-
 <div class="nav-left">
-${prev ? `<a href="../${prev.page}">← ${prev.title}</a>` : ""}
+${prev ? `<a href="../${prev.page}">← ${formatDate(prev.date)}</a>` : ""}
 </div>
 
 <div class="nav-center">
-<a href="../art.html">${current.title}<br><small>${formatDate(current.date)}</small></a>
+<a href="../art.html">Back to Art</a>
 </div>
 
 <div class="nav-right">
-${next ? `<a href="../${next.page}">${next.title} →</a>` : ""}
+${next ? `<a href="../${next.page}">${formatDate(next.date)} →</a>` : ""}
 </div>
-
 `;
 
-/* preload */
-
-if (prev?.image) preloadImage("../" + prev.image);
-if (next?.image) preloadImage("../" + next.image);
-
-/* keyboard */
+/* Arrow keys still work  */
 
 document.addEventListener("keydown", e => {
 
@@ -353,13 +339,26 @@ window.location.href = "../" + next.page;
 
 });
 
-/* upgrades */
-
-enableInfiniteScroll(artItems, index);
-buildTimeline(artItems);
-
 }
 
+/* =========================
+   YEAR NAV (TOP OF PAGE)
+========================= */
+
+function buildYearNav(){
+
+const container = document.querySelector(".year-nav");
+if (!container) return;
+
+const years = [...new Set(
+archive.map(item => item.year)
+)].sort((a,b) => b - a);
+
+container.innerHTML = years.map(year =>
+`<a href="#year-${year}">${year}</a>`
+).join(" ");
+
+}
 
 /* =========================
    RANDOM ARTWORK
@@ -481,6 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
 buildGallery();
 buildArchive();
 buildArtNavigation();
+buildYearNav();
 autoBuildArtPage();
 buildCollections();
 autoBuildWritingPage();
