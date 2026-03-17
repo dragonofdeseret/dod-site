@@ -59,6 +59,25 @@ hanging-punctuation: first allow-end;
 hyphens: auto;
 }
 
+/* shared timeline layout */
+
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+/* vertical line */
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
 /* =====================================
 LAYOUT TUNING: FULL-WIDTH ART PAGES
 ===================================== */
