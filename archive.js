@@ -1,12 +1,13 @@
 const archive = [
   
 {
+id: "2025-08-28"
 type: "art",
 title: "August 28, 2025",
 year: 2025,
 date: "2025-08-28",
 image: "images/art/2025/2025-08-28.jpeg",
-page: "art/2025-08-28.html"
+description: ""
 },
    
 {
