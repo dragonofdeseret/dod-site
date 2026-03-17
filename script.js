@@ -3,331 +3,291 @@
 ========================= */
 
 if (typeof archive === "undefined") {
-  console.error("archive.js not loaded");
+  console.error("archive.js not loaded or has syntax errors");
 }
 
 /* =========================
-   BUILD ART PAGE GALLERY
+   HELPERS
+========================= */
+
+function groupByYear(items) {
+  const years = {};
+
+  items.forEach(item => {
+    if (!years[item.year]) years[item.year] = [];
+    years[item.year].push(item);
+  });
+
+  return Object.keys(years)
+    .sort((a, b) => b - a)
+    .map(year => ({
+      year,
+      items: years[year].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      )
+    }));
+}
+
+function groupByCollection(items) {
+  const collections = {};
+
+  items.forEach(item => {
+    const key = item.collection || "__default";
+
+    if (!collections[key]) collections[key] = [];
+    collections[key].push(item);
+  });
+
+  return collections;
+}
+
+/* =========================
+   GALLERY (art.html)
 ========================= */
 
 function buildGallery() {
-
   const gallery = document.querySelector(".gallery");
   if (!gallery) return;
 
-  gallery.innerHTML = "";
+  const yearNav = document.querySelector(".year-nav");
 
   const artItems = archive.filter(item => item.type === "art");
+  const groupedYears = groupByYear(artItems);
 
-  const years = {};
+  gallery.innerHTML = "";
+  if (yearNav) yearNav.innerHTML = "";
 
-  artItems.forEach(art => {
-    if (!years[art.year]) years[art.year] = [];
-    years[art.year].push(art);
-  });
+  groupedYears.forEach(group => {
+    const section = document.createElement("div");
+    section.className = "gallery-year";
+    section.id = `year-${group.year}`;
 
-  Object.keys(years)
-    .sort((a,b) => b - a)
-    .forEach(year => {
+    const header = document.createElement("h2");
+    header.textContent = group.year;
+    section.appendChild(header);
 
-      const section = document.createElement("div");
-      section.className = "gallery-year";
-      section.id = "year-" + year;
+    const collections = groupByCollection(group.items);
 
-      const heading = document.createElement("h2");
-      heading.textContent = year;
+    Object.keys(collections).forEach(name => {
+      const items = collections[name];
+
+      if (name !== "__default") {
+        const title = document.createElement("h3");
+        title.textContent = name;
+        title.className = "collection-title";
+        section.appendChild(title);
+      }
 
       const grid = document.createElement("div");
       grid.className = "gallery-grid";
 
-      years[year].forEach(art => {
-
+      items.forEach(item => {
         const link = document.createElement("a");
-        link.href = `artwork.html?id=${art.id}`;
+        link.href = `artwork.html?id=${item.id}`;
 
         const img = document.createElement("img");
-        img.src = art.image;
-        img.alt = art.title;
+        img.src = item.image;
+        img.alt = item.title || "";
+
+        img.addEventListener("click", e => {
+          e.preventDefault();
+          openLightbox(item.image);
+        });
 
         link.appendChild(img);
         grid.appendChild(link);
-
       });
 
-      section.appendChild(heading);
       section.appendChild(grid);
-      gallery.appendChild(section);
-
     });
 
+    gallery.appendChild(section);
+
+    if (yearNav) {
+      const navLink = document.createElement("a");
+      navLink.href = `#year-${group.year}`;
+      navLink.textContent = group.year;
+      yearNav.appendChild(navLink);
+    }
+  });
+
+  buildRandomButton(artItems);
 }
 
 /* =========================
-   BUILD ARCHIVE PAGE
+   ARCHIVE (archive.html)
 ========================= */
 
 function buildArchive() {
-
-  const container = document.querySelector("#archive");
+  const container = document.getElementById("archive");
   if (!container) return;
+
+  const yearNav = document.getElementById("year-nav");
+
+  const grouped = groupByYear(archive);
 
   container.innerHTML = "";
+  if (yearNav) yearNav.innerHTML = "";
 
-  const years = {};
+  grouped.forEach(group => {
+    const section = document.createElement("div");
+    section.className = "archive-year";
+    section.id = `year-${group.year}`;
 
-  archive.forEach(item => {
+    const header = document.createElement("h2");
+    header.textContent = group.year;
+    section.appendChild(header);
 
-    if (!item || !item.year) return;
+    const list = document.createElement("div");
+    list.className = "archive-list";
 
-    if (!years[item.year]) years[item.year] = [];
-    years[item.year].push(item);
+    group.items.forEach(item => {
+      const row = document.createElement("a");
+      row.className = "archive-row";
 
-  });
+      if (item.type === "art") {
+        row.href = `artwork.html?id=${item.id}`;
+      } else if (item.type === "writing") {
+        row.href = item.link || "#";
+      } else {
+        row.href = "#";
+      }
 
-  Object.keys(years)
-    .sort((a,b) => b - a)
-    .forEach(year => {
+      const title = document.createElement("div");
+      title.className = "archive-title";
+      title.textContent = item.title;
 
-      const section = document.createElement("div");
-      section.className = "archive-year";
-      section.id = "year-" + year;
+      row.appendChild(title);
 
-      const heading = document.createElement("h2");
-      heading.textContent = year;
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image;
+        row.appendChild(img);
+      }
 
-      const list = document.createElement("div");
-      list.className = "archive-list";
-
-      years[year].forEach(item => {
-
-        const row = document.createElement("a");
-        row.className = "archive-row";
-
-        row.href = item.type === "art"
-          ? `artwork.html?id=${item.id}`
-          : item.page;
-
-        let thumbnail = "";
-
-        if (item.type === "art" && item.image) {
-          thumbnail = `<img src="${item.image}" alt="${item.title}">`;
-        }
-
-        row.innerHTML = `
-          <span class="archive-title">${item.title || "Untitled"}</span>
-          ${thumbnail}
-        `;
-
-        list.appendChild(row);
-
-      });
-
-      section.appendChild(heading);
-      section.appendChild(list);
-      container.appendChild(section);
-
+      list.appendChild(row);
     });
 
+    section.appendChild(list);
+    container.appendChild(section);
+
+    if (yearNav) {
+      const navLink = document.createElement("a");
+      navLink.href = `#year-${group.year}`;
+      navLink.textContent = group.year;
+      yearNav.appendChild(navLink);
+    }
+  });
 }
 
 /* =========================
-   YEAR NAV (TOP LINKS)
+   RANDOM BUTTON
 ========================= */
 
-function buildYearNav(){
+function buildRandomButton(artItems) {
+  const gallery = document.querySelector(".gallery");
+  if (!gallery || !artItems.length) return;
 
-  const container = document.querySelector(".year-nav");
-  if (!container) return;
+  const button = document.createElement("button");
+  button.className = "random-button";
+  button.textContent = "Random Artwork";
 
-  const years = [...new Set(
-    archive.map(item => item.year)
-  )].sort((a,b) => b - a);
+  button.addEventListener("click", () => {
+    const random = artItems[Math.floor(Math.random() * artItems.length)];
+    window.location.href = `artwork.html?id=${random.id}`;
+  });
 
-  container.innerHTML = years.map(year =>
-    `<a href="#year-${year}">${year}</a>`
-  ).join(" ");
-
+  gallery.appendChild(button);
 }
 
 /* =========================
-   ARTWORK PAGE (NEW SYSTEM)
+   LIGHTBOX
 ========================= */
 
-function buildArtworkPage(){
+function openLightbox(src) {
+  const viewer = document.createElement("div");
+  viewer.className = "image-viewer";
 
-  const title = document.getElementById("title");
-  const image = document.getElementById("image");
-  const description = document.getElementById("description");
-  const nav = document.getElementById("nav");
+  const img = document.createElement("img");
+  img.src = src;
 
-  if (!title || !image) return;
+  viewer.appendChild(img);
 
+  viewer.addEventListener("click", () => viewer.remove());
+
+  document.body.appendChild(viewer);
+}
+
+/* =========================
+   ARTWORK PAGE FEATURES
+========================= */
+
+function enhanceArtworkPage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  const item = archive.find(x => x.id === id && x.type === "art");
-  if (!item) return;
+  if (!id) return;
 
-  title.textContent = item.title;
-  image.src = item.image;
-  description.textContent = item.description || "";
-
-  /* navigation */
-
-  const artItems = archive
-    .filter(x => x.type === "art")
-    .sort((a,b) => new Date(a.date) - new Date(b.date));
-
+  const artItems = archive.filter(x => x.type === "art");
   const index = artItems.findIndex(x => x.id === id);
+
+  if (index === -1) return;
 
   const prev = artItems[index - 1];
   const next = artItems[index + 1];
 
-  nav.innerHTML = `
-    ${prev ? `<a href="artwork.html?id=${prev.id}">← Previous</a>` : ""}
-    <a href="art.html">Back to Art</a>
-    ${next ? `<a href="artwork.html?id=${next.id}">Next →</a>` : ""}
-  `;
+  // PRELOAD
+  [prev, next].forEach(item => {
+    if (item && item.image) {
+      const img = new Image();
+      img.src = item.image;
+    }
+  });
 
-  /* arrow keys */
-
+  // KEYBOARD NAV
   document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev){
+    if (e.key === "ArrowLeft" && prev) {
       window.location.href = `artwork.html?id=${prev.id}`;
     }
-    if (e.key === "ArrowRight" && next){
+
+    if (e.key === "ArrowRight" && next) {
       window.location.href = `artwork.html?id=${next.id}`;
     }
-  });
 
-}
-
-/* =========================
-   IMAGE VIEWER
-========================= */
-
-function openViewer(src){
-
-  const viewer = document.createElement("div");
-  viewer.className = "image-viewer";
-
-  viewer.innerHTML = `
-    <div class="viewer-inner">
-      <img src="${src}">
-    </div>
-  `;
-
-  document.body.appendChild(viewer);
-
-  viewer.addEventListener("click", () => {
-    viewer.classList.toggle("zoomed");
-  });
-
-  document.addEventListener("keydown", function esc(e){
-    if (e.key === "Escape"){
-      viewer.remove();
-      document.removeEventListener("keydown", esc);
+    if (e.key === "Escape") {
+      const viewer = document.querySelector(".image-viewer");
+      if (viewer) viewer.remove();
     }
   });
-
-}
-
-document.addEventListener("click", e => {
-  if (e.target.matches(".art-image img")) {
-    openViewer(e.target.src);
-  }
-});
-
-/* =========================
-   COLLECTIONS
-========================= */
-
-function buildCollections(){
-
-  const container = document.querySelector("#collections");
-  if (!container) return;
-
-  const collections = {};
-
-  archive
-    .filter(item => item.type === "art" && item.collection)
-    .forEach(item => {
-
-      if (!collections[item.collection]) {
-        collections[item.collection] = [];
-      }
-
-      collections[item.collection].push(item);
-
-    });
-
-  Object.keys(collections).forEach(name => {
-
-    const section = document.createElement("div");
-    section.className = "collection";
-
-    section.innerHTML = `<h2>${name}</h2>`;
-
-    const grid = document.createElement("div");
-    grid.className = "collection-grid";
-
-    collections[name].forEach(item => {
-
-      const link = document.createElement("a");
-      link.href = `artwork.html?id=${item.id}`;
-
-      link.innerHTML = `<img src="${item.image}">`;
-
-      grid.appendChild(link);
-
-    });
-
-    section.appendChild(grid);
-    container.appendChild(section);
-
-  });
-
-}
-
-/* =========================
-   RANDOM ARTWORK
-========================= */
-
-function randomArtwork() {
-  const artItems = archive.filter(item => item.type === "art");
-  const random = artItems[Math.floor(Math.random() * artItems.length)];
-  window.location.href = `artwork.html?id=${random.id}`;
 }
 
 /* =========================
    FOOTER
 ========================= */
 
-function insertFooter() {
+function buildFooter() {
+  const content = document.querySelector(".content");
+  if (!content) return;
 
-  const footer = document.createElement("footer");
+  if (document.querySelector(".site-footer")) return;
+
+  const footer = document.createElement("div");
   footer.className = "site-footer";
 
   footer.innerHTML = `
-    <p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret</p>
-    <p>artworks and writings © their respective years</p>
+    <p>© ${new Date().getFullYear()} Christopher Shenefelt</p>
   `;
 
-  document.querySelector("main")?.appendChild(footer);
-
+  content.appendChild(footer);
 }
 
 /* =========================
-   RUN
+   INIT
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
   buildGallery();
   buildArchive();
-  buildYearNav();
-  buildArtworkPage();
-  buildCollections();
-  insertFooter();
-
+  enhanceArtworkPage();
+  buildFooter();
 });
