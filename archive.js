@@ -1,16 +1,17 @@
 const archive = [
   
 {
-id: "2025-08-28"
+id: "2025-08-28",
 type: "art",
 title: "August 28, 2025",
 year: 2025,
 date: "2025-08-28",
 image: "images/art/2025/2025-08-28.jpeg",
-description: ""
+description: "test"
 },
    
 {
+id "2024-08-22",
 type: "art",
 title: "August 22, 2024",
 year: 2024,
@@ -20,6 +21,7 @@ page: "art/2024-08-22.html"
 },
    
 {
+id: "2024-06-25",
 type: "art",
 title: "June 25, 2024",
 year: 2024,
