@@ -83,7 +83,7 @@ image: "images/art/2023/2023-12-10_3.jpeg",
 },
   
 {
-id: 2023-12-10",
+id: "2023-12-10",
 type: "art",
 title: "December 10, 2023 | #2",
 year: 2023,
@@ -92,7 +92,7 @@ image: "images/art/2023/2023-12-10_2.jpeg",
 },
     
 {
-id: 2023-12-10",
+id: "2023-12-10",
 type: "art",
 title: "December 10, 2023 | #1",
 year: 2023,
