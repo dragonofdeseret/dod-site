@@ -463,13 +463,13 @@ const footer = document.createElement("footer");
 footer.className = "site-footer";
 
 footer.innerHTML = `
-<p>© ${new Date().getFullYear()} Christopher Shenefelt</p>
+<p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret</p>
+<p>artworks and wrtings © their respective years</p>
 `;
 
 document.querySelector("main")?.appendChild(footer);
 
 }
-
 
 /* =========================
    RUN

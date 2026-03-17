@@ -383,7 +383,7 @@ box-shadow:
 }
 
 /* =====================================
-VERTICAL TIMELINE (preparation)
+VERTICAL TIMELINE
 ===================================== */
 
 .gallery::before {
@@ -399,7 +399,7 @@ background: rgba(255,255,255,0.12);
 }
 
 /* =====================================
-COLLECTIONS (EXHIBITIONS)
+COLLECTIONS
 ===================================== */
 
 .collection{
@@ -525,6 +525,12 @@ flex: 1;
 .nav-center {
 text-align: center;
 flex: 1;
+}
+
+.art-image {
+width: 100%;
+display: flex;
+justify-content: center;
 }
 
 /* =================
