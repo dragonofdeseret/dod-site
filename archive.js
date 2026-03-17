@@ -31,6 +31,7 @@ page: "art/2024-06-25.html"
 },
    
 {
+id: "2024-01-30",
 type: "art",
 title: "January 30, 2024",
 year: 2024,
@@ -40,6 +41,7 @@ page: "art/2024-01-30.html"
 },
 
 {
+id: "2024-01-28",
 type: "art",
 title: "January 28, 2024 | #2",
 year: 2024,
@@ -49,6 +51,7 @@ page: "art/2024-01-28_2.html"
 },
    
 {
+id: "2024-01-28",
 type: "art",
 title: "January 28, 2024 | #1",
 year: 2024,
