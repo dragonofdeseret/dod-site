@@ -149,7 +149,7 @@ function buildArchive() {
   row.href = `artwork.html?id=${item.id}`;
 
 } else if (item.type === "writing") {
-  row.href = `writing.html?id=${item.id}`;
+  row.href = `writings.html?id=${item.id}`;
 
 } else {
   row.href = "#";
@@ -291,50 +291,60 @@ function enhanceArtworkPage() {
 ========================= */ 
 
 function buildWritingPage() {
-  if (!window.location.pathname.includes("writing.html")) return;
+  if (!window.location.pathname.includes("writings.html")) return;
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   if (!id) return;
 
   const items = archive.filter(x => x.type === "writing");
-
   const index = items.findIndex(x => x.id === id);
   if (index === -1) return;
 
   const item = items[index];
 
   // SET CONTENT
-  const title = document.getElementById("writing-title");
-  const desc = document.getElementById("writing-description");
-  const frame = document.getElementById("pdf-frame");
+  document.getElementById("writing-title").textContent = item.title;
+  document.getElementById("writing-description").textContent = item.description || "";
+  document.getElementById("pdf-frame").src = item.file;
 
-  if (title) title.textContent = item.title;
-  if (desc) desc.textContent = item.description || "";
-  if (frame) frame.src = item.file;
-
-  // PRELOAD NEXT / PREV
+  // NAVIGATION
   const prev = items[index - 1];
   const next = items[index + 1];
 
-  [prev, next].forEach(x => {
-    if (x && x.file) {
-      const link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = x.file;
-      document.head.appendChild(link);
-    }
-  });
-
-  // KEYBOARD NAV
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writing.html?id=${prev.id}`;
+      window.location.href = `writings.html?id=${prev.id}`;
     }
-
     if (e.key === "ArrowRight" && next) {
-      window.location.href = `writing.html?id=${next.id}`;
+      window.location.href = `writings.html?id=${next.id}`;
     }
+  });
+}
+
+/* =========================
+   WRITING GALLERY PAGE
+========================= */
+
+function buildWritingGallery() {
+  const container = document.getElementById("writing");
+  if (!container) return;
+
+  const items = archive.filter(x => x.type === "writing");
+
+  container.innerHTML = "";
+
+  items.forEach(item => {
+    const link = document.createElement("a");
+    link.href = `writings.html?id=${item.id}`;
+    link.className = "writing-item";
+
+    link.innerHTML = `
+      <h3>${item.title}</h3>
+      <p>${item.description || ""}</p>
+    `;
+
+    container.appendChild(link);
   });
 }
 
@@ -369,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("artwork.html")) {
   enhanceArtworkPage();
 }
+  buildWritingGallery();
   buildWritingPage();
   buildFooter();
 });
