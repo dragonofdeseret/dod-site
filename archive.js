@@ -17,7 +17,6 @@ title: "August 22, 2024",
 year: 2024,
 date: "2024-08-22",
 image: "images/art/2024/2024-08-22_1.jpeg",
-page: "art/2024-08-22.html"
 },
    
 {
@@ -27,7 +26,6 @@ title: "June 25, 2024",
 year: 2024,
 date: "2024-06-25",
 image: "images/art/2024/2024-06-25.jpeg",
-page: "art/2024-06-25.html"
 },
    
 {
@@ -37,7 +35,6 @@ title: "January 30, 2024",
 year: 2024,
 date: "2024-01-30",
 image: "images/art/2024/2024-01-30.jpeg",
-page: "art/2024-01-30.html"
 },
 
 {
@@ -47,7 +44,6 @@ title: "January 28, 2024 | #2",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_2.jpeg",
-page: "art/2024-01-28_2.html"
 },
    
 {
@@ -57,7 +53,6 @@ title: "January 28, 2024 | #1",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_1.jpeg",
-page: "art/2024-01-28_1.html"
 },
  
 {
