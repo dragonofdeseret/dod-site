@@ -35,30 +35,21 @@ flex-direction: row;
 
 .sidebar {
 width: 220px;
-
 padding: 40px 30px;
-
 border-right: 1px solid #444;
-
 display: flex;
 flex-direction: column;
-
 gap: 18px;
 }
 
 .content {
 flex: 1;
-
 display: flex;
 flex-direction: column;
-
 padding: 40px 60px;
-
 max-width: 700px;
-
 font-size: 19px;
 line-height: 1.75;
-
 hanging-punctuation: first allow-end;
 hyphens: auto;
 }
@@ -70,7 +61,6 @@ SIDEBAR
 .sidebar h1 {
 font-size: 18px;
 margin-bottom: 20px;
-
 font-weight: 500;
 letter-spacing: 1px;
 }
@@ -78,11 +68,8 @@ letter-spacing: 1px;
 .sidebar a {
 text-decoration: none;
 color: white;
-
 opacity: 0.7;
-
 position: relative;
-
 transition: opacity 0.2s ease;
 }
 
@@ -100,10 +87,8 @@ font-weight: 600;
 .sidebar a::after {
 content: "";
 position: absolute;
-
 left: 0;
 bottom: -3px;
-
 width: 0;
 height: 1px;
 
@@ -147,27 +132,20 @@ WRITING PAGE
 ===================================== */
 
 .writing-intro {
-
 margin-bottom: 40px;
-
 opacity: 0.7;
 
 }
 
 .writing-list {
-
 max-width: 700px;
 
 }
 
 .writing-entry {
-
 display: grid;
-
 grid-template-columns: 120px 1fr 60px;
-
 gap: 20px;
-
 padding: 10px 0;
 
 border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -175,33 +153,25 @@ border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .writing-meta {
-
 opacity: 0.6;
-
 font-size: 0.9rem;
 
 }
 
 .writing-title a {
-
 text-decoration: none;
-
 font-size: 1.05rem;
 
 }
 
 .writing-title a:hover {
-
 text-decoration: underline;
 
 }
 
 .writing-format {
-
 font-size: 0.8rem;
-
 opacity: 0.5;
-
 text-align: right;
 
 }
@@ -211,45 +181,35 @@ ESSAY PAGE
 ===================================== */
 
 .essay-header {
-
 margin-bottom: 30px;
 
 }
 
 .essay-meta {
-
 opacity: 0.6;
-
 font-size: 0.9rem;
-
 margin-top: 5px;
 
 }
 
 .essay-download {
-
 margin-top: 10px;
-
 font-size: 0.9rem;
 
 }
 
 .essay-download a {
-
 text-decoration: none;
-
 opacity: 0.7;
 
 }
 
 .essay-download a:hover {
-
 opacity: 1;
 
 }
 
 .essay-pdf {
-
 margin-top: 30px;
 
 border: 1px solid rgba(255,255,255,0.1);
@@ -263,13 +223,9 @@ BUTTONS
 button {
 background: none;
 border: 1px solid #555;
-
 color: white;
-
 padding: 10px 22px;
-
 font-size: 15px;
-
 cursor: pointer;
 }
 
@@ -302,9 +258,7 @@ GALLERY INTRO
 
 .gallery-intro {
 opacity: 0.7;
-
 margin-bottom: 30px;
-
 font-size: 16px;
 }
 
@@ -333,21 +287,14 @@ scroll-margin-top: 70px;
 }
 
 /* sticky year headers */
-
 .gallery-year h2,
 .archive-year h2 {
-
 position: sticky;
 top: 0;
-
 z-index: 20;
-
 font-size: 1.6rem;
-
 margin-top: 60px;
-
 padding: 10px 0 14px 0;
-
 border-bottom: 1px solid #bbb;
 
 font-weight: normal;
@@ -362,10 +309,8 @@ MASONRY GALLERY LAYOUT
 ===================================== */
 
 .gallery-grid {
-
 column-width: 220px;
 column-gap: 28px;
-
 margin-top: 30px;
 
 }
@@ -373,12 +318,9 @@ margin-top: 30px;
 /* gallery items */
 
 .gallery-grid a {
-
 display: inline-block;
 width: 100%;
-
 margin-bottom: 28px;
-
 break-inside: avoid;
 
 }
@@ -386,30 +328,22 @@ break-inside: avoid;
 /* artwork thumbnails */
 
 .gallery img {
-
 width: 100%;
 height: auto;
-
 display: block;
-
 background: #111;
-
 padding: 10px;
-
 border-radius: 3px;
 
 box-shadow: 0 12px 28px rgba(0,0,0,0.45);
 
 transition: transform 0.25s ease, box-shadow 0.25s ease;
-
 break-inside: avoid;
 
 }
 
 /* hover effect */
-
 .gallery img:hover {
-
 transform: translateY(-2px);
 
 box-shadow:
@@ -423,16 +357,11 @@ VERTICAL TIMELINE (preparation)
 ===================================== */
 
 .gallery::before {
-
 content: "";
-
 position: absolute;
-
 left: -28px;
-
 top: 0;
 bottom: 0;
-
 width: 1px;
 
 background: rgba(255,255,255,0.12);
@@ -440,54 +369,17 @@ background: rgba(255,255,255,0.12);
 }
 
 /* =====================================
-SERIES GALLERY
+COLLECTIONS (EXHIBITIONS)
 ===================================== */
 
-.series-gallery {
-
-display: grid;
-
-grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-
-gap: 26px;
-
-align-items: start;
-
-margin-top: 32px;
-
+.collection{
+margin-bottom:60px;
 }
 
-/* individual series images */
-
-.series-gallery img {
-
-width: 100%;
-height: auto;
-
-display: block;
-
-background: #111;
-
-padding: 10px;
-
-border-radius: 3px;
-
-box-shadow: 0 12px 28px rgba(0,0,0,0.45);
-
-transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-}
-
-/* hover effect */
-
-.series-gallery img:hover {
-
-transform: translateY(-2px);
-
-box-shadow:
-0 18px 40px rgba(0,0,0,0.65),
-0 0 20px rgba(255,255,255,0.06);
-
+.collection-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
+gap:10px;
 }
 
 /* =====================================
@@ -495,30 +387,32 @@ IMAGE VIEWER
 ===================================== */
 
 .image-viewer {
-
 position: fixed;
 inset: 0;
 
 background: rgba(0,0,0,0.92);
 
 display: flex;
-
 align-items: center;
 justify-content: center;
-
 z-index: 999;
 
 }
 
 .image-viewer img {
-
 max-width: 92%;
 max-height: 92%;
 
 box-shadow: 0 30px 80px rgba(0,0,0,0.8);
 
 cursor: zoom-out;
+}
 
+.pdf-viewer iframe{
+width:100%;
+height:80vh;
+border:none;
+margin-top:20px;
 }
 
 /* =====================================
@@ -530,13 +424,9 @@ max-width: 900px;
 }
 
 .art-image img {
-
 max-height: 82vh;
-
 background: #111;
-
 padding: 12px;
-
 border-radius: 4px;
 
 box-shadow:
@@ -564,63 +454,51 @@ text-indent: 1.5em;
 .art-description p:first-child {
 text-indent: 0;
 }
+/* =========================
+   ART NAVIGATION
+========================= */
 
-/* =====================================
-ART NAVIGATION
-===================================== */
-
-.art-navigation {
-
-display: grid;
-
-grid-template-columns: 1fr auto 1fr;
-
-align-items: center;
-
-margin-top: 50px;
-padding-top: 20px;
-
-border-top: 1px solid rgba(255,255,255,0.12);
-
-font-size: 14px;
-
+.art-navigation{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:60px auto 20px;
+max-width:900px;
+font-size:14px;
 }
 
-.nav-left {
-text-align: left;
+.art-navigation a{
+text-decoration:none;
+color:#444;
 }
 
-.nav-center {
-text-align: center;
+.art-navigation a:hover{
+text-decoration:underline;
 }
 
-.nav-right {
-text-align: right;
+.nav-left,
+.nav-right{
+width:30%;
 }
 
-.art-navigation a {
-
-text-decoration: none;
-color: inherit;
-
-opacity: 0.65;
-
-transition: opacity 0.2s ease;
-
+.nav-center{
+text-align:center;
+width:40%;
+font-weight:500;
 }
 
-.art-navigation a:hover {
-opacity: 1;
+.nav-center small{
+display:block;
+opacity:.6;
+margin-top:4px;
 }
 
-/* slightly dim the middle link */
-
-.nav-center a {
-opacity: 0.45;
-}
-
-.nav-center a:hover {
-opacity: 0.8;
+.year-jump{
+text-align:center;
+margin-top:20px;
+width:100%;
+font-size:13px;
+opacity:.7;
 }
 
 /* =====================================
@@ -628,21 +506,15 @@ YEAR NAVIGATION
 ===================================== */
 
 .year-nav {
-
 margin-bottom: 30px;
-
 font-size: 15px;
-
 opacity: 0.7;
 
 }
 
 .year-nav a {
-
 text-decoration: none;
-
 color: inherit;
-
 margin: 0 4px;
 
 }
@@ -656,20 +528,13 @@ RANDOM BUTTON
 ===================================== */
 
 .random-button {
-
 background: white;
 color: black;
-
 border: none;
-
 padding: 14px 24px;
-
 margin-top: 30px;
-
 font-size: 14px;
-
 cursor: pointer;
-
 transition: all 0.25s ease;
 
 }
@@ -687,27 +552,18 @@ margin-bottom: 60px;
 }
 
 .archive-list {
-
 display: flex;
-
 flex-direction: column;
-
 gap: 14px;
 
 }
 
 .archive-row {
-
 display: flex;
-
 align-items: center;
-
 justify-content: space-between;
-
 text-decoration: none;
-
 color: inherit;
-
 padding: 6px 0;
 
 }
@@ -726,7 +582,6 @@ width: 60px;
 height: 60px;
 
 object-fit: cover;
-
 margin-left: 20px;
 
 }
@@ -740,35 +595,26 @@ max-width: 800px;
 }
 
 .home-anchor {
-
 margin-top: 120px;
-
 opacity: 0.75;
 
 }
 
 .home-line {
-
 font-size: 20px;
-
 letter-spacing: 0.4px;
 
 }
 
 .intro h2 {
-
 margin-top: 40px;
-
 font-weight: normal;
-
 opacity: 0.9;
 
 }
 
 .intro p {
-
 max-width: 600px;
-
 margin: 20px 0;
 
 opacity: 0.8;
@@ -776,31 +622,20 @@ opacity: 0.8;
 }
 
 .explore {
-
 margin-top: 40px;
-
 display: flex;
-
 flex-wrap: wrap;
-
 gap: 15px;
 
 }
 
 .explore-button {
-
 background: white;
-
 color: black;
-
 padding: 12px 20px;
-
 text-decoration: none;
-
 border-radius: 3px;
-
 font-size: 14px;
-
 transition: all 0.25s ease;
 
 }
@@ -814,9 +649,7 @@ WRITING LINKS
 ===================================== */
 
 .content a {
-
 color: #e5e5e5;
-
 text-decoration: underline;
 
 }
@@ -830,13 +663,9 @@ GUESTBOOK
 ===================================== */
 
 .guestbook-intro {
-
 max-width: 520px;
-
 margin-bottom: 40px;
-
 color: #bbb;
-
 line-height: 1.7;
 
 }
@@ -846,23 +675,17 @@ margin-bottom: 16px;
 }
 
 hr {
-
 border: none;
-
 border-top: 1px solid rgba(255,255,255,0.1);
-
 margin: 40px 0;
 
 }
 
 .guestbook-outro {
-
 margin-top: 60px;
-
 font-style: italic;
 
 opacity: 0.6;
-
 text-align: center;
 
 }
@@ -889,17 +712,12 @@ flex-direction: column;
 }
 
 .sidebar {
-
 width: 100%;
-
 border-right: none;
 border-bottom: 1px solid #444;
-
 flex-direction: row;
 flex-wrap: wrap;
-
 gap: 14px;
-
 padding: 25px 20px;
 
 }
@@ -909,17 +727,13 @@ font-size: 15px;
 }
 
 .sidebar h1 {
-
 width: 100%;
-
 margin-bottom: 10px;
 
 }
 
 .content {
-
 padding: 30px 22px;
-
 max-width: 100%;
 
 }
@@ -939,17 +753,11 @@ FOOTER
 ===================================== */
 
 .site-footer {
-
 letter-spacing: 0.3px;
-
 margin-top: auto;
-
 padding-top: 30px;
-
 border-top: 1px solid rgba(255,255,255,0.08);
-
 font-size: 14px;
-
 opacity: 0.6;
 
 }

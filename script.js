@@ -1,4 +1,13 @@
 /* =========================
+   DATA SAFETY
+========================= */
+
+if (typeof archive === "undefined") {
+console.error("archive.js not loaded");
+}
+
+
+/* =========================
    BUILD ART PAGE GALLERY
 ========================= */
 
@@ -9,18 +18,13 @@ if (!gallery) return;
 
 gallery.innerHTML = "";
 
-/* only show art entries */
-
 const artItems = archive.filter(item => item.type === "art");
 
 const years = {};
 
 artItems.forEach(art => {
 
-if (!years[art.year]) {
-years[art.year] = [];
-}
-
+if (!years[art.year]) years[art.year] = [];
 years[art.year].push(art);
 
 });
@@ -31,6 +35,8 @@ Object.keys(years)
 
 const section = document.createElement("div");
 section.className = "gallery-year";
+
+section.id = "year-" + year;
 
 const heading = document.createElement("h2");
 heading.textContent = year;
@@ -62,23 +68,39 @@ gallery.appendChild(section);
 
 
 /* =========================
-   IMAGE VIEWER
+   MUSEUM IMAGE VIEWER
 ========================= */
 
-document.addEventListener("click", e => {
-
-if (e.target.matches(".series-gallery img, .art-image img")) {
+function openViewer(src){
 
 const viewer = document.createElement("div");
-
 viewer.className = "image-viewer";
 
-viewer.innerHTML = `<img src="${e.target.src}">`;
-
-viewer.onclick = () => viewer.remove();
+viewer.innerHTML = `
+<div class="viewer-inner">
+<img src="${src}">
+</div>
+`;
 
 document.body.appendChild(viewer);
 
+viewer.addEventListener("click", () => {
+viewer.classList.toggle("zoomed");
+});
+
+document.addEventListener("keydown", function esc(e){
+if (e.key === "Escape"){
+viewer.remove();
+document.removeEventListener("keydown", esc);
+}
+});
+
+}
+
+document.addEventListener("click", e => {
+
+if (e.target.matches(".art-image img")) {
+openViewer(e.target.src);
 }
 
 });
@@ -99,10 +121,9 @@ const years = {};
 
 archive.forEach(item => {
 
-if (!years[item.year]) {
-years[item.year] = [];
-}
+if (!item || !item.year) return;
 
+if (!years[item.year]) years[item.year] = [];
 years[item.year].push(item);
 
 });
@@ -133,7 +154,7 @@ thumbnail = `<img src="${item.image}" alt="${item.title}">`;
 }
 
 row.innerHTML = `
-<span class="archive-title">${item.title.replace(", " + item.year, "")}</span>
+<span class="archive-title">${(item.title || "Untitled")}</span>
 ${thumbnail}
 `;
 
@@ -151,39 +172,47 @@ container.appendChild(section);
 
 
 /* =========================
-   YEAR NAVIGATION
+   PRELOAD IMAGES
 ========================= */
 
-function buildYearNav() {
+function preloadImage(src){
+const img = new Image();
+img.src = src;
+}
 
-const nav = document.getElementById("year-nav");
 
-if (!nav) return;
+/* =========================
+   INFINITE SCROLL
+========================= */
 
-const years = document.querySelectorAll(".gallery-year, .archive-year");
+function enableInfiniteScroll(artItems, index){
 
-if (!years.length) return;
+const next = artItems[index + 1];
+if (!next) return;
 
-nav.innerHTML = "Jump to: ";
+let triggered = false;
 
-years.forEach((section, index) => {
+window.addEventListener("scroll", () => {
 
-const year = section.querySelector("h2").textContent;
+if (triggered) return;
 
-const id = "year-" + year;
+if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200){
 
-section.id = id;
+triggered = true;
 
-const link = document.createElement("a");
+const container = document.createElement("div");
+container.className = "next-art";
 
-link.href = "#" + id;
+container.innerHTML = `
+<a href="../${next.page}">
+<p class="next-label">Next Work</p>
+<img src="../${next.image}">
+<p>${next.title}</p>
+</a>
+`;
 
-link.textContent = year;
+document.querySelector("main").appendChild(container);
 
-nav.appendChild(link);
-
-if (index < years.length - 1) {
-nav.append(" · ");
 }
 
 });
@@ -192,8 +221,62 @@ nav.append(" · ");
 
 
 /* =========================
-   PREVIOUS / NEXT ARTWORK
+   TIMELINE NAV
 ========================= */
+
+function buildTimeline(artItems){
+
+const nav = document.querySelector(".art-navigation");
+if (!nav) return;
+
+const years = [...new Set(artItems.map(a => a.year))];
+
+const timeline = document.createElement("div");
+timeline.className = "timeline";
+
+timeline.innerHTML = years.map(year => `
+<a href="../art.html#year-${year}">${year}</a>
+`).join(" ");
+
+nav.appendChild(timeline);
+
+}
+
+
+/* =========================
+   AUTO-GENERATE ART PAGE
+========================= */
+
+function autoBuildArtPage(){
+
+const container = document.querySelector(".art-auto");
+if (!container) return;
+
+const currentPage = window.location.pathname.split("/").pop();
+
+const item = archive.find(
+i => i.page.split("/").pop() === currentPage
+);
+
+if (!item) return;
+
+container.innerHTML = `
+<h1>${item.title}</h1>
+
+<div class="art-image">
+<img src="../${item.image}" alt="${item.title}">
+</div>
+
+<p class="art-date">${item.date}</p>
+`;
+
+}
+
+
+/* =========================
+   ADVANCED ART NAVIGATION
+========================= */
+
 function buildArtNavigation() {
 
 const nav = document.querySelector(".art-navigation");
@@ -206,24 +289,24 @@ const artItems = archive
 const currentPage = window.location.pathname.split("/").pop();
 
 const index = artItems.findIndex(
-art => art.page.split("/").pop() === currentPage
+item => item.page.split("/").pop() === currentPage
 );
 
 if (index === -1) return;
 
 const prev = artItems[index - 1];
 const next = artItems[index + 1];
+const current = artItems[index];
 
-function formatDate(dateString) {
+function formatDate(dateString){
 
-const [year, month, day] = dateString.split("-").map(Number);
+const [y,m,d] = dateString.split("-");
+const date = new Date(Date.UTC(y,m-1,d));
 
-const date = new Date(year, month - 1, day);
-
-return date.toLocaleDateString("en-US", {
-year: "numeric",
-month: "short",
-day: "numeric"
+return date.toLocaleDateString("en-US",{
+year:"numeric",
+month:"short",
+day:"numeric"
 });
 
 }
@@ -231,23 +314,48 @@ day: "numeric"
 nav.innerHTML = `
 
 <div class="nav-left">
-${prev ? `<a href="../${prev.page}">← ${formatDate(prev.date)}</a>` : ""}
+${prev ? `<a href="../${prev.page}">← ${prev.title}</a>` : ""}
 </div>
 
 <div class="nav-center">
-<a href="../art.html">Back to Art</a>
+<a href="../art.html">${current.title}<br><small>${formatDate(current.date)}</small></a>
 </div>
 
 <div class="nav-right">
-${next ? `<a href="../${next.page}">${formatDate(next.date)} →</a>` : ""}
+${next ? `<a href="../${next.page}">${next.title} →</a>` : ""}
 </div>
 
 `;
 
+/* preload */
+
+if (prev?.image) preloadImage("../" + prev.image);
+if (next?.image) preloadImage("../" + next.image);
+
+/* keyboard */
+
+document.addEventListener("keydown", e => {
+
+if (e.key === "ArrowLeft" && prev){
+window.location.href = "../" + prev.page;
 }
 
+if (e.key === "ArrowRight" && next){
+window.location.href = "../" + next.page;
+}
+
+});
+
+/* upgrades */
+
+enableInfiniteScroll(artItems, index);
+buildTimeline(artItems);
+
+}
+
+
 /* =========================
-   RANDOM ARTWORK BUTTON
+   RANDOM ARTWORK
 ========================= */
 
 function randomArtwork() {
@@ -260,9 +368,89 @@ window.location.href = random.page;
 
 }
 
+/* =========================
+   COLLECTIONS (EXHIBITIONS)
+========================= */
+
+function buildCollections(){
+
+const container = document.querySelector("#collections");
+if (!container) return;
+
+const collections = {};
+
+archive
+.filter(item => item.type === "art" && item.collection)
+.forEach(item => {
+
+if (!collections[item.collection]) {
+collections[item.collection] = [];
+}
+
+collections[item.collection].push(item);
+
+});
+
+Object.keys(collections).forEach(name => {
+
+const section = document.createElement("div");
+section.className = "collection";
+
+section.innerHTML = `<h2>${name}</h2>`;
+
+const grid = document.createElement("div");
+grid.className = "collection-grid";
+
+collections[name].forEach(item => {
+
+const link = document.createElement("a");
+link.href = item.page;
+
+link.innerHTML = `<img src="${item.image}">`;
+
+grid.appendChild(link);
+
+});
+
+section.appendChild(grid);
+container.appendChild(section);
+
+});
+
+}
 
 /* =========================
-   AUTO FOOTER
+   AUTO WRITING PAGE
+========================= */
+
+function autoBuildWritingPage(){
+
+const container = document.querySelector(".writing-auto");
+if (!container) return;
+
+const currentPage = window.location.pathname.split("/").pop();
+
+const item = archive.find(
+i => i.page.split("/").pop() === currentPage && i.type === "writing"
+);
+
+if (!item) return;
+
+container.innerHTML = `
+<h1>${item.title}</h1>
+
+<div class="pdf-viewer">
+<iframe src="../${item.pdf}" frameborder="0"></iframe>
+</div>
+
+<p class="writing-date">${item.date}</p>
+`;
+
+}
+
+
+/* =========================
+   FOOTER
 ========================= */
 
 function insertFooter() {
@@ -272,29 +460,26 @@ const footer = document.createElement("footer");
 footer.className = "site-footer";
 
 footer.innerHTML = `
-<p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret</p>
-<p class="footer-note">All artwork and writing © their respective years</p>
+<p>© ${new Date().getFullYear()} Christopher Shenefelt</p>
 `;
 
-const main = document.querySelector("main");
-
-if (main) {
-main.appendChild(footer);
-}
+document.querySelector("main")?.appendChild(footer);
 
 }
 
 
 /* =========================
-   RUN EVERYTHING
+   RUN
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
 buildGallery();
 buildArchive();
-buildYearNav();
 buildArtNavigation();
+autoBuildArtPage();
+buildCollections();
+autoBuildWritingPage();
 insertFooter();
 
 });
