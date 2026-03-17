@@ -60,6 +60,31 @@ hyphens: auto;
 }
 
 /* =====================================
+LAYOUT TUNING: FULL-WIDTH ART PAGES
+===================================== */
+
+/* Allow art + archive pages to break out of text width */
+
+.content:has(.gallery),
+.content:has(#archive) {
+max-width: none;
+width: 100%;
+}
+
+/* Ensure gallery actually expands */
+
+.gallery {
+width: 100%;
+max-width: 1400px;
+}
+
+/* Optional: center wide gallery nicely */
+
+.content:has(.gallery) {
+margin: 0 auto;
+}
+
+/* =====================================
 SIDEBAR
 ===================================== */
 
@@ -292,6 +317,7 @@ scroll-margin-top: 70px;
 }
 
 /* sticky year headers */
+
 .gallery-year h2,
 .archive-year h2 {
 position: sticky;
@@ -314,10 +340,9 @@ MASONRY GALLERY LAYOUT
 ===================================== */
 
 .gallery-grid {
-column-width: 220px;
-column-gap: 28px;
-margin-top: 30px;
-
+column-width: 260px;
+column-gap: 32px;
+margin-top: 35px;
 }
 
 /* gallery items */
@@ -325,7 +350,7 @@ margin-top: 30px;
 .gallery-grid a {
 display: inline-block;
 width: 100%;
-margin-bottom: 28px;
+margin-bottom: 32px;
 break-inside: avoid;
 
 }
@@ -337,7 +362,7 @@ width: 100%;
 height: auto;
 display: block;
 background: #111;
-padding: 10px;
+padding: 12px;
 border-radius: 3px;
 
 box-shadow: 0 12px 28px rgba(0,0,0,0.45);
