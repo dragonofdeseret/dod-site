@@ -489,52 +489,47 @@ text-indent: 0;
    ART NAVIGATION
 ========================= */
 
-.art-navigation{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:60px auto 20px;
-max-width:900px;
-font-size:14px;
+.art-navigation {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+margin-top: 70px;
+opacity: 0.85;
+padding-top: 25px;
+
+border-top: 1px solid rgba(255,255,255,0.08);
+
+width: 100%;
+max-width: none;   /* ← IMPORTANT FIX */
+
+font-size: 14px;
 }
 
-.art-navigation a{
-text-decoration:none;
-color:#444;
+.art-navigation a {
+text-decoration: none;
+color: rgba(255,255,255,0.7);
 }
 
-.art-navigation a:hover{
-text-decoration:underline;
+.art-navigation a:hover {
+color: white;
 }
+
+/* balanced layout */
 
 .nav-left,
-.nav-right{
-width:30%;
+.nav-right {
+flex: 1;
 }
 
-.nav-center{
-text-align:center;
-width:40%;
-font-weight:500;
+.nav-center {
+text-align: center;
+flex: 1;
 }
 
-.nav-center small{
-display:block;
-opacity:.6;
-margin-top:4px;
-}
-
-.year-jump{
-text-align:center;
-margin-top:20px;
-width:100%;
-font-size:13px;
-opacity:.7;
-}
-
-/* =====================================
+/* =================
 YEAR NAVIGATION
-===================================== */
+==================== */
 
 .year-nav {
 margin-bottom: 30px;
