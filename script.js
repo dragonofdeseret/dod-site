@@ -263,7 +263,7 @@ if (!container) return;
 const currentPage = window.location.pathname.split("/").pop();
 
 const item = archive.find(
-i => i.page.split("/").pop() === currentPage
+i => i.page.split("/").pop() === currentPage && i.type === "art"
 );
 
 if (!item) return;
@@ -279,7 +279,6 @@ container.innerHTML = `
 `;
 
 }
-
 
 /* =========================
    ADVANCED ART NAVIGATION
@@ -367,11 +366,8 @@ buildTimeline(artItems);
 ========================= */
 
 function randomArtwork() {
-
 const artItems = archive.filter(item => item.type === "art");
-
 const random = artItems[Math.floor(Math.random() * artItems.length)];
-
 window.location.href = random.page;
 
 }
