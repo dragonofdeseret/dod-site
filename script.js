@@ -46,7 +46,7 @@ function groupByCollection(items) {
 ========================= */
 
 function buildGallery() {
-  const gallery = document.querySelector(".gallery");
+  const gallery = document.querySelector("section.gallery");
   if (!gallery) return;
 
   const yearNav = document.querySelector(".year-nav");
