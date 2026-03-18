@@ -86,11 +86,9 @@ h1, h2, h3, .writing-item h3 {
   max-width: 700px;
 }
 
-/* =====================================
-LAYOUT TUNING: FULL-WIDTH ART PAGES
-===================================== */
-
-/* Allow art + archive pages to break out of text width */
+/* ===========================
+ FULL-WIDTH ART PAGES
+============================== */
 
 .content:has(.gallery),
 .content:has(#archive) {
@@ -98,14 +96,14 @@ max-width: none;
 width: 100%;
 }
 
-/* Ensure gallery actually expands */
+/* ensure gallery expands */
 
 .gallery {
 width: 100%;
 max-width: 1400px;
 }
 
-/* Optional: center wide gallery nicely */
+/* center wide gallery */
 
 .content:has(.gallery) {
 margin: 0 auto;
@@ -326,8 +324,8 @@ RANDOM BUTTON
 ===================================== */
 
 .random-button {
-background: transparent;  
-color: black;
+background: #transparent;  
+color: white;
 border: 1px solid rgba(255,255,255,0.2);
 padding: 10px 16px;
 margin-top: 15px;
@@ -796,6 +794,19 @@ text-decoration: underline;
 
 .content a:hover {
 opacity: 0.7;
+}
+
+.writing-year {
+  margin-bottom: 40px;
+}
+
+.writing-year h2 {
+  margin-bottom: 15px;
+}
+
+.writing-item {
+  display: block;
+  margin-bottom: 20px;
 }
 
 /* =====================================

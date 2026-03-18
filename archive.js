@@ -22,7 +22,7 @@ description: "With an eye single to the glory of God"
 {
  id: "AIW",
  type: "writing",
- title: "All is Well | LSD Tripe Report, May 11, 2019",
+ title: "All is Well | LSD Trip Report, May 11, 2019",
  year: 2025,
  date: "2025-04-02",
  file: "pdf/AIW.pdf",
