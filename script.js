@@ -145,21 +145,27 @@ function buildArchive() {
       const row = document.createElement("a");
       row.className = "archive-row";
 
-     if (item.type === "art") {
-  row.href = `artwork.html?id=${item.id}`;
-
-} else if (item.type === "writing") {
-  row.href = `writings.html?id=${item.id}`;
-
-} else {
-  row.href = "#";
-}
+      if (item.type === "art") {
+        row.href = `artwork.html?id=${item.id}`;
+      } else if (item.type === "writing") {
+        row.href = `writings.html?id=${item.id}`;
+      } else {
+        row.href = "#";
+      }
 
       const title = document.createElement("div");
       title.className = "archive-title";
       title.textContent = item.title;
 
       row.appendChild(title);
+
+      // ✅ PDF tag (fixed placement)
+      if (item.type === "writing") {
+        const tag = document.createElement("span");
+        tag.textContent = "PDF";
+        tag.className = "archive-tag";
+        row.appendChild(tag);
+      }
 
       if (item.image) {
         const img = document.createElement("img");
@@ -180,14 +186,6 @@ function buildArchive() {
       yearNav.appendChild(navLink);
     }
   });
-
-    if (item.type === "writing") {
-      const tag = document.createElement("span");
-      tag.textContent = "PDF";
-      tag.className = "archive-tag";
-      row.appendChild(tag);
-}
-
 }
 
 /* =========================
@@ -235,33 +233,28 @@ function openLightbox(src) {
 function enhanceArtworkPage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-
   if (!id) return;
 
   const artItems = archive
-  .filter(x => x.type === "art")
-  .sort((a, b) => {
-    // sort by date first
-    const dateDiff = new Date(a.date) - new Date(b.date);
-    if (dateDiff !== 0) return dateDiff;
+    .filter(x => x.type === "art")
+    .sort((a, b) => {
+      const dateDiff = new Date(a.date) - new Date(b.date);
+      if (dateDiff !== 0) return dateDiff;
 
-    // then sort by suffix (_1, _2, etc.)
-    const getIndex = id => {
-      const match = id.match(/_(\d+)$/);
-      return match ? parseInt(match[1]) : 0;
-    };
+      const getIndex = id => {
+        const match = id.match(/_(\d+)$/);
+        return match ? parseInt(match[1]) : 0;
+      };
 
-    return getIndex(a.id) - getIndex(b.id);
-  });
+      return getIndex(a.id) - getIndex(b.id);
+    });
 
   const index = artItems.findIndex(x => x.id === id);
-
   if (index === -1) return;
 
   const prev = artItems[index - 1];
   const next = artItems[index + 1];
 
-  // PRELOAD
   [prev, next].forEach(item => {
     if (item && item.image) {
       const img = new Image();
@@ -269,16 +262,13 @@ function enhanceArtworkPage() {
     }
   });
 
-  // KEYBOARD NAV
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" && prev) {
       window.location.href = `artwork.html?id=${prev.id}`;
     }
-
     if (e.key === "ArrowRight" && next) {
       window.location.href = `artwork.html?id=${next.id}`;
     }
-
     if (e.key === "Escape") {
       const viewer = document.querySelector(".image-viewer");
       if (viewer) viewer.remove();
@@ -287,94 +277,7 @@ function enhanceArtworkPage() {
 }
 
 /* =========================
-   WRITING PAGE
-========================= */ 
-
-function buildWritingPage() {
-  if (!window.location.pathname.includes("writings.html")) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  if (!id) return;
-
-  const items = archive.filter(x => x.type === "writing");
-  const index = items.findIndex(x => x.id === id);
-  if (index === -1) return;
-
-  const item = items[index];
-
-  // SET CONTENT
-  document.getElementById("writing-title").textContent = item.title;
-  document.getElementById("writing-description").textContent = item.description || "";
-  document.getElementById("pdf-frame").src = item.file;
-
-frame.src = item.file;
-
-// fallback tracking
-if (window.plausible) {
-  plausible("PDF View", {
-    props: {
-      title: item.title,
-      id: item.id
-    }
-  });
-}
-
-// enhanced tracking
-frame.onload = () => {
-  if (window.plausible) {
-    plausible("PDF View Loaded", {
-      props: {
-        title: item.title,
-        id: item.id
-      }
-    });
-  }
-}
-
-let start = Date.now();
-
-window.addEventListener("beforeunload", () => {
-  const duration = Math.round((Date.now() - start) / 1000);
-
-  if (window.plausible) {
-    plausible("PDF Time", {
-      props: {
-        title: item.title,
-        seconds: duration
-      }
-    });
-  }
-});
-}
-
-  // NAVIGATION
-  const prev = items[index - 1];
-  const next = items[index + 1];
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writings.html?id=${prev.id}`;
-    }
-    if (e.key === "ArrowRight" && next) {
-      window.location.href = `writings.html?id=${next.id}`;
-    }
-
-const downloadLink = document.getElementById("download-link");
-
-if (downloadLink) {
-  downloadLink.href = item.file;
-
-  downloadLink.addEventListener("click", () => {
-    if (window.plausible) {
-      plausible("PDF Download", {
-        props: { title: item.title }
-      });
-     }
-}
-
-/* =========================
-   WRITING GALLERY PAGE
+   WRITING GALLERY (writing.html)
 ========================= */
 
 function buildWritingGallery() {
@@ -400,6 +303,85 @@ function buildWritingGallery() {
 }
 
 /* =========================
+   WRITING PAGE (writings.html)
+========================= */
+
+function buildWritingPage() {
+  if (!window.location.pathname.includes("writings.html")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) return;
+
+  const items = archive.filter(x => x.type === "writing");
+  const index = items.findIndex(x => x.id === id);
+  if (index === -1) return;
+
+  const item = items[index];
+
+  const frame = document.getElementById("pdf-frame");
+
+  document.getElementById("writing-title").textContent = item.title;
+  document.getElementById("writing-description").textContent = item.description || "";
+  frame.src = item.file;
+
+  // analytics
+  if (window.plausible) {
+    plausible("PDF View", {
+      props: { title: item.title, id: item.id }
+    });
+  }
+
+  frame.onload = () => {
+    if (window.plausible) {
+      plausible("PDF View Loaded", {
+        props: { title: item.title, id: item.id }
+      });
+    }
+  };
+
+  const prev = items[index - 1];
+  const next = items[index + 1];
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `writings.html?id=${prev.id}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `writings.html?id=${next.id}`;
+    }
+  });
+
+  const downloadLink = document.getElementById("download-link");
+  if (downloadLink) {
+    downloadLink.href = item.file;
+
+    downloadLink.addEventListener("click", () => {
+      if (window.plausible) {
+        plausible("PDF Download", {
+          props: { title: item.title }
+        });
+      }
+    });
+  }
+
+  let start = Date.now();
+
+  window.addEventListener("beforeunload", () => {
+    const duration = Math.round((Date.now() - start) / 1000);
+
+    if (window.plausible) {
+      plausible("PDF Time", {
+        props: {
+          title: item.title,
+          seconds: duration
+        }
+      });
+    }
+  });
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -414,7 +396,7 @@ function buildFooter() {
 
   footer.innerHTML = `
     <p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret</p>
-    <p>artwork and writing © their respective years
+    <p>artwork and writing © their respective years</p>
   `;
 
   content.appendChild(footer);
@@ -427,9 +409,11 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+
   if (window.location.pathname.includes("artwork.html")) {
-  enhanceArtworkPage();
-}
+    enhanceArtworkPage();
+  }
+
   buildWritingGallery();
   buildWritingPage();
   buildFooter();
