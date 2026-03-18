@@ -18,6 +18,15 @@ description: "With an eye single to the glory of God"
  date: "2025-11-16",
  file: "pdf/NaturalisticBoM.pdf",
 },
+
+{
+ id: "AIW",
+ type: "writing",
+ title: "All is Well | LSD Tripe Report, May 11, 2019",
+ year: 2025,
+ date: "2025-04-02",
+ file: "pdf/AIW.pdf",
+},
    
 {
 id: "2024-08-22",
@@ -265,7 +274,7 @@ image: "images/art/2023/2023-06-24.jpeg",
 {
 id: "2023-05-28",
 type: "art",
-title: "May 28, 2023",
+title: "May 27, 2023",
 year: 2023,
 date: "2023-05-28",
 image: "images/art/2023/2023-05-28.jpeg",
