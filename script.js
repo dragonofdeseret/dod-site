@@ -371,7 +371,6 @@ if (downloadLink) {
         props: { title: item.title }
       });
      }
-  }};
 }
 
 /* =========================
