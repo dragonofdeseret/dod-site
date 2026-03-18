@@ -7,17 +7,16 @@ title: "August 28, 2025",
 year: 2025,
 date: "2025-08-28",
 image: "images/art/2025/2025-08-28.jpeg",
-description: "test"
+description: "With an eye single to the glory of God"
 },
 
 {
- id: "AcidLullabies",
+ id: "NaturalisticBOM",
  type: "writing",
- title: "Acid Lullabies: How LSD Reversed My Chronic Insomnia",
+ title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
  year: 2025,
- date: "2025-02-16",
- file: "pdf/AcidLullabies.pdf",
- description: "A long-form exploration of LSD and chronic insomnia"
+ date: "2025-11-16",
+ file: "pdf/NaturalistcBOM.pdf",
 },
    
 {
