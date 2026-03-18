@@ -11,7 +11,7 @@ description: "test"
 },
 
 {
- id: "acid-lullabies",
+ id: "AcidLullabies",
  type: "writing",
  title: "Acid Lullabies: How LSD Reversed My Chronic Insomnia",
  year: 2025,
