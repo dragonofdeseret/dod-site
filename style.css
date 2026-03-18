@@ -304,7 +304,7 @@ color: black;
 }
 
 /* =====================================
-BACK BUTTON
+BACK BUTTON LINK
 ===================================== */
 
 .art-back {
@@ -322,6 +322,37 @@ opacity: 1;
 }
 
 /* =====================================
+RANDOM BUTTON
+===================================== */
+
+.random-button {
+background: transparent;  
+color: black;
+border: 1px solid rgba(255,255,255,0.2);
+padding: 10px 16px;
+margin-top: 15px;
+font-size: 0.9rem; 
+cursor: pointer;  
+transition: all 0.2s ease;
+}
+
+button.textContent = "Surprise Me";
+ 
+.random-button:hover {
+background: rgba(255,255,255,0.05);
+}
+
+.gallery-controls {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+#random-container {
+  display: flex;
+  justify-content: flex-start; /* or center if you prefer */
+}
+
+/* =====================================
 GALLERY INTRO
 ===================================== */
 
@@ -334,6 +365,10 @@ font-size: 16px;
 /* =====================================
 ART GALLERY
 ===================================== */
+
+.gallery-header {
+  margin-bottom: 30px;
+}
 
 .gallery {
 display: block;
@@ -646,26 +681,6 @@ margin: 0 4px;
 
 .year-nav a:hover {
 opacity: 1;
-}
-
-/* =====================================
-RANDOM BUTTON
-===================================== */
-
-.random-button {
-background: white;
-color: black;
-border: none;
-padding: 14px 24px;
-margin-top: 30px;
-font-size: 14px;
-cursor: pointer;
-transition: all 0.25s ease;
-
-}
-
-.random-button:hover {
-background: #ddd;
 }
 
 /* =====================================

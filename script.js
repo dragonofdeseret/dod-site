@@ -193,19 +193,19 @@ function buildArchive() {
 ========================= */
 
 function buildRandomButton(artItems) {
-  const gallery = document.querySelector(".gallery");
-  if (!gallery || !artItems.length) return;
+  const container = document.getElementById("random-container");
+  if (!container || !artItems.length) return;
 
   const button = document.createElement("button");
   button.className = "random-button";
-  button.textContent = "Random Artwork";
+  button.textContent = "Surprise Me";
 
   button.addEventListener("click", () => {
     const random = artItems[Math.floor(Math.random() * artItems.length)];
     window.location.href = `artwork.html?id=${random.id}`;
   });
 
-  gallery.appendChild(button);
+  container.appendChild(button);
 }
 
 /* =========================
@@ -326,9 +326,9 @@ function buildWritingGallery() {
   });
 }
 
-/* =========================
+/* ===============================
    WRITING PAGE (writings.html)
-========================= */
+================================== */
 
 function buildWritingPage() {
   if (!window.location.pathname.includes("writings.html")) return;
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("artwork.html")) {
     enhanceArtworkPage();
   }
-
+  buildRandomButton();
   buildWritingGallery();
   buildWritingPage();
   buildFooter();
