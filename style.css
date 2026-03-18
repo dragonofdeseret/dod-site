@@ -78,6 +78,14 @@ hyphens: auto;
   background: rgba(255,255,255,0.2);
 }
 
+h1, h2, h3, .writing-item h3 {
+  hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
+  line-height: 1.3;
+  max-width: 700px;
+}
+
 /* =====================================
 LAYOUT TUNING: FULL-WIDTH ART PAGES
 ===================================== */
@@ -427,6 +435,25 @@ width: 1px;
 
 background: rgba(255,255,255,0.12);
 
+}
+
+/* Shared left rail line */
+.gallery,
+#archive,
+#writing {
+  position: relative;
+}
+
+.gallery::before,
+#archive::before,
+#writing::before {
+  content: "";
+  position: absolute;
+  left: -40px; /* adjust to match art page */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.2);
 }
 
 /* =====================================
