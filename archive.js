@@ -27,6 +27,15 @@ description: "With an eye single to the glory of God"
  date: "2025-02-16",
  file: "pdf/AcidLullabies.pdf",
 },
+
+{ 
+ id: "HeavensLedger",
+ type: "writing",
+ title: "Heaven's Ledger: the Spiritual Topology of Mormonism",                         
+ year: 2024,
+ date: "2024-09-29",
+ file: "pdf/HeavensLedger.pdf",
+},
  
 {
 id: "2024-08-22",
