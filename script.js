@@ -347,7 +347,6 @@ window.addEventListener("beforeunload", () => {
   }
 });
 }
-},
 
   // NAVIGATION
   const prev = items[index - 1];
