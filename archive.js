@@ -16,7 +16,7 @@ description: "With an eye single to the glory of God"
  title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
  year: 2025,
  date: "2025-11-16",
- file: "pdf/NaturalistcBOM.pdf",
+ file: "pdf/NaturalisticBOM.pdf",
 },
    
 {
