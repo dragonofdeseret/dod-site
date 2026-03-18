@@ -18,15 +18,6 @@ description: "With an eye single to the glory of God"
  date: "2025-11-16",
  file: "pdf/NaturalisticBoM.pdf",
 },
-
-{
- id: "AIW",
- type: "writing",
- title: "All is Well | LSD Trip Report, May 11, 2019",
- year: 2025,
- date: "2025-04-02",
- file: "pdf/AIW.pdf",
-},
   
 {
  id: "AcidLullabies",
@@ -53,6 +44,15 @@ title: "June 25, 2024",
 year: 2024,
 date: "2024-06-25",
 image: "images/art/2024/2024-06-25.jpeg",
+},
+
+{
+ id: "THOOG&TEOOS",
+ type: "writing",
+ title: "The Harmony of Our Gods and the Ecology of Our Souls",
+ year: 2024,
+ date: "2024-05-11",
+ file: "pdf/THOOG&TEOOS.pdf",
 },
    
 {
@@ -179,6 +179,15 @@ title: "October 23, 2023",
 year: 2023,
 date: "2023-10-23",
 image: "images/art/2023/2023-10-23.jpeg",
+},
+
+{
+ id: "AIW", 
+ type: "writing",  
+ title: "All is Well | LSD Trip Report, May 11, 2019",
+ year: 2023,
+ date: "2023-09-24",
+ file: "pdf/AIW.pdf",
 },
  
 {
