@@ -308,6 +308,47 @@ function buildWritingPage() {
   document.getElementById("writing-description").textContent = item.description || "";
   document.getElementById("pdf-frame").src = item.file;
 
+frame.src = item.file;
+
+// fallback tracking
+if (window.plausible) {
+  plausible("PDF View", {
+    props: {
+      title: item.title,
+      id: item.id
+    }
+  });
+}
+
+// enhanced tracking
+frame.onload = () => {
+  if (window.plausible) {
+    plausible("PDF View Loaded", {
+      props: {
+        title: item.title,
+        id: item.id
+      }
+    });
+  }
+}
+
+let start = Date.now();
+
+window.addEventListener("beforeunload", () => {
+  const duration = Math.round((Date.now() - start) / 1000);
+
+  if (window.plausible) {
+    plausible("PDF Time", {
+      props: {
+        title: item.title,
+        seconds: duration
+      }
+    });
+  }
+});
+}
+},
+
   // NAVIGATION
   const prev = items[index - 1];
   const next = items[index + 1];
@@ -319,7 +360,19 @@ function buildWritingPage() {
     if (e.key === "ArrowRight" && next) {
       window.location.href = `writings.html?id=${next.id}`;
     }
-  });
+
+const downloadLink = document.getElementById("download-link");
+
+if (downloadLink) {
+  downloadLink.href = item.file;
+
+  downloadLink.addEventListener("click", () => {
+    if (window.plausible) {
+      plausible("PDF Download", {
+        props: { title: item.title }
+      });
+     }
+  }};
 }
 
 /* =========================
