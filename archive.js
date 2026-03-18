@@ -27,7 +27,16 @@ description: "With an eye single to the glory of God"
  date: "2025-04-02",
  file: "pdf/AIW.pdf",
 },
-   
+  
+{
+ id: "AcidLullabies",
+ type: "writing",
+ title: "Acid Lullabies | LSD Interactions with Chronic Pain & Insomnia, a Hypothesis",
+ year: 2025,
+ date: "2025-02-16",
+ file: "pdf/AcidLullabies.pdf",
+},
+ 
 {
 id: "2024-08-22",
 type: "art",
