@@ -1,6 +1,6 @@
-/* =====================================
+/* ==============
 GLOBAL
-===================================== */
+================= */
 
 html {
 scroll-behavior: smooth;
@@ -225,7 +225,7 @@ border-bottom: 1px solid rgba(255,255,255,0.08);
 
 .writing-meta {
 opacity: 0.6;
-font-size: 0.9rem;
+font-size: 0.6rem;
 
 }
 
@@ -239,7 +239,7 @@ font-size: 0.9rem;
 }
 
 .writing-format {
-font-size: 0.6rem;
+font-size: 0.4rem;
 opacity: 0.5;
 text-align: right;
 
