@@ -262,7 +262,7 @@ margin: 0 auto;
 }
 
 /* =====================================
-WRITING PAGE
+WRITING PAGE (writing.html)
 ===================================== */
 
 .writing-intro {
@@ -277,19 +277,45 @@ max-width: 700px;
 }
 
 .writing-entry {
-display: grid;
-grid-template-columns: 120px 1fr 60px;
-gap: 20px;
-padding: 10px 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  padding: 6px 0;
+}
 
-border-bottom: 1px solid rgba(255,255,255,0.08);
+.writing-entry::before {
+  content: "";
+  position: absolute;
+  left: -44px;
+  top: 50%;
+  transform: translateY(-50%);
 
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.6);
+}
+
+.writing-entry:hover .writing-title a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .writing-meta {
-opacity: 0.6;
-font-size: 0.6rem;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-right: 20px;
 
+}
+
+.writing-title {
+  flex: 1;
+  margin-right: 20px;
 }
 
 .writing-title a {
@@ -856,16 +882,11 @@ WRITING LINKS
 }
 
 .writing-year {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .writing-year h2 {
   margin-bottom: 15px;
-}
-
-.writing-item {
-  display: block;
-  margin-bottom: 20px;
 }
 
 .writing-actions {
