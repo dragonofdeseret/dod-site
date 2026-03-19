@@ -709,9 +709,17 @@ ARCHIVE
   gap: 15px;
 
 }
-
 .archive-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.05rem;   
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  padding: 10px 0;
   text-decoration: none;
+  color: inherit;
+  padding: 6px 0;
 }
 
 .archive-row:hover .archive-title {
@@ -727,9 +735,9 @@ ARCHIVE
 .archive-row img {
   width: 60px;
   height: 60px;
+ object-fit: cover;
 
-object-fit: cover;
-margin-left: 40px;
+ margin-left: auto;
 
 }
 
