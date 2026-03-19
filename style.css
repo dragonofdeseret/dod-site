@@ -28,6 +28,14 @@ font-weight:bold;
 text-decoration:underline;
 }
 
+.page-intro {
+  opacity: 0.7;
+  margin-top: 10px;
+  margin-bottom: 25px; /* tighter than before */
+  font-size: 16px;
+  max-width: 600px;
+}
+
 /* =====================================
 MAIN LAYOUT
 ===================================== */
@@ -159,6 +167,10 @@ width: 100%;
 /* =====================================
 TYPOGRAPHY
 ===================================== */
+
+main h1 {
+  margin-bottom: 10px;
+}
 
 h2 {
 font-weight: 400;
@@ -370,7 +382,7 @@ ART GALLERY
 
 .gallery {
 display: block;
-margin-top: 40px;
+margin-top: 25px;
 position: relative;
 }
 
@@ -681,46 +693,50 @@ margin: 0 4px;
 opacity: 1;
 }
 
-/* =====================================
+/* ========
 ARCHIVE
-===================================== */
+============ */
 
 .archive-year {
-margin-bottom: 60px;
+  margin-bottom: 60px;
 }
 
 .archive-list {
-display: flex;
-flex-direction: column;
-gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
 }
 
 .archive-row {
-display: flex;
-align-items: center;
-justify-content: space-between;
-text-decoration: none;
-color: inherit;
-padding: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.05rem;   
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  padding: 10px 0;
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 0;
 
 }
 
 .archive-row:hover {
-opacity: 0.7;
+  opacity: 0.7;
 }
 
 .archive-title {
-flex: 1;
+  flex: 1;
+  font-weight: 500;
 }
 
 .archive-row img {
-
-width: 60px;
-height: 60px;
+  width: 60px;
+  height: 60px;
 
 object-fit: cover;
-margin-left: 20px;
+margin-left: 30px;
 
 }
 
@@ -809,6 +825,29 @@ opacity: 0.7;
   margin-bottom: 20px;
 }
 
+.writing-actions {
+  display: flex;
+  gap: 40px;
+  margin-top: 25px;
+}
+
+.writing-actions a {
+  text-decoration: none;
+  opacity: 0.7;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.writing-actions a:hover {
+  opacity: 1;
+}
+
+#writing-description {
+  opacity: 0.6;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
 /* =====================================
 GUESTBOOK
 ===================================== */
@@ -839,6 +878,30 @@ font-style: italic;
 opacity: 0.6;
 text-align: center;
 
+}
+
+/* ===========
+NOW PAGE
+=========== */
+
+.now-section {
+  margin-bottom: 35px;
+}
+
+.now-section h3 {
+  font-weight: normal;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+.now-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.now-section li {
+  margin-bottom: 6px;
+  opacity: 0.75;
 }
 
 /* =====================================
