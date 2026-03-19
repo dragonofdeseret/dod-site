@@ -10,7 +10,7 @@ body {
 background-color: #0b0b0b;
 background-image: url("images/ui/texture.png");
 
-color: rgba(255,255,255,0.9);
+color: white;
 
 font-family: Baskerville, "Libre Baskerville", "Times New Roman", serif;
 
@@ -201,8 +201,6 @@ margin: 12px 0;
   color: inherit;  
   padding: 6px 0;
   position: relative;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
 }
 
 .archive-row::before {
@@ -216,33 +214,16 @@ margin: 12px 0;
   height: 6px;
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.7);
-
-  box-shadow: 0 0 6px rgba(255,255,255,0.15);
-
-   background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.25),
-    rgba(255,255,255,0.05)}
-  
-.archive-row:hover::before {
-  background: white;
-  transform: translateY(-50%) scale(1.2);
+  background: rgba(255,255,255,0.6);
 }
-
-.archive-row:hover {
-  opacity: 1;
-
+  
 .archive-row:hover .archive-title {
   text-decoration: underline;
   text-underline-offset: 4px;
-  
 }
  
 .archive-title {
   flex: 1; 
-  font-size: 1.05rem;
-  letter-spacing: 0.2px;
   font-weight: 500;
   margin-right: 20px;
 }
@@ -250,18 +231,11 @@ margin: 12px 0;
 .archive-row img {
   width: 60px;
   height: 60px;
-  object-fit: cover;
-  opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+ object-fit: cover;
 
  margin-left: auto;
 
 } 
-
-.archive-row:hover img {
-  opacity: 1;
-  transform: scale(1.03);
-}
 
 
 /* ===========================
@@ -585,43 +559,11 @@ background: rgba(255,255,255,0.12);
 #writing::before {
   content: "";
   position: absolute;
-  left: -44px;
-  top: 8px;
-  bottom: 0;
-
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.7);
-
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.25),
-    rgba(255,255,255,0.05)
-}
-
-#archive,
-#writing {
-  position: relative;
-}
-
-#archive::after,
-#writing::after {
-  content: "";
-  position: absolute;
-  left: -60px;
+  left: -40px; /* adjust to match art page */
   top: 0;
   bottom: 0;
-  width: 120px;
-
-  background: radial-gradient(
-    circle at left,
-    rgba(255,255,255,0.03),
-    transparent 70%
-  );
-
-  pointer-events: none;
+  width: 1px;
+  background: rgba(255,255,255,0.15);
 }
 
 /* =====================================
@@ -918,15 +860,12 @@ WRITING LINKS
 }
 
 .writing-year h2 {
-  margin-top: 50px;
   margin-bottom: 15px;
 }
 
 .writing-item {
   display: block;
-  margin-bottom: 25px;
-  position: relative;
-  padding-left: 0;
+  margin-bottom: 20px;
 }
 
 .writing-actions {
