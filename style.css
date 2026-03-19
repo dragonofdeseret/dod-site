@@ -500,7 +500,7 @@ background: rgba(255,255,255,0.12);
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
 }
 
 /* =====================================
@@ -706,7 +706,7 @@ ARCHIVE
 .archive-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 
 }
 .archive-row {
@@ -720,6 +720,21 @@ ARCHIVE
   text-decoration: none;
   color: inherit;
   padding: 6px 0;
+  position: relative;
+}
+
+.archive-row::before {
+  content: "";
+  position: absolute;
+  left: -44px; /* aligns with your vertical line */
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.6);
 }
 
 .archive-row:hover .archive-title {
@@ -730,6 +745,7 @@ ARCHIVE
 .archive-title {
   flex: 1;
   font-weight: 500;
+  margin-right: 20px;
 }
 
 .archive-row img {
