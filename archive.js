@@ -789,7 +789,7 @@ image: "images/art/2022/2022-01-30.jpeg",
  id: "ForestofLee",
  type: "writing",
  title: "The Trembling Forest of Lee",
- subtitle: "Journey, Perspective, and the Context of Our Condition"
+ subtitle: "Journey, Perspective, and the Context of Our Condition",
  year: 2021,
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
