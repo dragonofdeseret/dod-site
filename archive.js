@@ -56,6 +56,15 @@ image: "images/art/2024/2024-06-25.jpeg",
 },
 
 {
+ id: "AIPR",
+ type: "writing",
+ title: "The Perpetual PreRealization of Artificial Intelligence",
+ year: 2024,
+ date: "2024-06-24",
+ file: "pdf/AIPR.pdf",
+},
+
+{
  id: "THOOGTEOOS",
  type: "writing",
  title: "The Harmony of Our Gods and the Ecology of Our Souls",
