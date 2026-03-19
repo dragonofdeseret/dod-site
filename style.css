@@ -36,6 +36,10 @@ text-decoration:underline;
   max-width: 600px;
 }
 
+a {
+  transition: all 0.2s ease;
+}
+
 /* =====================================
 MAIN LAYOUT
 ===================================== */
@@ -151,7 +155,7 @@ font-weight: 600;
 content: "";
 position: absolute;
 left: 0;
-bottom: -3px;
+bottom: -4px;
 width: 0;
 height: 1px;
 
@@ -199,7 +203,7 @@ WRITING PAGE
 ===================================== */
 
 .writing-intro {
-margin-bottom: 40px;
+margin-bottom: 25px;
 opacity: 0.7;
 
 }
@@ -226,18 +230,16 @@ font-size: 0.9rem;
 }
 
 .writing-title a {
-text-decoration: none;
-font-size: 1.05rem;
-
+  text-decoration: none;
 }
 
 .writing-title a:hover {
-text-decoration: underline;
-
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .writing-format {
-font-size: 0.8rem;
+font-size: 0.6rem;
 opacity: 0.5;
 text-align: right;
 
@@ -709,21 +711,12 @@ ARCHIVE
 }
 
 .archive-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.05rem;   
-  letter-spacing: 0.2px;
-  line-height: 1.5;
-  padding: 10px 0;
   text-decoration: none;
-  color: inherit;
-  padding: 6px 0;
-
 }
 
-.archive-row:hover {
-  opacity: 0.7;
+.archive-row:hover .archive-title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .archive-title {
@@ -739,6 +732,7 @@ object-fit: cover;
 margin-left: 30px;
 
 }
+
 
 /* =====================================
 HOMEPAGE
@@ -802,14 +796,39 @@ background: #ddd;
 WRITING LINKS
 ===================================== */
 
+/* BASE LINK STYLE */
 .content a {
-color: #e5e5e5;
-text-decoration: underline;
-
+  color: #e5e5e5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
 
 .content a:hover {
-opacity: 0.7;
+  opacity: 0.7;
+}
+
+/* NAV / LIST LINKS */
+.nav-link {
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ACTION LINKS */
+.writing-actions a {
+  text-decoration: none;
+  opacity: 0.65;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease;
+}
+
+.writing-actions a:hover {
+  opacity: 1;
 }
 
 .writing-year {
@@ -827,8 +846,10 @@ opacity: 0.7;
 
 .writing-actions {
   display: flex;
-  gap: 40px;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 25px;
+  max-width: 500px;
 }
 
 .writing-actions a {
