@@ -23,7 +23,7 @@ text-rendering: optimizeLegibility;
 margin: 0;
 }
 
-.site-nav a.active{
+.site-nav a.active {
 font-weight:bold;
 text-decoration:underline;
 }
@@ -98,29 +98,6 @@ h1, h2, h3, .writing-item h3 {
   max-width: 700px;
 }
 
-/* ===========================
- FULL-WIDTH ART PAGES
-============================== */
-
-.content:has(.gallery),
-.content:has(#archive) {
-max-width: none;
-width: 100%;
-}
-
-/* ensure gallery expands */
-
-.gallery {
-width: 100%;
-max-width: 1400px;
-}
-
-/* center wide gallery */
-
-.content:has(.gallery) {
-margin: 0 auto;
-}
-
 /* =====================================
 SIDEBAR
 ===================================== */
@@ -185,9 +162,9 @@ p {
 max-width: 700px;
 }
 
-/* =====================================
-LISTS
-===================================== */
+// ---------------
+      LISTS
+----------------- //
 
 .list {
 list-style: none;
@@ -196,6 +173,92 @@ padding: 0;
 
 .list li {
 margin: 12px 0;
+}
+
+//--------------- 
+    ARCHIVE
+---------------- //
+ 
+.archive-year {
+  margin-bottom: 60px;
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+}
+.archive-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  padding: 10px 0;    
+  text-decoration: none;
+  color: inherit;  
+  padding: 6px 0;
+  position: relative;
+}
+
+.archive-row::before {
+  content: "";
+  position: absolute;
+  left: -44px; /* aligns with your vertical line */
+  top: 50%;
+  transform: translateY(-50%);
+ 
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.6);
+}
+  
+.archive-row:hover .archive-title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+ 
+.archive-title {
+  flex: 1; 
+  font-weight: 500;
+  margin-right: 20px;
+}
+  
+.archive-row img {
+  width: 60px;
+  height: 60px;
+ object-fit: cover;
+
+ margin-left: auto;
+
+} 
+
+
+/* ===========================
+ FULL-WIDTH ART PAGES
+============================== */
+
+.content:has(.gallery),
+.content:has(#archive) {
+max-width: none;
+width: 100%;
+}
+ 
+/* ensure gallery expands */
+
+.gallery { 
+width: 100%;
+max-width: 1400px;
+}
+
+/* center wide gallery */
+
+.content:has(.gallery) {
+margin: 0 auto;
 }
 
 /* =====================================
@@ -246,7 +309,7 @@ text-align: right;
 }
 
 /* =====================================
-ESSAY PAGE
+PDF VIEWER PAGE (writings.html)
 ===================================== */
 
 .essay-header {
@@ -694,69 +757,6 @@ margin: 0 4px;
 .year-nav a:hover {
 opacity: 1;
 }
-
-/* ========
-ARCHIVE
-============ */
-
-.archive-year {
-  margin-bottom: 60px;
-}
-
-.archive-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-}
-.archive-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.05rem;   
-  letter-spacing: 0.2px;
-  line-height: 1.5;
-  padding: 10px 0;
-  text-decoration: none;
-  color: inherit;
-  padding: 6px 0;
-  position: relative;
-}
-
-.archive-row::before {
-  content: "";
-  position: absolute;
-  left: -44px; /* aligns with your vertical line */
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.6);
-}
-
-.archive-row:hover .archive-title {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.archive-title {
-  flex: 1;
-  font-weight: 500;
-  margin-right: 20px;
-}
-
-.archive-row img {
-  width: 60px;
-  height: 60px;
- object-fit: cover;
-
- margin-left: auto;
-
-}
-
 
 /* =====================================
 HOMEPAGE
