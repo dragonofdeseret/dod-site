@@ -821,7 +821,7 @@ const isWritingPage =
   document.title.toLowerCase().includes("writing");
 
 // choose dataset
-const data = isWritingPage ? writingData : archiveData;
+const data = isWritingPage ? writingData : archive;
 
 // ===== GROUP BY YEAR =====
 
