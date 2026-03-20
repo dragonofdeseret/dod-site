@@ -244,39 +244,39 @@ margin: 12px 0;
 
 .content:has(.gallery),
 .content:has(#archive) {
-max-width: none;
-width: 100%;
+  max-width: none;
+  width: 100%;
 }
  
 /* ensure gallery expands */
 
 .gallery { 
-width: 100%;
-max-width: 1400px;
+  width: 100%;
+  max-width: 1400px;
 }
 
 /* center wide gallery */
 
 .content:has(.gallery) {
-margin: 0 auto;
+  margin: 0 auto;
 }
 
 /* =====================================
 WRITING PAGE (writing.html)
 ===================================== */
 
-.writing-intro {
-margin-bottom: 25px;
-opacity: 0.7;
+.archive-intro {
+  margin-bottom: 25px;
+  opacity: 0.7;
 
 }
 
-.writing-list {
+.archive-list {
 max-width: 700px;
 
 }
 
-.writing-entry {
+.archive-entry {
   display: flex;
   align-items: center;
   position: relative;
@@ -287,7 +287,7 @@ max-width: 700px;
   padding: 6px 0;
 }
 
-.writing-entry::before {
+.archive-entry::before {
   content: "";
   position: absolute;
   left: -44px;
@@ -301,24 +301,24 @@ max-width: 700px;
   background: rgba(255,255,255,0.6);
 }
 
-.writing-entry:hover .writing-title a {
+.archive-entry:hover .archive-title a {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-.writing-meta {
+.archive-meta {
   opacity: 0.6;
   font-size: 0.9rem;
   margin-right: 20px;
 
 }
 
-.writing-title {
+.archive-title {
   flex: 1;
   margin-right: 20px;
 }
 
-.writing-title a {
+.archive-title a {
   text-decoration: none;
 }
 
@@ -327,10 +327,10 @@ max-width: 700px;
   text-underline-offset: 4px;
 }
 
-.writing-format {
-font-size: 0.4rem;
-opacity: 0.5;
-text-align: right;
+.archive-format {
+  font-size: 0.4rem;
+  opacity: 0.5;
+  text-align: right;
 
 }
 
@@ -870,26 +870,26 @@ WRITING LINKS
 }
 
 /* ACTION LINKS */
-.writing-actions a {
+.archive-actions a {
   text-decoration: none;
   opacity: 0.65;
   font-size: 0.95rem;
   transition: opacity 0.2s ease;
 }
 
-.writing-actions a:hover {
+.archive-actions a:hover {
   opacity: 1;
 }
 
-.writing-year {
+.archive-year {
   margin-bottom: 60px;
 }
 
-.writing-year h2 {
+.archive-year h2 {
   margin-bottom: 15px;
 }
 
-.writing-actions {
+.archive-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -904,11 +904,11 @@ WRITING LINKS
   transition: opacity 0.2s ease;
 }
 
-.writing-actions a:hover {
+.archive-actions a:hover {
   opacity: 1;
 }
 
-#writing-description {
+#archive-description {
   opacity: 0.6;
   margin-top: 5px;
   margin-bottom: 20px;
