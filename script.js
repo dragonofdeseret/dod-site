@@ -120,11 +120,15 @@ function buildGallery() {
 
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container) return;
+  if (!container || typeof archive === "undefined") return;
 
   const yearNav = document.getElementById("year-nav");
+  const isWritingPage = window.location.pathname.includes("writing.html");
+  const items = isWritingPage
+    ? archive.filter(item => item.type === "writing")
+    : archive;
 
-  const grouped = groupByYear(archive);
+  const grouped = groupByYear(items);
 
   container.innerHTML = "";
   if (yearNav) yearNav.innerHTML = "";
@@ -156,20 +160,19 @@ function buildArchive() {
       const title = document.createElement("div");
       title.className = "archive-title";
       title.textContent = item.title;
-
       row.appendChild(title);
 
-      // PDF tag
       if (item.type === "writing") {
-        const tag = document.createElement("span");
-        tag.textContent = "PDF";
-        tag.className = "archive-tag";
-        row.appendChild(tag);
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = "PDF";
+        row.appendChild(meta);
       }
 
-      if (item.image) {
+      if (item.type === "art" && item.image) {
         const img = document.createElement("img");
         img.src = item.image;
+        img.alt = item.title || "";
         row.appendChild(img);
       }
 
@@ -272,56 +275,6 @@ function enhanceArtworkPage() {
     if (e.key === "Escape") {
       const viewer = document.querySelector(".image-viewer");
       if (viewer) viewer.remove();
-    }
-  });
-}
-
-/* ================================
-   WRITING GALLERY (writing.html)
-==================================== */
-
-function buildWritingGallery() {
-  const container = document.getElementById("writing");
-  const yearNav = document.getElementById("year-nav");
-
-  if (!container) return;
-
-  const items = archive.filter(x => x.type === "writing");
-  const grouped = groupByYear(items);
-
-  container.innerHTML = "";
-  if (yearNav) yearNav.innerHTML = "";
-
-  grouped.forEach(group => {
-    const section = document.createElement("div");
-    section.className = "writing-year";
-    section.id = `year-${group.year}`;
-
-    const header = document.createElement("h2");
-    header.textContent = group.year;
-    section.appendChild(header);
-
-    group.items.forEach(item => {
-      const link = document.createElement("a");
-      link.href = `writings.html?id=${item.id}`;
-      link.className = "writing-item";
-
-      link.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>${item.description || ""}</p>
-      `;
-
-      section.appendChild(link);
-    });
-
-    container.appendChild(section);
-
-    // YEAR NAV
-    if (yearNav) {
-      const navLink = document.createElement("a");
-      navLink.href = `#year-${group.year}`;
-      navLink.textContent = group.year;
-      yearNav.appendChild(navLink);
     }
   });
 }
@@ -437,8 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("artwork.html")) {
     enhanceArtworkPage();
   }
-  buildRandomButton();
-  buildWritingGallery();
+
   buildWritingPage();
   buildFooter();
 });
+

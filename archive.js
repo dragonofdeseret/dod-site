@@ -1,7 +1,7 @@
 // ===== DATA =====
 
 // archive items (art, etc.)
-const archiveData = [
+const archive = [
   
 {
 id: "2025-08-28",
