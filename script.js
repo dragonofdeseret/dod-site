@@ -114,6 +114,8 @@ function buildGallery() {
   buildRandomButton(artItems);
 }
 
+
+And then maybe eI make the adjustment here. To make the writing page a build like this
 /* =========================
    ARCHIVE (archive.html)
 ========================= */

@@ -1,4 +1,7 @@
-const archive = [
+// ===== DATA =====
+
+// archive items (art, etc.)
+const archiveData = [
   
 {
 id: "2025-08-28",
@@ -8,33 +11,6 @@ year: 2025,
 date: "2025-08-28",
 image: "images/art/2025/2025-08-28.jpeg",
 description: "With an eye single to the glory of God"
-},
-
-{
- id: "NaturalisticBoM",
- type: "writing",
- title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
- year: 2025,
- date: "2025-11-16",
- file: "pdf/NaturalisticBoM.pdf",
-},
-  
-{
- id: "AcidLullabies",
- type: "writing",
- title: "Acid Lullabies | LSD Interactions with Chronic Pain & Insomnia, a Hypothesis",
- year: 2025,
- date: "2025-02-16",
- file: "pdf/AcidLullabies.pdf",
-},
-
-{ 
- id: "HeavensLedger",
- type: "writing",
- title: "Heaven's Ledger: the Spiritual Topology of Mormonism",                         
- year: 2024,
- date: "2024-09-29",
- file: "pdf/HeavensLedger.pdf",
 },
  
 {
@@ -53,24 +29,6 @@ title: "June 25, 2024",
 year: 2024,
 date: "2024-06-25",
 image: "images/art/2024/2024-06-25.jpeg",
-},
-
-{
- id: "AIPR",
- type: "writing",
- title: "The Perpetual PreRealization of Artificial Intelligence",
- year: 2024,
- date: "2024-06-24",
- file: "pdf/AIPR.pdf",
-},
-
-{
- id: "THOOGTEOOS",
- type: "writing",
- title: "The Harmony of Our Gods and the Ecology of Our Souls",
- year: 2024,
- date: "2024-05-11",
- file: "pdf/THOOGTEOOS.pdf",
 },
    
 {
@@ -197,15 +155,6 @@ title: "October 23, 2023",
 year: 2023,
 date: "2023-10-23",
 image: "images/art/2023/2023-10-23.jpeg",
-},
-
-{
- id: "AIW", 
- type: "writing",  
- title: "All is Well | LSD Trip Report, May 11, 2019",
- year: 2023,
- date: "2023-09-24",
- file: "pdf/AIW.pdf",
 },
  
 {
@@ -792,6 +741,65 @@ title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
+}
+
+];
+
+// writing items
+const writingData = [
+{
+
+ id: "NaturalisticBoM",
+ type: "writing",
+ title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
+ year: 2025,
+ date: "2025-11-16",
+ file: "pdf/NaturalisticBoM.pdf",
+},
+
+{
+ id: "AcidLullabies",
+ type: "writing",
+ title: "Acid Lullabies | LSD Interactions with Chronic Pain & Insomnia, a Hypothesis",
+ year: 2025,
+ date: "2025-02-16",
+ file: "pdf/AcidLullabies.pdf",
+},
+
+{
+ id: "HeavensLedger",
+ type: "writing",
+ title: "Heaven's Ledger: the Spiritual Topology of Mormonism",
+ year: 2024,
+ date: "2024-09-29",
+ file: "pdf/HeavensLedger.pdf", 
+},
+
+{
+ id: "AIPR",
+ type: "writing",
+ title: "The Perpetual PreRealization of Artificial Intelligence",
+ year: 2024,
+ date: "2024-06-24",
+ file: "pdf/AIPR.pdf",
+},
+
+{
+ id: "THOOGTEOOS",
+ type: "writing",
+ title: "The Harmony of Our Gods and the Ecology of Our Souls",
+ year: 2024,
+ date: "2024-05-11",
+ file: "pdf/THOOGTEOOS.pdf",
+},
+
+{ 
+ id: "AIW",
+ type: "writing",
+ title: "All is Well | LSD Trip Report, May 11, 2019",
+ year: 2023,
+ date: "2023-09-24",
+ file: "pdf/AIW.pdf",
 },
 
 {
@@ -802,6 +810,88 @@ image: "images/art/2022/2022-01-30.jpeg",
  year: 2021,
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
-}
+} 
 
 ];
+
+
+// ===== DETECT PAGE =====
+
+const isWritingPage =
+  document.title.toLowerCase().includes("writing");
+
+// choose dataset
+const data = isWritingPage ? writingData : archiveData;
+
+// ===== GROUP BY YEAR =====
+
+const grouped = {};
+
+data.forEach(item => {
+  if (!grouped[item.year]) {
+    grouped[item.year] = [];
+  }
+  grouped[item.year].push(item);
+});
+
+// sort years DESC
+const years = Object.keys(grouped).sort((a, b) => b - a);
+
+// ===== RENDER =====
+
+const container = document.getElementById("archive");
+const yearNav = document.getElementById("year-nav");
+
+years.forEach(year => {
+
+  // year nav link
+  const navLink = document.createElement("a");
+  navLink.href = `#year-${year}`;
+  navLink.textContent = year;
+  yearNav.appendChild(navLink);
+
+  // year section
+  const yearBlock = document.createElement("div");
+  yearBlock.className = "archive-year";
+  yearBlock.id = `year-${year}`;
+
+  const yearTitle = document.createElement("h2");
+  yearTitle.textContent = year;
+
+  const list = document.createElement("div");
+  list.className = "archive-list";
+
+  grouped[year].forEach(item => {
+    const row = document.createElement("a");
+    row.href = item.link;
+    row.className = "archive-row";
+
+    // title
+    const title = document.createElement("div");
+    title.className = "archive-title";
+    title.textContent = item.title;
+
+    row.appendChild(title);
+
+    // OPTIONAL: meta (only for writing)
+    if (item.meta) {
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.meta;
+      row.appendChild(meta);
+    }
+
+    // OPTIONAL: image (only for archive/art)
+    if (item.image) {
+      const img = document.createElement("img");
+      img.src = item.image;
+      row.appendChild(img);
+    }
+
+    list.appendChild(row);
+  });
+
+  yearBlock.appendChild(yearTitle);
+  yearBlock.appendChild(list);
+  container.appendChild(yearBlock);
+});
