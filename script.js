@@ -46,9 +46,8 @@ function groupByCollection(items) {
 ========================= */
 
 function buildGallery() {
-  if (!gallery || typeof archive === "undefined") return;
   const gallery = document.querySelector(".gallery");
-  if (!gallery) return;
+  if (!gallery || typeof archive === "undefined") return;
 
   const yearNav = document.querySelector(".year-nav");
 
