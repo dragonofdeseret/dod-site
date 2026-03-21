@@ -46,7 +46,8 @@ function groupByCollection(items) {
 ========================= */
 
 function buildGallery() {
-  const gallery = document.querySelector("section.gallery");
+  if (!gallery || typeof archive === "undefined") return;
+  const gallery = document.querySelector(".gallery");
   if (!gallery) return;
 
   const yearNav = document.querySelector(".year-nav");
@@ -124,28 +125,43 @@ function buildArchive() {
 
   const yearNav = document.querySelector(".year-nav");
   const isWritingPage = window.location.pathname.includes("writing.html");
+
   const items = isWritingPage
     ? archive.filter(item => item.type === "writing")
     : archive;
 
-  const grouped = groupByYear(items);
+  const grouped = {};
+
+  items.forEach(item => {
+    const year = item.year || new Date(item.date).getFullYear();
+    if (!grouped[year]) grouped[year] = [];
+    grouped[year].push(item);
+  });
+
+  const years = Object.keys(grouped).sort((a, b) => b - a);
 
   container.innerHTML = "";
   if (yearNav) yearNav.innerHTML = "";
 
-  grouped.forEach(group => {
-    const section = document.createElement("div");
-    section.className = "archive-year";
-    section.id = `year-${group.year}`;
+  years.forEach(year => {
+    if (yearNav) {
+      const navLink = document.createElement("a");
+      navLink.href = `#year-${year}`;
+      navLink.textContent = year;
+      yearNav.appendChild(navLink);
+    }
 
-    const header = document.createElement("h2");
-    header.textContent = group.year;
-    section.appendChild(header);
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+    yearBlock.id = `year-${year}`;
+
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = year;
 
     const list = document.createElement("div");
     list.className = "archive-list";
 
-    group.items.forEach(item => {
+    grouped[year].forEach(item => {
       const row = document.createElement("a");
       row.className = "archive-row";
 
@@ -154,7 +170,7 @@ function buildArchive() {
       } else if (item.type === "writing") {
         row.href = `writings.html?id=${item.id}`;
       } else {
-        row.href = "#";
+        row.href = item.link || "#";
       }
 
       const title = document.createElement("div");
@@ -165,7 +181,7 @@ function buildArchive() {
       if (item.type === "writing") {
         const meta = document.createElement("div");
         meta.className = "archive-meta";
-        meta.textContent = "PDF";
+        meta.textContent = item.meta || "PDF";
         row.appendChild(meta);
       }
 
@@ -179,15 +195,9 @@ function buildArchive() {
       list.appendChild(row);
     });
 
-    section.appendChild(list);
-    container.appendChild(section);
-
-    if (yearNav) {
-      const navLink = document.createElement("a");
-      navLink.href = `#year-${group.year}`;
-      navLink.textContent = group.year;
-      yearNav.appendChild(navLink);
-    }
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
   });
 }
 
