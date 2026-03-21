@@ -840,17 +840,16 @@ const years = Object.keys(grouped).sort((a, b) => b - a);
 // ===== RENDER =====
 
 const container = document.getElementById("archive");
-const yearNav = document.getElementById("year-nav");
+const yearNav = document.querySelector(".year-nav");
 
 years.forEach(year => {
+  if (yearNav) {
+    const navLink = document.createElement("a");
+    navLink.href = `#year-${year}`;
+    navLink.textContent = year;
+    yearNav.appendChild(navLink);
+  }
 
-  // year nav link
-  const navLink = document.createElement("a");
-  navLink.href = `#year-${year}`;
-  navLink.textContent = year;
-  yearNav.appendChild(navLink);
-
-  // year section
   const yearBlock = document.createElement("div");
   yearBlock.className = "archive-year";
   yearBlock.id = `year-${year}`;
@@ -865,29 +864,6 @@ years.forEach(year => {
     const row = document.createElement("a");
     row.href = item.link;
     row.className = "archive-row";
-
-    // title
-    const title = document.createElement("div");
-    title.className = "archive-title";
-    title.textContent = item.title;
-
-    row.appendChild(title);
-
-    // OPTIONAL: meta (only for writing)
-    if (item.meta) {
-      const meta = document.createElement("div");
-      meta.className = "archive-meta";
-      meta.textContent = item.meta;
-      row.appendChild(meta);
-    }
-
-    // OPTIONAL: image (only for archive/art)
-    if (item.image) {
-      const img = document.createElement("img");
-      img.src = item.image;
-      row.appendChild(img);
-    }
-
     list.appendChild(row);
   });
 
