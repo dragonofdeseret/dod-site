@@ -122,7 +122,7 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
-  const yearNav = document.getElementById("year-nav");
+  const yearNav = document.querySelector(".year-nav");
   const isWritingPage = window.location.pathname.includes("writing.html");
   const items = isWritingPage
     ? archive.filter(item => item.type === "writing")
@@ -191,6 +191,7 @@ function buildArchive() {
   });
 }
 
+<!--
 /* =========================
    RANDOM BUTTON
 ========================= */
@@ -210,6 +211,7 @@ function buildRandomButton(artItems) {
 
   container.appendChild(button);
 }
+-->
 
 /* =========================
    LIGHTBOX
@@ -279,6 +281,7 @@ function enhanceArtworkPage() {
   });
 }
 
+<!--
 /* ===============================
    WRITING PAGE (writings.html)
 ================================== */
@@ -357,6 +360,65 @@ function buildWritingPage() {
     }
   });
 }
+-->
+
+// ===== DETECT PAGE =====
+
+const isWritingPage =
+  document.title.toLowerCase().includes("writing");
+
+// choose dataset
+const data = isWritingPage ? writingData : archive;
+
+// ===== GROUP BY YEAR =====
+
+const grouped = {};
+
+data.forEach(item => {
+  if (!grouped[item.year]) {
+    grouped[item.year] = [];
+  }
+  grouped[item.year].push(item);
+});
+
+// sort years DESC
+const years = Object.keys(grouped).sort((a, b) => b - a);
+
+// ===== RENDER =====
+
+const container = document.getElementById("archive");
+const yearNav = document.querySelector(".year-nav");
+
+years.forEach(year => {
+  if (yearNav) {
+    const navLink = document.createElement("a");
+    navLink.href = `#year-${year}`;
+    navLink.textContent = year;
+    yearNav.appendChild(navLink);
+  }
+
+  const yearBlock = document.createElement("div");
+  yearBlock.className = "archive-year";
+  yearBlock.id = `year-${year}`;
+
+  const yearTitle = document.createElement("h2");
+  yearTitle.textContent = year;
+
+  const list = document.createElement("div");
+  list.className = "archive-list";
+
+  grouped[year].forEach(item => {
+    const row = document.createElement("a");
+    row.href = item.link;
+    row.className = "archive-row";
+    list.appendChild(row);
+  });
+
+  yearBlock.appendChild(yearTitle);
+  yearBlock.appendChild(list);
+  container.appendChild(yearBlock);
+});
+
 
 /* =========================
    FOOTER
@@ -394,4 +456,5 @@ document.addEventListener("DOMContentLoaded", () => {
   buildWritingPage();
   buildFooter();
 });
+
 
