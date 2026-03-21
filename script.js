@@ -191,7 +191,6 @@ function buildArchive() {
   });
 }
 
-<!--
 /* =========================
    RANDOM BUTTON
 ========================= */
@@ -211,7 +210,6 @@ function buildRandomButton(artItems) {
 
   container.appendChild(button);
 }
--->
 
 /* =========================
    LIGHTBOX
@@ -281,7 +279,6 @@ function enhanceArtworkPage() {
   });
 }
 
-<!--
 /* ===============================
    WRITING PAGE (writings.html)
 ================================== */
@@ -360,7 +357,6 @@ function buildWritingPage() {
     }
   });
 }
--->
 
 // ===== DETECT PAGE =====
 
