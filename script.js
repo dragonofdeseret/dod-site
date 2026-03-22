@@ -1,4 +1,4 @@
-/* =========================
+/* ======================
    DATA SAFETY
 ========================= */
 
@@ -6,9 +6,9 @@ if (typeof archive === "undefined") {
   console.error("archive.js not loaded or has syntax errors");
 }
 
-/* =========================
+/* ==================
    HELPERS
-========================= */
+===================== */
 
 function groupByYear(items) {
   const years = {};
@@ -42,81 +42,8 @@ function groupByCollection(items) {
 }
 
 /* =========================
-   GALLERY (art.html)
-========================= */
-
-function buildGallery() {
-  const gallery = document.querySelector(".gallery");
-  if (!gallery || typeof archive === "undefined") return;
-
-  const yearNav = document.querySelector(".year-nav");
-
-  const artItems = archive.filter(item => item.type === "art");
-  const groupedYears = groupByYear(artItems);
-
-  gallery.innerHTML = "";
-  if (yearNav) yearNav.innerHTML = "";
-
-  groupedYears.forEach(group => {
-    const section = document.createElement("div");
-    section.className = "gallery-year";
-    section.id = `year-${group.year}`;
-
-    const header = document.createElement("h2");
-    header.textContent = group.year;
-    section.appendChild(header);
-
-    const collections = groupByCollection(group.items);
-
-    Object.keys(collections).forEach(name => {
-      const items = collections[name];
-
-      if (name !== "__default") {
-        const title = document.createElement("h3");
-        title.textContent = name;
-        title.className = "collection-title";
-        section.appendChild(title);
-      }
-
-      const grid = document.createElement("div");
-      grid.className = "gallery-grid";
-
-      items.forEach(item => {
-        const link = document.createElement("a");
-        link.href = `artwork.html?id=${item.id}`;
-
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title || "";
-
-        img.addEventListener("click", e => {
-          e.preventDefault();
-          openLightbox(item.image);
-        });
-
-        link.appendChild(img);
-        grid.appendChild(link);
-      });
-
-      section.appendChild(grid);
-    });
-
-    gallery.appendChild(section);
-
-    if (yearNav) {
-      const navLink = document.createElement("a");
-      navLink.href = `#year-${group.year}`;
-      navLink.textContent = group.year;
-      yearNav.appendChild(navLink);
-    }
-  });
-
-  buildRandomButton(artItems);
-}
-
-/* =========================
    ARCHIVE (archive.html)
-========================= */
+============================ */
 
 function buildArchive() {
   const container = document.getElementById("archive");
@@ -200,47 +127,82 @@ function buildArchive() {
   });
 }
 
-/* =========================
-   RANDOM BUTTON
+/* ======================
+   GALLERY (art.html)
 ========================= */
 
-function buildRandomButton(artItems) {
-  const container = document.getElementById("random-container");
-  if (!container || !artItems.length) return;
+function buildGallery() {
+  const gallery = document.querySelector(".gallery");
+  if (!gallery || typeof archive === "undefined") return;
 
-  const button = document.createElement("button");
-  button.className = "random-button";
-  button.textContent = "Surprise Me";
+  const yearNav = document.querySelector(".year-nav");
 
-  button.addEventListener("click", () => {
-    const random = artItems[Math.floor(Math.random() * artItems.length)];
-    window.location.href = `artwork.html?id=${random.id}`;
+  const artItems = archive.filter(item => item.type === "art");
+  const groupedYears = groupByYear(artItems);
+
+  gallery.innerHTML = "";
+  if (yearNav) yearNav.innerHTML = "";
+
+  groupedYears.forEach(group => {
+    const section = document.createElement("div");
+    section.className = "gallery-year";
+    section.id = `year-${group.year}`;
+
+    const header = document.createElement("h2");
+    header.textContent = group.year;
+    section.appendChild(header);
+
+    const collections = groupByCollection(group.items);
+
+    Object.keys(collections).forEach(name => {
+      const items = collections[name];
+
+      if (name !== "__default") {
+        const title = document.createElement("h3");
+        title.textContent = name;
+        title.className = "collection-title";
+        section.appendChild(title);
+      }
+
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
+
+      items.forEach(item => {
+        const link = document.createElement("a");
+        link.href = `artwork.html?id=${item.id}`;
+
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.title || "";
+
+        img.addEventListener("click", e => {
+          e.preventDefault();
+          openLightbox(item.image);
+        });
+
+        link.appendChild(img);
+        grid.appendChild(link);
+      });
+
+      section.appendChild(grid);
+    });
+
+    gallery.appendChild(section);
+
+    if (yearNav) {
+      const navLink = document.createElement("a");
+      navLink.href = `#year-${group.year}`;
+      navLink.textContent = group.year;
+      yearNav.appendChild(navLink);
+    }
   });
 
-  container.appendChild(button);
+  buildRandomButton(artItems);
 }
 
-/* =========================
-   LIGHTBOX
-========================= */
-
-function openLightbox(src) {
-  const viewer = document.createElement("div");
-  viewer.className = "image-viewer";
-
-  const img = document.createElement("img");
-  img.src = src;
-
-  viewer.appendChild(img);
-
-  viewer.addEventListener("click", () => viewer.remove());
-
-  document.body.appendChild(viewer);
-}
-
-/* =========================
+/* ========================
    ARTWORK PAGE FEATURES
-========================= */
+=========================== */
 
 function enhanceArtworkPage() {
   const params = new URLSearchParams(window.location.search);
@@ -288,9 +250,47 @@ function enhanceArtworkPage() {
   });
 }
 
-/* ===============================
-   WRITING PAGE (writings.html)
-================================== */
+/* ======================
+   SURPRISE ME BUTTON
+========================= */
+
+function buildRandomButton(artItems) {
+  const container = document.getElementById("random-container");
+  if (!container || !artItems.length) return;
+
+  const button = document.createElement("button");
+  button.className = "random-button";
+  button.textContent = "Surprise Me";
+
+  button.addEventListener("click", () => {
+    const random = artItems[Math.floor(Math.random() * artItems.length)];
+    window.location.href = `artwork.html?id=${random.id}`;
+  });
+
+  container.appendChild(button);
+}
+
+/* ======================
+   LIGHTBOX VIEWER
+========================= */
+
+function openLightbox(src) {
+  const viewer = document.createElement("div");
+  viewer.className = "image-viewer";
+
+  const img = document.createElement("img");
+  img.src = src;
+
+  viewer.appendChild(img);
+
+  viewer.addEventListener("click", () => viewer.remove());
+
+  document.body.appendChild(viewer);
+}
+
+/* ==========================================
+   INDIVIDUAL WRITING PAGES (writings.html)
+============================================= */
 
 function buildWritingPage() {
   if (!window.location.pathname.includes("writings.html")) return;
@@ -367,7 +367,7 @@ function buildWritingPage() {
   });
 }
 
-/* =========================
+/* ======================
    FOOTER
 ========================= */
 
@@ -400,6 +400,7 @@ document.addEventListener("DOMContentLoaded", () => {
     enhanceArtworkPage();
   }
 
+  buildRandomButton();
   buildWritingPage();
   buildFooter();
 });
