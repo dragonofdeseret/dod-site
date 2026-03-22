@@ -801,7 +801,7 @@ image: "images/art/2022/2022-01-30.jpeg",
 
 { 
  id: "AIW",
- type: "writing",
+ type: "writing", "trips",
  title: "All is Well | LSD Trip Report, May 11, 2019",
  year: 2023,
  date: "2023-09-24",
