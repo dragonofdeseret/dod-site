@@ -47,15 +47,32 @@ function groupByCollection(items) {
 
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container || typeof archive === "undefined") return;
+  if (!container || typeof archive === "undefined" || !Array.isArray(archive)) return;
 
   const yearNav = document.querySelector(".year-nav");
-  const isWritingPage = window.location.pathname.includes("writing.html");
-  const isArchivePage = window.location.pathname.includes("archive.html");
+  const path = window.location.pathname;
 
-  const items = isWritingPage
-    ? archive.filter(item => item.type === "writing")
-    : archive;
+  const isArchivePage = path.includes("archive.html");
+  const isWritingPage = path.includes("writing.html");
+  const isTripsPage = path.includes("trips.html");
+
+  let items = archive;
+
+  if (isWritingPage) {
+    items = archive.filter(item =>
+      item.type === "writing" &&
+      (
+        !item.sections ||
+        item.sections.includes("writing")
+      )
+    );
+  } else if (isTripsPage) {
+    items = archive.filter(item =>
+      item.type === "writing" &&
+      item.sections &&
+      item.sections.includes("trips")
+    );
+  }
 
   const grouped = {};
 
@@ -88,43 +105,49 @@ function buildArchive() {
     const list = document.createElement("div");
     list.className = "archive-list";
 
-    grouped[year].forEach(item => {
-      const row = document.createElement("a");
-      row.className = "archive-row";
+    grouped[year]
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .forEach(item => {
+        const row = document.createElement("a");
+        row.className = "archive-row";
 
-      if (item.type === "art") {
-        row.href = isArchivePage
-          ? `artwork.html?id=${item.id}&from=archive`
-          : `artwork.html?id=${item.id}`;
-      } else if (item.type === "writing") {
-        row.href = isArchivePage
-          ? `writings.html?id=${item.id}&from=archive`
-          : `writings.html?id=${item.id}`;
-      } else {
-        row.href = item.link || "#";
-      }
+        if (item.type === "art") {
+          row.href = isArchivePage
+            ? `artwork.html?id=${item.id}&from=archive`
+            : `artwork.html?id=${item.id}`;
+        } else if (item.type === "writing") {
+          if (isTripsPage) {
+            row.href = `tripreports.html?id=${item.id}&from=trips`;
+          } else if (isArchivePage) {
+            row.href = `writings.html?id=${item.id}&from=archive`;
+          } else {
+            row.href = `writings.html?id=${item.id}`;
+          }
+        } else {
+          row.href = item.link || "#";
+        }
 
-      const title = document.createElement("div");
-      title.className = "archive-title";
-      title.textContent = item.title;
-      row.appendChild(title);
+        const title = document.createElement("div");
+        title.className = "archive-title";
+        title.textContent = item.title;
+        row.appendChild(title);
 
-      if (item.type === "writing") {
-        const meta = document.createElement("div");
-        meta.className = "archive-meta";
-        meta.textContent = item.meta || "PDF";
-        row.appendChild(meta);
-      }
+        if (item.type === "writing") {
+          const meta = document.createElement("div");
+          meta.className = "archive-meta";
+          meta.textContent = item.meta || "PDF";
+          row.appendChild(meta);
+        }
 
-      if (item.type === "art" && item.image) {
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title || "";
-        row.appendChild(img);
-      }
+        if (item.type === "art" && item.image) {
+          const img = document.createElement("img");
+          img.src = item.image;
+          img.alt = item.title || "";
+          row.appendChild(img);
+        }
 
-      list.appendChild(row);
-    });
+        list.appendChild(row);
+      });
 
     yearBlock.appendChild(yearTitle);
     yearBlock.appendChild(list);
@@ -298,14 +321,26 @@ function openLightbox(src) {
 ============================================= */
 
 function buildWritingPage() {
-  if (!window.location.pathname.includes("writings.html")) return;
+  const isWritingViewer = window.location.pathname.includes("writings.html");
+  const isTripViewer = window.location.pathname.includes("tripreports.html");
+
+  if (!isWritingViewer && !isTripViewer) return;
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const from = params.get("from");
   if (!id) return;
 
-  const items = archive.filter(x => x.type === "writing");
+  const items = archive.filter(item => {
+    if (item.type !== "writing") return false;
+
+    if (isTripViewer) {
+      return item.sections && item.sections.includes("trips");
+    }
+
+    return !item.sections || item.sections.includes("writing");
+  });
+
   const index = items.findIndex(x => x.id === id);
   if (index === -1) return;
 
@@ -315,78 +350,28 @@ function buildWritingPage() {
   const titleEl = document.getElementById("writing-title");
   const descEl = document.getElementById("writing-description");
   const downloadLink = document.getElementById("download-link");
-  const backLink = document.querySelector(".writing-actions a:first-child");
+  const backLink = document.getElementById("back-link");
 
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.description || "";
   if (frame) frame.src = item.file;
 
-  // dynamic back link
   if (backLink) {
     if (from === "archive") {
       backLink.href = "archive.html";
       backLink.textContent = "← Back to Archive";
+    } else if (from === "trips") {
+      backLink.href = "trips.html";
+      backLink.textContent = "← Back to Trip Reports";
     } else {
       backLink.href = "writing.html";
       backLink.textContent = "← Back to Writing";
     }
   }
 
-  // analytics
-  if (window.plausible) {
-    plausible("PDF View", {
-      props: { title: item.title, id: item.id }
-    });
-  }
-
-  if (frame) {
-    frame.onload = () => {
-      if (window.plausible) {
-        plausible("PDF View Loaded", {
-          props: { title: item.title, id: item.id }
-        });
-      }
-    };
-  }
-
-  const prev = items[index - 1];
-  const next = items[index + 1];
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writings.html?id=${prev.id}${from ? `&from=${from}` : ""}`;
-    }
-    if (e.key === "ArrowRight" && next) {
-      window.location.href = `writings.html?id=${next.id}${from ? `&from=${from}` : ""}`;
-    }
-  });
-
   if (downloadLink) {
     downloadLink.href = item.file;
-
-    downloadLink.addEventListener("click", () => {
-      if (window.plausible) {
-        plausible("PDF Download", {
-          props: { title: item.title }
-        });
-      }
-    });
   }
-
-  const start = Date.now();
-
-  window.addEventListener("beforeunload", () => {
-    const duration = Math.round((Date.now() - start) / 1000);
-
-    if (window.plausible) {
-      plausible("PDF Time", {
-        props: {
-          title: item.title,
-          seconds: duration
-        }
-      });
-    }
-  });
 }
 
 /* =============================================
@@ -519,7 +504,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   buildWritingPage();
-  buildTripReportsPage();
   buildFooter();
 });
 
