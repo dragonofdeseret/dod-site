@@ -162,9 +162,9 @@ p {
 max-width: 700px;
 }
 
-// ---------------
+/* ---------------
       LISTS
------------------ //
+----------------- */
 
 .list {
 list-style: none;
@@ -175,9 +175,9 @@ padding: 0;
 margin: 12px 0;
 }
 
-//--------------- 
+/* --------------- 
     ARCHIVE
----------------- //
+---------------- */
  
 .archive-year {
   margin-bottom: 60px;
@@ -393,39 +393,21 @@ border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* =====================================
-BUTTONS
-===================================== */
-
-button {
-background: none;
-border: 1px solid #555;
-color: white;
-padding: 10px 22px;
-font-size: 15px;
-cursor: pointer;
-}
-
-button:hover {
-background: white;
-color: black;
-}
-
-/* =====================================
 BACK BUTTON LINK
 ===================================== */
 
 .art-back {
-margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .art-back a {
-text-decoration: none;
-font-size: 14px;
-opacity: 0.7;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.7;
 }
 
 .art-back a:hover {
-opacity: 1;
+  opacity: 1;
 }
 
 /* =====================================
@@ -433,20 +415,17 @@ RANDOM BUTTON
 ===================================== */
 
 .random-button {
-background: #transparent;  
-color: white;
-border: 1px solid rgba(255,255,255,0.2);
-padding: 10px 16px;
-margin-top: 15px;
-font-size: 0.9rem; 
-cursor: pointer;  
-transition: all 0.2s ease;
+  background: #transparent;  
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 16px;
+  margin-top: 15px;
+  font-size: 0.7rem; 
+  cursor: pointer;  
+  transition: all 0.2s ease;
 }
-
-button.textContent = "Surprise Me";
  
 .random-button:hover {
-background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.05);
 }
 
 .gallery-controls {
@@ -456,7 +435,7 @@ background: rgba(255,255,255,0.05);
 
 #random-container {
   display: flex;
-  justify-content: flex-start; /* or center if you prefer */
+  justify-content: flex-start;
 }
 
 /* =====================================
@@ -521,45 +500,45 @@ MASONRY GALLERY LAYOUT
 ===================================== */
 
 .gallery-grid {
-column-width: 260px;
-column-gap: 32px;
-margin-top: 35px;
+  column-width: 260px;
+  column-gap: 32px;
+  margin-top: 35px;
 }
 
 /* gallery items */
 
 .gallery-grid a {
-display: inline-block;
-width: 100%;
-margin-bottom: 32px;
-break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 32px;
+  break-inside: avoid;
 
 }
 
 /* artwork thumbnails */
 
 .gallery img {
-width: 100%;
-height: auto;
-display: block;
-background: #111;
-padding: 12px;
-border-radius: 3px;
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #111;
+  padding: 12px;
+  border-radius: 3px;
 
-box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
 
-transition: transform 0.25s ease, box-shadow 0.25s ease;
-break-inside: avoid;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  break-inside: avoid;
 
 }
 
 /* hover effect */
 .gallery img:hover {
-transform: translateY(-2px);
+  transform: translateY(-2px);
 
-box-shadow:
-0 18px 40px rgba(0,0,0,0.65),
-0 0 20px rgba(255,255,255,0.06);
+  box-shadow:
+  0 18px 40px rgba(0,0,0,0.65),
+  0 0 20px rgba(255,255,255,0.06);
 
 }
 
@@ -568,12 +547,12 @@ VERTICAL TIMELINE
 ===================================== */
 
 .gallery::before {
-content: "";
-position: absolute;
-left: -28px;
-top: 0;
-bottom: 0;
-width: 1px;
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
 
 background: rgba(255,255,255,0.12);
 

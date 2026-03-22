@@ -744,8 +744,6 @@ image: "images/art/2022/2022-01-30.jpeg",
 },
 
 // writing items
-const writingData = [
-{
 
  id: "NaturalisticBoM",
  type: "writing",
