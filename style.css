@@ -3,29 +3,29 @@
 ================= */
 
 html {
-scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-background-color: #0b0b0b;
-background-image: url("images/ui/texture.png");
+  background-color: #0b0b0b;
+  background-image: url("images/ui/texture.png");
 
-color: white;
+  color: white;
 
-font-family: Baskerville, "Libre Baskerville", "Times New Roman", serif;
+  font-family: Baskerville, "Libre Baskerville", "Times New Roman", serif;
 
-font-size: 18px;
-line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.6;
 
--webkit-font-smoothing: antialiased;
-text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 
-margin: 0;
+  margin: 0;
 }
 
 .site-nav a.active {
-font-weight:bold;
-text-decoration:underline;
+  font-weight:bold;
+  text-decoration:underline;
 }
 
 .page-intro {
@@ -79,7 +79,7 @@ a {
   content: "";
   display: block;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid white;
   margin-top: 14px;
   margin-bottom: 20px;
 }
@@ -90,8 +90,6 @@ a {
   border-bottom: 1px solid white;
   margin-bottom: 20px;
 }
-
-/* shared timeline layout */
 
 .timeline {
   position: relative;
@@ -123,46 +121,46 @@ h1, h2, h3, .writing-item h3 {
 ==================== */
 
 .sidebar h1 {
-font-size: 18px;
-margin-bottom: 20px;
-font-weight: 500;
-letter-spacing: 1px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 .sidebar a {
-text-decoration: none;
-color: white;
-opacity: 0.7;
-position: relative;
-transition: opacity 0.2s ease;
+  text-decoration: none;
+  color: white;
+  opacity: 0.7;
+  position: relative;
+  transition: opacity 0.2s ease;
 }
 
 .sidebar a:hover {
-opacity: 1;
+  opacity: 1;
 }
 
 .sidebar a.active {
-opacity: 1;
-font-weight: 600;
+  opacity: 1;
+  font-weight: 600;
 }
 
 /* underline animation */
 
 .sidebar a::after {
-content: "";
-position: absolute;
-left: 0;
-bottom: -4px;
-width: 0;
-height: 1px;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
 
-background: white;
+  background: white;
 
-transition: width 0.25s ease;
+  transition: width 0.25s ease;
 }
 
 .sidebar a:hover::after {
-width: 100%;
+  width: 100%;
 }
 
 /* =======================
@@ -200,57 +198,57 @@ margin: 12px 0;
 ================= */
 
 .homepage {
-max-width: 800px;
+  max-width: 800px;
 }
 
 .home-anchor {
-margin-top: 120px;
-opacity: 0.75;
+  margin-top: 120px;
+  opacity: 0.75;
 
 }
 
 .home-line {
-font-size: 20px;
-letter-spacing: 0.4px;
+  font-size: 20px;
+  letter-spacing: 0.4px;
 
 }
 
 .intro h2 {
-margin-top: 40px;
-font-weight: normal;
-opacity: 0.9;
+  margin-top: 40px;
+  font-weight: normal;
+  opacity: 0.9;
 
 }
 
 .intro p {
-max-width: 600px;
-margin: 20px 0;
+  max-width: 600px;
+  margin: 20px 0;
 
 opacity: 0.8;
 
 }
 
 .explore {
-margin-top: 40px;
-display: flex;
-flex-wrap: wrap;
-gap: 15px;
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 
 }
 
 .explore-button {
-background: white;
-color: black;
-padding: 12px 20px;
-text-decoration: none;
-border-radius: 3px;
-font-size: 14px;
-transition: all 0.25s ease;
+  background: white;
+  color: black;
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 14px;
+  transition: all 0.25s ease;
 
 }
 
 .explore-button:hover {
-background: #ddd;
+  background: #ddd;
 }
 
 /* ============= 
@@ -315,7 +313,7 @@ background: #ddd;
 .archive-row img {
   width: 60px;
   height: 60px;
- object-fit: cover;
+  object-fit: cover;
 
  margin-left: auto;
 
@@ -327,25 +325,25 @@ background: #ddd;
 
 .content:has(.gallery),
 .content:has(#archive) {
-max-width: none;
-width: 100%;
+  max-width: none;
+  width: 100%;
 }
  
 /* ensure gallery expands */
 
 .gallery { 
-width: 100%;
-max-width: 1400px;
+  width: 100%;
+  max-width: 1400px;
 }
 
 /* center wide gallery */
 
 .content:has(.gallery) {
-margin: 0 auto;
+  margin: 0 auto;
 }
 
 /* ========================
-BACK BUTTON LINK
+    BACK BUTTON LINK
 =========================== */
 
 .art-back {
@@ -396,9 +394,9 @@ BACK BUTTON LINK
 ===================== */
 
 .gallery-intro {
-opacity: 0.7;
-margin-bottom: 30px;
-font-size: 16px;
+  opacity: 0.7;
+  margin-bottom: 30px;
+  font-size: 16px;
 }
 
 /* =============
@@ -410,41 +408,41 @@ font-size: 16px;
 }
 
 .gallery {
-display: block;
-margin-top: 25px;
-position: relative;
+  display: block;
+  margin-top: 25px;
+  position: relative;
 }
 
 /* year sections */
 
 .gallery-year {
-margin-bottom: 80px;
-position: relative;
+  margin-bottom: 80px;
+  position: relative;
 }
 
 /* anchor offset for sticky headers */
 
 .gallery-year,
 .archive-year {
-scroll-margin-top: 70px;
+  scroll-margin-top: 70px;
 }
 
 /* sticky year headers */
 
 .gallery-year h2,
 .archive-year h2 {
-position: sticky;
-top: 0;
-z-index: 20;
-font-size: 1.6rem;
-margin-top: 60px;
-padding: 10px 0 14px 0;
-border-bottom: 1px solid #bbb;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  font-size: 1.6rem;
+  margin-top: 60px;
+  padding: 10px 0 14px 0;
+  border-bottom: 1px solid #bbb;
 
-font-weight: normal;
-letter-spacing: 1px;
+  font-weight: normal;
+  letter-spacing: 1px;
 
-background: transparent;
+  background: transparent;
 
 }
 
@@ -485,7 +483,6 @@ background: transparent;
 
 }
 
-/* hover effect */
 .gallery img:hover {
   transform: translateY(-2px);
 
@@ -512,6 +509,7 @@ background: rgba(255,255,255,0.12);
 }
 
 /* Shared left rail line */
+
 .gallery,
 #archive,
 #writing {
@@ -530,51 +528,37 @@ background: rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.15);
 }
 
-/* =================
-    COLLECTIONS
-==================== */
-
-.collection{
-margin-bottom:60px;
-}
-
-.collection-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
-gap:10px;
-}
-
 /* ===============
    IMAGE VIEWER
 ================== */
 
 .image-viewer {
-position: fixed;
-inset: 0;
+  position: fixed;
+  inset: 0;
+  
+  background: rgba(0,0,0,0.92);
 
-background: rgba(0,0,0,0.92);
-
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 
 }
 
 .image-viewer img {
-max-width: 92%;
-max-height: 92%;
+  max-width: 92%;
+  max-height: 92%;
 
-box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
 
-cursor: zoom-out;
+  cursor: zoom-out;
 }
 
 .pdf-viewer iframe{
-width:100%;
-height:80vh;
-border:none;
-margin-top:20px;
+  width:100%;
+  height:80vh;
+  border:none;
+  margin-top:20px;
 }
 
 /* =================
@@ -582,78 +566,78 @@ margin-top:20px;
 ==================== */
 
 .art-page {
-max-width: 1100px;
-margin: 0 auto;
+  max-width: 1100px;
+  margin: 0 auto;
 
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* title */
 
 .art-title {
-margin-bottom: 30px;
-font-weight: normal;
+  margin-bottom: 30px;
+  font-weight: normal;
 }
 
 /* image */
 
 .art-image {
-width: 100%;
+  width: 100%;
 }
 
 .art-image img {
-width: 100%;
-height: auto;
+  width: 100%;
+  height: auto;
 
-background: #111;
-padding: 12px;
-border-radius: 4px;
+  background: #111;
+  padding: 12px;
+  border-radius: 4px;
 
-box-shadow:
-0 30px 60px rgba(0,0,0,0.75),
-0 8px 20px rgba(0,0,0,0.45),
-0 0 0 1px rgba(255,255,255,0.05);
+  box-shadow:
+  0 30px 60px rgba(0,0,0,0.75),
+  0 8px 20px rgba(0,0,0,0.45),
+  0 0 0 1px rgba(255,255,255,0.05);
 }
 
 /* nav — now SAME WIDTH as image */
 
 .art-navigation {
-width: 100%;
-margin-top: 40px;
-padding-top: 20px;
+  width: 100%;
+  margin-top: 40px;
+  padding-top: 20px;
 
-border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255,255,255,0.08);
 
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-font-size: 14px;
+  font-size: 14px;
 }
 
 /* columns */
 
 .nav-left,
 .nav-right {
-flex: 1;
+  flex: 1;
 }
 
 .nav-center {
-text-align: center;
-flex: 1;
+  text-align: center;
+  flex: 1;
 }
 
 /* links */
 
 .art-navigation a {
-text-decoration: none;
-color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  color: rgba(255,255,255,0.7);
 }
 
 .art-navigation a:hover {
-color: white;
+  color: white;
 }
 
 /* ====================
@@ -661,43 +645,43 @@ color: white;
 ======================= */
 
 .art-navigation {
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-width: 100%;
-max-width: 900px; /* ← intentional aesthetic balance */
+  width: 100%;
+  max-width: 900px; /* ← intentional aesthetic balance */
 
-margin-top: 50px;
-padding-top: 20px;
+  margin-top: 50px;
+  padding-top: 20px;
 
-border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255,255,255,0.08);
 
-font-size: 14px;
-opacity: 0.85;
+  font-size: 14px;
+  opacity: 0.85;
 }
 
 /* columns */
 
 .nav-left,
 .nav-right {
-flex: 1;
+  flex: 1;
 }
 
 .nav-center {
-text-align: center;
-flex: 1;
+  text-align: center;
+  flex: 1;
 }
 
 /* links */
 
 .art-navigation a {
-text-decoration: none;
-color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  color: rgba(255,255,255,0.7);
 }
 
 .art-navigation a:hover {
-color: white;
+  color: white;
 }
 
 /* =================
@@ -705,21 +689,21 @@ color: white;
 ==================== */
 
 .year-nav {
-margin-bottom: 30px;
-font-size: 15px;
-opacity: 0.7;
+  margin-bottom: 30px;
+  font-size: 15px;
+  opacity: 0.7;
 
 }
 
 .year-nav a {
-text-decoration: none;
-color: inherit;
-margin: 0 4px;
+  text-decoration: none;
+  color: inherit;
+  margin: 0 4px;
 
 }
 
 .year-nav a:hover {
-opacity: 1;
+ opacity: 1;
 }
 
 /* ========================================
@@ -848,10 +832,11 @@ border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* =======================
-WRITING PAGE LINKS
+    WRITING PAGE LINKS
 ========================== */
 
 /* BASE LINK STYLE */
+
 .content a {
   color: #e5e5e5;
   text-decoration: underline;
@@ -864,6 +849,7 @@ WRITING PAGE LINKS
 }
 
 /* NAV / LIST LINKS */
+
 .nav-link {
   text-decoration: none;
   position: relative;
@@ -875,6 +861,7 @@ WRITING PAGE LINKS
 }
 
 /* ACTION LINKS */
+
 .writing-actions a {
   text-decoration: none;
   opacity: 0.65;
@@ -921,7 +908,7 @@ WRITING PAGE LINKS
 }
 
 /* =============
-GUESTBOOK
+   GUESTBOOK
 ================ */
 
 .guestbook-intro {
@@ -953,7 +940,7 @@ text-align: center;
 }
 
 /* ==========
-NOW PAGE
+   NOW PAGE
 ============= */
 
 .now-section {
@@ -994,42 +981,42 @@ font-family: Baskerville, "Libre Baskerville", Georgia, serif;
 @media (max-width: 900px) {
 
 .layout {
-flex-direction: column;
+  flex-direction: column;
 }
 
 .sidebar {
-width: 100%;
-border-right: none;
-border-bottom: 1px solid #444;
-flex-direction: row;
-flex-wrap: wrap;
-gap: 14px;
-padding: 25px 20px;
+  width: 100%;
+  border-right: none;
+  border-bottom: 1px solid #444;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 25px 20px;
 
 }
 
 .sidebar a {
-font-size: 15px;
+  font-size: 15px;
 }
 
 .sidebar h1 {
-width: 100%;
-margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 
 }
 
 .content {
-padding: 30px 22px;
-max-width: 100%;
+  padding: 30px 22px;
+  max-width: 100%;
 
 }
 
 .gallery {
-gap: 24px;
+  gap: 24px;
 }
 
 .series-gallery {
-gap: 16px;
+  gap: 16px;
 }
 
 }
@@ -1039,12 +1026,12 @@ gap: 16px;
 ============== */
 
 .site-footer {
-letter-spacing: 0.3px;
-margin-top: auto;
-padding-top: 30px;
-border-top: 1px solid rgba(255,255,255,0.08);
-font-size: 14px;
-opacity: 0.6;
+  letter-spacing: 0.3px;
+  margin-top: auto;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px;
+  opacity: 0.6;
 
 }
 

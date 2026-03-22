@@ -374,9 +374,9 @@ function buildWritingPage() {
   }
 }
 
-/* =============================================
-   INDIVIDUAL WRITING PAGES (tripreports.html)
-================================================ */
+/* ==============================================
+    INDIVIDUAL WRITING PAGES (tripreports.html)
+================================================= */
 
 function buildTripReportsPage() {
   if (!window.location.pathname.includes("tripreports.html")) return;
@@ -470,9 +470,9 @@ function buildTripReportsPage() {
   });
 }
 
-/* ======================
-   FOOTER
-========================= */
+/* ====================
+         FOOTER
+======================= */
 
 function buildFooter() {
   const content = document.querySelector(".content");
@@ -491,9 +491,9 @@ function buildFooter() {
   content.appendChild(footer);
 }
 
-/* =========================
-   INIT
-========================= */
+/* ====================
+        INIT
+======================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
