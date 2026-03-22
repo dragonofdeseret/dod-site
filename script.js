@@ -51,6 +51,7 @@ function buildArchive() {
 
   const yearNav = document.querySelector(".year-nav");
   const isWritingPage = window.location.pathname.includes("writing.html");
+  const isArchivePage = window.location.pathname.includes("archive.html");
 
   const items = isWritingPage
     ? archive.filter(item => item.type === "writing")
@@ -91,13 +92,17 @@ function buildArchive() {
       const row = document.createElement("a");
       row.className = "archive-row";
 
-    if (item.type === "art") {
-      row.href = `artwork.html?id=${item.id}&from=archive`;
-    } else if (item.type === "writing") {
-      row.href = `writings.html?id=${item.id}&from=archive`;
-    } else {
-      row.href = item.link || "#";
-    }
+      if (item.type === "art") {
+        row.href = isArchivePage
+          ? `artwork.html?id=${item.id}&from=archive`
+          : `artwork.html?id=${item.id}`;
+      } else if (item.type === "writing") {
+        row.href = isArchivePage
+          ? `writings.html?id=${item.id}&from=archive`
+          : `writings.html?id=${item.id}`;
+      } else {
+        row.href = item.link || "#";
+      }
 
       const title = document.createElement("div");
       title.className = "archive-title";
