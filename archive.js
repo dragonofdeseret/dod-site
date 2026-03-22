@@ -741,9 +741,7 @@ title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
-}
-
-];
+},
 
 // writing items
 const writingData = [
