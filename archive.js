@@ -790,6 +790,15 @@ image: "images/art/2022/2022-01-30.jpeg",
  file: "pdf/THOOGTEOOS.pdf",
 },
 
+{
+ id: "FSoC",
+ type: "writing",
+ title: "The Fine Solution of Consciousness",
+ year: 2023,
+ date: "2023-12-21", 
+ file: "pdf/FSoC.pdf",
+},
+
 { 
  id: "AIW",
  type: "writing",
