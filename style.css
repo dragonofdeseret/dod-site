@@ -75,6 +75,15 @@ a {
   margin-bottom: 10px;
 }
 
+.content h1::after {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 14px;
+  margin-bottom: 20px;
+}
+
 .content::after {
   content: "";
   display: block;
@@ -187,7 +196,7 @@ margin: 12px 0;
 }
 
 /* ==============
-HOMEPAGE
+    HOMEPAGE
 ================= */
 
 .homepage {
