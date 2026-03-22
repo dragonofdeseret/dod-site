@@ -745,6 +745,7 @@ image: "images/art/2022/2022-01-30.jpeg",
 
 // writing items
 
+{
  id: "NaturalisticBoM",
  type: "writing",
  title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
