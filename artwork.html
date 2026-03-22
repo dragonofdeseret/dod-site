@@ -63,10 +63,14 @@ const index = artItems.findIndex(x => x.id === id);
 const prev = artItems[index - 1];
 const next = artItems[index + 1];
 
+const from = params.get("from");
+const backHref = from === "archive" ? "archive.html" : "art.html";
+const backText = from === "archive" ? "Back to Archive" : "Back to Art";
+
 document.getElementById("nav").innerHTML = `
-  ${prev ? `<a href="artwork.html?id=${prev.id}">← Previous</a>` : ""}
-  <a href="art.html">Back to Art</a>
-  ${next ? `<a href="artwork.html?id=${next.id}">Next →</a>` : ""}
+  ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from || "art"}">← Previous</a>` : ""}
+  <a href="${backHref}">${backText}</a>
+  ${next ? `<a href="artwork.html?id=${next.id}&from=${from || "art"}">Next →</a>` : ""}
 `;
 
 </script>

@@ -91,13 +91,13 @@ function buildArchive() {
       const row = document.createElement("a");
       row.className = "archive-row";
 
-      if (item.type === "art") {
-        row.href = `artwork.html?id=${item.id}`;
-      } else if (item.type === "writing") {
-        row.href = `writings.html?id=${item.id}`;
-      } else {
-        row.href = item.link || "#";
-      }
+    if (item.type === "art") {
+      row.href = `artwork.html?id=${item.id}&from=archive`;
+    } else if (item.type === "writing") {
+      row.href = `writings.html?id=${item.id}&from=archive`;
+    } else {
+      row.href = item.link || "#";
+    }
 
       const title = document.createElement("div");
       title.className = "archive-title";
@@ -297,6 +297,7 @@ function buildWritingPage() {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+  const from = params.get("from");
   if (!id) return;
 
   const items = archive.filter(x => x.type === "writing");
@@ -306,10 +307,25 @@ function buildWritingPage() {
   const item = items[index];
 
   const frame = document.getElementById("pdf-frame");
+  const titleEl = document.getElementById("writing-title");
+  const descEl = document.getElementById("writing-description");
+  const downloadLink = document.getElementById("download-link");
+  const backLink = document.querySelector(".writing-actions a:first-child");
 
-  document.getElementById("writing-title").textContent = item.title;
-  document.getElementById("writing-description").textContent = item.description || "";
-  frame.src = item.file;
+  if (titleEl) titleEl.textContent = item.title;
+  if (descEl) descEl.textContent = item.description || "";
+  if (frame) frame.src = item.file;
+
+  // dynamic back link
+  if (backLink) {
+    if (from === "archive") {
+      backLink.href = "archive.html";
+      backLink.textContent = "← Back to Archive";
+    } else {
+      backLink.href = "writing.html";
+      backLink.textContent = "← Back to Writing";
+    }
+  }
 
   // analytics
   if (window.plausible) {
@@ -318,27 +334,28 @@ function buildWritingPage() {
     });
   }
 
-  frame.onload = () => {
-    if (window.plausible) {
-      plausible("PDF View Loaded", {
-        props: { title: item.title, id: item.id }
-      });
-    }
-  };
+  if (frame) {
+    frame.onload = () => {
+      if (window.plausible) {
+        plausible("PDF View Loaded", {
+          props: { title: item.title, id: item.id }
+        });
+      }
+    };
+  }
 
   const prev = items[index - 1];
   const next = items[index + 1];
 
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writings.html?id=${prev.id}`;
+      window.location.href = `writings.html?id=${prev.id}${from ? `&from=${from}` : ""}`;
     }
     if (e.key === "ArrowRight" && next) {
-      window.location.href = `writings.html?id=${next.id}`;
+      window.location.href = `writings.html?id=${next.id}${from ? `&from=${from}` : ""}`;
     }
   });
 
-  const downloadLink = document.getElementById("download-link");
   if (downloadLink) {
     downloadLink.href = item.file;
 
@@ -351,7 +368,7 @@ function buildWritingPage() {
     });
   }
 
-  let start = Date.now();
+  const start = Date.now();
 
   window.addEventListener("beforeunload", () => {
     const duration = Math.round((Date.now() - start) / 1000);
@@ -400,7 +417,6 @@ document.addEventListener("DOMContentLoaded", () => {
     enhanceArtworkPage();
   }
 
-  buildRandomButton();
   buildWritingPage();
   buildFooter();
 });
