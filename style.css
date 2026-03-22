@@ -1,5 +1,5 @@
 /* ==============
-GLOBAL
+      GLOBAL
 ================= */
 
 html {
@@ -40,9 +40,9 @@ a {
   transition: all 0.2s ease;
 }
 
-/* =====================================
-MAIN LAYOUT
-===================================== */
+/* ===============
+    MAIN LAYOUT
+================== */
 
 .layout {
 display: flex;
@@ -98,9 +98,9 @@ h1, h2, h3, .writing-item h3 {
   max-width: 700px;
 }
 
-/* =====================================
-SIDEBAR
-===================================== */
+/* =================
+      SIDEBAR
+==================== */
 
 .sidebar h1 {
 font-size: 18px;
@@ -145,9 +145,9 @@ transition: width 0.25s ease;
 width: 100%;
 }
 
-/* =====================================
-TYPOGRAPHY
-===================================== */
+/* =======================
+       TYPOGRAPHY
+========================== */
 
 main h1 {
   margin-bottom: 10px;
@@ -162,9 +162,9 @@ p {
 max-width: 700px;
 }
 
-/* ---------------
+/* ==============
       LISTS
------------------ */
+================= */
 
 .list {
 list-style: none;
@@ -175,9 +175,67 @@ padding: 0;
 margin: 12px 0;
 }
 
-/* --------------- 
+/* ==============
+HOMEPAGE
+================= */
+
+.homepage {
+max-width: 800px;
+}
+
+.home-anchor {
+margin-top: 120px;
+opacity: 0.75;
+
+}
+
+.home-line {
+font-size: 20px;
+letter-spacing: 0.4px;
+
+}
+
+.intro h2 {
+margin-top: 40px;
+font-weight: normal;
+opacity: 0.9;
+
+}
+
+.intro p {
+max-width: 600px;
+margin: 20px 0;
+
+opacity: 0.8;
+
+}
+
+.explore {
+margin-top: 40px;
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+
+}
+
+.explore-button {
+background: white;
+color: black;
+padding: 12px 20px;
+text-decoration: none;
+border-radius: 3px;
+font-size: 14px;
+transition: all 0.25s ease;
+
+}
+
+.explore-button:hover {
+background: #ddd;
+}
+
+/* ============= 
     ARCHIVE
----------------- */
+================ */
  
 .archive-year {
   margin-bottom: 60px;
@@ -243,9 +301,8 @@ margin: 12px 0;
 
 } 
 
-
 /* ===========================
- FULL-WIDTH ART PAGES
+    FULL-WIDTH ART PAGES
 ============================== */
 
 .content:has(.gallery),
@@ -267,134 +324,9 @@ max-width: 1400px;
 margin: 0 auto;
 }
 
-/* =====================================
-WRITING PAGE (writing.html)
-===================================== */
-
-.writing-intro {
-margin-bottom: 25px;
-opacity: 0.7;
-
-}
-
-.writing-list {
-max-width: 700px;
-
-}
-
-.writing-entry {
-  display: flex;
-  align-items: center;
-  position: relative;
-  font-size: 1.05rem;
-  letter-spacing: 0.2px;
-  line-height: 1.5;
-  margin-bottom: 18px;
-  padding: 6px 0;
-}
-
-.writing-entry::before {
-  content: "";
-  position: absolute;
-  left: -44px;
-  top: 50%;
-  transform: translateY(-50%);
-
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-
-  background: rgba(255,255,255,0.6);
-}
-
-.writing-entry:hover .writing-title a {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.writing-meta {
-  opacity: 0.6;
-  font-size: 0.9rem;
-  margin-right: 20px;
-
-}
-
-.writing-title {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.writing-title a {
-  text-decoration: none;
-}
-
-.writing-title a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.writing-format {
-font-size: 0.4rem;
-opacity: 0.5;
-text-align: right;
-
-}
-
-/* =====================================
-PDF VIEWER PAGE (writings.html)
-===================================== */
-
-.essay-header {
-margin-bottom: 30px;
-
-}
-
-.essay-meta {
-opacity: 0.6;
-font-size: 0.9rem;
-margin-top: 5px;
-
-}
-
-.essay-download {
-margin-top: 10px;
-font-size: 0.9rem;
-
-}
-
-.essay-download a {
-text-decoration: none;
-opacity: 0.7;
-
-}
-
-.essay-download a:hover {
-opacity: 1;
-
-}
-
-.essay-pdf {
-margin-top: 30px;
-
-border: 1px solid rgba(255,255,255,0.1);
-
-}
-
-.pdf-container {
-  width: 100%;
-  height: 80vh;
-  margin-top: 20px;
-}
-
-.pdf-container iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* =====================================
+/* ========================
 BACK BUTTON LINK
-===================================== */
+=========================== */
 
 .art-back {
   margin-bottom: 25px;
@@ -410,12 +342,13 @@ BACK BUTTON LINK
   opacity: 1;
 }
 
-/* =====================================
-RANDOM BUTTON
-===================================== */
+/* =======================
+    SURPRISE ME BUTTON
+========================== */
 
 .random-button {
-  background: transparent;  
+  background: transparent;
+  color: white;  
   border: 1px solid rgba(255,255,255,0.2);
   padding: 10px 16px;
   margin-top: 15px;
@@ -438,9 +371,9 @@ RANDOM BUTTON
   justify-content: flex-start;
 }
 
-/* =====================================
-GALLERY INTRO
-===================================== */
+/* ==================
+    GALLERY INTRO
+===================== */
 
 .gallery-intro {
 opacity: 0.7;
@@ -448,9 +381,9 @@ margin-bottom: 30px;
 font-size: 16px;
 }
 
-/* =====================================
-ART GALLERY
-===================================== */
+/* =============
+   ART GALLERY
+================ */
 
 .gallery-header {
   margin-bottom: 30px;
@@ -495,9 +428,9 @@ background: transparent;
 
 }
 
-/* =====================================
-MASONRY GALLERY LAYOUT
-===================================== */
+/* =========================
+   MASONRY GALLERY LAYOUT
+============================ */
 
 .gallery-grid {
   column-width: 260px;
@@ -542,9 +475,9 @@ MASONRY GALLERY LAYOUT
 
 }
 
-/* =====================================
-VERTICAL TIMELINE
-===================================== */
+/* ======================
+    VERTICAL TIMELINE
+========================= */
 
 .gallery::before {
   content: "";
@@ -577,9 +510,9 @@ background: rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.15);
 }
 
-/* =====================================
-COLLECTIONS
-===================================== */
+/* =================
+    COLLECTIONS
+==================== */
 
 .collection{
 margin-bottom:60px;
@@ -591,9 +524,9 @@ grid-template-columns:repeat(auto-fill, minmax(200px,1fr));
 gap:10px;
 }
 
-/* =====================================
-IMAGE VIEWER
-===================================== */
+/* ===============
+   IMAGE VIEWER
+================== */
 
 .image-viewer {
 position: fixed;
@@ -625,7 +558,7 @@ margin-top:20px;
 }
 
 /* =================
-ARTWORK PAGE
+    ARTWORK PAGE
 ==================== */
 
 .art-page {
@@ -703,9 +636,9 @@ color: rgba(255,255,255,0.7);
 color: white;
 }
 
-/* =========================
-ART NAVIGATION 
-========================= */
+/* ====================
+    ART NAVIGATION 
+======================= */
 
 .art-navigation {
 display: flex;
@@ -748,7 +681,7 @@ color: white;
 }
 
 /* =================
-YEAR NAVIGATION
+   YEAR NAVIGATION
 ==================== */
 
 .year-nav {
@@ -769,67 +702,134 @@ margin: 0 4px;
 opacity: 1;
 }
 
-/* =====================================
-HOMEPAGE
-===================================== */
+/* ========================================
+  WRITING PAGE (writing.html) (trips.html)
+=========================================== */
 
-.homepage {
-max-width: 800px;
-}
-
-.home-anchor {
-margin-top: 120px;
-opacity: 0.75;
+.writing-intro {
+margin-bottom: 25px;
+opacity: 0.7;
 
 }
 
-.home-line {
-font-size: 20px;
-letter-spacing: 0.4px;
+.writing-list {
+max-width: 700px;
 
 }
 
-.intro h2 {
-margin-top: 40px;
-font-weight: normal;
-opacity: 0.9;
+.writing-entry {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  padding: 6px 0;
+}
+
+.writing-entry::before {
+  content: "";
+  position: absolute;
+  left: -44px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.6);
+}
+
+.writing-entry:hover .writing-title a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.writing-meta {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-right: 20px;
 
 }
 
-.intro p {
-max-width: 600px;
-margin: 20px 0;
+.writing-title {
+  flex: 1;
+  margin-right: 20px;
+}
 
-opacity: 0.8;
+.writing-title a {
+  text-decoration: none;
+}
+
+.writing-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.writing-format {
+font-size: 0.4rem;
+opacity: 0.5;
+text-align: right;
 
 }
 
-.explore {
-margin-top: 40px;
-display: flex;
-flex-wrap: wrap;
-gap: 15px;
+/* ===================================================
+  PDF VIEWER PAGE (writings.html) (tripreports.html)
+====================================================== */
+
+.essay-header {
+margin-bottom: 30px;
 
 }
 
-.explore-button {
-background: white;
-color: black;
-padding: 12px 20px;
+.essay-meta {
+opacity: 0.6;
+font-size: 0.9rem;
+margin-top: 5px;
+
+}
+
+.essay-download {
+margin-top: 10px;
+font-size: 0.9rem;
+
+}
+
+.essay-download a {
 text-decoration: none;
-border-radius: 3px;
-font-size: 14px;
-transition: all 0.25s ease;
+opacity: 0.7;
 
 }
 
-.explore-button:hover {
-background: #ddd;
+.essay-download a:hover {
+opacity: 1;
+
 }
 
-/* =====================================
-WRITING LINKS
-===================================== */
+.essay-pdf {
+margin-top: 30px;
+
+border: 1px solid rgba(255,255,255,0.1);
+
+}
+
+.pdf-container {
+  width: 100%;
+  height: 80vh;
+  margin-top: 20px;
+}
+
+.pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =======================
+WRITING PAGE LINKS
+========================== */
 
 /* BASE LINK STYLE */
 .content a {
@@ -899,9 +899,9 @@ WRITING LINKS
   margin-bottom: 20px;
 }
 
-/* =====================================
+/* =============
 GUESTBOOK
-===================================== */
+================ */
 
 .guestbook-intro {
 max-width: 520px;
@@ -931,9 +931,9 @@ text-align: center;
 
 }
 
-/* ===========
+/* ==========
 NOW PAGE
-=========== */
+============= */
 
 .now-section {
   margin-bottom: 35px;
@@ -955,9 +955,9 @@ NOW PAGE
   opacity: 0.75;
 }
 
-/* =====================================
-GISCUS TYPOGRAPHY
-===================================== */
+/* ========================
+    GISCUS TYPOGRAPHY
+=========================== */
 
 .giscus,
 .giscus-frame {
@@ -966,9 +966,9 @@ font-family: Baskerville, "Libre Baskerville", Georgia, serif;
 
 }
 
-/* =====================================
-MOBILE
-===================================== */
+/* ==========
+    MOBILE
+============= */
 
 @media (max-width: 900px) {
 
@@ -1013,9 +1013,9 @@ gap: 16px;
 
 }
 
-/* =====================================
-FOOTER
-===================================== */
+/* ===========
+    FOOTER
+============== */
 
 .site-footer {
 letter-spacing: 0.3px;
