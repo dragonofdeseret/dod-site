@@ -122,6 +122,9 @@ function buildGallery() {
 
   gallery.innerHTML = "";
 
+  const grid = document.createElement("div");
+  grid.className = "gallery-grid";
+
   artItems.forEach(item => {
     const link = document.createElement("a");
     link.href = `artwork.html?id=${item.id}`;
@@ -131,8 +134,10 @@ function buildGallery() {
     img.alt = item.title || "";
 
     link.appendChild(img);
-    gallery.appendChild(link);
+    grid.appendChild(link);
   });
+
+  gallery.appendChild(grid);
 }
 
 /* ========================
