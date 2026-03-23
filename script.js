@@ -390,13 +390,13 @@ function buildExhibitPage() {
   if (titleEl) titleEl.textContent = exhibit.title;
   if (descEl) descEl.textContent = exhibit.description || "";
 
-  const works = archive
-    .filter(item => item.type === "art" && item.exhibit === id)
-    .sort((a, b) => {
-      const dateDiff = new Date(b.date) - new Date(a.date);
-      if (dateDiff !== 0) return dateDiff;
-      return (b.title || "").localeCompare(a.title || "");
-    });
+ const works = archive
+  .filter(item => item.type === "art" && item.exhibit === id)
+  .sort((a, b) => {
+    const dateDiff = new Date(a.date) - new Date(b.date);
+    if (dateDiff !== 0) return dateDiff;
+    return (a.title || "").localeCompare(b.title || "");
+  });
 
   if (!gallery) return;
   gallery.innerHTML = "";
