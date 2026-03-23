@@ -764,7 +764,9 @@ title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
-},
+}
+
+];
 
 /* ==================
        EXHIBITS
@@ -777,7 +779,9 @@ const exhibits = [
     year: 2023,
     date: "2023-12-06",
     description: "A grouped exhibit of selected works."
-  },
+  }
+
+];
 
 /* ==================
        WRITING
