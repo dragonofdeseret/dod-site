@@ -906,6 +906,7 @@ image: "images/art/2022/2022-01-30.jpeg",
  year: 2023,
  date: "2023-09-24",
  file: "pdf/AIW.pdf",
+ showOnWriting: true,
 },
 
 {

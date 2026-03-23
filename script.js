@@ -131,8 +131,10 @@ function buildWritingIndex() {
   const writingItems = archive
     .filter(item => {
       if (item.type !== "writing") return false;
-      if (item.sections && item.sections.includes("trips")) return false;
-      return !item.sections || item.sections.includes("writing");
+      if (item.showOnWriting === false) return false;
+      return item.showOnWriting === true ||
+        !item.sections ||
+        item.sections.includes("writing");
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
