@@ -316,6 +316,104 @@ function openLightbox(src) {
   document.body.appendChild(viewer);
 }
 
+function buildExhibitsArchive() {
+  const container = document.getElementById("exhibits-archive");
+  if (!container || typeof exhibits === "undefined") return;
+
+  const grouped = {};
+
+  exhibits.forEach(exhibit => {
+    const year = exhibit.year || new Date(exhibit.date).getFullYear();
+    if (!grouped[year]) grouped[year] = [];
+    grouped[year].push(exhibit);
+  });
+
+  const years = Object.keys(grouped).sort((a, b) => b - a);
+
+  container.innerHTML = "";
+
+  years.forEach(year => {
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = year;
+
+    const list = document.createElement("div");
+    list.className = "archive-list";
+
+    grouped[year]
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .forEach(exhibit => {
+        const row = document.createElement("a");
+        row.className = "archive-row";
+        row.href = `exhibit.html?id=${exhibit.id}`;
+
+        const title = document.createElement("div");
+        title.className = "archive-title";
+        title.textContent = exhibit.title;
+
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = exhibit.year || "";
+
+        row.appendChild(title);
+        row.appendChild(meta);
+        list.appendChild(row);
+      });
+
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
+  });
+}
+
+function buildExhibitPage() {
+  if (!window.location.pathname.includes("exhibit.html")) return;
+  if (typeof exhibits === "undefined" || typeof archive === "undefined") return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (!id) return;
+
+  const exhibit = exhibits.find(x => x.id === id);
+  if (!exhibit) return;
+
+  const titleEl = document.getElementById("exhibit-title");
+  const descEl = document.getElementById("exhibit-description");
+  const gallery = document.querySelector(".exhibit-gallery");
+
+  if (titleEl) titleEl.textContent = exhibit.title;
+  if (descEl) descEl.textContent = exhibit.description || "";
+
+  const works = archive.filter(item => item.type === "art" && item.exhibit === id);
+
+  if (!gallery) return;
+  gallery.innerHTML = "";
+
+  const grid = document.createElement("div");
+  grid.className = "gallery-grid";
+
+  works.forEach(item => {
+    const link = document.createElement("a");
+    link.href = `artwork.html?id=${item.id}&from=exhibit`;
+
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.title || "";
+
+    img.addEventListener("click", e => {
+      e.preventDefault();
+      openLightbox(item.image);
+    });
+
+    link.appendChild(img);
+    grid.appendChild(link);
+  });
+
+  gallery.appendChild(grid);
+}
+
 /* ==========================================
    INDIVIDUAL WRITING PAGES (writings.html)
 ============================================= */
@@ -498,6 +596,8 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+  buildExhibitsArchive();
+  buildExhibitPage();
 
   if (window.location.pathname.includes("artwork.html")) {
     enhanceArtworkPage();

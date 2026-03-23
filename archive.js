@@ -1,6 +1,9 @@
-// ===== DATA =====
 
-// archive items (art, etc.)
+
+/* ==================
+         ART
+===================== */
+
 const archive = [
   
 {
@@ -38,6 +41,7 @@ title: "January 30, 2024",
 year: 2024,
 date: "2024-01-30",
 image: "images/art/2024/2024-01-30.jpeg",
+exhibit: "woulds",
 },
 
 {
@@ -56,6 +60,7 @@ title: "January 28, 2024 | #1",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_1.jpeg",
+exhibit: "woulds",
 },
  
 {
@@ -65,6 +70,7 @@ title: "December 14, 2023 | #2",
 year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_2.jpeg",
+exhibit: "woulds",
 },
     
 {
@@ -74,6 +80,7 @@ title: "December 14, 2023 | #1",
 year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_1.jpeg",
+exhibit: "woulds",
 },
  
 {
@@ -83,6 +90,7 @@ title: "December 10, 2023 | #3",
 year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_3.jpeg",
+exhibit: "woulds",
 },
   
 {
@@ -101,6 +109,7 @@ title: "December 10, 2023 | #1",
 year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_1.jpeg",
+exhibit: "woulds",
 },
  
 {
@@ -110,6 +119,7 @@ title: "December 6, 2023 | #2",
 year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_2.jpeg",
+exhibit: "woulds",
 },
     
 {
@@ -119,6 +129,7 @@ title: "December 6, 2023 | #1",
 year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_1.jpeg",
+exhibit: "woulds",
 },
 
 {
@@ -127,7 +138,8 @@ type: "art",
 title: "November 13, 2023 | #2",
 year: 2023,
 date: "2023-11-13",
-image: "images/art/2023/2023-11-13_2.jpeg",  
+image: "images/art/2023/2023-11-13_2.jpeg",
+exhibit: "woulds",  
 },
     
 {
@@ -137,6 +149,7 @@ title: "November 13, 2023 | #1",
 year: 2023,
 date: "2023-11-13",
 image: "images/art/2023/2023-11-13_1.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -164,6 +177,7 @@ title: "August 26, 2023 | #4",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_4.jpeg",
+exhibit: "woulds",
 },
   
 {
@@ -173,6 +187,7 @@ title: "August 26, 2023 | #3",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_3.jpeg",
+exhibit: "woulds",
 },
   
 {
@@ -182,6 +197,7 @@ title: "August 26, 2023 | #2",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_2.jpeg",
+exhibit: "woulds",
 },
     
 {
@@ -191,6 +207,7 @@ title: "August 26, 2023 | #1",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_1.jpeg",
+exhibit: "woulds",
 },
 
 {
@@ -200,6 +217,7 @@ title: "August 13, 2023 | #2",
 year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_2.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -209,6 +227,7 @@ title: "August 13, 2023 | #1",
 year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_1.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -226,7 +245,8 @@ type: "art",
 title: "July 16, 2023 | #2",
 year: 2023,
 date: "2023-07-16",
-image: "images/art/2023/2023-07-16_2.jpeg",  
+image: "images/art/2023/2023-07-16_2.jpeg",
+exhibit: "woulds",  
 },
     
 {
@@ -236,6 +256,7 @@ title: "July 16, 2023 | #1",
 year: 2023,
 date: "2023-07-16",
 image: "images/art/2023/2023-07-16_1.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -245,6 +266,7 @@ title: "July 5, 2023",
 year: 2023,
 date: "2023-07-05",
 image: "images/art/2023/2023-07-05.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -254,6 +276,7 @@ title: "June 24, 2023",
 year: 2023,
 date: "2023-06-24",
 image: "images/art/2023/2023-06-24.jpeg",
+exhibit: "woulds",
 },
    
 {
@@ -743,7 +766,22 @@ date: "2022-01-30",
 image: "images/art/2022/2022-01-30.jpeg",
 },
 
-// writing items
+/* ==================
+       EXHIBITS
+===================== */
+
+const exhibits = [
+  {
+    id: "woulds",
+    title: "Into the Woods / Then out of the Woulds",
+    year: 2023,
+    date: "2023-12-06",
+    description: "A grouped exhibit of selected works."
+  },
+
+/* ==================
+       WRITING
+===================== */
 
 {
  id: "NaturalisticBoM",

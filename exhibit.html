@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exhibits - Christopher Shenefelt</title>
+  <title>Exhibit - Christopher Shenefelt</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,8 +14,8 @@
 
     <a href="index.html">Home</a>
     <a href="archive.html">Archive</a>
-    <a href="art.html" class="active">Artwork</a>
-    <a href="exhibits.html">Exhibits</a>
+    <a href="art.html">Artwork</a>
+    <a href="exhibits.html" class="active">Exhibits</a>
     <a href="writing.html">Writing</a>
     <a href="now.html">Now</a>
     <a href="guestbook.html">Guestbook</a>
@@ -23,10 +23,16 @@
   </nav>
 
   <main class="content">
-    <h1>Exhibits</h1>
-    <p class="page-intro">A catalog of grouped bodies of work.</p>
+    <div class="art-back">
+      <a href="exhibits.html">← Back to Exhibits</a>
+    </div>
 
-    <div id="exhibits-archive" class="timeline"></div>
+    <header class="page-header">
+      <h1 id="exhibit-title"></h1>
+      <p id="exhibit-description" class="page-intro"></p>
+    </header>
+
+    <section class="gallery exhibit-gallery"></section>
   </main>
 
 </div>
