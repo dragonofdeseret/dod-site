@@ -1,5 +1,5 @@
 /* ======================
-   DATA SAFETY
+       DATA SAFETY
 ========================= */
 
 if (typeof archive === "undefined") {
@@ -7,24 +7,23 @@ if (typeof archive === "undefined") {
 }
 
 /* ==================
-   HELPERS
+       HELPERS
 ===================== */
 
 function groupByYear(items) {
   const years = {};
 
   items.forEach(item => {
-    if (!years[item.year]) years[item.year] = [];
-    years[item.year].push(item);
+    const year = item.year || new Date(item.date).getFullYear();
+    if (!years[year]) years[year] = [];
+    years[year].push(item);
   });
 
   return Object.keys(years)
-    .sort((a, b) => b - a)
+    .sort((a, b) => Number(b) - Number(a))
     .map(year => ({
       year,
-      items: years[year].sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      )
+      items: years[year].sort((a, b) => new Date(b.date) - new Date(a.date))
     }));
 }
 
@@ -41,8 +40,22 @@ function groupByCollection(items) {
   return collections;
 }
 
+function buildYearNav(years) {
+  const nav = document.querySelector(".year-nav");
+  if (!nav) return;
+
+  nav.innerHTML = "";
+
+  years.forEach(year => {
+    const link = document.createElement("a");
+    link.href = `#year-${year}`;
+    link.textContent = year;
+    nav.appendChild(link);
+  });
+}
+
 /* =========================
-   ARCHIVE (archive.html)
+    ARCHIVE (archive.html)
 ============================ */
 
 function buildArchive() {
@@ -50,57 +63,111 @@ function buildArchive() {
   if (!container) return;
 
   const items = archive
-    .filter(item => item.type !== "art" || item.showOnArt !== false)
-    .sort((a, b) => new Date(b.date) - new Date(a.date)); // newest first
+    .filter(item => item.type === "writing" || (item.type === "art" && item.showOnArt !== false))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  const grouped = {};
-
-  items.forEach(item => {
-    const year = item.year || new Date(item.date).getFullYear();
-    if (!grouped[year]) grouped[year] = [];
-    grouped[year].push(item);
-  });
-
-  const years = Object.keys(grouped).sort((a, b) => b - a);
+  const grouped = groupByYear(items);
 
   container.innerHTML = "";
 
-  years.forEach(year => {
+  buildYearNav(grouped.map(group => group.year));
+
+  grouped.forEach(group => {
     const yearBlock = document.createElement("div");
     yearBlock.className = "archive-year";
+    yearBlock.id = `year-${group.year}`;
 
     const yearTitle = document.createElement("h2");
-    yearTitle.textContent = year;
+    yearTitle.textContent = group.year;
 
     const list = document.createElement("div");
     list.className = "archive-list";
 
-    grouped[year]
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .forEach(item => {
-        const row = document.createElement("a");
-        row.className = "archive-row";
+    group.items.forEach(item => {
+      const row = document.createElement("a");
+      row.className = "archive-row";
 
-        if (item.type === "writing") {
-          row.href = `writings.html?id=${item.id}`;
-        } else if (item.type === "art") {
-          row.href = `artwork.html?id=${item.id}`;
+      if (item.type === "writing") {
+        if (item.sections && item.sections.includes("trips")) {
+          row.href = `writings.html?id=${item.id}&from=archive`;
         } else {
-          return;
+          row.href = `writings.html?id=${item.id}&from=archive`;
         }
+      } else if (item.type === "art") {
+        row.href = `artwork.html?id=${item.id}&from=archive`;
+      } else {
+        return;
+      }
 
-        const title = document.createElement("div");
-        title.className = "archive-title";
-        title.textContent = item.title;
+      const title = document.createElement("div");
+      title.className = "archive-title";
+      title.textContent = item.title;
 
-        const meta = document.createElement("div");
-        meta.className = "archive-meta";
-        meta.textContent = item.date || item.year || "";
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || item.year || "";
 
-        row.appendChild(title);
-        row.appendChild(meta);
-        list.appendChild(row);
-      });
+      row.appendChild(title);
+      row.appendChild(meta);
+      list.appendChild(row);
+    });
+
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
+  });
+}
+
+/* ==============================
+   WRITING INDEX (writing.html)
+================================= */
+
+function buildWritingIndex() {
+  const container = document.getElementById("writing");
+  if (!container) return;
+
+  const writingItems = archive
+    .filter(item => {
+      if (item.type !== "writing") return false;
+      if (item.sections && item.sections.includes("trips")) return false;
+      return !item.sections || item.sections.includes("writing");
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const grouped = groupByYear(writingItems);
+
+  container.innerHTML = "";
+
+  buildYearNav(grouped.map(group => group.year));
+
+  grouped.forEach(group => {
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+    yearBlock.id = `year-${group.year}`;
+
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = group.year;
+
+    const list = document.createElement("div");
+    list.className = "archive-list";
+
+    group.items.forEach(item => {
+      const row = document.createElement("a");
+      row.className = "archive-row";
+      row.href = `writings.html?id=${item.id}`;
+
+      const title = document.createElement("div");
+      title.className = "archive-title";
+      title.textContent = item.title;
+
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || item.year || "";
+
+      row.appendChild(title);
+      row.appendChild(meta);
+      list.appendChild(row);
+    });
 
     yearBlock.appendChild(yearTitle);
     yearBlock.appendChild(list);
@@ -109,7 +176,7 @@ function buildArchive() {
 }
 
 /* ======================
-   GALLERY (art.html)
+    GALLERY (art.html)
 ========================= */
 
 function buildGallery() {
@@ -120,28 +187,45 @@ function buildGallery() {
     .filter(x => x.type === "art" && x.showOnArt !== false)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  const grouped = groupByYear(artItems);
+
   gallery.innerHTML = "";
 
-  const grid = document.createElement("div");
-  grid.className = "gallery-grid";
+  buildYearNav(grouped.map(group => group.year));
 
-  artItems.forEach(item => {
-    const link = document.createElement("a");
-    link.href = `artwork.html?id=${item.id}`;
+  grouped.forEach(group => {
+    const yearSection = document.createElement("section");
+    yearSection.className = "gallery-year";
+    yearSection.id = `year-${group.year}`;
 
-    const img = document.createElement("img");
-    img.src = item.image;
-    img.alt = item.title || "";
+    const heading = document.createElement("h2");
+    heading.textContent = group.year;
 
-    link.appendChild(img);
-    grid.appendChild(link);
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+
+    group.items.forEach(item => {
+      const link = document.createElement("a");
+      link.href = `artwork.html?id=${item.id}`;
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.title || "";
+
+      link.appendChild(img);
+      grid.appendChild(link);
+    });
+
+    yearSection.appendChild(heading);
+    yearSection.appendChild(grid);
+    gallery.appendChild(yearSection);
   });
 
-  gallery.appendChild(grid);
+  buildRandomButton(artItems);
 }
 
 /* ========================
-   ARTWORK PAGE FEATURES
+    ARTWORK PAGE FEATURES
 =========================== */
 
 function enhanceArtworkPage() {
@@ -155,8 +239,8 @@ function enhanceArtworkPage() {
       const dateDiff = new Date(b.date) - new Date(a.date);
       if (dateDiff !== 0) return dateDiff;
 
-      const getIndex = id => {
-        const match = id.match(/_(\d+)$/);
+      const getIndex = value => {
+        const match = value.match(/_(\d+)$/);
         return match ? parseInt(match[1], 10) : 0;
       };
 
@@ -191,12 +275,14 @@ function enhanceArtworkPage() {
 }
 
 /* ======================
-   SURPRISE ME BUTTON
+    SURPRISE ME BUTTON
 ========================= */
 
 function buildRandomButton(artItems) {
   const container = document.getElementById("random-container");
   if (!container || !artItems.length) return;
+
+  container.innerHTML = "";
 
   const button = document.createElement("button");
   button.className = "random-button";
@@ -211,7 +297,7 @@ function buildRandomButton(artItems) {
 }
 
 /* ======================
-   LIGHTBOX VIEWER
+    LIGHTBOX VIEWER
 ========================= */
 
 function openLightbox(src) {
@@ -222,14 +308,13 @@ function openLightbox(src) {
   img.src = src;
 
   viewer.appendChild(img);
-
   viewer.addEventListener("click", () => viewer.remove());
 
   document.body.appendChild(viewer);
 }
 
 /* ======================
-       EXHIBITS
+        EXHIBITS
 ========================= */
 
 function buildExhibitsArchive() {
@@ -244,13 +329,16 @@ function buildExhibitsArchive() {
     grouped[year].push(exhibit);
   });
 
-  const years = Object.keys(grouped).sort((a, b) => b - a);
+  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 
   container.innerHTML = "";
+
+  buildYearNav(years);
 
   years.forEach(year => {
     const yearBlock = document.createElement("div");
     yearBlock.className = "archive-year";
+    yearBlock.id = `year-${year}`;
 
     const yearTitle = document.createElement("h2");
     yearTitle.textContent = year;
@@ -306,7 +394,7 @@ function buildExhibitPage() {
   const works = archive
     .filter(item => item.type === "art" && item.exhibit === id)
     .sort((a, b) => {
-      const dateDiff = new Date(a.date) - new Date(b.date); // oldest first
+      const dateDiff = new Date(a.date) - new Date(b.date);
       if (dateDiff !== 0) return dateDiff;
       return (a.title || "").localeCompare(b.title || "");
     });
@@ -419,18 +507,71 @@ function buildWritingPage() {
 }
 
 /* ==============================================
-    INDIVIDUAL WRITING PAGES (tripreports.html)
+         TRIP REPORTS INDEX / VIEWER
 ================================================= */
 
 function buildTripReportsPage() {
-  if (!window.location.pathname.includes("tripreports.html")) return;
+  if (!window.location.pathname.includes("tripreports.html") && !window.location.pathname.includes("trips.html")) {
+    return;
+  }
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-  const from = params.get("from");
+
+  const items = archive
+    .filter(item => item.type === "writing" && item.sections && item.sections.includes("trips"))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // INDEX PAGE (trips.html)
+  const indexContainer = document.getElementById("trip-reports");
+  if (indexContainer && !id) {
+    const grouped = groupByYear(items);
+
+    indexContainer.innerHTML = "";
+    buildYearNav(grouped.map(group => group.year));
+
+    grouped.forEach(group => {
+      const yearBlock = document.createElement("div");
+      yearBlock.className = "archive-year";
+      yearBlock.id = `year-${group.year}`;
+
+      const yearTitle = document.createElement("h2");
+      yearTitle.textContent = group.year;
+
+      const list = document.createElement("div");
+      list.className = "archive-list";
+
+      group.items.forEach(item => {
+        const row = document.createElement("a");
+        row.className = "archive-row";
+        row.href = `writings.html?id=${item.id}&from=trips`;
+
+        const title = document.createElement("div");
+        title.className = "archive-title";
+        title.textContent = item.title;
+
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = item.date || item.year || "";
+
+        row.appendChild(title);
+        row.appendChild(meta);
+        list.appendChild(row);
+      });
+
+      yearBlock.appendChild(yearTitle);
+      yearBlock.appendChild(list);
+      indexContainer.appendChild(yearBlock);
+    });
+
+    return;
+  }
+
+  // VIEWER PAGE (tripreports.html?id=...)
+  if (!window.location.pathname.includes("tripreports.html")) return;
   if (!id) return;
 
-  const items = archive.filter(x => x.type === "trips");
+  const from = params.get("from");
   const index = items.findIndex(x => x.id === id);
   if (index === -1) return;
 
@@ -440,24 +581,22 @@ function buildTripReportsPage() {
   const titleEl = document.getElementById("writing-title");
   const descEl = document.getElementById("writing-description");
   const downloadLink = document.getElementById("download-link");
-  const backLink = document.querySelector(".writing-actions a:first-child");
+  const backLink = document.getElementById("back-link") || document.querySelector(".writing-actions a:first-child");
 
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.description || "";
   if (frame) frame.src = item.file;
 
-  // dynamic back link
   if (backLink) {
     if (from === "archive") {
       backLink.href = "archive.html";
       backLink.textContent = "← Back to Archive";
     } else {
-      backLink.href = "writing.html";
-      backLink.textContent = "← Back to Writing";
+      backLink.href = "trips.html";
+      backLink.textContent = "← Back to Trip Reports";
     }
   }
 
-  // analytics
   if (window.plausible) {
     plausible("PDF View", {
       props: { title: item.title, id: item.id }
@@ -479,10 +618,10 @@ function buildTripReportsPage() {
 
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writings.html?id=${prev.id}${from ? `&from=${from}` : ""}`;
+      window.location.href = `writings.html?id=${prev.id}&from=trips`;
     }
     if (e.key === "ArrowRight" && next) {
-      window.location.href = `writings.html?id=${next.id}${from ? `&from=${from}` : ""}`;
+      window.location.href = `writings.html?id=${next.id}&from=trips`;
     }
   });
 
@@ -542,6 +681,8 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+  buildWritingIndex();
+  buildTripReportsPage();
   buildExhibitsArchive();
   buildExhibitPage();
 
@@ -552,5 +693,3 @@ document.addEventListener("DOMContentLoaded", () => {
   buildWritingPage();
   buildFooter();
 });
-
-
