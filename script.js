@@ -145,15 +145,14 @@ function enhanceArtworkPage() {
   if (!id) return;
 
   const artItems = archive
-  .filter(x => x.type === "art" && x.showOnArt !== false)
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      const dateDiff = new Date(a.date) - new Date(b.date);
+    .filter(x => x.type === "art" && x.showOnArt !== false)
+    .sort((a, b) => {
+      const dateDiff = new Date(b.date) - new Date(a.date);
       if (dateDiff !== 0) return dateDiff;
 
       const getIndex = id => {
         const match = id.match(/_(\d+)$/);
-        return match ? parseInt(match[1]) : 0;
+        return match ? parseInt(match[1], 10) : 0;
       };
 
       return getIndex(a.id) - getIndex(b.id);
