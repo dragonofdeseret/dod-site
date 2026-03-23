@@ -778,7 +778,7 @@ const exhibits = [
     title: "Into the Woods / Then out of the Woulds",
     year: 2023,
     date: "2023-12-06",
-    description: "A grouped exhibit of selected works."
+    description: ""
   }
 
 ];
