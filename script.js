@@ -316,6 +316,10 @@ function openLightbox(src) {
   document.body.appendChild(viewer);
 }
 
+/* ======================
+       EXHIBITS
+========================= */
+
 function buildExhibitsArchive() {
   const container = document.getElementById("exhibits-archive");
   if (!container || typeof exhibits === "undefined") return;
@@ -386,7 +390,13 @@ function buildExhibitPage() {
   if (titleEl) titleEl.textContent = exhibit.title;
   if (descEl) descEl.textContent = exhibit.description || "";
 
-  const works = archive.filter(item => item.type === "art" && item.exhibit === id);
+  const works = archive
+  .filter(item => item.type === "art" && item.exhibit === id)
+  .sort((a, b) => {
+    const dateDiff = new Date(b.date) - new Date(a.date);
+    if (dateDiff !== 0) return dateDiff;
+    return (b.title || "").localeCompare(a.title || "");
+  });
 
   if (!gallery) return;
   gallery.innerHTML = "";
