@@ -47,32 +47,11 @@ function groupByCollection(items) {
 
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container || typeof archive === "undefined" || !Array.isArray(archive)) return;
+  if (!container) return;
 
-  const yearNav = document.querySelector(".year-nav");
-  const path = window.location.pathname;
-
-  const isArchivePage = path.includes("archive.html");
-  const isWritingPage = path.includes("writing.html");
-  const isTripsPage = path.includes("trips.html");
-
-  let items = archive;
-
-  if (isWritingPage) {
-    items = archive.filter(item =>
-      item.type === "writing" &&
-      (
-        !item.sections ||
-        item.sections.includes("writing")
-      )
-    );
-  } else if (isTripsPage) {
-    items = archive.filter(item =>
-      item.type === "writing" &&
-      item.sections &&
-      item.sections.includes("trips")
-    );
-  }
+  const items = archive
+    .filter(item => item.type !== "art" || item.showOnArt !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date)); // newest first
 
   const grouped = {};
 
@@ -85,19 +64,10 @@ function buildArchive() {
   const years = Object.keys(grouped).sort((a, b) => b - a);
 
   container.innerHTML = "";
-  if (yearNav) yearNav.innerHTML = "";
 
   years.forEach(year => {
-    if (yearNav) {
-      const navLink = document.createElement("a");
-      navLink.href = `#year-${year}`;
-      navLink.textContent = year;
-      yearNav.appendChild(navLink);
-    }
-
     const yearBlock = document.createElement("div");
     yearBlock.className = "archive-year";
-    yearBlock.id = `year-${year}`;
 
     const yearTitle = document.createElement("h2");
     yearTitle.textContent = year;
@@ -111,41 +81,24 @@ function buildArchive() {
         const row = document.createElement("a");
         row.className = "archive-row";
 
-        if (item.type === "art") {
-          row.href = isArchivePage
-            ? `artwork.html?id=${item.id}&from=archive`
-            : `artwork.html?id=${item.id}`;
-        } else if (item.type === "writing") {
-          if (isTripsPage) {
-            row.href = `tripreports.html?id=${item.id}&from=trips`;
-          } else if (isArchivePage) {
-            row.href = `writings.html?id=${item.id}&from=archive`;
-          } else {
-            row.href = `writings.html?id=${item.id}`;
-          }
+        if (item.type === "writing") {
+          row.href = `writings.html?id=${item.id}`;
+        } else if (item.type === "art") {
+          row.href = `artwork.html?id=${item.id}`;
         } else {
-          row.href = item.link || "#";
+          return;
         }
 
         const title = document.createElement("div");
         title.className = "archive-title";
         title.textContent = item.title;
+
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = item.date || item.year || "";
+
         row.appendChild(title);
-
-        if (item.type === "writing") {
-          const meta = document.createElement("div");
-          meta.className = "archive-meta";
-          meta.textContent = item.meta || "PDF";
-          row.appendChild(meta);
-        }
-
-        if (item.type === "art" && item.image) {
-          const img = document.createElement("img");
-          img.src = item.image;
-          img.alt = item.title || "";
-          row.appendChild(img);
-        }
-
+        row.appendChild(meta);
         list.appendChild(row);
       });
 
@@ -160,72 +113,26 @@ function buildArchive() {
 ========================= */
 
 function buildGallery() {
-  const gallery = document.querySelector(".gallery");
-  if (!gallery || typeof archive === "undefined") return;
+  const gallery = document.getElementById("gallery");
+  if (!gallery) return;
 
-  const yearNav = document.querySelector(".year-nav");
-
-  const artItems = archive.filter(item => item.type === "art");
-  const groupedYears = groupByYear(artItems);
+  const artItems = archive
+  .filter(x => x.type === "art" && x.showOnArt !== false)
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   gallery.innerHTML = "";
-  if (yearNav) yearNav.innerHTML = "";
 
-  groupedYears.forEach(group => {
-    const section = document.createElement("div");
-    section.className = "gallery-year";
-    section.id = `year-${group.year}`;
+  artItems.forEach(item => {
+    const link = document.createElement("a");
+    link.href = `artwork.html?id=${item.id}`;
 
-    const header = document.createElement("h2");
-    header.textContent = group.year;
-    section.appendChild(header);
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.title || "";
 
-    const collections = groupByCollection(group.items);
-
-    Object.keys(collections).forEach(name => {
-      const items = collections[name];
-
-      if (name !== "__default") {
-        const title = document.createElement("h3");
-        title.textContent = name;
-        title.className = "collection-title";
-        section.appendChild(title);
-      }
-
-      const grid = document.createElement("div");
-      grid.className = "gallery-grid";
-
-      items.forEach(item => {
-        const link = document.createElement("a");
-        link.href = `artwork.html?id=${item.id}`;
-
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title || "";
-
-        img.addEventListener("click", e => {
-          e.preventDefault();
-          openLightbox(item.image);
-        });
-
-        link.appendChild(img);
-        grid.appendChild(link);
-      });
-
-      section.appendChild(grid);
-    });
-
-    gallery.appendChild(section);
-
-    if (yearNav) {
-      const navLink = document.createElement("a");
-      navLink.href = `#year-${group.year}`;
-      navLink.textContent = group.year;
-      yearNav.appendChild(navLink);
-    }
+    link.appendChild(img);
+    gallery.appendChild(link);
   });
-
-  buildRandomButton(artItems);
 }
 
 /* ========================
@@ -238,8 +145,9 @@ function enhanceArtworkPage() {
   if (!id) return;
 
   const artItems = archive
-    .filter(x => x.type === "art")
-    .sort((a, b) => {
+  .filter(x => x.type === "art" && x.showOnArt !== false)
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
+
       const dateDiff = new Date(a.date) - new Date(b.date);
       if (dateDiff !== 0) return dateDiff;
 
@@ -389,16 +297,16 @@ function buildExhibitPage() {
 
   if (titleEl) titleEl.textContent = exhibit.title;
   if (descEl) descEl.textContent = exhibit.description || "";
-
- const works = archive
-  .filter(item => item.type === "art" && item.exhibit === id)
-  .sort((a, b) => {
-    const dateDiff = new Date(a.date) - new Date(b.date);
-    if (dateDiff !== 0) return dateDiff;
-    return (a.title || "").localeCompare(b.title || "");
-  });
-
   if (!gallery) return;
+
+  const works = archive
+    .filter(item => item.type === "art" && item.exhibit === id)
+    .sort((a, b) => {
+      const dateDiff = new Date(a.date) - new Date(b.date); // oldest first
+      if (dateDiff !== 0) return dateDiff;
+      return (a.title || "").localeCompare(b.title || "");
+    });
+
   gallery.innerHTML = "";
 
   if (!works.length) {

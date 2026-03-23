@@ -558,6 +558,17 @@ year: 2022,
 date: "2022-06-11",
 image: "images/art/2022/2022-06-11_2.jpeg",
 },
+
+{
+id: "2022-06-11_ex1",
+type: "art",
+title: "June 5, 2022 | Blot",
+year: 2022,
+date: "2022-06-11",
+image: "images/art/2022/2022-06-11_1.jpeg",
+exhibit: "hz1",
+showOnArt: false,
+},
   
 {
 id: "2022-06-05",
@@ -566,6 +577,18 @@ title: "June 5, 2022",
 year: 2022,
 date: "2022-06-05",
 image: "images/art/2022/2022-06-05_2.jpeg",
+exhibit: "hz1",
+},
+
+{
+id: "2022-06-05_ex1",
+type: "art",
+title: "June 5, 2022 | Blot",
+year: 2022,
+date: "2022-06-05",
+image: "images/art/2022/2022-06-05_1.jpeg",
+exhibit: "hz1",
+showOnArt: false,
 },
   
 {
@@ -584,6 +607,18 @@ title: "May 27, 2022",
 year: 2022,
 date: "2022-05-27",
 image: "images/art/2022/2022-05-27_2.jpg",
+exhibit: "hz1",
+},
+
+{
+id: "2022-05-27_ex1",
+type: "art",
+title: "May 27, 2022 | Blot",
+year: 2022,
+date: "2022-05-27",
+image: "images/art/2022/2022-05-27_1.jpg",
+exhibit: "hz1",
+showOnArt: false,
 },
   
 {
@@ -593,6 +628,18 @@ title: "May 26, 2022",
 year: 2022,
 date: "2022-05-26",
 image: "images/art/2022/2022-05-26_2.jpeg",
+exhibit: "hz1",
+},
+
+{
+id: "2022-05-26_ex1",
+type: "art",
+title: "May 26, 2022 | Blot",
+year: 2022,
+date: "2022-05-26",
+image: "images/art/2022/2022-05-26_1.jpeg",
+exhibit: "hz1",
+showOnArt: false,
 },
 
 {
@@ -602,6 +649,18 @@ title: "May 23, 2022 | #3",
 year: 2022,
 date: "2022-05-23",
 image: "images/art/2022/2022-05-23_5.jpeg",
+exhibit: "hz1",
+},
+
+{
+id: "2022-05-23_ex2",
+type: "art",
+title: "May 23, 2022 | Blot 2",
+year: 2022,
+date: "2022-05-23",
+image: "images/art/2022/2022-05-23_4.jpg",
+exhibit: "hz1",
+showOnArt: false,
 },
 
 {
@@ -611,8 +670,20 @@ title: "May 23, 2022 | #2",
 year: 2022,
 date: "2022-05-23",
 image: "images/art/2022/2022-05-23_3.jpeg",
+exhibit: "hz1",
 },
-   
+ 
+{
+id: "2022-05-23_ex1",
+type: "art",
+title: "May 23, 2022 | Blot 1",
+year: 2022,
+date: "2022-05-23",
+image: "images/art/2022/2022-05-23_2.jpg",
+exhibit: "hz1",
+showOnArt: false,
+},
+  
 {
 id: "2022-05-23_1",
 type: "art",
@@ -701,6 +772,7 @@ title: "March 8, 2022 | #3",
 year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_3.jpeg",
+exhibit: "mayuan",
 },
 
 {
@@ -710,6 +782,7 @@ title: "March 8, 2022 | #2",
 year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_2.jpeg",
+exhibit: "mayuan",
 },
   
 {
@@ -719,6 +792,7 @@ title: "March 8, 2022 | #1",
 year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_1.jpeg",
+exhibit: "mayuan",
 },
 
 {
@@ -856,6 +930,22 @@ const exhibits = [
     title: "Into the Woods / Then out of the Woulds",
     year: 2023,
     date: "2023-12-06",
+    description: ""
+  }, 
+   
+   {
+    id: "hz1",
+    title: "Hatsuboku Zen #1",
+    year: 2022,
+    date: "2022-05-23",
+    description: ""
+  },
+
+  {
+    id: "mayuan",
+    title: "Ma Yuan Recreations & Inspiration",
+    year: 2022,
+    date: "2022-03-08",
     description: ""
   }
 
