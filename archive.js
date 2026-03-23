@@ -764,24 +764,7 @@ title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
-}
-
-];
-
-/* ==================
-       EXHIBITS
-===================== */
-
-const exhibits = [
-  {
-    id: "woulds",
-    title: "Into the Woods / Then out of the Woulds",
-    year: 2023,
-    date: "2023-12-06",
-    description: ""
-  }
-
-];
+},
 
 /* ==================
        WRITING
@@ -860,5 +843,20 @@ const exhibits = [
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
 } 
+
+];
+
+/* ==================
+       EXHIBITS
+===================== */
+
+const exhibits = [
+  {
+    id: "woulds",
+    title: "Into the Woods / Then out of the Woulds",
+    year: 2023,
+    date: "2023-12-06",
+    description: ""
+  }
 
 ];
