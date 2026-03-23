@@ -391,20 +391,44 @@ function buildExhibitPage() {
   if (descEl) descEl.textContent = exhibit.description || "";
 
   const works = archive
-  .filter(item => item.type === "art" && item.exhibit === id)
-  .sort((a, b) => {
-    const dateDiff = new Date(b.date) - new Date(a.date);
-    if (dateDiff !== 0) return dateDiff;
-    return (b.title || "").localeCompare(a.title || "");
-  });
+    .filter(item => item.type === "art" && item.exhibit === id)
+    .sort((a, b) => {
+      const dateDiff = new Date(b.date) - new Date(a.date);
+      if (dateDiff !== 0) return dateDiff;
+      return (b.title || "").localeCompare(a.title || "");
+    });
 
   if (!gallery) return;
   gallery.innerHTML = "";
 
-  const grid = document.createElement("div");
-  grid.className = "gallery-grid";
+  if (!works.length) {
+    gallery.innerHTML = "<p>No works found for this exhibit.</p>";
+    return;
+  }
 
-  works.forEach(item => {
+  const featured = works[0];
+  const rest = works.slice(1);
+
+  const featuredWrap = document.createElement("a");
+  featuredWrap.className = "exhibit-featured";
+  featuredWrap.href = `artwork.html?id=${featured.id}&from=exhibit`;
+
+  const featuredImg = document.createElement("img");
+  featuredImg.src = featured.image;
+  featuredImg.alt = featured.title || "";
+
+  featuredImg.addEventListener("click", e => {
+    e.preventDefault();
+    openLightbox(featured.image);
+  });
+
+  featuredWrap.appendChild(featuredImg);
+  gallery.appendChild(featuredWrap);
+
+  const grid = document.createElement("div");
+  grid.className = "exhibit-grid";
+
+  rest.forEach(item => {
     const link = document.createElement("a");
     link.href = `artwork.html?id=${item.id}&from=exhibit`;
 
