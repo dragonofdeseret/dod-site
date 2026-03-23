@@ -113,12 +113,12 @@ function buildArchive() {
 ========================= */
 
 function buildGallery() {
-  const gallery = document.getElementById("gallery");
+  const gallery = document.querySelector(".gallery");
   if (!gallery) return;
 
   const artItems = archive
-  .filter(x => x.type === "art" && x.showOnArt !== false)
-  .sort((a, b) => new Date(b.date) - new Date(a.date));
+    .filter(x => x.type === "art" && x.showOnArt !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   gallery.innerHTML = "";
 
