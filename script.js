@@ -59,6 +59,8 @@ function buildYearNav(years) {
 ============================ */
 
 function buildArchive() {
+  if (!window.location.pathname.includes("archive.html")) return;
+
   const container = document.getElementById("archive");
   if (!container) return;
 
