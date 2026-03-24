@@ -34,6 +34,35 @@ year: 2024,
 date: "2024-08-22",
 image: "images/art/2024/2024-08-22_1.jpeg",
 },
+
+{
+id: "2024-08-02_3",
+type: "art",
+title: "August 2, 2024 | #3",
+year: 2024,
+date: "2024-08-02",
+image: "images/art/2024/2024-08-02_3.jpg",
+},
+
+/* 
+{
+id: "2024-08-02_2",
+type: "art",
+title: "August 2, 2024 | #2",
+year: 2024,
+date: "2024-08-02",
+image: "images/art/2024/2024-08-02_2.jpg",
+},
+*/
+
+{
+id: "2024-08-02_1 | #1",
+type: "art",
+title: "August 2, 2024",
+year: 2024,
+date: "2024-08-02",
+image: "images/art/2024/2024-08-02_1.jpg",
+},
    
 {
 id: "2024-06-25",
@@ -172,7 +201,16 @@ image: "images/art/2023/2023-11-13_1.jpeg",
 exhibit: "woulds",
 exhibitOrder: 11,
 },
-   
+  
+{
+id: "2023-10-31",
+type: "art",
+title: "October 31, 2023",
+year: 2023,
+date: "2023-10-31",
+image: "images/art/2023/2023-10-31.jpg",
+},
+ 
 {
 id: "2023-10-24",
 type: "art",
