@@ -7,6 +7,16 @@
 const archive = [
   
 {
+id: "2026-01-01",
+type: "art",
+title: "January 01, 2026",
+year: 2026,
+date: "2026-01-01", 
+image: "images/art/2026/2026-01-01.jpeg",
+showOnArt: false,
+},
+
+{
 id: "2025-08-28",
 type: "art",
 title: "August 28, 2025",
@@ -263,6 +273,15 @@ title: "August 6, 2023",
 year: 2023,
 date: "2023-08-06",
 image: "images/art/2023/2023-08-06.jpg",
+},
+
+{
+id: "2023-07-30",
+type: "art",
+title: "July 30, 2023",
+year: 2023,
+date: "2023-07-30", 
+image: "images/art/2023/2023-07-30.jpeg",
 },
  
 {
@@ -1009,6 +1028,15 @@ title: "January 30, 2022",
 year: 2022,
 date: "2022-01-30", 
 image: "images/art/2022/2022-01-30.jpeg",
+},
+
+{
+id: "2020-11-18",
+type: "art",
+title: "November 18, 2020",
+year: 2020,
+date: "2020-11-18", 
+image: "images/art/2020/2020-11-18.JPG",
 },
 
 /* ==================
