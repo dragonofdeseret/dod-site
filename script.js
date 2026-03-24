@@ -336,7 +336,6 @@ function buildExhibitsArchive() {
   const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 
   container.innerHTML = "";
-
   buildYearNav(years);
 
   years.forEach(year => {
@@ -376,7 +375,63 @@ function buildExhibitsArchive() {
   });
 }
 
-function buildExhibitPage() {
+function getExhibitWorks(exhibitId) {
+  return archive
+    .filter(item => item.type === "art" && item.exhibit === exhibitId)
+    .sort((a, b) => {
+      const orderA = typeof a.exhibitOrder === "number" ? a.exhibitOrder : 9999;
+      const orderB = typeof b.exhibitOrder === "number" ? b.exhibitOrder : 9999;
+
+      if (orderA !== orderB) return orderA - orderB;
+
+      const dateDiff = new Date(a.date) - new Date(b.date);
+      if (dateDiff !== 0) return dateDiff;
+
+      return (a.title || "").localeCompare(b.title || "");
+    });
+}
+
+function getImageOrientation(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+
+    img.onload = () => {
+      if (img.naturalWidth > img.naturalHeight) {
+        resolve("landscape");
+      } else if (img.naturalWidth < img.naturalHeight) {
+        resolve("portrait");
+      } else {
+        resolve("square");
+      }
+    };
+
+    img.onerror = () => resolve("unknown");
+    img.src = src;
+  });
+}
+
+function createExhibitLink(item) {
+  const link = document.createElement("a");
+  link.href = `artwork.html?id=${item.id}&from=exhibit`;
+
+  if (item.exhibitSpan === "full") {
+    link.classList.add("span-full");
+  }
+
+  const img = document.createElement("img");
+  img.src = item.image;
+  img.alt = item.title || "";
+
+  img.addEventListener("click", e => {
+    e.preventDefault();
+    openLightbox(item.image);
+  });
+
+  link.appendChild(img);
+  return link;
+}
+
+async function buildExhibitPage() {
   if (!window.location.pathname.includes("exhibit.html")) return;
   if (typeof exhibits === "undefined" || typeof archive === "undefined") return;
 
@@ -395,19 +450,7 @@ function buildExhibitPage() {
   if (descEl) descEl.textContent = exhibit.description || "";
   if (!gallery) return;
 
-  const works = archive
-  .filter(item => item.type === "art" && item.exhibit === id)
-  .sort((a, b) => {
-    const orderA = typeof a.exhibitOrder === "number" ? a.exhibitOrder : 9999;
-    const orderB = typeof b.exhibitOrder === "number" ? b.exhibitOrder : 9999;
-
-    if (orderA !== orderB) return orderA - orderB;
-
-    const dateDiff = new Date(a.date) - new Date(b.date);
-    if (dateDiff !== 0) return dateDiff;
-
-    return (a.title || "").localeCompare(b.title || "");
-  });
+  const works = getExhibitWorks(id);
 
   gallery.innerHTML = "";
 
@@ -438,29 +481,44 @@ function buildExhibitPage() {
   const grid = document.createElement("div");
   grid.className = "exhibit-grid";
 
-  rest.forEach(item => {
-    const link = document.createElement("a");
-    link.href = `artwork.html?id=${item.id}&from=exhibit`;
+  const orientedRest = await Promise.all(
+    rest.map(async item => ({
+      ...item,
+      _orientation: await getImageOrientation(item.image)
+    }))
+  );
 
-    if (item.exhibitSpan === "full") {
-      link.classList.add("span-full");
+  for (let i = 0; i < orientedRest.length; i++) {
+    const item = orientedRest[i];
+    const next = orientedRest[i + 1];
+
+    const itemForcedFull = item.exhibitSpan === "full";
+    const nextForcedFull = next && next.exhibitSpan === "full";
+
+    const shouldPair =
+      next &&
+      !itemForcedFull &&
+      !nextForcedFull &&
+      item._orientation === "landscape" &&
+      next._orientation === "landscape";
+
+    if (shouldPair) {
+      const pair = document.createElement("div");
+      pair.className = "exhibit-pair";
+
+      pair.appendChild(createExhibitLink(item));
+      pair.appendChild(createExhibitLink(next));
+
+      grid.appendChild(pair);
+      i++;
+      continue;
+    }
+
+    grid.appendChild(createExhibitLink(item));
   }
 
-    const img = document.createElement("img");
-    img.src = item.image;
-    img.alt = item.title || "";
-
-    img.addEventListener("click", e => {
-      e.preventDefault();
-      openLightbox(item.image);
-    });
-
-    link.appendChild(img);
-    grid.appendChild(link);
-  });
-
-    gallery.appendChild(grid);
-  }
+  gallery.appendChild(grid);
+}
 
 /* ==========================================
    INDIVIDUAL WRITING PAGES (writings.html)

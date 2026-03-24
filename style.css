@@ -711,20 +711,20 @@ background: rgba(255,255,255,0.12);
 ==================== */
 
 .exhibit-statement {
-  max-width: 700px;
-  margin-bottom: 2.5rem;
-  line-height: 1.7;
+  max-width: 720px;
+  margin: 0 0 2.75rem;
+  line-height: 1.75;
   opacity: 0.9;
 }
 
 .exhibit-gallery {
-  margin-top: 2.5rem;
+  margin-top: 2.75rem;
 }
 
 .exhibit-featured {
   display: block;
-  max-width: 920px;
-  margin-bottom: 2.5rem;
+  max-width: 980px;
+  margin: 0 0 2.75rem;
 }
 
 .exhibit-featured img {
@@ -736,38 +736,59 @@ background: rgba(255,255,255,0.12);
 .exhibit-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
+  gap: 1.75rem;
   align-items: start;
 }
 
-.exhibit-grid a {
+.exhibit-grid > a,
+.exhibit-grid > .exhibit-pair {
   display: block;
+  min-width: 0;
 }
 
 .exhibit-grid a.span-full {
   grid-column: 1 / -1;
 }
 
+.exhibit-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
 .exhibit-grid img,
-.exhibit-featured img {
+.exhibit-featured img,
+.exhibit-pair img {
   width: 100%;
   height: auto;
   display: block;
   background: transparent;
-  padding: 0px;
+  padding: 0;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .exhibit-grid img:hover,
-.exhibit-featured img:hover {
+.exhibit-featured img:hover,
+.exhibit-pair img:hover {
   transform: translateY(-2px);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62);
 }
 
 @media (max-width: 980px) {
+  .exhibit-featured {
+    max-width: 100%;
+  }
+
   .exhibit-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .exhibit-pair {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
