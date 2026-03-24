@@ -431,7 +431,7 @@ function createExhibitLink(item) {
   return link;
 }
 
-async function buildExhibitPage() {
+function buildExhibitPage() {
   if (!window.location.pathname.includes("exhibit.html")) return;
   if (typeof exhibits === "undefined" || typeof archive === "undefined") return;
 
@@ -450,7 +450,19 @@ async function buildExhibitPage() {
   if (descEl) descEl.textContent = exhibit.description || "";
   if (!gallery) return;
 
-  const works = getExhibitWorks(id);
+  const works = archive
+    .filter(item => item.type === "art" && item.exhibit === id)
+    .sort((a, b) => {
+      const orderA = typeof a.exhibitOrder === "number" ? a.exhibitOrder : 9999;
+      const orderB = typeof b.exhibitOrder === "number" ? b.exhibitOrder : 9999;
+
+      if (orderA !== orderB) return orderA - orderB;
+
+      const dateDiff = new Date(a.date) - new Date(b.date);
+      if (dateDiff !== 0) return dateDiff;
+
+      return (a.title || "").localeCompare(b.title || "");
+    });
 
   gallery.innerHTML = "";
 
@@ -481,41 +493,22 @@ async function buildExhibitPage() {
   const grid = document.createElement("div");
   grid.className = "exhibit-grid";
 
-  const orientedRest = await Promise.all(
-    rest.map(async item => ({
-      ...item,
-      _orientation: await getImageOrientation(item.image)
-    }))
-  );
+  rest.forEach(item => {
+    const link = document.createElement("a");
+    link.href = `artwork.html?id=${item.id}&from=exhibit`;
 
-  for (let i = 0; i < orientedRest.length; i++) {
-    const item = orientedRest[i];
-    const next = orientedRest[i + 1];
+    const img = document.createElement("img");
+    img.src = item.image;
+    img.alt = item.title || "";
 
-    const itemForcedFull = item.exhibitSpan === "full";
-    const nextForcedFull = next && next.exhibitSpan === "full";
+    img.addEventListener("click", e => {
+      e.preventDefault();
+      openLightbox(item.image);
+    });
 
-    const shouldPair =
-      next &&
-      !itemForcedFull &&
-      !nextForcedFull &&
-      item._orientation === "landscape" &&
-      next._orientation === "landscape";
-
-    if (shouldPair) {
-      const pair = document.createElement("div");
-      pair.className = "exhibit-pair";
-
-      pair.appendChild(createExhibitLink(item));
-      pair.appendChild(createExhibitLink(next));
-
-      grid.appendChild(pair);
-      i++;
-      continue;
-    }
-
-    grid.appendChild(createExhibitLink(item));
-  }
+    link.appendChild(img);
+    grid.appendChild(link);
+  });
 
   gallery.appendChild(grid);
 }
