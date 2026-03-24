@@ -42,6 +42,7 @@ year: 2024,
 date: "2024-01-30",
 image: "images/art/2024/2024-01-30.jpeg",
 exhibit: "woulds",
+exhibitOrder: 21,
 },
 
 {
@@ -51,6 +52,7 @@ title: "January 28, 2024 | #2",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_2.jpeg",
+exhibitOrder: 20,
 },
    
 {
@@ -61,6 +63,7 @@ year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 19,
 },
  
 {
@@ -71,6 +74,7 @@ year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_2.jpeg",
 exhibit: "woulds",
+exhibitOrder: 18,
 },
     
 {
@@ -81,6 +85,7 @@ year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 17,
 },
  
 {
@@ -91,6 +96,7 @@ year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_3.jpeg",
 exhibit: "woulds",
+exhibitOrder: 16,
 },
   
 {
@@ -110,6 +116,7 @@ year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 15,
 },
  
 {
@@ -120,6 +127,7 @@ year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_2.jpeg",
 exhibit: "woulds",
+exhibitOrder: 14,
 },
     
 {
@@ -130,6 +138,7 @@ year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 13,
 },
 
 {
@@ -140,6 +149,7 @@ year: 2023,
 date: "2023-11-13",
 image: "images/art/2023/2023-11-13_2.jpeg",
 exhibit: "woulds",  
+exhibitOrder: 12,
 },
     
 {
@@ -150,6 +160,7 @@ year: 2023,
 date: "2023-11-13",
 image: "images/art/2023/2023-11-13_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 11,
 },
    
 {
@@ -171,6 +182,15 @@ image: "images/art/2023/2023-10-23.jpeg",
 },
  
 {
+id: "2023-09-01",
+type: "art",
+title: "September 1, 2023",
+year: 2023,
+date: "2023-09-01",
+image: "images/art/2023/2023-09-01.jpeg",
+},
+
+{
 id: "2023-08-26_4",
 type: "art",
 title: "August 26, 2023 | #4",
@@ -178,6 +198,7 @@ year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_4.jpeg",
 exhibit: "woulds",
+exhibitOrder: 10,
 },
   
 {
@@ -188,6 +209,7 @@ year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_3.jpeg",
 exhibit: "woulds",
+exhibitOrder: 9,
 },
   
 {
@@ -198,6 +220,7 @@ year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_2.jpeg",
 exhibit: "woulds",
+exhibitOrder: 8,
 },
     
 {
@@ -208,6 +231,7 @@ year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 7,
 },
 
 {
@@ -218,6 +242,7 @@ year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_2.jpeg",
 exhibit: "woulds",
+exhibitOrder: 6,
 },
    
 {
@@ -228,6 +253,7 @@ year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 5,
 },
    
 {
@@ -246,7 +272,8 @@ title: "July 16, 2023 | #2",
 year: 2023,
 date: "2023-07-16",
 image: "images/art/2023/2023-07-16_2.jpeg",
-exhibit: "woulds",  
+exhibit: "woulds",
+exhibitOrder: 4,
 },
     
 {
@@ -257,6 +284,7 @@ year: 2023,
 date: "2023-07-16",
 image: "images/art/2023/2023-07-16_1.jpeg",
 exhibit: "woulds",
+exhibitOrder: 3,
 },
    
 {
@@ -267,6 +295,7 @@ year: 2023,
 date: "2023-07-05",
 image: "images/art/2023/2023-07-05.jpeg",
 exhibit: "woulds",
+exhibitOrder: 2,
 },
    
 {
@@ -277,6 +306,7 @@ year: 2023,
 date: "2023-06-24",
 image: "images/art/2023/2023-06-24.jpeg",
 exhibit: "woulds",
+exhibitOrder: 1,
 },
    
 {
@@ -508,6 +538,15 @@ title: "July 15, 2022 | #1",
 year: 2022,
 date: "2022-07-15",
 image: "images/art/2022/2022-07-15_1.jpeg",
+},
+
+{
+id: "2022-06-25",
+type: "art",
+title: "June 6 2022",
+year: 2022,
+date: "2022-06-25",
+image: "images/art/2022/2022-06-25.jpeg",
 },
   
 {
@@ -830,6 +869,24 @@ year: 2022,
 date: "2022-04-19", 
 image: "images/art/2022/2022-04-19.jpeg",
 },
+
+{
+id: "2022-04-07",
+type: "art",
+title: "April 7 2022",
+year: 2022,
+date: "2022-04-07",
+image: "images/art/2022/2022-04-07.jpeg",
+},
+
+{
+id: "2022-04-04",
+type: "art",
+title: "April 4 2022",
+year: 2022,
+date: "2022-04-04",
+image: "images/art/2022/2022-04-04.jpeg",
+},
   
 {
 id: "2022-04-03",
@@ -885,7 +942,6 @@ date: "2022-03-08",
 image: "images/art/2022/2022-03-08_3.jpeg",
 exhibit: "mayuan",
 exhibitOrder: 3,
-exhibitSpan: "full"
 },
 
 {
@@ -896,8 +952,7 @@ year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_2.jpeg",
 exhibit: "mayuan",
-exhibitOrder: 1,
-exhibitSpan: "half"
+exhibitOrder: 2,
 },
   
 {
@@ -908,8 +963,7 @@ year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_1.jpeg",
 exhibit: "mayuan",
-exhibitOrder: 2,
-exhibitSpan: "half"
+exhibitOrder: 1,
 },
 
 {
