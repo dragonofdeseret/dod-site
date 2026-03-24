@@ -62,64 +62,70 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
-  const grouped = {};
+  const grouped = groupByYear(
+    archive.filter(item => item.showOnArchive !== false)
+  );
 
-  archive.forEach(item => {
-    const year = item.year || "Unknown";
-    if (!grouped[year]) grouped[year] = [];
-    grouped[year].push(item);
-  });
+  container.innerHTML = "";
 
-  Object.keys(grouped)
-    .sort((a, b) => b - a)
-    .forEach(year => {
-      const section = document.createElement("div");
-      section.className = "archive-year";
+  buildYearNav(grouped.map(group => group.year));
 
-      const heading = document.createElement("h2");
-      heading.textContent = year;
-      section.appendChild(heading);
+  grouped.forEach(group => {
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+    yearBlock.id = `year-${group.year}`;
 
-      const grid = document.createElement("div");
-      grid.className = "archive-grid";
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = group.year;
 
-      grouped[year].forEach(item => {
-        const link = document.createElement("a");
+    const list = document.createElement("div");
+    list.className = "archive-list";
 
-        // ROUTING LOGIC
-        if (item.type === "photo") {
-          link.href = `photography.html?id=${item.id}`;
-        } else if (item.type === "art") {
-          link.href = `artwork.html?id=${item.id}`;
-        } else if (item.type === "exhibit") {
-          link.href = `exhibit.html?id=${item.id}`;
+    group.items.forEach(item => {
+      const row = document.createElement("a");
+      row.className = "archive-row";
+
+      if (item.type === "art") {
+        row.href = `artwork.html?id=${item.id}`;
+      } else if (item.type === "photo") {
+        row.href = `photography.html?id=${item.id}`;
+      } else if (item.type === "exhibit") {
+        row.href = `exhibit.html?id=${item.id}`;
+      } else if (item.type === "writing") {
+        if (item.section === "trips" || item.sections?.includes("trips")) {
+          row.href = `tripreports.html?id=${item.id}`;
         } else {
-          link.href = item.link || "#";
+          row.href = `writings.html?id=${item.id}`;
         }
+      } else {
+        row.href = item.link || "#";
+      }
 
-        //  IMAGE vs TEXT RENDERING
-        if (item.image) {
-          const img = document.createElement("img");
-          img.src = item.image;
-          img.alt = item.title;
-          link.appendChild(img);
-        } else {
-          const div = document.createElement("div");
-          div.className = "archive-text";
+      const title = document.createElement("div");
+      title.className = "archive-title";
+      title.textContent = item.title || "";
 
-          const title = document.createElement("h3");
-          title.textContent = item.title;
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || item.year || "";
 
-          div.appendChild(title);
-          link.appendChild(div);
-        }
+      row.appendChild(title);
+      row.appendChild(meta);
 
-        grid.appendChild(link);
-      });
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.title || "";
+        row.appendChild(img);
+      }
 
-      section.appendChild(grid);
-      container.appendChild(section);
+      list.appendChild(row);
     });
+
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
+  });
 }
 
 /* ==============================
