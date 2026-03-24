@@ -550,7 +550,10 @@ function buildPhotographyPage() {
 }
 
   // Lightbox
-  const img = document.getElementById("photo-image");
+
+const img = document.getElementById("photo-image");
+
+if (img) {
   img.onclick = () => {
     const overlay = document.createElement("div");
     overlay.className = "lightbox";
@@ -562,7 +565,7 @@ function buildPhotographyPage() {
     document.body.appendChild(overlay);
 
     overlay.onclick = () => overlay.remove();
-   };
+  };
 }
 
 /* ==========================================
