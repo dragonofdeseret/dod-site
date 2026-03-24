@@ -396,12 +396,18 @@ function buildExhibitPage() {
   if (!gallery) return;
 
   const works = archive
-    .filter(item => item.type === "art" && item.exhibit === id)
-    .sort((a, b) => {
-      const dateDiff = new Date(a.date) - new Date(b.date);
-      if (dateDiff !== 0) return dateDiff;
-      return (a.title || "").localeCompare(b.title || "");
-    });
+  .filter(item => item.type === "art" && item.exhibit === id)
+  .sort((a, b) => {
+    const orderA = typeof a.exhibitOrder === "number" ? a.exhibitOrder : 9999;
+    const orderB = typeof b.exhibitOrder === "number" ? b.exhibitOrder : 9999;
+
+    if (orderA !== orderB) return orderA - orderB;
+
+    const dateDiff = new Date(a.date) - new Date(b.date);
+    if (dateDiff !== 0) return dateDiff;
+
+    return (a.title || "").localeCompare(b.title || "");
+  });
 
   gallery.innerHTML = "";
 
@@ -436,6 +442,10 @@ function buildExhibitPage() {
     const link = document.createElement("a");
     link.href = `artwork.html?id=${item.id}&from=exhibit`;
 
+    if (item.exhibitSpan === "full") {
+      link.classList.add("span-full");
+  }
+
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = item.title || "";
@@ -449,8 +459,8 @@ function buildExhibitPage() {
     grid.appendChild(link);
   });
 
-  gallery.appendChild(grid);
-}
+    gallery.appendChild(grid);
+  }
 
 /* ==========================================
    INDIVIDUAL WRITING PAGES (writings.html)

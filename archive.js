@@ -340,7 +340,10 @@ type: "art",
 title: "May 13, 2023 | #3",
 year: 2023,
 date: "2023-05-13",
-image: "images/art/2023/2023-05-13_3.jpg", 
+image: "images/art/2023/2023-05-13_3.jpg",
+exhibit: "HZ5",
+exhibitOrder: 3,
+exhibitSpan: "full",
 },
   
 {
@@ -350,6 +353,9 @@ title: "May 13, 2023 | #2",
 year: 2023,
 date: "2023-05-13",
 image: "images/art/2023/2023-05-13_2.jpg", 
+exhibit: "HZ5",
+exhibitOrder: 2,
+exhibitSpan: "full",
 },
     
 {
@@ -359,6 +365,9 @@ title: "May 13, 2023 | #1",
 year: 2023,
 date: "2023-05-13",
 image: "images/art/2023/2023-05-13_1.jpeg",
+exhibit: "HZ5",
+exhibitOrder: 1,
+exhibitSpan: "full",
 },
 
 {
@@ -459,14 +468,30 @@ year: 2022,
 date: "2022-08-02",
 image: "images/art/2022/2022-08-02.jpeg",
 },
+
+{
+id: "2022-08-01_2",
+type: "art",
+title: "August 1, 2022",
+year: 2022,
+date: "2022-08-01",
+image: "images/art/2022/2022-08-01_2.jpeg",
+exhibit: "HZ4",
+exhibitOrder: 7,
+exhibitSpan: "full",
+showOnArt: false,
+},
   
 {
-id: "2022-08-01",
+id: "2022-08-01_1",
 type: "art",
 title: "August 1, 2022",
 year: 2022,
 date: "2022-08-01",
 image: "images/art/2022/2022-08-01_1.jpeg",
+exhibit: "HZ4",
+exhibitOrder: 6,
+exhibitSpan: "full",
 },
 
 {
@@ -506,12 +531,36 @@ image: "images/art/2022/2022-06-23.jpeg",
 },
 
 {
+id: "2022-06-18_6",
+type: "art",
+title: "June 18, 2022 | #6",
+year: 2022,
+date: "2022-06-18",
+image: "images/art/2022/2022-06-18_6.jpeg",
+},
+
+{
+id: "2022-06-18_5",
+type: "art",
+title: "June 18, 2022 | #5",
+year: 2022,
+date: "2022-06-18",
+image: "images/art/2022/2022-06-18_5.jpeg",
+exhibit: "HZ4",
+exhibitOrder: 1,
+exhibitSpan: "half",
+},
+
+{
 id: "2022-06-18_4",
 type: "art",
 title: "June 18, 2022 | #4", 
 year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_4.jpeg",
+exhibit: "HZ4",
+exhibitOrder: 5,
+exhibitSpan: "half",
 },
 
 {
@@ -521,6 +570,9 @@ title: "June 18, 2022 | #3",
 year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_3.jpeg",
+exhibit: "HZ3",
+exhibitOrder: 4,
+exhibitSpan: "half",
 },
 
 {
@@ -530,6 +582,9 @@ title: "June 18, 2022 | #2",
 year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_2.jpeg",
+exhibit: "HZ4",
+exhibitOrder: 2,
+exhibitSpan: "half",
 },
   
 {
@@ -539,55 +594,102 @@ title: "June 18, 2022 | #1",
 year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_1.jpg",
+exhibit: "HZ4",
+exhibitOrder: 3,
+exhibitSpan: "half",
 },
   
 {
-id: "2022-06-15",
+id: "2022-06-15_2",
 type: "art",
 title: "June 15, 2022",
 year: 2022,
 date: "2022-06-15",
-image: "images/art/2022/2022-06-15.jpg",
+image: "images/art/2022/2022-06-15_2.jpg",
+},
+
+{
+id: "2022-06-15_1",
+type: "art",
+title: "June 15, 2022",
+year: 2022,
+date: "2022-06-15",
+image: "images/art/2022/2022-06-15_1.jpeg",
+showOnArt: false,
 },
   
 {
-id: "2022-06-11",
+id: "2022-06-11_2",
 type: "art",
 title: "June 11, 2022",
 year: 2022,
 date: "2022-06-11",
 image: "images/art/2022/2022-06-11_2.jpeg",
+exhibit: "HZ3",
+exhibitOrder: 2,
+exhibitSpan: "half",
 },
 
 {
-id: "2022-06-11_ex1",
+id: "2022-06-11_1",
 type: "art",
 title: "June 5, 2022 | Blot",
 year: 2022,
 date: "2022-06-11",
 image: "images/art/2022/2022-06-11_1.jpeg",
-exhibit: "hz1",
+exhibit: "HZ3",
+exhibitOrder: 1,
+exhibitSpan: "half",
+showOnArt: false,
+},
+
+{
+id: "2022-06-08_2",
+type: "art",
+title: "June 8, 2022 | #2",
+year: 2022,
+date: "2022-06-08",
+image: "images/art/2022/2022-06-08_2.jpeg",
+exhibit: "HZ3",
+exhibitOrder: 6,
+exhibitSpan: "half",
+},
+
+{
+id: "2022-06-08_1",
+type: "art",
+title: "June 8, 2022 | Blot",
+year: 2022,
+date: "2022-06-08",
+image: "images/art/2022/2022-06-08_1.jpeg",
+exhibit: "HZ3",
+exhibitOrder: 5,
+exhibitSpan: "half",
 showOnArt: false,
 },
   
 {
-id: "2022-06-05",
+id: "2022-06-05_2",
 type: "art",
 title: "June 5, 2022",
 year: 2022,
 date: "2022-06-05",
 image: "images/art/2022/2022-06-05_2.jpeg",
-exhibit: "hz1",
+exhibit: "HZ3",
+exhibitOrder: 4,
+exhibitSpan: "half",
 },
 
 {
-id: "2022-06-05_ex1",
+id: "2022-06-05_1",
 type: "art",
 title: "June 5, 2022 | Blot",
 year: 2022,
 date: "2022-06-05",
 image: "images/art/2022/2022-06-05_1.jpeg",
-exhibit: "hz1",
+exhibit: "HZ3",
+exhibitOrder: 3,
+exhibitSpan: "half",
 showOnArt: false,
 },
   
@@ -601,86 +703,102 @@ image: "images/art/2022/2022-05-29.jpeg",
 },
   
 {
-id: "2022-05-27",
+id: "2022-05-27_2",
 type: "art",
 title: "May 27, 2022",
 year: 2022,
 date: "2022-05-27",
 image: "images/art/2022/2022-05-27_2.jpg",
-exhibit: "hz1",
+exhibit: "HZ2",
+exhibitOrder: 4,
+exhibitSpan: "half",
 },
 
 {
-id: "2022-05-27_ex1",
+id: "2022-05-27_1",
 type: "art",
 title: "May 27, 2022 | Blot",
 year: 2022,
 date: "2022-05-27",
 image: "images/art/2022/2022-05-27_1.jpg",
-exhibit: "hz1",
+exhibit: "HZ2",
+exhibitOrder: 3,
+exhibitSpan: "half",
 showOnArt: false,
 },
   
 {
-id: "2022-05-26",
+id: "2022-05-26_2",
 type: "art",
 title: "May 26, 2022",
 year: 2022,
 date: "2022-05-26",
 image: "images/art/2022/2022-05-26_2.jpeg",
-exhibit: "hz1",
+exhibit: "HZ2",
+exhibitOrder: 2,
+exhibitSpan: "half",
 },
 
 {
-id: "2022-05-26_ex1",
+id: "2022-05-26_1",
 type: "art",
 title: "May 26, 2022 | Blot",
 year: 2022,
 date: "2022-05-26",
 image: "images/art/2022/2022-05-26_1.jpeg",
-exhibit: "hz1",
+exhibit: "HZ2",
+exhibitOrder: 1,
+exhibitSpan: "half",
+showOnArt: false,
+},
+
+{
+id: "2022-05-23_5",
+type: "art",
+title: "May 23, 2022 | #3",
+year: 2022,
+date: "2022-05-23",
+image: "images/art/2022/2022-05-23_5.jpeg",
+exhibit: "HZ1",
+exhibitOrder: 4,
+exhibitSpan: "half",
+},
+
+{
+id: "2022-05-23_4",
+type: "art",
+title: "May 23, 2022 | Blot 2",
+year: 2022,
+date: "2022-05-23",
+image: "images/art/2022/2022-05-23_4.jpg",
+exhibit: "HZ1",
+exhibitOrder: 3,
+exhibitSpan: "half",
 showOnArt: false,
 },
 
 {
 id: "2022-05-23_3",
 type: "art",
-title: "May 23, 2022 | #3",
-year: 2022,
-date: "2022-05-23",
-image: "images/art/2022/2022-05-23_5.jpeg",
-exhibit: "hz1",
-},
-
-{
-id: "2022-05-23_ex2",
-type: "art",
-title: "May 23, 2022 | Blot 2",
-year: 2022,
-date: "2022-05-23",
-image: "images/art/2022/2022-05-23_4.jpg",
-exhibit: "hz1",
-showOnArt: false,
-},
-
-{
-id: "2022-05-23_2",
-type: "art",
 title: "May 23, 2022 | #2",
 year: 2022,
 date: "2022-05-23",
 image: "images/art/2022/2022-05-23_3.jpeg",
-exhibit: "hz1",
+exhibit: "HZ1",
+exhibitOrder: 2,
+exhibitSpan: "half",
 },
  
 {
-id: "2022-05-23_ex1",
+id: "2022-05-23_2",
 type: "art",
 title: "May 23, 2022 | Blot 1",
 year: 2022,
 date: "2022-05-23",
 image: "images/art/2022/2022-05-23_2.jpg",
-exhibit: "hz1",
+exhibit: "HZ1",
+exhibitOrder: 1,
+exhibitSpan: "half",
 showOnArt: false,
 },
   
@@ -773,6 +891,8 @@ year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_3.jpeg",
 exhibit: "mayuan",
+exhibitOrder: 3,
+exhibitSpan: "full"
 },
 
 {
@@ -783,6 +903,8 @@ year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_2.jpeg",
 exhibit: "mayuan",
+exhibitOrder: 1,
+exhibitSpan: "half"
 },
   
 {
@@ -793,6 +915,8 @@ year: 2022,
 date: "2022-03-08", 
 image: "images/art/2022/2022-03-08_1.jpeg",
 exhibit: "mayuan",
+exhibitOrder: 2,
+exhibitSpan: "half"
 },
 
 {
@@ -828,7 +952,7 @@ type: "art",
 title: "February 14, 2022",
 year: 2022,
 date: "2022-02-14", 
-image: "images/art/2022/2022-02-14.jpg",
+image: "images/art/2022/2022-02-14.jpeg",
 },
 
 {
@@ -926,16 +1050,50 @@ image: "images/art/2022/2022-01-30.jpeg",
 ===================== */
 
 const exhibits = [
+
   {
     id: "woulds",
-    title: "Into the Woods / Then out of the Woulds",
+    title: "That's What Woulds Are For",
     year: 2023,
     date: "2023-12-06",
     description: ""
   }, 
+
+{
+    id: "HZ5",
+    title: "Hatsuboku Zen #4",
+    year: 2023,
+    date: "2023-05-13",
+    description: ""
+  },
+
+
+ {
+    id: "HZ4",
+    title: "Hatsuboku Zen #4",
+    year: 2022,
+    date: "2022-06-11",
+    description: ""
+  },
+
+ {
+    id: "HZ2",
+    title: "Hatsuboku Zen #3",
+    year: 2022,
+    date: "2022-06-11",
+    description: ""
+  },
+
+ {
+    id: "HZ2",
+    title: "Hatsuboku Zen #2",
+    year: 2022,
+    date: "2022-05-27",
+    description: ""
+  },
    
    {
-    id: "hz1",
+    id: "HZ1",
     title: "Hatsuboku Zen #1",
     year: 2022,
     date: "2022-05-23",
