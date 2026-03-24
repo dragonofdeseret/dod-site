@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Questions - Christopher Shenefelt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <nav class="sidebar">
+      <h1>Christopher Shenefelt</h1>
+
+      <a href="index.html">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="art.html">Artwork</a>
+      <a href="exhibits.html">Exhibits</a>
+      <a href="writing.html">Writing</a>
+      <a href="questions.html" class="active">Questions</a>
+      <a href="now.html">Now</a>
+      <a href="guestbook.html">Guestbook</a>
+      <a href="bio.html">Biography</a>
+    </nav>
+
+    <main class="content">
+      <header class="page-header">
+        <h1>Questions</h1>
+        <p class="page-intro">
+          a place for brief questions, strange questions, sincere questions, and other public fragments
+        </p>
+      </header>
+
+      <section class="questions-intro">
+        <form id="question-form" class="question-form">
+          <textarea
+            id="question-input"
+            name="question"
+            placeholder="ask a question..."
+            required
+          ></textarea>
+
+          <input
+            type="text"
+            id="website-field"
+            name="website"
+            class="hidden-honeypot"
+            tabindex="-1"
+            autocomplete="off"
+          >
+
+          <button type="submit">submit</button>
+        </form>
+
+        <p id="question-status" class="questions-note">
+          selected questions may appear here
+        </p>
+      </section>
+
+      <section id="questions-list" class="questions-list"></section>
+    </main>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

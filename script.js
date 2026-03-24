@@ -668,6 +668,143 @@ function buildTripReportsPage() {
 }
 
 /* ====================
+       QUESTIONS
+======================= */
+
+/* ====================
+       QUESTIONS
+======================= */
+
+const QUESTIONS_API_URL = "https://script.google.com/macros/s/AKfycbwt-6xSa5cYB8KwVDfGFYglqpqSHxPWnul_4wXVj91JpXjyVhHLs3QKXIr9byGJOs8XpA/exec";
+
+function formatQuestionDate(dateString) {
+  const date = new Date(dateString);
+
+  return date.toLocaleString("en-US", {
+    month: "numeric",
+    day: "numeric",
+    year: "2-digit",
+    hour: "numeric",
+    minute: "2-digit"
+  }).replace(",", "  ");
+}
+
+async function fetchPublicQuestions() {
+  if (!window.location.pathname.includes("questions.html")) return;
+
+  try {
+    const res = await fetch(QUESTIONS_API_URL);
+    if (!res.ok) throw new Error("Failed to fetch questions");
+
+    const data = await res.json();
+    publicQuestions = Array.isArray(data.questions) ? data.questions : [];
+    buildQuestionsPage();
+  } catch (err) {
+    console.error("Error fetching public questions:", err);
+    buildQuestionsPage();
+  }
+}
+
+function buildQuestionsPage() {
+  if (!window.location.pathname.includes("questions.html")) return;
+
+  const container = document.getElementById("questions-list");
+  if (!container) return;
+
+  const merged = [...publicQuestions, ...questions].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
+  const seen = new Set();
+  const allQuestions = merged.filter(item => {
+    if (!item || !item.question) return false;
+    const key = item.id || `${item.date}_${item.question}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  container.innerHTML = "";
+
+  allQuestions.forEach(item => {
+    const entry = document.createElement("article");
+    entry.className = "question-entry";
+
+    const meta = document.createElement("h3");
+    meta.className = "question-meta";
+    meta.textContent = formatQuestionDate(item.date);
+
+    const question = document.createElement("div");
+    question.className = "question-text";
+    question.textContent = item.question;
+
+    entry.appendChild(meta);
+    entry.appendChild(question);
+
+    if (item.answer) {
+      const answer = document.createElement("div");
+      answer.className = "question-answer";
+      answer.textContent = item.answer;
+      entry.appendChild(answer);
+    }
+
+    container.appendChild(entry);
+  });
+
+  setupQuestionForm();
+}
+
+function setupQuestionForm() {
+  const form = document.getElementById("question-form");
+  const input = document.getElementById("question-input");
+  const honeypot = document.getElementById("website-field");
+  const status = document.getElementById("question-status");
+
+  if (!form || !input || !status) return;
+  if (form.dataset.bound === "true") return;
+  form.dataset.bound = "true";
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const question = input.value.trim();
+    const website = honeypot ? honeypot.value.trim() : "";
+
+    if (!question) return;
+
+    status.textContent = "submitting...";
+
+    try {
+      const res = await fetch(QUESTIONS_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          question,
+          website
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Submission failed");
+      }
+
+      input.value = "";
+      if (honeypot) honeypot.value = "";
+      status.textContent = "submitted";
+
+v      await fetchPublicQuestions();
+    } catch (err) {
+      console.error("Error submitting question:", err);
+      status.textContent = "something went wrong";
+    }
+  });
+}
+
+/* ====================
          FOOTER
 ======================= */
 
@@ -699,6 +836,8 @@ document.addEventListener("DOMContentLoaded", () => {
   buildTripReportsPage();
   buildExhibitsArchive();
   buildExhibitPage();
+  buildQuestionsPage();
+  fetchPublicQuestions();
 
   if (window.location.pathname.includes("artwork.html")) {
     enhanceArtworkPage();

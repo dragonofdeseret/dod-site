@@ -478,7 +478,6 @@ date: "2022-08-01",
 image: "images/art/2022/2022-08-01_2.jpeg",
 exhibit: "HZ4",
 exhibitOrder: 7,
-exhibitSpan: "full",
 showOnArt: false,
 },
   
@@ -491,7 +490,6 @@ date: "2022-08-01",
 image: "images/art/2022/2022-08-01_1.jpeg",
 exhibit: "HZ4",
 exhibitOrder: 6,
-exhibitSpan: "full",
 },
 
 {
@@ -548,7 +546,6 @@ date: "2022-06-18",
 image: "images/art/2022/2022-06-18_5.jpeg",
 exhibit: "HZ4",
 exhibitOrder: 1,
-exhibitSpan: "half",
 },
 
 {
@@ -560,7 +557,6 @@ date: "2022-06-18",
 image: "images/art/2022/2022-06-18_4.jpeg",
 exhibit: "HZ4",
 exhibitOrder: 5,
-exhibitSpan: "half",
 },
 
 {
@@ -571,8 +567,7 @@ year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_3.jpeg",
 exhibit: "HZ3",
-exhibitOrder: 4,
-exhibitSpan: "half",
+exhibitOrder: 2,
 },
 
 {
@@ -583,8 +578,7 @@ year: 2022,
 date: "2022-06-18",
 image: "images/art/2022/2022-06-18_2.jpeg",
 exhibit: "HZ4",
-exhibitOrder: 2,
-exhibitSpan: "half",
+exhibitOrder: 4,
 },
   
 {
@@ -596,7 +590,6 @@ date: "2022-06-18",
 image: "images/art/2022/2022-06-18_1.jpg",
 exhibit: "HZ4",
 exhibitOrder: 3,
-exhibitSpan: "half",
 },
   
 {
@@ -1061,7 +1054,7 @@ const exhibits = [
 
 {
     id: "HZ5",
-    title: "Hatsuboku Zen #4",
+    title: "Hatsuboku Zen #5",
     year: 2023,
     date: "2023-05-13",
     description: ""
@@ -1077,7 +1070,7 @@ const exhibits = [
   },
 
  {
-    id: "HZ2",
+    id: "HZ3",
     title: "Hatsuboku Zen #3",
     year: 2022,
     date: "2022-06-11",
