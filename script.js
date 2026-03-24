@@ -792,7 +792,7 @@ function setupQuestionForm() {
       if (honeypot) honeypot.value = "";
       status.textContent = "submitted";
 
-v      await fetchPublicQuestions();
+      await fetchPublicQuestions();
     } catch (err) {
       console.error("Error submitting question:", err);
       status.textContent = "something went wrong";
