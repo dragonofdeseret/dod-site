@@ -1118,6 +1118,73 @@ image: "images/art/2020/2020-11-18.JPG",
  file: "pdf/ForestofLee.pdf",
 } 
 
+/* ==================
+      PHOTOGRAPHY
+===================== */
+
+{
+    id: "2019-11-30",
+    title: "November 30, 2019",
+    year: 2019,
+    image: "images/photography/2019/2019-11-30.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+{
+    id: "2019-11-03",
+    title: "November 3, 2019",
+    year: 2019,
+    image: "images/photography/2019/2019-11-03.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+{
+    id: "2019-09-29_2",
+    title: "September 29, 2019 | #2",
+    year: 2019,
+    image: "images/photography/2019/2019-09-29_2.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+{
+    id: "2019-09-29_1",
+    title: "September 29, 2019 | #1",
+    year: 2019,
+    image: "images/photography/2019/2019-09-29_1.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+{
+    id: "2019-06-09_2 | #2",
+    title: "June 9, 2019",
+    year: 2019,
+    image: "images/photography/2019/2019-06-09_2.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+ {
+    id: "2019-06-09_1 | #1",
+    title: "June 9, 2019",
+    year: 2019,
+    image: "images/photography/2019/2019-06-09_1.jpeg",
+    description: "",
+    type: "photo"
+  }, 
+
+{
+    id: "2017-08-25",
+    title: "August 25, 2017",
+    year: 2017,
+    image: "images/photography/2017/2017-08-25.JPG",
+    description: "Unfinished",
+    type: "photo"
+  }
+
 ];
 
 /* ==================
@@ -1128,7 +1195,7 @@ const exhibits = [
 
   {
     id: "woulds",
-    title: "That's What Woulds Are For",
+    title: "[woods, woulds]",
     year: 2023,
     date: "2023-12-06",
     description: ""

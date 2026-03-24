@@ -59,65 +59,67 @@ function buildYearNav(years) {
 ============================ */
 
 function buildArchive() {
-  if (!window.location.pathname.includes("archive.html")) return;
-
   const container = document.getElementById("archive");
-  if (!container) return;
+  if (!container || typeof archive === "undefined") return;
 
-  const items = archive
-    .filter(item => item.type === "writing" || (item.type === "art" && item.showOnArt !== false))
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const grouped = {};
 
-  const grouped = groupByYear(items);
-
-  container.innerHTML = "";
-
-  buildYearNav(grouped.map(group => group.year));
-
-  grouped.forEach(group => {
-    const yearBlock = document.createElement("div");
-    yearBlock.className = "archive-year";
-    yearBlock.id = `year-${group.year}`;
-
-    const yearTitle = document.createElement("h2");
-    yearTitle.textContent = group.year;
-
-    const list = document.createElement("div");
-    list.className = "archive-list";
-
-    group.items.forEach(item => {
-      const row = document.createElement("a");
-      row.className = "archive-row";
-
-      if (item.type === "writing") {
-        if (item.sections && item.sections.includes("trips")) {
-          row.href = `writings.html?id=${item.id}&from=archive`;
-        } else {
-          row.href = `writings.html?id=${item.id}&from=archive`;
-        }
-      } else if (item.type === "art") {
-        row.href = `artwork.html?id=${item.id}&from=archive`;
-      } else {
-        return;
-      }
-
-      const title = document.createElement("div");
-      title.className = "archive-title";
-      title.textContent = item.title;
-
-      const meta = document.createElement("div");
-      meta.className = "archive-meta";
-      meta.textContent = item.date || item.year || "";
-
-      row.appendChild(title);
-      row.appendChild(meta);
-      list.appendChild(row);
-    });
-
-    yearBlock.appendChild(yearTitle);
-    yearBlock.appendChild(list);
-    container.appendChild(yearBlock);
+  archive.forEach(item => {
+    const year = item.year || "Unknown";
+    if (!grouped[year]) grouped[year] = [];
+    grouped[year].push(item);
   });
+
+  Object.keys(grouped)
+    .sort((a, b) => b - a)
+    .forEach(year => {
+      const section = document.createElement("div");
+      section.className = "archive-year";
+
+      const heading = document.createElement("h2");
+      heading.textContent = year;
+      section.appendChild(heading);
+
+      const grid = document.createElement("div");
+      grid.className = "archive-grid";
+
+      grouped[year].forEach(item => {
+        const link = document.createElement("a");
+
+        // ROUTING LOGIC
+        if (item.type === "photo") {
+          link.href = `photography.html?id=${item.id}`;
+        } else if (item.type === "art") {
+          link.href = `artwork.html?id=${item.id}`;
+        } else if (item.type === "exhibit") {
+          link.href = `exhibit.html?id=${item.id}`;
+        } else {
+          link.href = item.link || "#";
+        }
+
+        //  IMAGE vs TEXT RENDERING
+        if (item.image) {
+          const img = document.createElement("img");
+          img.src = item.image;
+          img.alt = item.title;
+          link.appendChild(img);
+        } else {
+          const div = document.createElement("div");
+          div.className = "archive-text";
+
+          const title = document.createElement("h3");
+          title.textContent = item.title;
+
+          div.appendChild(title);
+          link.appendChild(div);
+        }
+
+        grid.appendChild(link);
+      });
+
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
 }
 
 /* ==============================
@@ -513,6 +515,56 @@ function buildExhibitPage() {
   gallery.appendChild(grid);
 }
 
+/* ======================
+       PHOTOGRAPHY
+========================= */
+
+function buildPhotographyPage() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  if (!id || typeof archive === "undefined") return;
+
+  const photos = archive.filter(item => item.type === "photo");
+
+  const index = photos.findIndex(p => p.id === id);
+  if (index === -1) return;
+
+  const item = photos[index];
+
+  document.getElementById("photo-title").textContent = item.title;
+  document.getElementById("photo-image").src = item.image;
+  document.getElementById("photo-description").textContent = item.description || "";
+
+  document.getElementById("prev-photo").onclick = () => {
+    if (index > 0) {
+      window.location.href = `photography.html?id=${photos[index - 1].id}`;
+    }
+  };
+
+  document.getElementById("next-photo").onclick = () => {
+    if (index < photos.length - 1) {
+      window.location.href = `photography.html?id=${photos[index + 1].id}`;
+    }
+  };
+}
+
+  // Lightbox
+  const img = document.getElementById("photo-image");
+  img.onclick = () => {
+    const overlay = document.createElement("div");
+    overlay.className = "lightbox";
+
+    const fullImg = document.createElement("img");
+    fullImg.src = item.image;
+
+    overlay.appendChild(fullImg);
+    document.body.appendChild(overlay);
+
+    overlay.onclick = () => overlay.remove();
+  };
+}
+
 /* ==========================================
    INDIVIDUAL WRITING PAGES (writings.html)
 ============================================= */
@@ -879,6 +931,7 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+  buildPhotographyPage();
   buildWritingIndex();
   buildTripReportsPage();
   buildExhibitsArchive();

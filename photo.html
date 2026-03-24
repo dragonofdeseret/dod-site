@@ -1,58 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<title>Writing - Christopher Shenefelt</title>
-<link rel="stylesheet" href="style.css">
-
-<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
-
-<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-uORI5wSFBMhN2n9Rh8Grc.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photography</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <header class="site-header">
+    <h1>Photography</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="art.html">Art</a>
+      <a href="exhibits.html">Exhibits</a>
+      <a href="photo.html" class="active">Photography</a>
+      <a href="writing.html">Writing</a>
+      <a href="now.html">Now</a>
+      <a href="questions.html">Questions</a>
+      <a href="bio.html">Biography</a>
+    </nav>
+  </header>
 
-<div class="layout">
+  <main>
+    <section id="photo-archive" class="archive-grid"></section>
+  </main>
 
-<nav class="sidebar">
-  <h1>Christopher Shenefelt</h1>
-
-  <a href="index.html">Home</a>
-  <a href="archive.html">Archive</a>
-  <a href="art.html">Artwork</a>
-  <a href="writing.html" class="active">Writing</a>
-  <a href="trips.html">Trip Reports</a>
-  <a href="now.html">Now</a>
-  <a href="questions.html">Questions</a>
-  <a href="bio.html">Biography</a>
-</nav>
-
-<main class="content">
-
-  <h1>Writing</h1>
-
-  <nav class="year-nav"></nav>
-
-  <p class="page-intro">
-    "from the bathtub to the bathtub I have uttered stuff and nonsense"
-  </p>
-
-  <div id="writing"></div>
-
-</main>
-
-</div>
-
-<script src="archive.js"></script>
-<script src="script.js"></script>
-
+  <script src="archive.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

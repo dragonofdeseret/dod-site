@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Photography</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <header class="site-header">
+    <h1 id="photo-title"></h1>
+    <nav>
+      <a href="photo.html">← Back</a>
+    </nav>
+  </header>
 
-<div class="layout">
+  <main class="artwork-container">
+    <img id="photo-image" class="artwork-image" />
+    <p id="photo-description" class="artwork-description"></p>
 
-<nav class="sidebar">
+    <div class="artwork-nav">
+      <button id="prev-photo">← Prev</button>
+      <button id="next-photo">Next →</button>
+    </div>
+  </main>
 
-<h1>Christopher Shenefelt</h1>
-
-<a href="index.html">Home</a>
-<a href="archive.html">Archive</a>
-<a href="art.html">Artwork</a>
-<a href="photo.html">Photography</a>
-<a href="writing.html" class="active">Writing</a>
-<a href="now.html">Now</a>
-<a href="questions.html">Questions</a>
-<a href="bio.html">Biography</a>
-
-</nav>
-
-<div class="content">
-
-  <h1 id="writing-title"></h1>
-  <p id="writing-description"></p>
-
-  <div class="writing-actions">
-    <a id="back-link" href="writing.html">← Back to Writing</a>
-    <a id="download-link" href="#">Enter Fullscreen</a>
-  </div>
-
-  <div class="pdf-container">
-    <iframe id="pdf-frame"></iframe>
-  </div>
-
-</div>
-
-<script src="archive.js"></script>
-<script src="script.js"></script>
-
+  <script src="archive.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
