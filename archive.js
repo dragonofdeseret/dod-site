@@ -1116,7 +1116,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2021,
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
-} 
+}, 
 
 /* ==================
       PHOTOGRAPHY
