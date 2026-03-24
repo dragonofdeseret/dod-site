@@ -562,7 +562,7 @@ function buildPhotographyPage() {
     document.body.appendChild(overlay);
 
     overlay.onclick = () => overlay.remove();
-   });
+   };
 }
 
 /* ==========================================
