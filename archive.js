@@ -1139,13 +1139,13 @@ image: "images/art/2020/2020-11-18.JPG",
 { 
  id: "AIW",
  type: "writing",
- sections: ["writing", "trips"],
- substance: "LSD",
  title: "All is Well",
- year: 2023,
  date: "2023-09-24",
+ year: 2023,
  file: "pdf/AIW.pdf",
- showOnWriting: false,
+ sections: ["trips"],
+ substance: "LSD",
+ 
 },
 
 {
