@@ -1487,7 +1487,7 @@ const exhibits = [
 
   {
     id: "woulds",
-    title: "[woods, woulds]",
+    title: "Wooulds",
     year: 2023,
     date: "2023-12-06",
     description: ""
