@@ -703,10 +703,14 @@ function buildTripReportsPage() {
   if (!window.location.pathname.includes("trips.html")) return;
 
   const tripItems = archive
-    .filter(item => item.type === "writing" && item.sections && item.sections.includes("trips"))
+    .filter(item =>
+      item.type === "writing" &&
+      item.sections &&
+      item.sections.includes("trips") &&
+      item.showOnWriting !== false
+    )
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // GROUP BY SUBSTANCE
   const grouped = {};
 
   tripItems.forEach(item => {
@@ -715,47 +719,15 @@ function buildTripReportsPage() {
     grouped[substance].push(item);
   });
 
-  // SORT ALPHABETICALLY
-
   const substances = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
 
   container.innerHTML = "";
-
-  // BUILD SUBSTANCE NAV
-
- function buildSubstanceNav(substances) {
-  const nav = document.querySelector(".year-nav");
-  if (!nav) return;
-
-  nav.innerHTML = "";
-
-  substances.forEach((substance, index) => {
-    const link = document.createElement("a");
-    link.href = `#substance-${slugify(substance)}`;
-    link.textContent = substance;
-
-    nav.appendChild(link);
-
-    if (index < substances.length - 1) {
-      nav.appendChild(document.createTextNode(" "));
-    }
-  });
-}
-
-function slugify(str) {
-  return String(str)
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-  // BUILD SECTIONS
+  buildSubstanceNav(substances);
 
   substances.forEach(substance => {
-    const block = document.createElement("div");
-    block.className = "writing-year";
-    block.id = `substance-${slugify(substance)}`;
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "writing-year";
+    yearBlock.id = `substance-${slugify(substance)}`;
 
     const heading = document.createElement("h2");
     heading.textContent = substance;
@@ -776,8 +748,7 @@ function slugify(str) {
 
       const link = document.createElement("a");
       link.href = `tripreports.html?id=${item.id}`;
-      link.textContent = item.title;
-
+      link.textContent = item.title || "";
       title.appendChild(link);
 
       const format = document.createElement("div");
@@ -791,10 +762,36 @@ function slugify(str) {
       list.appendChild(entry);
     });
 
-    block.appendChild(heading);
-    block.appendChild(list);
-    container.appendChild(block);
+    yearBlock.appendChild(heading);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
   });
+}
+
+function buildSubstanceNav(substances) {
+  const nav = document.querySelector(".year-nav");
+  if (!nav) return;
+
+  nav.innerHTML = "";
+
+  substances.forEach((substance, index) => {
+    const link = document.createElement("a");
+    link.href = `#substance-${slugify(substance)}`;
+    link.textContent = substance;
+    nav.appendChild(link);
+
+    if (index < substances.length - 1) {
+      nav.appendChild(document.createTextNode(" "));
+    }
+  });
+}
+
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 /* ====================
