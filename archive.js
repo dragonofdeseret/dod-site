@@ -82,7 +82,7 @@ year: 2024,
 date: "2024-01-30",
 image: "images/art/2024/2024-01-30.jpeg",
 exhibit: "woulds",
-exhibitOrder: 21,
+exhibitOrder: 13,
 },
 
 {
@@ -92,7 +92,8 @@ title: "January 28, 2024 | #2",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_2.jpeg",
-exhibitOrder: 20,
+exhibit: "woulds",
+exhibitOrder: 12,
 },
    
 {
@@ -102,8 +103,6 @@ title: "January 28, 2024 | #1",
 year: 2024,
 date: "2024-01-28",
 image: "images/art/2024/2024-01-28_1.jpeg",
-exhibit: "woulds",
-exhibitOrder: 19,
 },
  
 {
@@ -114,7 +113,7 @@ year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_2.jpeg",
 exhibit: "woulds",
-exhibitOrder: 18,
+exhibitOrder: 11,
 },
     
 {
@@ -125,7 +124,7 @@ year: 2023,
 date: "2023-12-14",
 image: "images/art/2023/2023-12-14_1.jpeg",
 exhibit: "woulds",
-exhibitOrder: 17,
+exhibitOrder: 10,
 },
  
 {
@@ -136,7 +135,7 @@ year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_3.jpeg",
 exhibit: "woulds",
-exhibitOrder: 16,
+exhibitOrder: 9,
 },
   
 {
@@ -156,7 +155,7 @@ year: 2023,
 date: "2023-12-10",
 image: "images/art/2023/2023-12-10_1.jpeg",
 exhibit: "woulds",
-exhibitOrder: 15,
+exhibitOrder: 8,
 },
  
 {
@@ -166,8 +165,6 @@ title: "December 6, 2023 | #2",
 year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_2.jpeg",
-exhibit: "woulds",
-exhibitOrder: 14,
 },
     
 {
@@ -178,7 +175,7 @@ year: 2023,
 date: "2023-12-06",
 image: "images/art/2023/2023-12-06_1.jpeg",
 exhibit: "woulds",
-exhibitOrder: 13,
+exhibitOrder: 7,
 },
 
 {
@@ -189,7 +186,7 @@ year: 2023,
 date: "2023-11-13",
 image: "images/art/2023/2023-11-13_2.jpeg",
 exhibit: "woulds",  
-exhibitOrder: 12,
+exhibitOrder: 6,
 },
     
 {
@@ -200,7 +197,7 @@ year: 2023,
 date: "2023-11-13",
 image: "images/art/2023/2023-11-13_1.jpeg",
 exhibit: "woulds",
-exhibitOrder: 11,
+exhibitOrder: 5,
 },
   
 {
@@ -246,8 +243,6 @@ title: "August 26, 2023 | #4",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_4.jpeg",
-exhibit: "woulds",
-exhibitOrder: 10,
 },
   
 {
@@ -257,8 +252,6 @@ title: "August 26, 2023 | #3",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_3.jpeg",
-exhibit: "woulds",
-exhibitOrder: 9,
 },
   
 {
@@ -268,8 +261,6 @@ title: "August 26, 2023 | #2",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_2.jpeg",
-exhibit: "woulds",
-exhibitOrder: 8,
 },
     
 {
@@ -279,8 +270,6 @@ title: "August 26, 2023 | #1",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_1.jpeg",
-exhibit: "woulds",
-exhibitOrder: 7,
 },
 
 {
@@ -291,7 +280,7 @@ year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_2.jpeg",
 exhibit: "woulds",
-exhibitOrder: 6,
+exhibitOrder: 4,
 },
    
 {
@@ -302,7 +291,7 @@ year: 2023,
 date: "2023-08-13",
 image: "images/art/2023/2023-08-13_1.jpeg",
 exhibit: "woulds",
-exhibitOrder: 5,
+exhibitOrder: 3,
 },
    
 {
@@ -331,7 +320,7 @@ year: 2023,
 date: "2023-07-16",
 image: "images/art/2023/2023-07-16_2.jpeg",
 exhibit: "woulds",
-exhibitOrder: 4,
+exhibitOrder: 2,
 },
     
 {
@@ -341,8 +330,6 @@ title: "July 16, 2023 | #1",
 year: 2023,
 date: "2023-07-16",
 image: "images/art/2023/2023-07-16_1.jpeg",
-exhibit: "woulds",
-exhibitOrder: 3,
 },
    
 {
@@ -353,7 +340,7 @@ year: 2023,
 date: "2023-07-05",
 image: "images/art/2023/2023-07-05.jpeg",
 exhibit: "woulds",
-exhibitOrder: 2,
+exhibitOrder: 1,
 },
    
 {
@@ -363,8 +350,6 @@ title: "June 24, 2023",
 year: 2023,
 date: "2023-06-24",
 image: "images/art/2023/2023-06-24.jpeg",
-exhibit: "woulds",
-exhibitOrder: 1,
 },
    
 {
@@ -1487,7 +1472,7 @@ const exhibits = [
 
   {
     id: "woulds",
-    title: "Wooulds",
+    title: "The Wooulds Walkabout",
     year: 2023,
     date: "2023-12-06",
     description: ""
