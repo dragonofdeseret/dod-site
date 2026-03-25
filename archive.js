@@ -203,12 +203,12 @@ exhibitOrder: 11,
 },
   
 {
-id: "2023-10-31",
+id: "2023-10-31_1",
 type: "art",
 title: "October 31, 2023",
 year: 2023,
 date: "2023-10-31",
-image: "images/art/2023/2023-10-31.jpg",
+image: "images/art/2023/2023-10-31_1.jpg",
 },
  
 {
@@ -1161,6 +1161,259 @@ image: "images/art/2020/2020-11-18.JPG",
 ===================== */
 
 {
+    id: "2025-10-21",
+    type: "photo",
+    title: "October 21, 2025",
+    year: 2025,
+    date: "2025-10-21",
+    image: "images/photography/2025/2025-10-21.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-09-07",
+    type: "photo",
+    title: "September 7, 2025",
+    year: 2025,
+    date: "2025-09-07",
+    image: "images/photography/2025/2025-09-07.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-30_5",
+    type: "photo",
+    title: "July 30, 2025 | #5",
+    year: 2025,
+    date: "2025-07-30",
+    image: "images/photography/2025/2025-07-30_5.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-30_4",
+    type: "photo",
+    title: "July 30, 2025 | #4",
+    year: 2025,
+    date: "2025-07-30",
+    image: "images/photography/2025/2025-07-30_4.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-30_3",
+    type: "photo",
+    title: "July 30, 2025 | #3",
+    year: 2025,
+    date: "2025-07-30",
+    image: "images/photography/2025/2025-07-30_3.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-30_2",
+    type: "photo",
+    title: "July 30, 2025 | #2",
+    year: 2025,
+    date: "2025-07-30",
+    image: "images/photography/2025/2025-07-30_2.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-30_1",
+    type: "photo",
+    title: "July 30, 2025 | #1",
+    year: 2025,
+    date: "2025-07-30",
+    image: "images/photography/2025/2025-07-30_1.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-13_3",
+    type: "photo",
+    title: "July 13, 2025 | #3",
+    year: 2025,
+    date: "2025-07-13",
+    image: "images/photography/2025/2025-07-13_3.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-13_2",
+    type: "photo",
+    title: "July 13, 2025 | #2",
+    year: 2025,
+    date: "2025-07-13",
+    image: "images/photography/2025/2025-07-13_2.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-07-13_1",
+    type: "photo",
+    title: "July 13, 2025 | #1",
+    year: 2025,
+    date: "2025-07-13",
+    image: "images/photography/2025/2025-07-13_1.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2025-03-15",
+    type: "photo",
+    title: "March 15, 2025",
+    year: 2025,
+    date: "2025-03-15",
+    image: "images/photography/2025/2025-03-15.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-07-14",
+    type: "photo",
+    title: "July 14, 2024",
+    year: 2024,
+    date: "2024-07-14",
+    image: "images/photography/2024/2024-07-14.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-05-11_5",
+    type: "photo",
+    title: "May 11, 2024 | #5",
+    year: 2024,
+    date: "2024-05-11",
+    image: "images/photography/2024/2024-05-11_5.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-05-11_4",
+    type: "photo",
+    title: "May 11, 2024 | #4",
+    year: 2024,
+    date: "2024-05-11",
+    image: "images/photography/2024/2024-05-11_4.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-05-11_3",
+    type: "photo",
+    title: "May 11, 2024 | #3",
+    year: 2024,
+    date: "2024-05-11",
+    image: "images/photography/2024/2024-05-11_3.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-05-11_2",
+    type: "photo",
+    title: "May 11, 2024 | #2",
+    year: 2024,
+    date: "2024-05-11",
+    image: "images/photography/2024/2024-05-11_2.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2024-05-11_1",
+    type: "photo",
+    title: "May 11, 2024 | #1",
+    year: 2024,
+    date: "2024-05-11",
+    image: "images/photography/2024/2024-05-11_1.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2023-10-06",
+    type: "photo",
+    title: "October 6, 2023",
+    year: 2023,
+    date: "2023-10-06",
+    image: "images/photography/2023/2023-10-06.jpeg",
+    description: "",
+    
+  },
+
+{
+    id: "2023-01-03",
+    type: "photo",
+    title: "January 1, 2023",
+    year: 2023,
+    date: "2023-01-03",
+    image: "images/photography/2023/2023-01-03.jpeg",
+    description: "",
+    
+  }, 
+
+{
+    id: "2022-12-10",
+    type: "photo",
+    title: "December 10, 2022",
+    year: 2022,
+    date: "2022-12-10",
+    image: "images/photography/2022/2022-12-10.jpeg",
+    description: "",
+    
+  }, 
+
+{
+    id: "2022-06-07",
+    type: "photo",
+    title: "June 7, 2022",
+    year: 2022,
+    date: "2022-06-07",
+    image: "images/photography/2022/2022-06-07.jpeg",
+    description: "",
+    
+  }, 
+
+{
+    id: "2021-10-09",
+    type: "photo",
+    title: "October 9, 2021",
+    year: 2021,
+    date: "2021-10-09",
+    image: "images/photography/2021/2021-10-09.jpeg",
+    description: "",
+    
+  }, 
+
+{
+    id: "2020-06-30",
+    type: "photo",
+    title: "June 30, 2020",
+    year: 2020,
+    date: "2020-06-30",
+    image: "images/photography/2020/2020-06-30.jpeg",
+    description: "",
+    
+  }, 
+
+{
     id: "2019-11-30",
     type: "photo",
     title: "November 30, 2019",
@@ -1201,15 +1454,6 @@ image: "images/art/2020/2020-11-18.JPG",
     description: "",
   }, 
 
-{
-    id: "2019-06-09_2 | #2",
-    type: "photo",
-    title: "June 9, 2019",
-    year: 2019,
-    date: "2019-06-09",
-    image: "images/photography/2019/2019-06-09_2.jpeg",
-    description: "",
-  }, 
 
  {
     id: "2019-06-09_1 | #1",
