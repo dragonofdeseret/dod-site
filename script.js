@@ -54,6 +54,32 @@ function buildYearNav(years) {
   });
 }
 
+function buildSubstanceNav(substances) {
+  const nav = document.querySelector(".year-nav");
+  if (!nav) return;
+
+  nav.innerHTML = "";
+
+  substances.forEach((substance, index) => {
+    const link = document.createElement("a");
+    link.href = `#substance-${slugify(substance)}`;
+    link.textContent = substance;
+    nav.appendChild(link);
+
+    if (index < substances.length - 1) {
+      nav.appendChild(document.createTextNode(" "));
+    }
+  });
+}
+
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /* =========================
     ARCHIVE (archive.html)
 ============================ */
@@ -699,17 +725,28 @@ function buildWritingPage() {
 
 function buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
-  if (!container || typeof archive === "undefined") return;
-  if (!window.location.pathname.includes("trips.html")) return;
+  if (!container) return;
+  if (typeof archive === "undefined") {
+    console.error("archive.js not loaded on trips page");
+    return;
+  }
 
   const tripItems = archive
-    .filter(item =>
-      item.type === "writing" &&
-      item.sections &&
-      item.sections.includes("trips") &&
-      item.showOnWriting !== false
-    )
+    .filter(item => {
+      if (item.type !== "writing") return false;
+
+      const inTrips =
+        item.section === "trips" ||
+        (Array.isArray(item.sections) && item.sections.includes("trips"));
+
+      if (!inTrips) return false;
+      if (item.showOnWriting === false) return false;
+
+      return true;
+    })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  console.log("Trip items found:", tripItems);
 
   const grouped = {};
 
@@ -749,6 +786,7 @@ function buildTripReportsPage() {
       const link = document.createElement("a");
       link.href = `tripreports.html?id=${item.id}`;
       link.textContent = item.title || "";
+
       title.appendChild(link);
 
       const format = document.createElement("div");
@@ -766,32 +804,6 @@ function buildTripReportsPage() {
     yearBlock.appendChild(list);
     container.appendChild(yearBlock);
   });
-}
-
-function buildSubstanceNav(substances) {
-  const nav = document.querySelector(".year-nav");
-  if (!nav) return;
-
-  nav.innerHTML = "";
-
-  substances.forEach((substance, index) => {
-    const link = document.createElement("a");
-    link.href = `#substance-${slugify(substance)}`;
-    link.textContent = substance;
-    nav.appendChild(link);
-
-    if (index < substances.length - 1) {
-      nav.appendChild(document.createTextNode(" "));
-    }
-  });
-}
-
-function slugify(str) {
-  return String(str)
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 /* ====================
