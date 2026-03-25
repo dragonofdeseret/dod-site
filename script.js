@@ -298,7 +298,7 @@ function buildPhotoArchive() {
 
     group.items.forEach(item => {
       const link = document.createElement("a");
-      link.href = `photography.html?id=${item.id}`;
+      link.href = `photography.html?id=${item.id}&from=photo`;
       link.className = "gallery-item";
 
       const img = document.createElement("img");
@@ -312,67 +312,6 @@ function buildPhotoArchive() {
     yearBlock.appendChild(yearTitle);
     yearBlock.appendChild(grid);
     container.appendChild(yearBlock);
-  });
-}
-
-/* ======================
-       PHOTOGRAPHY
-========================= */
-
-function buildPhotographyPage() {
-  if (!window.location.pathname.includes("photography.html")) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  const from = params.get("from");
-
-  if (!id || typeof archive === "undefined") return;
-
-  const items = archive
-    .filter(item => item.type === "photo")
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  const index = items.findIndex(item => item.id === id);
-  if (index === -1) return;
-
-  const item = items[index];
-
-  const titleEl = document.getElementById("photo-title");
-  const descEl = document.getElementById("photo-description");
-  const imgEl = document.getElementById("photo-image");
-  const backLink = document.getElementById("back-link");
-
-  if (titleEl) titleEl.textContent = item.title || "";
-  if (descEl) descEl.textContent = item.description || "";
-  if (imgEl) {
-    imgEl.src = item.image;
-    imgEl.alt = item.title || "";
-
-    imgEl.addEventListener("click", () => {
-      openLightbox(item.image);
-    });
-  }
-
-  if (backLink) {
-    if (from === "archive") {
-      backLink.href = "archive.html";
-      backLink.textContent = "← Back to Archive";
-    } else {
-      backLink.href = "photo.html";
-      backLink.textContent = "← Back to Photography";
-    }
-  }
-
-  const prev = items[index - 1];
-  const next = items[index + 1];
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `photography.html?id=${prev.id}`;
-    }
-    if (e.key === "ArrowRight" && next) {
-      window.location.href = `photography.html?id=${next.id}`;
-    }
   });
 }
 
@@ -659,6 +598,96 @@ function buildExhibitPage() {
   });
 
   gallery.appendChild(grid);
+}
+
+/* ======================
+       PHOTOGRAPHY
+========================= */
+
+function buildPhotographyPage() {
+  if (!window.location.pathname.includes("photography.html")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const from = params.get("from") || "photo";
+
+  if (!id || typeof archive === "undefined") return;
+
+  const items = archive
+    .filter(item => item.type === "photo" && item.showOnPhoto !== false)
+    .sort((a, b) => {
+      const dateDiff = new Date(b.date) - new Date(a.date);
+      if (dateDiff !== 0) return dateDiff;
+
+      const getIndex = value => {
+        const match = String(value || "").match(/_(\d+)$/);
+        return match ? parseInt(match[1], 10) : 0;
+      };
+
+      return getIndex(a.id) - getIndex(b.id);
+    });
+
+  const index = items.findIndex(item => item.id === id);
+  if (index === -1) return;
+
+  const item = items[index];
+  const prev = items[index - 1];
+  const next = items[index + 1];
+
+  const titleEl = document.getElementById("photo-title");
+  const descEl = document.getElementById("photo-description");
+  const imgEl = document.getElementById("photo-image");
+  const navEl = document.getElementById("photo-nav");
+
+  if (titleEl) titleEl.textContent = item.title || "";
+  if (descEl) descEl.textContent = item.description || "";
+
+  if (imgEl) {
+    imgEl.src = item.image;
+    imgEl.alt = item.title || "";
+
+    imgEl.addEventListener("click", () => {
+      openLightbox(item.image);
+    });
+  }
+
+  let backHref = "photo.html";
+  let backText = "Back to Photography";
+
+  if (from === "archive") {
+    backHref = "archive.html";
+    backText = "Back to Archive";
+  } else if (from === "art") {
+    backHref = "art.html";
+    backText = "Back to Artwork";
+  }
+
+  if (navEl) {
+    navEl.innerHTML = `
+      <div class="nav-left">
+        ${prev ? `<a href="photography.html?id=${prev.id}&from=${from}">← Previous</a>` : ""}
+      </div>
+      <div class="nav-center">
+        <a href="${backHref}">${backText}</a>
+      </div>
+      <div class="nav-right" style="text-align: right;">
+        ${next ? `<a href="photography.html?id=${next.id}&from=${from}">Next →</a>` : ""}
+      </div>
+    `;
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `photography.html?id=${prev.id}&from=${from}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `photography.html?id=${next.id}&from=${from}`;
+    }
+    if (e.key === "Escape") {
+      const viewer = document.querySelector(".image-viewer");
+      if (viewer) viewer.remove();
+    }
+  });
 }
 
 /* ==========================================
