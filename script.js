@@ -63,8 +63,9 @@ function buildArchive() {
   if (!container || typeof archive === "undefined") return;
 
   const grouped = groupByYear(
-    archive.filter(item => item.showOnArchive !== false)
-  );
+    archive
+  .filter(item => item.showOnArchive !== false)
+  .forEach(item => {
 
   container.innerHTML = "";
   buildYearNav(grouped.map(group => group.year));
@@ -698,145 +699,102 @@ function buildWritingPage() {
 ================================================= */
 
 function buildTripReportsPage() {
-  if (!window.location.pathname.includes("tripreports.html") && !window.location.pathname.includes("trips.html")) {
-    return;
-  }
+  const container = document.getElementById("trip-reports");
+  if (!container || typeof archive === "undefined") return;
+  if (!window.location.pathname.includes("trips.html")) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  const items = archive
+  const tripItems = archive
     .filter(item => item.type === "writing" && item.sections && item.sections.includes("trips"))
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  // INDEX PAGE (trips.html)
-  const indexContainer = document.getElementById("trip-reports");
-  if (indexContainer && !id) {
-    const grouped = groupByYear(items);
+  // GROUP BY SUBSTANCE
+  const grouped = {};
 
-    indexContainer.innerHTML = "";
-    buildYearNav(grouped.map(group => group.year));
-
-    grouped.forEach(group => {
-      const yearBlock = document.createElement("div");
-      yearBlock.className = "archive-year";
-      yearBlock.id = `year-${group.year}`;
-
-      const yearTitle = document.createElement("h2");
-      yearTitle.textContent = group.year;
-
-      const list = document.createElement("div");
-      list.className = "archive-list";
-
-      group.items.forEach(item => {
-        const row = document.createElement("a");
-        row.className = "archive-row";
-        row.href = `writings.html?id=${item.id}&from=trips`;
-
-        const title = document.createElement("div");
-        title.className = "archive-title";
-        title.textContent = item.title;
-
-        const meta = document.createElement("div");
-        meta.className = "archive-meta";
-        meta.textContent = item.date || item.year || "";
-
-        row.appendChild(title);
-        row.appendChild(meta);
-        list.appendChild(row);
-      });
-
-      yearBlock.appendChild(yearTitle);
-      yearBlock.appendChild(list);
-      indexContainer.appendChild(yearBlock);
-    });
-
-    return;
-  }
-
-  // VIEWER PAGE (tripreports.html?id=...)
-  if (!window.location.pathname.includes("tripreports.html")) return;
-  if (!id) return;
-
-  const from = params.get("from");
-  const index = items.findIndex(x => x.id === id);
-  if (index === -1) return;
-
-  const item = items[index];
-
-  const frame = document.getElementById("pdf-frame");
-  const titleEl = document.getElementById("writing-title");
-  const descEl = document.getElementById("writing-description");
-  const downloadLink = document.getElementById("download-link");
-  const backLink = document.getElementById("back-link") || document.querySelector(".writing-actions a:first-child");
-
-  if (titleEl) titleEl.textContent = item.title;
-  if (descEl) descEl.textContent = item.description || "";
-  if (frame) frame.src = item.file;
-
-  if (backLink) {
-    if (from === "archive") {
-      backLink.href = "archive.html";
-      backLink.textContent = "← Back to Archive";
-    } else {
-      backLink.href = "trips.html";
-      backLink.textContent = "← Back to Trip Reports";
-    }
-  }
-
-  if (window.plausible) {
-    plausible("PDF View", {
-      props: { title: item.title, id: item.id }
-    });
-  }
-
-  if (frame) {
-    frame.onload = () => {
-      if (window.plausible) {
-        plausible("PDF View Loaded", {
-          props: { title: item.title, id: item.id }
-        });
-      }
-    };
-  }
-
-  const prev = items[index - 1];
-  const next = items[index + 1];
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `writings.html?id=${prev.id}&from=trips`;
-    }
-    if (e.key === "ArrowRight" && next) {
-      window.location.href = `writings.html?id=${next.id}&from=trips`;
-    }
+  tripItems.forEach(item => {
+    const substance = item.substance || "Other";
+    if (!grouped[substance]) grouped[substance] = [];
+    grouped[substance].push(item);
   });
 
-  if (downloadLink) {
-    downloadLink.href = item.file;
+  // SORT ALPHABETICALLY
 
-    downloadLink.addEventListener("click", () => {
-      if (window.plausible) {
-        plausible("PDF Download", {
-          props: { title: item.title }
-        });
-      }
-    });
-  }
+  const substances = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
 
-  const start = Date.now();
+  container.innerHTML = "";
 
-  window.addEventListener("beforeunload", () => {
-    const duration = Math.round((Date.now() - start) / 1000);
+  // BUILD SUBSTANCE NAV
 
-    if (window.plausible) {
-      plausible("PDF Time", {
-        props: {
-          title: item.title,
-          seconds: duration
-        }
-      });
+ function buildSubstanceNav(substances) {
+  const nav = document.querySelector(".year-nav");
+  if (!nav) return;
+
+  nav.innerHTML = "";
+
+  substances.forEach((substance, index) => {
+    const link = document.createElement("a");
+    link.href = `#substance-${slugify(substance)}`;
+    link.textContent = substance;
+
+    nav.appendChild(link);
+
+    if (index < substances.length - 1) {
+      nav.appendChild(document.createTextNode(" "));
     }
+  });
+}
+
+function slugify(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+  // BUILD SECTIONS
+
+  substances.forEach(substance => {
+    const block = document.createElement("div");
+    block.className = "writing-year";
+    block.id = `substance-${slugify(substance)}`;
+
+    const heading = document.createElement("h2");
+    heading.textContent = substance;
+
+    const list = document.createElement("div");
+    list.className = "writing-list";
+
+    grouped[substance].forEach(item => {
+      const entry = document.createElement("div");
+      entry.className = "writing-entry";
+
+      const meta = document.createElement("div");
+      meta.className = "writing-meta";
+      meta.textContent = item.date || "";
+
+      const title = document.createElement("div");
+      title.className = "writing-title";
+
+      const link = document.createElement("a");
+      link.href = `tripreports.html?id=${item.id}`;
+      link.textContent = item.title;
+
+      title.appendChild(link);
+
+      const format = document.createElement("div");
+      format.className = "writing-format";
+      format.textContent = "PDF";
+
+      entry.appendChild(meta);
+      entry.appendChild(title);
+      entry.appendChild(format);
+
+      list.appendChild(entry);
+    });
+
+    block.appendChild(heading);
+    block.appendChild(list);
+    container.appendChild(block);
   });
 }
 

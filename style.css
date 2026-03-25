@@ -795,14 +795,14 @@ background: rgba(255,255,255,0.12);
   margin-top: 2.75rem;
 }
 
-/* Main column width + centering */
+/* Main column width + left alignment */
 .exhibit-featured,
 .exhibit-grid > a,
 .exhibit-grid > .exhibit-pair {
   display: block;
   width: 100%;
   max-width: 640px;
-  margin: 0 auto 2.25rem;
+  margin: 0 0 2.25rem;
 }
 
 .exhibit-featured {
@@ -813,7 +813,7 @@ background: rgba(255,255,255,0.12);
 .exhibit-grid {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0;
 }
 
@@ -842,7 +842,7 @@ background: rgba(255,255,255,0.12);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.62);
 }
 
-/* Pair fallback (now vertical, not side-by-side) */
+/* Pair fallback (still vertical) */
 .exhibit-pair {
   display: block;
 }
