@@ -593,20 +593,22 @@ background: rgba(255,255,255,0.12);
 
 }
 
-/* Shared left rail line */
+/* Shared left rail line (Archive, Writing, Trip Reports) */
 
 .gallery,
 #archive,
-#writing {
+#writing,
+#trip-reports {
   position: relative;
 }
 
 .gallery::before,
 #archive::before,
-#writing::before {
+#writing::before,
+#trip-reports::before {
   content: "";
   position: absolute;
-  left: -40px; /* adjust to match art page */
+  left: -40px;
   top: 0;
   bottom: 0;
   width: 1px;

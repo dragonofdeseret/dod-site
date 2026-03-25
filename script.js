@@ -725,11 +725,7 @@ function buildWritingPage() {
 
 function buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
-  if (!container) return;
-  if (typeof archive === "undefined") {
-    console.error("archive.js not loaded on trips page");
-    return;
-  }
+  if (!container || typeof archive === "undefined") return;
 
   const tripItems = archive
     .filter(item => {
@@ -745,8 +741,6 @@ function buildTripReportsPage() {
       return true;
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  console.log("Trip items found:", tripItems);
 
   const grouped = {};
 
@@ -786,7 +780,6 @@ function buildTripReportsPage() {
       const link = document.createElement("a");
       link.href = `tripreports.html?id=${item.id}`;
       link.textContent = item.title || "";
-
       title.appendChild(link);
 
       const format = document.createElement("div");
