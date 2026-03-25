@@ -63,9 +63,8 @@ function buildArchive() {
   if (!container || typeof archive === "undefined") return;
 
   const grouped = groupByYear(
-    archive
-  .filter(item => item.showOnArchive !== false)
-  .forEach(item => {
+    archive.filter(item => item.showOnArchive !== false)
+  );
 
   container.innerHTML = "";
   buildYearNav(grouped.map(group => group.year));
@@ -112,7 +111,7 @@ function buildArchive() {
       meta.className = "archive-meta";
       meta.textContent = item.date || item.year || "";
 
-      let preview;
+      let preview = null;
 
       if (item.type === "writing") {
         preview = document.createElement("div");
