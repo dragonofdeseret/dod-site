@@ -303,12 +303,6 @@ opacity: 0.8;
   font-weight: 500;
   margin-right: 20px;
 }
-
-.archive-meta {
-  opacity: 0.6;
-  font-size: 0.9rem;
-  margin-left: auto;
-}
   
 .archive-row img {
   width: 60px;
@@ -318,6 +312,86 @@ opacity: 0.8;
  margin-left: auto;
 
 } 
+
+.archive-meta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.archive-meta {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  min-width: 92px;
+  text-align: right;
+}
+
+.archive-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.archive-badge {
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(255,255,255,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  letter-spacing: 1.2px;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.gallery-item img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.photo-viewer {
+  margin-top: 20px;
+}
+
+.photo-viewer img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  cursor: zoom-in;
+}
+
+@media (max-width: 700px) {
+  .archive-row {
+    align-items: flex-start;
+  }
+
+  .archive-meta-wrap {
+    gap: 10px;
+  }
+
+  .archive-meta {
+    min-width: auto;
+  }
+
+  .archive-thumb,
+  .archive-badge {
+    width: 48px;
+    height: 48px;
+  }
+}
 
 /* ===========================
     FULL-WIDTH ART PAGES

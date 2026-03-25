@@ -67,7 +67,6 @@ function buildArchive() {
   );
 
   container.innerHTML = "";
-
   buildYearNav(grouped.map(group => group.year));
 
   grouped.forEach(group => {
@@ -86,16 +85,16 @@ function buildArchive() {
       row.className = "archive-row";
 
       if (item.type === "art") {
-        row.href = `artwork.html?id=${item.id}`;
+        row.href = `artwork.html?id=${item.id}&from=archive`;
       } else if (item.type === "photo") {
-        row.href = `photography.html?id=${item.id}`;
+        row.href = `photography.html?id=${item.id}&from=archive`;
       } else if (item.type === "exhibit") {
-        row.href = `exhibit.html?id=${item.id}`;
+        row.href = `exhibit.html?id=${item.id}&from=archive`;
       } else if (item.type === "writing") {
-        if (item.section === "trips" || item.sections?.includes("trips")) {
-          row.href = `tripreports.html?id=${item.id}`;
+        if (item.sections && item.sections.includes("trips")) {
+          row.href = `tripreports.html?id=${item.id}&from=archive`;
         } else {
-          row.href = `writings.html?id=${item.id}`;
+          row.href = `writings.html?id=${item.id}&from=archive`;
         }
       } else {
         row.href = item.link || "#";
@@ -105,20 +104,31 @@ function buildArchive() {
       title.className = "archive-title";
       title.textContent = item.title || "";
 
+      const metaWrap = document.createElement("div");
+      metaWrap.className = "archive-meta-wrap";
+
       const meta = document.createElement("div");
       meta.className = "archive-meta";
       meta.textContent = item.date || item.year || "";
 
-      row.appendChild(title);
-      row.appendChild(meta);
+      let preview;
 
-      if (item.image) {
-        const img = document.createElement("img");
-        img.src = item.image;
-        img.alt = item.title || "";
-        row.appendChild(img);
+      if (item.type === "writing") {
+        preview = document.createElement("div");
+        preview.className = "archive-badge";
+        preview.textContent = "PDF";
+      } else if (item.image) {
+        preview = document.createElement("img");
+        preview.className = "archive-thumb";
+        preview.src = item.image;
+        preview.alt = item.title || "";
       }
 
+      metaWrap.appendChild(meta);
+      if (preview) metaWrap.appendChild(preview);
+
+      row.appendChild(title);
+      row.appendChild(metaWrap);
       list.appendChild(row);
     });
 
@@ -234,6 +244,110 @@ function buildGallery() {
   });
 
   buildRandomButton(artItems);
+}
+
+function buildPhotoArchive() {
+  const container = document.getElementById("photo-archive");
+  if (!container || typeof archive === "undefined") return;
+
+  const photoItems = archive
+    .filter(item => item.type === "photo" && item.showOnPhoto !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const grouped = groupByYear(photoItems);
+
+  container.innerHTML = "";
+  buildYearNav(grouped.map(group => group.year));
+
+  grouped.forEach(group => {
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+    yearBlock.id = `year-${group.year}`;
+
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = group.year;
+
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+
+    group.items.forEach(item => {
+      const link = document.createElement("a");
+      link.href = `photography.html?id=${item.id}`;
+      link.className = "gallery-item";
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.title || "";
+
+      link.appendChild(img);
+      grid.appendChild(link);
+    });
+
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(grid);
+    container.appendChild(yearBlock);
+  });
+}
+
+/* ======================
+       PHOTOGRAPHY
+========================= */
+
+function buildPhotographyPage() {
+  if (!window.location.pathname.includes("photography.html")) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const from = params.get("from");
+
+  if (!id || typeof archive === "undefined") return;
+
+  const items = archive
+    .filter(item => item.type === "photo")
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const index = items.findIndex(item => item.id === id);
+  if (index === -1) return;
+
+  const item = items[index];
+
+  const titleEl = document.getElementById("photo-title");
+  const descEl = document.getElementById("photo-description");
+  const imgEl = document.getElementById("photo-image");
+  const backLink = document.getElementById("back-link");
+
+  if (titleEl) titleEl.textContent = item.title || "";
+  if (descEl) descEl.textContent = item.description || "";
+  if (imgEl) {
+    imgEl.src = item.image;
+    imgEl.alt = item.title || "";
+
+    imgEl.addEventListener("click", () => {
+      openLightbox(item.image);
+    });
+  }
+
+  if (backLink) {
+    if (from === "archive") {
+      backLink.href = "archive.html";
+      backLink.textContent = "← Back to Archive";
+    } else {
+      backLink.href = "photo.html";
+      backLink.textContent = "← Back to Photography";
+    }
+  }
+
+  const prev = items[index - 1];
+  const next = items[index + 1];
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `photography.html?id=${prev.id}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `photography.html?id=${next.id}`;
+    }
+  });
 }
 
 /* ========================
@@ -519,59 +633,6 @@ function buildExhibitPage() {
   });
 
   gallery.appendChild(grid);
-}
-
-/* ======================
-       PHOTOGRAPHY
-========================= */
-
-function buildPhotographyPage() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  if (!id || typeof archive === "undefined") return;
-
-  const photos = archive.filter(item => item.type === "photo");
-
-  const index = photos.findIndex(p => p.id === id);
-  if (index === -1) return;
-
-  const item = photos[index];
-
-  document.getElementById("photo-title").textContent = item.title;
-  document.getElementById("photo-image").src = item.image;
-  document.getElementById("photo-description").textContent = item.description || "";
-
-  document.getElementById("prev-photo").onclick = () => {
-    if (index > 0) {
-      window.location.href = `photography.html?id=${photos[index - 1].id}`;
-    }
-  };
-
-  document.getElementById("next-photo").onclick = () => {
-    if (index < photos.length - 1) {
-      window.location.href = `photography.html?id=${photos[index + 1].id}`;
-    }
-  };
-}
-
-  // Lightbox
-
-const img = document.getElementById("photo-image");
-
-if (img) {
-  img.onclick = () => {
-    const overlay = document.createElement("div");
-    overlay.className = "lightbox";
-
-    const fullImg = document.createElement("img");
-    fullImg.src = item.image;
-
-    overlay.appendChild(fullImg);
-    document.body.appendChild(overlay);
-
-    overlay.onclick = () => overlay.remove();
-  };
 }
 
 /* ==========================================
@@ -940,7 +1001,7 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
-  buildPhotographyPage();
+  buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
   buildExhibitsArchive();
@@ -952,6 +1013,7 @@ document.addEventListener("DOMContentLoaded", () => {
     enhanceArtworkPage();
   }
 
+  buildPhotographyPage();
   buildWritingPage();
   buildFooter();
 });
