@@ -770,10 +770,6 @@ function buildTripReportsPage() {
       const entry = document.createElement("div");
       entry.className = "writing-entry";
 
-      const meta = document.createElement("div");
-      meta.className = "writing-meta";
-      meta.textContent = item.date || "";
-
       const title = document.createElement("div");
       title.className = "writing-title";
 
@@ -782,13 +778,17 @@ function buildTripReportsPage() {
       link.textContent = item.title || "";
       title.appendChild(link);
 
-      const format = document.createElement("div");
-      format.className = "writing-format";
-      format.textContent = "PDF";
+      const date = document.createElement("div");
+      date.className = "writing-format";
 
-      entry.appendChild(meta);
+      const dateLink = document.createElement("a");
+      dateLink.href = `tripreports.html?id=${item.id}`;
+      dateLink.textContent = item.date || "";
+
+      date.appendChild(dateLink);
+
       entry.appendChild(title);
-      entry.appendChild(format);
+      entry.appendChild(date);
 
       list.appendChild(entry);
     });
