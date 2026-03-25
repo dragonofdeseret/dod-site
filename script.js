@@ -441,7 +441,7 @@ function buildExhibitsArchive() {
       .forEach(exhibit => {
         const row = document.createElement("a");
         row.className = "archive-row";
-        row.href = `exhibit.html?id=${exhibit.id}`;
+        row.href = `exhibit.html?id=${exhibit.id}&from=exhibits`;
 
         const title = document.createElement("div");
         title.className = "archive-title";
@@ -524,14 +524,21 @@ function buildExhibitPage() {
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+  const from = params.get("from") || "exhibits";
   if (!id) return;
 
-  const exhibit = exhibits.find(x => x.id === id);
-  if (!exhibit) return;
+  const exhibitItems = [...exhibits].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const index = exhibitItems.findIndex(x => x.id === id);
+  if (index === -1) return;
+
+  const exhibit = exhibitItems[index];
+  const prev = exhibitItems[index - 1];
+  const next = exhibitItems[index + 1];
 
   const titleEl = document.getElementById("exhibit-title");
   const descEl = document.getElementById("exhibit-description");
   const gallery = document.querySelector(".exhibit-gallery");
+  const navEl = document.getElementById("exhibit-nav");
 
   if (titleEl) titleEl.textContent = exhibit.title;
   if (descEl) descEl.textContent = exhibit.description || "";
@@ -555,49 +562,86 @@ function buildExhibitPage() {
 
   if (!works.length) {
     gallery.innerHTML = "<p>No works found for this exhibit.</p>";
-    return;
-  }
+  } else {
+    const featured = works[0];
+    const rest = works.slice(1);
 
-  const featured = works[0];
-  const rest = works.slice(1);
+    const featuredWrap = document.createElement("a");
+    featuredWrap.className = "exhibit-featured";
+    featuredWrap.href = `artwork.html?id=${featured.id}&from=exhibit`;
 
-  const featuredWrap = document.createElement("a");
-  featuredWrap.className = "exhibit-featured";
-  featuredWrap.href = `artwork.html?id=${featured.id}&from=exhibit`;
+    const featuredImg = document.createElement("img");
+    featuredImg.src = featured.image;
+    featuredImg.alt = featured.title || "";
 
-  const featuredImg = document.createElement("img");
-  featuredImg.src = featured.image;
-  featuredImg.alt = featured.title || "";
-
-  featuredImg.addEventListener("click", e => {
-    e.preventDefault();
-    openLightbox(featured.image);
-  });
-
-  featuredWrap.appendChild(featuredImg);
-  gallery.appendChild(featuredWrap);
-
-  const grid = document.createElement("div");
-  grid.className = "exhibit-grid";
-
-  rest.forEach(item => {
-    const link = document.createElement("a");
-    link.href = `artwork.html?id=${item.id}&from=exhibit`;
-
-    const img = document.createElement("img");
-    img.src = item.image;
-    img.alt = item.title || "";
-
-    img.addEventListener("click", e => {
+    featuredImg.addEventListener("click", e => {
       e.preventDefault();
-      openLightbox(item.image);
+      openLightbox(featured.image);
     });
 
-    link.appendChild(img);
-    grid.appendChild(link);
-  });
+    featuredWrap.appendChild(featuredImg);
+    gallery.appendChild(featuredWrap);
 
-  gallery.appendChild(grid);
+    const grid = document.createElement("div");
+    grid.className = "exhibit-grid";
+
+    rest.forEach(item => {
+      const link = document.createElement("a");
+      link.href = `artwork.html?id=${item.id}&from=exhibit`;
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.title || "";
+
+      img.addEventListener("click", e => {
+        e.preventDefault();
+        openLightbox(item.image);
+      });
+
+      link.appendChild(img);
+      grid.appendChild(link);
+    });
+
+    gallery.appendChild(grid);
+  }
+
+  let backHref = "exhibits.html";
+  let backText = "Back to Exhibits";
+
+  if (from === "archive") {
+    backHref = "archive.html";
+    backText = "Back to Archive";
+  } else if (from === "art") {
+    backHref = "art.html";
+    backText = "Back to Artwork";
+  }
+
+  if (navEl) {
+    navEl.innerHTML = `
+      <div class="nav-left">
+        ${prev ? `<a href="exhibit.html?id=${prev.id}&from=${from}">← Previous</a>` : ""}
+      </div>
+      <div class="nav-center">
+        <a href="${backHref}">${backText}</a>
+      </div>
+      <div class="nav-right" style="text-align: right;">
+        ${next ? `<a href="exhibit.html?id=${next.id}&from=${from}">Next →</a>` : ""}
+      </div>
+    `;
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `exhibit.html?id=${prev.id}&from=${from}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `exhibit.html?id=${next.id}&from=${from}`;
+    }
+    if (e.key === "Escape") {
+      const viewer = document.querySelector(".image-viewer");
+      if (viewer) viewer.remove();
+    }
+  });
 }
 
 /* ======================
