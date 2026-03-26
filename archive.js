@@ -15,6 +15,7 @@ date: "2026-01-01",
 image: "images/art/2026/2026-01-01.jpeg",
 showOnArt: false,
 showOnArchive: false,
+description: "Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us."
 },
 
 {
@@ -57,9 +58,9 @@ image: "images/art/2024/2024-08-02_2.jpg",
 */
 
 {
-id: "2024-08-02_1 | #1",
+id: "2024-08-02_1",
 type: "art",
-title: "August 2, 2024",
+title: "August 2, 2024 | #1",
 year: 2024,
 date: "2024-08-02",
 image: "images/art/2024/2024-08-02_1.jpg",
@@ -914,15 +915,6 @@ image: "images/art/2022/2022-04-19.jpeg",
 },
 
 {
-id: "2022-04-07",
-type: "art",
-title: "April 7 2022",
-year: 2022,
-date: "2022-04-07",
-image: "images/art/2022/2022-04-07.jpeg",
-},
-
-{
 id: "2022-04-04",
 type: "art",
 title: "April 4, 2022",
@@ -1122,15 +1114,69 @@ image: "images/art/2020/2020-11-18.JPG",
 },
 
 { 
- id: "AIW",
+ id: "Toyn",
  type: "writing",
- title: "All is Well",
+ title: "Recurring Toyn Dream | ~2000–2005",
  date: "2023-09-24",
  year: 2023,
- file: "pdf/AIW.pdf",
+ file: "pdf/Toyn.pdf",
  sections: ["trips"],
- substance: "LSD",
- 
+ substance: "Dreams",
+},
+
+{ 
+ id: "TrampOBE",
+ type: "writing",
+ title: "Trampoline OBE Derealization, 1996",
+ date: "2023-09-24",
+ year: 2023,
+ file: "pdf/TrampOBE.pdf",
+ sections: ["trips"],
+ substance: "OBE",
+},
+
+{ 
+ id: "GT",
+ type: "writing",
+ title: "Golden Teachers",
+ date: "2023-01-23",
+ year: 2023,
+ file: "pdf/GT.pdf",
+ sections: ["trips"],
+ substance: "Psilocybin",
+},
+
+{ 
+ id: "HGA",
+ type: "writing",
+ title: "He's Gone APE",
+ date: "2022-08-02",
+ year: 2022,
+ file: "pdf/HGA.pdf",
+ sections: ["trips"],
+ substance: "Psilocybin",
+},
+
+{ 
+ id: "IAMT",
+ type: "writing",
+ title: "I've a Mother There",
+ date: "2022-07-12",
+ year: 2022,
+ file: "pdf/IAMT.pdf",
+ sections: ["trips"],
+ substance: "DMT",
+},
+
+{ 
+ id: "TGCoB",
+ type: "writing",
+ title: "The Great Chain of Belonging",
+ date: "2022-06-24",
+ year: 2022,
+ file: "pdf/TGCoB.pdf",
+ sections: ["trips"],
+ substance: "DMT",
 },
 
 {
@@ -1143,6 +1189,17 @@ image: "images/art/2020/2020-11-18.JPG",
  file: "pdf/ForestofLee.pdf",
 }, 
 
+{ 
+ id: "AIW",
+ type: "writing",
+ title: "All is Well",
+ date: "2019-05-11",
+ year: 2019,
+ file: "pdf/AIW.pdf",
+ sections: ["trips"],
+ substance: "LSD",
+},
+
 /* ==================
       PHOTOGRAPHY
 ===================== */
@@ -1154,7 +1211,7 @@ image: "images/art/2020/2020-11-18.JPG",
     year: 2025,
     date: "2025-10-21",
     image: "images/photography/2025/2025-10-21.jpeg",
-    description: "",
+    description: "Jovial Company",
     
   },
 
@@ -1264,7 +1321,7 @@ image: "images/art/2020/2020-11-18.JPG",
     year: 2025,
     date: "2025-03-15",
     image: "images/photography/2025/2025-03-15.jpeg",
-    description: "",
+    description: "Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece.",
     
   },
 
