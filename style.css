@@ -474,19 +474,15 @@ opacity: 0.8;
   justify-content: flex-start;
 }
 
-/* ==================
-    GALLERY INTRO
-===================== */
+/* =============
+   ART GALLERY
+================ */
 
 .gallery-intro {
   opacity: 0.7;
   margin-bottom: 30px;
   font-size: 16px;
 }
-
-/* =============
-   ART GALLERY
-================ */
 
 .gallery-header {
   margin-bottom: 30px;
@@ -728,7 +724,7 @@ background: rgba(255,255,255,0.12);
 }
 
 /* ====================
-    ART NAVIGATION 
+     ART NAVIGATION 
 ======================= */
 
 .art-navigation {
@@ -794,7 +790,7 @@ background: rgba(255,255,255,0.12);
 }
 
 /* =================
-     EXHIBITS
+      EXHIBITS
 ==================== */
 
 .exhibit-statement {
@@ -1001,6 +997,37 @@ max-width: 700px;
   width: 100%;
   height: 100%;
   border: none;
+}
+
+/* PDF viewer default */
+
+.pdf-mobile-link {
+  display: none;
+  margin-top: 20px;
+}
+
+.pdf-mobile-link a {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px 14px;
+  opacity: 0.85;
+}
+
+.pdf-mobile-link a:hover {
+  opacity: 1;
+}
+
+/* Mobile: don't embed the PDF, open it directly instead */
+
+@media (max-width: 900px) {
+  .pdf-container {
+    display: none;
+  }
+
+  .pdf-mobile-link {
+    display: block;
+  }
 }
 
 /* =======================
