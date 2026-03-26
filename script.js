@@ -796,7 +796,7 @@ function buildWritingPage() {
          TRIP REPORTS INDEX / VIEWER
 ================================================= */
 
-function buildTripReportsPage() {
+ffunction buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
   if (!container || typeof archive === "undefined") return;
 
@@ -818,9 +818,14 @@ function buildTripReportsPage() {
   const grouped = {};
 
   tripItems.forEach(item => {
-    const substance = item.substance || "Other";
-    if (!grouped[substance]) grouped[substance] = [];
-    grouped[substance].push(item);
+    const substances = Array.isArray(item.substance)
+      ? item.substance
+      : [item.substance || "Other"];
+
+    substances.forEach(substance => {
+      if (!grouped[substance]) grouped[substance] = [];
+      grouped[substance].push(item);
+    });
   });
 
   const substances = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
@@ -829,46 +834,37 @@ function buildTripReportsPage() {
   buildSubstanceNav(substances);
 
   substances.forEach(substance => {
-    const yearBlock = document.createElement("div");
-    yearBlock.className = "writing-year";
-    yearBlock.id = `substance-${slugify(substance)}`;
+    const block = document.createElement("div");
+    block.className = "archive-year";
+    block.id = `substance-${slugify(substance)}`;
 
     const heading = document.createElement("h2");
     heading.textContent = substance;
 
     const list = document.createElement("div");
-    list.className = "writing-list";
+    list.className = "archive-list";
 
     grouped[substance].forEach(item => {
-      const entry = document.createElement("div");
-      entry.className = "writing-entry";
+      const row = document.createElement("a");
+      row.className = "archive-row";
+      row.href = `tripreports.html?id=${item.id}`;
 
       const title = document.createElement("div");
-      title.className = "writing-title";
+      title.className = "archive-title";
+      title.textContent = item.title || "";
 
-      const link = document.createElement("a");
-      link.href = `tripreports.html?id=${item.id}`;
-      link.textContent = item.title || "";
-      title.appendChild(link);
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || "";
 
-      const date = document.createElement("div");
-      date.className = "writing-format";
-
-      const dateLink = document.createElement("a");
-      dateLink.href = `tripreports.html?id=${item.id}`;
-      dateLink.textContent = item.date || "";
-
-      date.appendChild(dateLink);
-
-      entry.appendChild(title);
-      entry.appendChild(date);
-
-      list.appendChild(entry);
+      row.appendChild(title);
+      row.appendChild(meta);
+      list.appendChild(row);
     });
 
-    yearBlock.appendChild(heading);
-    yearBlock.appendChild(list);
-    container.appendChild(yearBlock);
+    block.appendChild(heading);
+    block.appendChild(list);
+    container.appendChild(block);
   });
 }
 
