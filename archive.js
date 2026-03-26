@@ -1179,6 +1179,28 @@ image: "images/art/2020/2020-11-18.JPG",
  substance: "DMT",
 },
 
+{ 
+ id: "DogBuddha",
+ type: "writing",
+ title: "Does a Dog Have Buddha Nature?",
+ date: "2022-05-26",
+ year: 2022,
+ file: "pdf/DogBuddha.pdf",
+ sections: ["trips"],
+ substance: ["LSD", "Zen"],
+},
+
+{ 
+ id: "WMZ",
+ type: "writing",
+ title: "What is the Meaning of Zen?",
+ date: "2022-05-22",
+ year: 2022,
+ file: "pdf/WMZ.pdf",
+ sections: ["trips"],
+ substance: ["LSD", "Zen"],
+},
+
 {
  id: "ForestofLee",
  type: "writing",
