@@ -120,7 +120,7 @@ function buildArchive() {
         if (item.sections && item.sections.includes("trips")) {
           row.href = `tripreports.html?id=${item.id}&from=archive`;
         } else {
-          row.href = `writings.html?id=${item.id}&from=archive`;
+          row.href = `writing.html?id=${item.id}&from=archive`;
         }
       } else {
         row.href = item.link || "#";
@@ -202,7 +202,7 @@ function buildWritingIndex() {
     group.items.forEach(item => {
       const row = document.createElement("a");
       row.className = "archive-row";
-      row.href = `writings.html?id=${item.id}`;
+     row.href = `writing.html?id=${item.id}`;
 
       const title = document.createElement("div");
       title.className = "archive-title";

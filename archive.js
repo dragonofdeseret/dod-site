@@ -1070,7 +1070,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2025,
  date: "2025-11-16",
  file: "pdf/NaturalisticBoM.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 {
@@ -1080,7 +1080,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2025,
  date: "2025-02-16",
  file: "pdf/AcidLullabies.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 {
@@ -1090,7 +1090,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2024,
  date: "2024-09-29",
  file: "pdf/HeavensLedger.pdf", 
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 {
@@ -1100,7 +1100,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2024,
  date: "2024-06-24",
  file: "pdf/AIPR.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 {
@@ -1110,7 +1110,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2024,
  date: "2024-05-11",
  file: "pdf/THOOGTEOOS.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 {
@@ -1120,7 +1120,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2023,
  date: "2023-12-21", 
  file: "pdf/FSoC.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 
 { 
@@ -1186,7 +1186,7 @@ image: "images/art/2020/2020-11-18.JPG",
  date: "2022-09-23",
  year: 2022,
  file: "pdf/DMTERRAIN.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 },
 */
 
@@ -1253,7 +1253,7 @@ image: "images/art/2020/2020-11-18.JPG",
  year: 2021,
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
- sections: ["writings"],
+ sections: ["writing"],
 }, 
 
 { 
