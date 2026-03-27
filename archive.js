@@ -1169,6 +1169,16 @@ image: "images/art/2020/2020-11-18.JPG",
 },
 
 { 
+ id: "DMTERRAIN",
+ type: "writing",
+ title: "The Dark Matter Terrain",
+ date: "2022-09-23",
+ year: 2022,
+ file: "pdf/DMTERRAIN.pdf",
+ sections: ["writing"],
+},
+
+{ 
  id: "HGA",
  type: "writing",
  title: "He's Gone APE",

@@ -796,7 +796,7 @@ function buildWritingPage() {
          TRIP REPORTS INDEX / VIEWER
 ================================================= */
 
-ffunction buildTripReportsPage() {
+function buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
   if (!container || typeof archive === "undefined") return;
 
