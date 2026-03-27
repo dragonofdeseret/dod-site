@@ -44,6 +44,7 @@ title: "August 2, 2024 | #3",
 year: 2024,
 date: "2024-08-02",
 image: "images/art/2024/2024-08-02_3.jpg",
+exhibit: "joe",
 },
 
 /* 
@@ -54,6 +55,7 @@ title: "August 2, 2024 | #2",
 year: 2024,
 date: "2024-08-02",
 image: "images/art/2024/2024-08-02_2.jpg",
+exhibit: "joe",
 },
 */
 
@@ -64,6 +66,7 @@ title: "August 2, 2024 | #1",
 year: 2024,
 date: "2024-08-02",
 image: "images/art/2024/2024-08-02_1.jpg",
+exhibit: "joe",
 },
    
 {
@@ -1178,7 +1181,6 @@ image: "images/art/2020/2020-11-18.JPG",
  substance: "Psilocybin",
 },
 
-/*
 { 
  id: "DMTERRAIN",
  type: "writing",
@@ -1188,7 +1190,6 @@ image: "images/art/2020/2020-11-18.JPG",
  file: "pdf/DMTERRAIN.pdf",
  sections: ["writing"],
 },
-*/
 
 { 
  id: "HGA",
@@ -1617,8 +1618,16 @@ image: "images/art/2020/2020-11-18.JPG",
 const exhibits = [
 
   {
+    id: "joe",
+    title: "I Know the Church is True",
+    year: 2024,
+    date: "2024-06-24",
+    description: "4ft x 4ft Oil x Acrylic"
+  }, 
+
+  {
     id: "woulds",
-    title: "The Wooulds Walkabout",
+    title: "Wooulds Walkabout",
     year: 2023,
     date: "2023-12-06",
     description: ""
@@ -1626,7 +1635,7 @@ const exhibits = [
 
 {
     id: "detour",
-    title: "The Walkabout Detour",
+    title: "Walkabout Detour",
     year: 2023,
     date: "2023-08-26",
     description: ""
