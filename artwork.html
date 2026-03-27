@@ -2,26 +2,26 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>Artwork</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Artwork - Christopher Shenefelt</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="layout">
 
-<nav class="sidebar">
-<h1>Christopher Shenefelt</h1>
+  <nav class="sidebar">
+    <h1>Christopher Shenefelt</h1>
 
-<a href="index.html">Home</a>
-<a href="archive.html">Archive</a>
-<a href="art.html">Artwork</a>
-<a href="writing.html">Writing</a>
-<a href="now.html">Now</a>
-<a href="questions.html">Questions</a>
-<a href="bio.html">Biography</a>
-</nav>
+    <a href="index.html">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="art.html" class="active">Artwork</a>
+    <a href="writing.html">Writing</a>
+    <a href="now.html">Now</a>
+    <a href="questions.html">Questions</a>
+    <a href="bio.html">Biography</a>
+  </nav>
 
   <main class="content">
 
@@ -34,17 +34,17 @@
       <div class="art-navigation" id="nav"></div>
 
       <div class="art-image">
-        <img id="image">
+        <img id="image" alt="">
       </div>
 
-</div>
+    </div>
 
-</main>
+  </main>
+
 </div>
 
 <script src="archive.js"></script>
 <script>
-
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
@@ -53,6 +53,7 @@ const item = archive.find(x => x.id === id);
 if (item) {
   document.getElementById("title").textContent = item.title;
   document.getElementById("image").src = item.image;
+  document.getElementById("image").alt = item.title || "";
   document.getElementById("description").textContent = item.description || "";
 }
 
@@ -68,11 +69,16 @@ const backHref = from === "archive" ? "archive.html" : "art.html";
 const backText = from === "archive" ? "Back to Archive" : "Back to Art";
 
 document.getElementById("nav").innerHTML = `
-  ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from || "art"}">← Previous</a>` : ""}
-  <a href="${backHref}">${backText}</a>
-  ${next ? `<a href="artwork.html?id=${next.id}&from=${from || "art"}">Next →</a>` : ""}
+  <div class="nav-left">
+    ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from || "art"}">← Previous</a>` : ""}
+  </div>
+  <div class="nav-center">
+    <a href="${backHref}">${backText}</a>
+  </div>
+  <div class="nav-right">
+    ${next ? `<a href="artwork.html?id=${next.id}&from=${from || "art"}">Next →</a>` : ""}
+  </div>
 `;
-
 </script>
 
 </body>

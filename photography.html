@@ -11,8 +11,9 @@
   <!-- Privacy-friendly analytics by Plausible -->
   <script async src="https://plausible.io/js/pa-uORI5wSFBMhN2n9Rh8Grc.js"></script>
   <script>
-    window.plausible = window.plausible || function(){(plausible.q = plausible.q || []).push(arguments)}, plausible.init = plausible.init || function(i){plausible.o = i || {}};
-    plausible.init()
+    window.plausible = window.plausible || function(){(plausible.q = plausible.q || []).push(arguments)};
+    plausible.init = plausible.init || function(i){plausible.o = i || {}};
+    plausible.init();
   </script>
 </head>
 
@@ -26,7 +27,7 @@
     <a href="index.html">Home</a>
     <a href="archive.html">Archive</a>
     <a href="art.html" class="active">Artwork</a>
-    <a href="photo.html" class="nav-sub">Photography</a>
+    <a href="photo.html" class="nav-sub active">Photography</a>
     <a href="writing.html">Writing</a>
     <a href="now.html">Now</a>
     <a href="questions.html">Questions</a>
@@ -55,35 +56,40 @@
 
 <script src="archive.js"></script>
 <script>
-
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id"); 
+const id = params.get("id");
 
 const item = archive.find(x => x.id === id);
 
 if (item) {
-  document.getElementById("title").textContent = item.title;
-  document.getElementById("image").src = item.image;
-  document.getElementById("description").textContent = item.description || "";
+  document.getElementById("photo-title").textContent = item.title;
+  document.getElementById("photo-image").src = item.image;
+  document.getElementById("photo-image").alt = item.title || "";
+  document.getElementById("photo-description").textContent = item.description || "";
 }
-  
+
 /* navigation */
-const artItems = archive.filter(x => x.type === "art");
-const index = artItems.findIndex(x => x.id === id);
-      
-const prev = artItems[index - 1];
-const next = artItems[index + 1];
+const photoItems = archive.filter(x => x.type === "photo");
+const index = photoItems.findIndex(x => x.id === id);
+
+const prev = photoItems[index - 1];
+const next = photoItems[index + 1];
 
 const from = params.get("from");
-const backHref = from === "archive" ? "archive.html" : "art.html";
-const backText = from === "archive" ? "Back to Archive" : "Back to Art";
-        
-document.getElementById("nav").innerHTML = `
-  ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from || "art"}">← Previous</a>` : ""}
-  <a href="${backHref}">${backText}</a>
-  ${next ? `<a href="artwork.html?id=${next.id}&from=${from || "art"}">Next →</a>` : ""}
-`;
+const backHref = from === "archive" ? "archive.html" : "photo.html";
+const backText = from === "archive" ? "Back to Archive" : "Back to Photography";
 
+document.getElementById("photo-nav").innerHTML = `
+  <div class="nav-left">
+    ${prev ? `<a href="photography.html?id=${prev.id}&from=${from || "photo"}">← Previous</a>` : ""}
+  </div>
+  <div class="nav-center">
+    <a href="${backHref}">${backText}</a>
+  </div>
+  <div class="nav-right" style="text-align:right;">
+    ${next ? `<a href="photography.html?id=${next.id}&from=${from || "photo"}">Next →</a>` : ""}
+  </div>
+`;
 </script>
 
 </body>
