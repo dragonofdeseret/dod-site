@@ -1125,6 +1125,28 @@ image: "images/art/2020/2020-11-18.JPG",
 },
 
 { 
+ id: "RDMain",
+ type: "writing",
+ title: "Recurring Dreams, 1996–2007",
+ date: "2023-09-24",
+ year: 2023,
+ file: "pdf/RDMain.pdf",
+ sections: ["trips"],
+ substance: "Dreams",
+},
+
+{ 
+ id: "CB",
+ type: "writing",
+ title: "Communication Breakdown",
+ date: "2023-09-24",
+ year: 2023,
+ file: "pdf/CB.pdf",
+ sections: ["trips"],
+ substance: "Zen",
+},
+
+{ 
  id: "TrampOBE",
  type: "writing",
  title: "Trampoline OBE Derealization, 1996",
@@ -1210,6 +1232,28 @@ image: "images/art/2020/2020-11-18.JPG",
  date: "2021-08-31",
  file: "pdf/ForestofLee.pdf",
 }, 
+
+{ 
+ id: "Triplette",
+ type: "writing",
+ title: "[Trip]let[te]",
+ date: "2020-11-03",
+ year: 2020,
+ file: "pdf/Triplette.pdf",
+ sections: ["trips"],
+ substance: ["Zen", "Cannabis"]
+},
+
+{ 
+ id: "SiA",
+ type: "writing",
+ title: "Soaked in Alacrity",
+ date: "2020-08-08",
+ year: 2020,
+ file: "pdf/SiA.pdf",
+ sections: ["trips"],
+ substance: ["Cannabis"]
+},
 
 { 
  id: "AIW",
