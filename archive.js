@@ -47,7 +47,6 @@ image: "images/art/2024/2024-08-02_3.jpg",
 exhibit: "joe",
 },
 
-/* 
 {
 id: "2024-08-02_2",
 type: "art",
@@ -57,7 +56,6 @@ date: "2024-08-02",
 image: "images/art/2024/2024-08-02_2.jpg",
 exhibit: "joe",
 },
-*/
 
 {
 id: "2024-08-02_1",
