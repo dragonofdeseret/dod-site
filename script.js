@@ -120,7 +120,7 @@ function buildArchive() {
         if (item.sections && item.sections.includes("trips")) {
           row.href = `tripreports.html?id=${item.id}&from=archive`;
         } else {
-          row.href = `writing.html?id=${item.id}&from=archive`;
+          row.href = `writings.html?id=${item.id}&from=archive`;
         }
       } else {
         row.href = item.link || "#";
@@ -202,7 +202,7 @@ function buildWritingIndex() {
     group.items.forEach(item => {
       const row = document.createElement("a");
       row.className = "archive-row";
-     row.href = `writing.html?id=${item.id}`;
+     row.href = `writings.html?id=${item.id}`;
 
       const title = document.createElement("div");
       title.className = "archive-title";
@@ -791,6 +791,12 @@ function buildWritingPage() {
     downloadLink.href = item.file;
   }
 }
+
+const mobilePdfLink = document.querySelector(".pdf-mobile-link a");
+
+if (frame) frame.src = item.file;
+if (downloadLink) downloadLink.href = item.file;
+if (mobilePdfLink) mobilePdfLink.href = item.file;
 
 /* ==============================================
          TRIP REPORTS INDEX / VIEWER
