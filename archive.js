@@ -244,6 +244,7 @@ title: "August 26, 2023 | #4",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_4.jpeg",
+exhibit: "detour",
 },
   
 {
@@ -253,6 +254,7 @@ title: "August 26, 2023 | #3",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_3.jpeg",
+exhibit: "detour",
 },
   
 {
@@ -262,6 +264,7 @@ title: "August 26, 2023 | #2",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_2.jpeg",
+exhibit: "detour",
 },
     
 {
@@ -271,6 +274,7 @@ title: "August 26, 2023 | #1",
 year: 2023,
 date: "2023-08-26",
 image: "images/art/2023/2023-08-26_1.jpeg",
+exhibit: "detour",
 },
 
 {
@@ -1608,6 +1612,14 @@ const exhibits = [
     title: "The Wooulds Walkabout",
     year: 2023,
     date: "2023-12-06",
+    description: ""
+  }, 
+
+{
+    id: "detour",
+    title: "The Walkabout Detour",
+    year: 2023,
+    date: "2023-08-26",
     description: ""
   }, 
 
