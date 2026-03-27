@@ -769,10 +769,14 @@ function buildWritingPage() {
   const descEl = document.getElementById("writing-description");
   const downloadLink = document.getElementById("download-link");
   const backLink = document.getElementById("back-link");
+  const mobilePdfLink = document.querySelector(".pdf-mobile-link a");
 
   if (titleEl) titleEl.textContent = item.title;
   if (descEl) descEl.textContent = item.description || "";
+
   if (frame) frame.src = item.file;
+  if (downloadLink) downloadLink.href = item.file;
+  if (mobilePdfLink) mobilePdfLink.href = item.file;
 
   if (backLink) {
     if (from === "archive") {
@@ -786,17 +790,7 @@ function buildWritingPage() {
       backLink.textContent = "← Back to Writing";
     }
   }
-
-  if (downloadLink) {
-    downloadLink.href = item.file;
-  }
 }
-
-const mobilePdfLink = document.querySelector(".pdf-mobile-link a");
-
-if (frame) frame.src = item.file;
-if (downloadLink) downloadLink.href = item.file;
-if (mobilePdfLink) mobilePdfLink.href = item.file;
 
 /* ==============================================
          TRIP REPORTS INDEX / VIEWER
