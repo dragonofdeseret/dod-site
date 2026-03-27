@@ -37,19 +37,13 @@
 
 <p id="description"></p>
 
-</div>
-
-</main>
-</div>
-
-<script src="archive.js"></script>
 <script>
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 const item = archive.find(x => x.id === id);
-
+  
 if (item) {
   document.getElementById("title").textContent = item.title;
   document.getElementById("image").src = item.image;
@@ -74,6 +68,13 @@ document.getElementById("nav").innerHTML = `
 `;
 
 </script>
+
+</div>
+
+</main>
+</div>
+
+<script src="archive.js"></script>
 
 </body>
 </html>
