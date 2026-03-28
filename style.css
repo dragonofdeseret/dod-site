@@ -684,45 +684,6 @@ background: rgba(255,255,255,0.12);
   0 0 0 1px rgba(255,255,255,0.05);
 }
 
-/* nav — SAME WIDTH as image */
-
-.art-navigation {
-  width: 100%;
-  margin-top: 40px;
-  padding-top: 20px;
-
-  border-top: 1px solid rgba(255,255,255,0.08);
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  font-size: 14px;
-}
-
-/* columns */
-
-.nav-left,
-.nav-right {
-  flex: 1;
-}
-
-.nav-center {
-  text-align: center;
-  flex: 1;
-}
-
-/* links */
-
-.art-navigation a {
-  text-decoration: none;
-  color: rgba(255,255,255,0.7);
-}
-
-.art-navigation a:hover {
-  color: white;
-}
-
 /* ====================
      ART NAVIGATION 
 ======================= */
@@ -731,29 +692,26 @@ background: rgba(255,255,255,0.12);
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   width: 100%;
-  max-width: 900px; /* ← intentional aesthetic balance */
-
   margin-top: 50px;
   padding-top: 20px;
-
   border-top: 1px solid rgba(255,255,255,0.08);
-
   font-size: 14px;
   opacity: 0.85;
 }
-
-/* columns */
 
 .nav-left,
 .nav-right {
   flex: 1;
 }
 
+.nav-right {
+  text-align: right;
+}
+
 .nav-center {
-  text-align: center;
   flex: 1;
+  text-align: center;
 }
 
 /* links */
