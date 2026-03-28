@@ -116,6 +116,11 @@ h1, h2, h3, .writing-item h3 {
   max-width: 700px;
 }
 
+.underline {
+  border-bottom: 1px solid white;
+  padding-bottom: 2px;
+}
+
 /* =================
       SIDEBAR
 ==================== */
