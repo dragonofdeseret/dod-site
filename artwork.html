@@ -49,7 +49,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const from = params.get("from") || "art";
 
-/* only include visible artwork */
+/* visible sequence only */
 const artItems = archive
   .filter(x => x.type === "art" && x.showOnArt !== false)
   .sort((a, b) => {
@@ -64,15 +64,17 @@ const artItems = archive
     return getIndex(a.id) - getIndex(b.id);
   });
 
-const index = artItems.findIndex(x => x.id === id);
+/* direct access item: allows hidden works by URL */
+const item = archive.find(x => x.type === "art" && x.id === id);
 
-/* strict mode: hidden or invalid ids do not render */
-if (index === -1) {
+if (!item) {
   window.location.href = from === "archive" ? "archive.html" : "art.html";
 } else {
-  const item = artItems[index];
-  const prev = artItems[index - 1];
-  const next = artItems[index + 1];
+  const index = artItems.findIndex(x => x.id === id);
+  const inSequence = index !== -1;
+
+  const prev = inSequence ? artItems[index - 1] : null;
+  const next = inSequence ? artItems[index + 1] : null;
 
   document.getElementById("title").textContent = item.title || "";
   document.getElementById("image").src = item.image;
