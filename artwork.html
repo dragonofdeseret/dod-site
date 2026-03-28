@@ -47,38 +47,62 @@
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
+const from = params.get("from") || "art";
 
-const item = archive.find(x => x.id === id);
+/* only include visible artwork */
+const artItems = archive
+  .filter(x => x.type === "art" && x.showOnArt !== false)
+  .sort((a, b) => {
+    const dateDiff = new Date(b.date) - new Date(a.date);
+    if (dateDiff !== 0) return dateDiff;
 
-if (item) {
-  document.getElementById("title").textContent = item.title;
+    const getIndex = value => {
+      const match = String(value || "").match(/_(\d+)$/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
+
+    return getIndex(a.id) - getIndex(b.id);
+  });
+
+const index = artItems.findIndex(x => x.id === id);
+
+/* strict mode: hidden or invalid ids do not render */
+if (index === -1) {
+  window.location.href = from === "archive" ? "archive.html" : "art.html";
+} else {
+  const item = artItems[index];
+  const prev = artItems[index - 1];
+  const next = artItems[index + 1];
+
+  document.getElementById("title").textContent = item.title || "";
   document.getElementById("image").src = item.image;
   document.getElementById("image").alt = item.title || "";
   document.getElementById("description").textContent = item.description || "";
+
+  const backHref = from === "archive" ? "archive.html" : "art.html";
+  const backText = from === "archive" ? "Back to Archive" : "Back to Art";
+
+  document.getElementById("nav").innerHTML = `
+    <div class="nav-left">
+      ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from}">← Previous</a>` : ""}
+    </div>
+    <div class="nav-center">
+      <a href="${backHref}">${backText}</a>
+    </div>
+    <div class="nav-right">
+      ${next ? `<a href="artwork.html?id=${next.id}&from=${from}">Next →</a>` : ""}
+    </div>
+  `;
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `artwork.html?id=${prev.id}&from=${from}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `artwork.html?id=${next.id}&from=${from}`;
+    }
+  });
 }
-
-/* navigation */
-const artItems = archive.filter(x => x.type === "art");
-const index = artItems.findIndex(x => x.id === id);
-
-const prev = artItems[index - 1];
-const next = artItems[index + 1];
-
-const from = params.get("from");
-const backHref = from === "archive" ? "archive.html" : "art.html";
-const backText = from === "archive" ? "Back to Archive" : "Back to Art";
-
-document.getElementById("nav").innerHTML = `
-  <div class="nav-left">
-    ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from || "art"}">← Previous</a>` : ""}
-  </div>
-  <div class="nav-center">
-    <a href="${backHref}">${backText}</a>
-  </div>
-  <div class="nav-right">
-    ${next ? `<a href="artwork.html?id=${next.id}&from=${from || "art"}">Next →</a>` : ""}
-  </div>
-`;
 </script>
 
 </body>
