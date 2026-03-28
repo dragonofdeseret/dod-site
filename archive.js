@@ -1085,12 +1085,12 @@ image: "images/art/2020/2020-11-18.JPG",
 },
 
 {
- id: "HeavensLedger",
+ id: "HL",
  type: "writing",
  title: "Heaven's Ledger: the Spiritual Topology of Mormonism",
  year: 2024,
  date: "2024-09-29",
- file: "pdf/HeavensLedger.pdf", 
+ file: "pdf/HL.pdf", 
  sections: ["writing"],
 },
 
