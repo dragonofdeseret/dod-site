@@ -1245,6 +1245,24 @@ font-family: Baskerville, "Libre Baskerville", Georgia, serif;
   pointer-events: none;
 }
 
+
+
+/* ==========
+     BIO
+============= */
+
+.dictum {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid #ccc;
+}
+
+.dictum p {
+  margin: 0.3rem 0;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
 /* ==========
     MOBILE
 ============= */
