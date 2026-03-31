@@ -74,20 +74,21 @@ const archive = normalizeArchive([
     description: "Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us."
   },
   {
-    id: "2025-08-28",
-    type: "art",
-    title: "August 28, 2025",
-    year: 2025,
-    date: "2025-08-28",
-    image: "images/art/2025/2025-08-28.webp",
-    description: "With an eye single to the glory of God",
-    sideNoteTitle: "With an eye single to the glory of God",
-    sideNote: Note Here,
-    <p><strong>Year: </strong>2025</p>
-    <p><strong>Medium: </strong>Prisma Color on Paper</p>
+  id: "2025-08-28",
+  type: "art",
+  title: "August 28, 2025",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/2025-08-28.webp",
+  description: "With an eye single to the glory of God",
+  sideNoteTitle: "With an eye single to the glory of God",
+  sideNote: `
+    <p><strong>Note:</strong> Here</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Prisma Color on Paper</p>
     <p>Cover for book: "Harmonic Theism"</p>
   `
-  },
+},
   {
     id: "2024-08-22",
     type: "art",
