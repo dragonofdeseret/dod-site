@@ -64,6 +64,7 @@ body::after {
 }
 
 body::before {
+  animation: dragonMistA 2s linear infinite alternate;
   opacity: 0.5;
   background:
     linear-gradient(
@@ -95,6 +96,7 @@ body::before {
 }
 
 body::after {
+  animation: dragonMistB 3s linear infinite alternate;
   opacity: 0.38;
   background:
     radial-gradient(48% 20% at 18% 24%, rgba(78, 118, 255, 0.22), transparent 72%),
