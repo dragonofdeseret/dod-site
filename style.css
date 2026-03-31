@@ -57,6 +57,13 @@ body {
   gap: 18px;
 }
 
+.sidebar-external {
+  margin-top: auto;
+  opacity: 0.8;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
 .content {
   flex: 1;
   display: flex;
@@ -635,6 +642,66 @@ background: rgba(255,255,255,0.12);
   bottom: 0;
   width: 1px;
   background: rgba(255,255,255,0.15);
+}
+
+/* ==================================
+   SIDE NOTE LAYOUT (IMAGE + TEXT)
+===================================== */
+
+.media-row {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 40px;
+  align-items: start;
+  margin-top: 30px;
+}
+
+.media-row .media-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  background: #111;
+  padding: 12px;
+  border-radius: 4px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.75),
+    0 8px 20px rgba(0,0,0,0.45);
+}
+
+/* right-side container */
+
+.media-note {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.85;
+
+  border-left: 1px solid rgba(255,255,255,0.15);
+  padding-left: 20px;
+}
+
+.media-note h3 {
+  margin-top: 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* mobile fallback */
+
+@media (max-width: 900px) {
+  .media-row {
+    grid-template-columns: 1fr;
+  }
+
+  .media-note {
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-left: 0;
+    padding-top: 15px;
+  }
 }
 
 /* ===============
