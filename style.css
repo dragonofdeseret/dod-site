@@ -15,9 +15,9 @@ body {
   background:
     position: relative;
     overflow-x: hidden;
-    radial-gradient(circle at 18% 12%, rgba(110, 135, 175, 0.18), transparent 36%),
-    radial-gradient(circle at 82% 16%, rgba(95, 120, 165, 0.16), transparent 32%),
-    radial-gradient(circle at 50% 90%, rgba(70, 95, 140, 0.18), transparent 44%),
+    radial-gradient(circle at 20% 12%, rgba(115, 130, 180, 0.18), transparent 36%),
+    radial-gradient(circle at 78% 18%, rgba(90, 110, 160, 0.16), transparent 32%),
+    radial-gradient(circle at 50% 92%, rgba(65, 80, 120, 0.18), transparent 44%),
 
     repeating-linear-gradient(
       90deg,
@@ -29,12 +29,12 @@ body {
 
     linear-gradient(
       180deg,
-      #24303d 0%,
-      #161d26 45%,
-      #0d131a 100%
+      #252c3a 0%,
+      #1a2130 45%,
+      #0f141c 100%
     );
 
-  background-color: #161d26;
+  background-color: #1a2130;
 
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
