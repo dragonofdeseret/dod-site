@@ -20,102 +20,24 @@
     <a href="now.html">Now</a>
     <a href="questions.html">Questions</a>
     <a href="bio.html">Biography</a>
+
+    <a href="https://daodezion.com" target="_blank" rel="noopener" class="sidebar-external">
+      Dao De Zion ↗
+    </a>
   </nav>
 
   <main class="content">
     <div class="art-page">
       <h1 id="title"></h1>
-      <p id="description"></p>
       <div class="art-navigation" id="nav"></div>
 
-      <div class="media-row">
-
-          <div class="media-image">
-             <img id="image" alt="">
-          </div>
-
-<div class="media-note">
-  <h3>Work</h3>
-  <p><strong>Title:</strong> Hatsuboku Zen #3</p>
-  <p><strong>Year:</strong> 2026</p>
-  <p><strong>Medium:</strong> Ink on paper</p>
-  <p><strong>Notes:</strong> <span id="description"></span></p>
-</div>
-     </div>
-
+      <!-- JS injects layout here -->
+      <div id="art-layout"></div>
     </div>
   </main>
 </div>
 
 <script src="archive.js"></script>
-<script>
-function applyViewerImage(img, item, sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px") {
-  img.src = item.image;
-  if (item.imageSrcset) img.srcset = item.imageSrcset;
-  img.sizes = sizes;
-  img.decoding = "async";
-  img.alt = item.title || "";
-}
-
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-const from = params.get("from") || "art";
-
-const artItems = archive
-  .filter(x => x.type === "art" && x.showOnArt !== false)
-  .sort((a, b) => {
-    const dateDiff = new Date(b.date) - new Date(a.date);
-    if (dateDiff !== 0) return dateDiff;
-
-    const getIndex = value => {
-      const match = String(value || "").match(/_(\d+)$/);
-      return match ? parseInt(match[1], 10) : 0;
-    };
-
-    return getIndex(a.id) - getIndex(b.id);
-  });
-
-const item = archive.find(x => x.type === "art" && x.id === id);
-
-if (!item) {
-  window.location.href = from === "archive" ? "archive.html" : "art.html";
-} else {
-  const index = artItems.findIndex(x => x.id === id);
-  const inSequence = index !== -1;
-
-  const prev = inSequence ? artItems[index - 1] : null;
-  const next = inSequence ? artItems[index + 1] : null;
-
-  document.getElementById("title").textContent = item.title || "";
-  document.getElementById("description").textContent = item.description || "";
-
-  const img = document.getElementById("image");
-  applyViewerImage(img, item);
-
-  const backHref = from === "archive" ? "archive.html" : "art.html";
-  const backText = from === "archive" ? "Back to Archive" : "Back to Art";
-
-  document.getElementById("nav").innerHTML = `
-    <div class="nav-left">
-      ${prev ? `<a href="artwork.html?id=${prev.id}&from=${from}">← Previous</a>` : ""}
-    </div>
-    <div class="nav-center">
-      <a href="${backHref}">${backText}</a>
-    </div>
-    <div class="nav-right">
-      ${next ? `<a href="artwork.html?id=${next.id}&from=${from}">Next →</a>` : ""}
-    </div>
-  `;
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "ArrowLeft" && prev) {
-      window.location.href = `artwork.html?id=${prev.id}&from=${from}`;
-    }
-    if (e.key === "ArrowRight" && next) {
-      window.location.href = `artwork.html?id=${next.id}&from=${from}`;
-    }
-  });
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>

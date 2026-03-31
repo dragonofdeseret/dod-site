@@ -36,6 +36,25 @@ function normalizeArchive(items) {
   });
 }
 
+
+/* ===================
+       EXAMPLE
+====================== */
+
+/* {
+  id: "",
+  type: "art",
+  title: "",
+  image: "images/art/year/date.webp",
+  description: "Short page description.",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year: </strong>2026</p>
+    <p><strong>Medium: </strong>Ink on paper</p>
+    <p>A note for this specific work.</p>
+  `
+} */
+
 /* ==================
          ART
 ===================== */
@@ -60,6 +79,12 @@ const archive = normalizeArchive([
     date: "2025-08-28",
     image: "images/art/2025/2025-08-28.webp",
     description: "With an eye single to the glory of God"
+    sideNoteTitle: "With an eye single to the glory of God",
+    sideNote: Note Here
+    <p><strong>Year: </strong>2025</p>
+    <p><strong>Medium: </strong>Prisma Color on Paper</p>
+    <p>Cover for book: "Harmonic Theism"</p>
+  `
   },
   {
     id: "2024-08-22",

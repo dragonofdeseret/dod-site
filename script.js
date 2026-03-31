@@ -404,6 +404,74 @@ function enhanceArtworkPage() {
   });
 }
 
+function applyViewerImage(img, item, sizes) {
+  img.src = item.image;
+  if (item.imageSrcset) img.srcset = item.imageSrcset;
+  img.sizes = sizes;
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
+if (document.getElementById("art-layout")) {
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const from = params.get("from") || "art";
+
+  const artItems = archive
+    .filter(x => x.type === "art" && x.showOnArt !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const item = archive.find(x => x.type === "art" && x.id === id);
+
+  if (!item) {
+    window.location.href = "art.html";
+  } else {
+
+    const index = artItems.findIndex(x => x.id === id);
+    const prev = artItems[index - 1];
+    const next = artItems[index + 1];
+
+    document.getElementById("title").textContent = item.title || "";
+
+    const layout = document.getElementById("art-layout");
+
+    if (item.sideNote) {
+      layout.innerHTML = `
+        <div class="media-row">
+          <div class="media-image">
+            <img id="image" alt="">
+          </div>
+          <aside class="media-note">
+            <h3>${item.sideNoteTitle || "Details"}</h3>
+            ${item.sideNote}
+          </aside>
+        </div>
+      `;
+    } else {
+      layout.innerHTML = `
+        <div class="art-image">
+          <img id="image" alt="">
+        </div>
+      `;
+    }
+
+    applyViewerImage(document.getElementById("image"), item);
+
+    document.getElementById("nav").innerHTML = `
+      <div class="nav-left">
+        ${prev ? `<a href="artwork.html?id=${prev.id}">← Previous</a>` : ""}
+      </div>
+      <div class="nav-center">
+        <a href="art.html">Back</a>
+      </div>
+      <div class="nav-right">
+        ${next ? `<a href="artwork.html?id=${next.id}">Next →</a>` : ""}
+      </div>
+    `;
+  }
+}
+
 /* ======================
     SURPRISE ME BUTTON
 ========================= */
@@ -770,6 +838,65 @@ function buildPhotographyPage() {
       if (viewer) viewer.remove();
     }
   });
+}
+
+if (document.getElementById("photo-layout")) {
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  const items = archive
+    .filter(x => x.type === "photo" && x.showOnPhoto !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const index = items.findIndex(x => x.id === id);
+
+  if (index === -1) {
+    window.location.href = "photo.html";
+  } else {
+
+    const item = items[index];
+    const prev = items[index - 1];
+    const next = items[index + 1];
+
+    document.getElementById("photo-title").textContent = item.title || "";
+
+    const layout = document.getElementById("photo-layout");
+
+    if (item.sideNote) {
+      layout.innerHTML = `
+        <div class="media-row">
+          <div class="media-image">
+            <img id="photo-image" alt="">
+          </div>
+          <aside class="media-note">
+            <h3>${item.sideNoteTitle || "Details"}</h3>
+            ${item.sideNote}
+          </aside>
+        </div>
+      `;
+    } else {
+      layout.innerHTML = `
+        <div class="photo-viewer">
+          <img id="photo-image" alt="">
+        </div>
+      `;
+    }
+
+    applyViewerImage(document.getElementById("photo-image"), item);
+
+    document.getElementById("photo-nav").innerHTML = `
+      <div class="nav-left">
+        ${prev ? `<a href="photography.html?id=${prev.id}">← Previous</a>` : ""}
+      </div>
+      <div class="nav-center">
+        <a href="photo.html">Back</a>
+      </div>
+      <div class="nav-right">
+        ${next ? `<a href="photography.html?id=${next.id}">Next →</a>` : ""}
+      </div>
+    `;
+  }
 }
 
 /* ==========================================
