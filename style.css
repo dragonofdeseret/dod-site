@@ -53,116 +53,103 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body::before,
-body::after {
-  content: "";
+/* dedicated animated background layer */
+
+.bg-motion {
   position: fixed;
-  inset: -10%;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
-  will-change: transform, background-position, opacity;
+  overflow: hidden;
 }
 
-body::before {
+.bg-motion::before,
+.bg-motion::after {
+  content: "";
+  position: absolute;
+  inset: -16%;
+  will-change: transform, opacity, background-position;
+}
+
+/* main drifting light band */
+
+.bg-motion::before {
   opacity: 0.5;
   background:
     linear-gradient(
-      130deg,
+      118deg,
       transparent 0%,
-      rgba(55, 95, 235, 0) 18%,
-      rgba(55, 95, 235, 0.12) 32%,
-      rgba(45, 78, 205, 0.22) 46%,
-      rgba(25, 48, 140, 0.26) 58%,
-      rgba(55, 95, 235, 0.12) 72%,
-      rgba(55, 95, 235, 0) 84%,
+      rgba(60, 100, 255, 0.00) 26%,
+      rgba(60, 100, 255, 0.10) 36%,
+      rgba(42, 76, 210, 0.20) 47%,
+      rgba(20, 45, 130, 0.24) 55%,
+      rgba(42, 76, 210, 0.14) 63%,
+      rgba(60, 100, 255, 0.06) 72%,
+      rgba(60, 100, 255, 0.00) 80%,
       transparent 100%
     ),
     linear-gradient(
-      235deg,
+      236deg,
       transparent 0%,
-      rgba(68, 52, 150, 0) 22%,
-      rgba(68, 52, 150, 0.08) 38%,
-      rgba(44, 72, 190, 0.18) 52%,
-      rgba(24, 44, 120, 0.22) 64%,
-      rgba(68, 52, 150, 0.08) 76%,
-      rgba(68, 52, 150, 0) 88%,
+      rgba(74, 52, 145, 0.00) 24%,
+      rgba(74, 52, 145, 0.05) 36%,
+      rgba(44, 70, 190, 0.12) 48%,
+      rgba(22, 40, 115, 0.16) 58%,
+      rgba(44, 70, 190, 0.08) 68%,
+      rgba(74, 52, 145, 0.00) 82%,
       transparent 100%
     );
-  background-size: 180% 180%;
+  background-size: 165% 165%;
   background-position: 0% 50%, 100% 50%;
-  filter: blur(16px);
-  /* animation: dragonMistA 7s ease-in-out infinite alternate; */
-  animation: dragonMistA 2s linear infinite alternate;
+  filter: blur(12px);
+  animation: bgDriftBand 8s ease-in-out infinite alternate;
 }
 
-body::after {
-  opacity: 0.38;
+/* softer moving bloom layer */
+
+.bg-motion::after {
+  opacity: 0.42;
   background:
-    radial-gradient(48% 20% at 18% 24%, rgba(78, 118, 255, 0.22), transparent 72%),
-    radial-gradient(52% 18% at 82% 28%, rgba(42, 82, 210, 0.18), transparent 74%),
-    radial-gradient(45% 24% at 52% 82%, rgba(26, 58, 170, 0.18), transparent 74%),
-    radial-gradient(34% 14% at 46% 48%, rgba(72, 48, 135, 0.10), transparent 78%);
-  background-size: 135% 135%;
-  background-position: 50% 50%;
-  filter: blur(24px);
-  /* animation: dragonMistB 10s ease-in-out infinite alternate; */
-  animation: dragonMistB 3s linear infinite alternate;
+    radial-gradient(circle at 20% 28%, rgba(90, 125, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 76% 24%, rgba(42, 82, 210, 0.15), transparent 28%),
+    radial-gradient(circle at 54% 80%, rgba(24, 54, 150, 0.16), transparent 32%),
+    radial-gradient(circle at 42% 46%, rgba(70, 48, 130, 0.08), transparent 24%);
+  filter: blur(22px);
+  animation: bgDriftBloom 12s ease-in-out infinite alternate;
 }
 
-@keyframes dragonMistA {
+@keyframes bgDriftBand {
   0% {
-    transform: translate3d(0, 0, 0) scale(1.02) rotate(0deg);
+    transform: translate3d(-34px, 0, 0) scale(1.02) rotate(-0.4deg);
     background-position: 0% 50%, 100% 50%;
   }
   50% {
-    transform: translate3d(-28px, 16px, 0) scale(1.05) rotate(-0.9deg);
-    background-position: 24% 44%, 76% 58%;
+    transform: translate3d(10px, -14px, 0) scale(1.05) rotate(0.5deg);
+    background-position: 22% 46%, 78% 54%;
   }
   100% {
-    transform: translate3d(24px, -18px, 0) scale(1.04) rotate(0.9deg);
+    transform: translate3d(38px, -22px, 0) scale(1.07) rotate(0.9deg);
     background-position: 42% 54%, 58% 46%;
   }
 }
 
-@keyframes dragonMistB {
+@keyframes bgDriftBloom {
   0% {
     transform: translate3d(0, 0, 0) scale(1.01);
-    background-position: 50% 50%;
   }
   50% {
-    transform: translate3d(20px, 18px, 0) scale(1.04);
-    background-position: 46% 56%;
+    transform: translate3d(-18px, 14px, 0) scale(1.04);
   }
   100% {
-    transform: translate3d(-22px, -16px, 0) scale(1.03);
-    background-position: 55% 45%;
+    transform: translate3d(22px, -18px, 0) scale(1.05);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body::before,
-  body::after {
+  .bg-motion::before,
+  .bg-motion::after {
     animation: none;
   }
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  background: rgba(255, 0, 0, 0.25);
-  animation: testMove 1s linear infinite alternate;
-}
-
-body::after {
-  display: none;
-}
-
-@keyframes testMove {
-  from { transform: translateX(0); }
-  to   { transform: translateX(100px); }
 }
 
 /* ===============
