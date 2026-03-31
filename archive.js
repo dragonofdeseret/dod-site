@@ -1203,7 +1203,16 @@ const archive = normalizeArchive([
   /* ==================
         PHOTOGRAPHY
   ===================== */
-
+  
+{
+    id: "2026-03-30",
+    type: "photo",
+    title: "March 30, 2026",
+    year: 2026,
+    date: "2026-03-30",
+    image: "images/photography/2026/2026-03-30.webp",
+    description: "⚪️"
+  },
   {
     id: "2025-10-21",
     type: "photo",
