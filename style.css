@@ -11,31 +11,29 @@ body {
   min-height: 100vh;
   color: #e8e6e3;
   font-family: Baskerville, "Libre Baskerville", "Times New Roman", serif;
-
   background:
-    radial-gradient(circle at 20% 10%, rgba(180, 140, 90, 0.06), transparent 35%),
-    radial-gradient(circle at 80% 20%, rgba(120, 130, 150, 0.06), transparent 30%),
-    radial-gradient(circle at 50% 90%, rgba(90, 80, 60, 0.08), transparent 40%),
-    radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.35) 100%),
-  ...rest...
-    
+    radial-gradient(circle at 18% 12%, rgba(150, 120, 85, 0.10), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(95, 108, 126, 0.11), transparent 30%),
+    radial-gradient(circle at 52% 88%, rgba(82, 72, 60, 0.12), transparent 42%),
     repeating-linear-gradient(
       90deg,
-      rgba(255,255,255,0.01) 0,
-      rgba(255,255,255,0.01) 1px,
+      rgba(255,255,255,0.012) 0,
+      rgba(255,255,255,0.012) 1px,
       transparent 1px,
       transparent 80px
     ),
 
     linear-gradient(
       180deg,
-      #1c1a18 0%,
-      #151412 45%,
-      #0f0e0c 100%
+      #23201d 0%,
+      #181715 44%,
+      #111214 100%
     );
 
+  background-color: #181715;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
 }
 
 /* ===============
