@@ -67,81 +67,77 @@ body {
 .bg-motion::after {
   content: "";
   position: absolute;
-  inset: -16%;
+  inset: -18%;
   will-change: transform, opacity, background-position;
 }
 
-/* main drifting light band */
-
 .bg-motion::before {
-  opacity: 0.5;
+  opacity: 0.62;
   background:
     linear-gradient(
       118deg,
       transparent 0%,
-      rgba(60, 100, 255, 0.00) 26%,
-      rgba(60, 100, 255, 0.10) 36%,
-      rgba(42, 76, 210, 0.20) 47%,
-      rgba(20, 45, 130, 0.24) 55%,
-      rgba(42, 76, 210, 0.14) 63%,
-      rgba(60, 100, 255, 0.06) 72%,
-      rgba(60, 100, 255, 0.00) 80%,
+      rgba(72, 112, 255, 0.00) 24%,
+      rgba(72, 112, 255, 0.13) 34%,
+      rgba(46, 82, 220, 0.24) 46%,
+      rgba(22, 48, 140, 0.28) 55%,
+      rgba(46, 82, 220, 0.17) 64%,
+      rgba(72, 112, 255, 0.08) 73%,
+      rgba(72, 112, 255, 0.00) 82%,
       transparent 100%
     ),
     linear-gradient(
       236deg,
       transparent 0%,
-      rgba(74, 52, 145, 0.00) 24%,
-      rgba(74, 52, 145, 0.05) 36%,
-      rgba(44, 70, 190, 0.12) 48%,
-      rgba(22, 40, 115, 0.16) 58%,
-      rgba(44, 70, 190, 0.08) 68%,
-      rgba(74, 52, 145, 0.00) 82%,
+      rgba(78, 54, 150, 0.00) 22%,
+      rgba(78, 54, 150, 0.06) 34%,
+      rgba(48, 76, 198, 0.14) 47%,
+      rgba(24, 42, 120, 0.18) 58%,
+      rgba(48, 76, 198, 0.10) 69%,
+      rgba(78, 54, 150, 0.00) 84%,
       transparent 100%
     );
-  background-size: 165% 165%;
+  background-size: 170% 170%;
   background-position: 0% 50%, 100% 50%;
-  filter: blur(12px);
-  animation: bgDriftBand 8s ease-in-out infinite alternate;
+  filter: blur(9px);
+  animation: bgDriftBand 7s ease-in-out infinite alternate;
 }
 
-/* softer moving bloom layer */
-
 .bg-motion::after {
-  opacity: 0.42;
+  opacity: 0.5;
   background:
-    radial-gradient(circle at 20% 28%, rgba(90, 125, 255, 0.18), transparent 30%),
-    radial-gradient(circle at 76% 24%, rgba(42, 82, 210, 0.15), transparent 28%),
-    radial-gradient(circle at 54% 80%, rgba(24, 54, 150, 0.16), transparent 32%),
-    radial-gradient(circle at 42% 46%, rgba(70, 48, 130, 0.08), transparent 24%);
-  filter: blur(22px);
-  animation: bgDriftBloom 12s ease-in-out infinite alternate;
+    radial-gradient(circle at 20% 28%, rgba(96, 132, 255, 0.22), transparent 30%),
+    radial-gradient(circle at 76% 24%, rgba(46, 88, 220, 0.18), transparent 28%),
+    radial-gradient(circle at 54% 80%, rgba(28, 58, 160, 0.19), transparent 32%),
+    radial-gradient(circle at 42% 46%, rgba(74, 50, 136, 0.10), transparent 24%);
+  filter: blur(18px);
+  animation: bgDriftBloom 10s ease-in-out infinite alternate;
 }
 
 @keyframes bgDriftBand {
   0% {
-    transform: translate3d(-34px, 0, 0) scale(1.02) rotate(-0.4deg);
+    transform: translate3d(-52px, 4px, 0) scale(1.02) rotate(-0.5deg);
     background-position: 0% 50%, 100% 50%;
   }
   50% {
-    transform: translate3d(10px, -14px, 0) scale(1.05) rotate(0.5deg);
-    background-position: 22% 46%, 78% 54%;
+    transform: translate3d(14px, -18px, 0) scale(1.06) rotate(0.6deg);
+    background-position: 24% 46%, 76% 54%;
   }
   100% {
-    transform: translate3d(38px, -22px, 0) scale(1.07) rotate(0.9deg);
-    background-position: 42% 54%, 58% 46%;
+    transform: translate3d(56px, -28px, 0) scale(1.08) rotate(1deg);
+    background-position: 44% 54%, 56% 46%;
   }
 }
 
 @keyframes bgDriftBloom {
   0% {
-    transform: translate3d(0, 0, 0) scale(1.01);
+    transform: translate3d(-8px, 0, 0) scale(1.02);
   }
   50% {
-    transform: translate3d(-18px, 14px, 0) scale(1.04);
+    transform: translate3d(-26px, 18px, 0) scale(1.05);
   }
   100% {
-    transform: translate3d(22px, -18px, 0) scale(1.05);
+    transform: translate3d(30px, -22px, 0) scale(1.07);
   }
 }
 
