@@ -80,6 +80,45 @@ function slugify(str) {
     .replace(/^-+|-+$/g, "");
 }
 
+function getThumbSrc(item) {
+  return item.thumb || item.image;
+}
+
+function getThumbSrcset(item) {
+  return item.thumbSrcset || "";
+}
+
+function getFullSrc(item) {
+  return item.image;
+}
+
+function getFullSrcset(item) {
+  return item.imageSrcset || "";
+}
+
+function applyGalleryImage(img, item, sizes = "(max-width: 900px) calc(100vw - 44px), 260px") {
+  img.src = getThumbSrc(item);
+
+  const srcset = getThumbSrcset(item);
+  if (srcset) img.srcset = srcset;
+
+  img.sizes = sizes;
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
+function applyViewerImage(img, item, sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px") {
+  img.src = getFullSrc(item);
+
+  const srcset = getFullSrcset(item);
+  if (srcset) img.srcset = srcset;
+
+  img.sizes = sizes;
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
 /* =========================
     ARCHIVE (archive.html)
 ============================ */
@@ -257,7 +296,7 @@ function buildGallery() {
       link.href = `artwork.html?id=${item.id}`;
 
       const img = document.createElement("img");
-      img.src = item.image;
+      applyGalleryImage(img, item, "(max-width: 900px) calc(100vw - 44px), 260px");
       img.alt = item.title || "";
 
       link.appendChild(img);
@@ -302,7 +341,7 @@ function buildPhotoArchive() {
       link.className = "gallery-item";
 
       const img = document.createElement("img");
-      img.src = item.image;
+      applyGalleryImage(img, item, "(max-width: 900px) calc(100vw - 44px), 260px");
       img.alt = item.title || "";
 
       link.appendChild(img);
@@ -396,7 +435,7 @@ function openLightbox(src) {
   viewer.className = "image-viewer";
 
   const img = document.createElement("img");
-  img.src = src;
+  applyGalleryImage(img, item, "(max-width: 980px) calc(100vw - 44px), 640px");
 
   viewer.appendChild(img);
   viewer.addEventListener("click", () => viewer.remove());
@@ -506,7 +545,7 @@ function createExhibitLink(item) {
   }
 
   const img = document.createElement("img");
-  img.src = item.image;
+  applyGalleryImage(img, item, "(max-width: 980px) calc(100vw - 44px), 640px");
   img.alt = item.title || "";
 
   img.addEventListener("click", e => {
@@ -571,7 +610,7 @@ function buildExhibitPage() {
     featuredWrap.href = `artwork.html?id=${featured.id}&from=exhibit`;
 
     const featuredImg = document.createElement("img");
-    featuredImg.src = featured.image;
+    applyGalleryImage(featuredImg, featured, "(max-width: 980px) calc(100vw - 44px), 640px");
     featuredImg.alt = featured.title || "";
 
     featuredImg.addEventListener("click", e => {
@@ -590,7 +629,7 @@ function buildExhibitPage() {
       link.href = `artwork.html?id=${item.id}&from=exhibit`;
 
       const img = document.createElement("img");
-      img.src = item.image;
+      applyGalleryImage(img, item, "(max-width: 980px) calc(100vw - 44px), 640px");
       img.alt = item.title || "";
 
       img.addEventListener("click", e => {
@@ -686,14 +725,13 @@ function buildPhotographyPage() {
   if (titleEl) titleEl.textContent = item.title || "";
   if (descEl) descEl.textContent = item.description || "";
 
-  if (imgEl) {
-    imgEl.src = item.image;
-    imgEl.alt = item.title || "";
+ if (imgEl) {
+  applyViewerImage(imgEl, item, "(max-width: 1200px) calc(100vw - 44px), 900px");
 
-    imgEl.addEventListener("click", () => {
-      openLightbox(item.image);
-    });
-  }
+  imgEl.addEventListener("click", () => {
+    openLightbox(item.image);
+  });
+}
 
   let backHref = "photo.html";
   let backText = "Back to Photography";

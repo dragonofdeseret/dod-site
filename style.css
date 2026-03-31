@@ -377,6 +377,29 @@ opacity: 0.8;
   object-fit: cover;
 }
 
+.gallery img,
+.gallery-item img,
+.exhibit-gallery img,
+.archive-thumb,
+.photo-viewer img,
+.art-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery img,
+.gallery-item img,
+.exhibit-gallery img,
+.archive-thumb {
+  content-visibility: auto;
+}
+
+.gallery-item img,
+.exhibit-gallery img,
+.archive-thumb {
+  background: rgba(255,255,255,0.02);
+}
+
 .photo-viewer {
   margin-top: 20px;
 }

@@ -1,96 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Photography - Christopher Shenefelt</title>
   <link rel="stylesheet" href="style.css">
-
-  <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
-
-  <!-- Privacy-friendly analytics by Plausible -->
-  <script async src="https://plausible.io/js/pa-uORI5wSFBMhN2n9Rh8Grc.js"></script>
-  <script>
-    window.plausible = window.plausible || function(){(plausible.q = plausible.q || []).push(arguments)};
-    plausible.init = plausible.init || function(i){plausible.o = i || {}};
-    plausible.init();
-  </script>
 </head>
-
 <body>
 
 <div class="layout">
-
   <nav class="sidebar">
     <h1>Christopher Shenefelt</h1>
-
     <a href="index.html">Home</a>
     <a href="archive.html">Archive</a>
     <a href="art.html" class="active">Artwork</a>
+    <a href="exhibits.html" class="nav-sub">Exhibits</a>
     <a href="photo.html" class="nav-sub active">Photography</a>
     <a href="writing.html">Writing</a>
     <a href="now.html">Now</a>
     <a href="questions.html">Questions</a>
     <a href="bio.html">Biography</a>
+    <a href="https://daodezion.com" target="_blank" rel="noopener">Dao De Zion ↗</a>
   </nav>
 
   <main class="content">
-
     <div class="art-page">
-
       <h1 id="photo-title"></h1>
-
       <p id="photo-description"></p>
-
       <div class="art-navigation" id="photo-nav"></div>
-
       <div class="photo-viewer">
         <img id="photo-image" alt="">
       </div>
-
     </div>
-
   </main>
-
 </div>
 
 <script src="archive.js"></script>
 <script>
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-
-const item = archive.find(x => x.id === id);
-
-if (item) {
-  document.getElementById("photo-title").textContent = item.title;
-  document.getElementById("photo-image").src = item.image;
-  document.getElementById("photo-image").alt = item.title || "";
-  document.getElementById("photo-description").textContent = item.description || "";
+function applyViewerImage(img, item, sizes = "(max-width: 1200px) calc(100vw - 44px), 900px") {
+  img.src = item.image;
+  if (item.imageSrcset) img.srcset = item.imageSrcset;
+  img.sizes = sizes;
+  img.decoding = "async";
+  img.alt = item.title || "";
 }
 
-/* navigation */
-const photoItems = archive.filter(x => x.type === "photo");
-const index = photoItems.findIndex(x => x.id === id);
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const from = params.get("from") || "photo";
 
-const prev = photoItems[index - 1];
-const next = photoItems[index + 1];
+const items = archive
+  .filter(item => item.type === "photo" && item.showOnPhoto !== false)
+  .sort((a, b) => {
+    const dateDiff = new Date(b.date) - new Date(a.date);
+    if (dateDiff !== 0) return dateDiff;
 
-const from = params.get("from");
-const backHref = from === "archive" ? "archive.html" : "photo.html";
-const backText = from === "archive" ? "Back to Archive" : "Back to Photography";
+    const getIndex = value => {
+      const match = String(value || "").match(/_(\\d+)$/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
 
-document.getElementById("photo-nav").innerHTML = `
-  <div class="nav-left">
-    ${prev ? `<a href="photography.html?id=${prev.id}&from=${from || "photo"}">← Previous</a>` : ""}
-  </div>
-  <div class="nav-center">
-    <a href="${backHref}">${backText}</a>
-  </div>
-  <div class="nav-right">
-    ${next ? `<a href="photography.html?id=${next.id}&from=${from || "photo"}">Next →</a>` : ""}
-  </div>
-`;
+    return getIndex(a.id) - getIndex(b.id);
+  });
+
+const index = items.findIndex(item => item.id === id);
+
+if (index === -1) {
+  window.location.href = from === "archive" ? "archive.html" : "photo.html";
+} else {
+  const item = items[index];
+  const prev = items[index - 1];
+  const next = items[index + 1];
+
+  document.getElementById("photo-title").textContent = item.title || "";
+  document.getElementById("photo-description").textContent = item.description || "";
+
+  const img = document.getElementById("photo-image");
+  applyViewerImage(img, item);
+
+  const backHref = from === "archive" ? "archive.html" : "photo.html";
+  const backText = from === "archive" ? "Back to Archive" : "Back to Photography";
+
+  document.getElementById("photo-nav").innerHTML = `
+    <div class="nav-left">
+      ${prev ? `<a href="photography.html?id=${prev.id}&from=${from}">← Previous</a>` : ""}
+    </div>
+    <div class="nav-center">
+      <a href="${backHref}">${backText}</a>
+    </div>
+    <div class="nav-right">
+      ${next ? `<a href="photography.html?id=${next.id}&from=${from}">Next →</a>` : ""}
+    </div>
+  `;
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft" && prev) {
+      window.location.href = `photography.html?id=${prev.id}&from=${from}`;
+    }
+    if (e.key === "ArrowRight" && next) {
+      window.location.href = `photography.html?id=${next.id}&from=${from}`;
+    }
+  });
+}
 </script>
-
 </body>
 </html>

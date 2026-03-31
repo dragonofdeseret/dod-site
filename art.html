@@ -1,63 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<title>Art - Christopher Shenefelt</title>
-<link rel="stylesheet" href="style.css">
-
-<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
-
-<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-uORI5wSFBMhN2n9Rh8Grc.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art - Christopher Shenefelt</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="layout">
+  <nav class="sidebar">
+    <h1>Christopher Shenefelt</h1>
+    <a href="index.html">Home</a>
+    <a href="archive.html">Archive</a>
+    <a href="art.html" class="active">Artwork</a>
+    <a href="exhibits.html" class="nav-sub">Exhibits</a>
+    <a href="photo.html" class="nav-sub">Photography</a>
+    <a href="writing.html">Writing</a>
+    <a href="now.html">Now</a>
+    <a href="questions.html">Questions</a>
+    <a href="bio.html">Biography</a>
+    <a href="https://daodezion.com" target="_blank" rel="noopener">Dao De Zion ↗</a>
+  </nav>
 
-<nav class="sidebar">
+  <main class="content">
+    <header class="page-header">
+      <h1>Artwork</h1>
+      <nav class="year-nav"></nav>
+      <p class="page-intro">patterns in jade</p>
+    </header>
 
-<h1>Christopher Shenefelt</h1>
+    <div class="gallery-controls">
+      <div id="random-container"></div>
+    </div>
 
-<a href="index.html">Home</a>
-<a href="archive.html">Archive</a>
-<a href="art.html" class="active">Artwork</a>
-<a href="exhibits.html" class="nav-sub">Exhibits</a>
-<a href="photo.html" class="nav-sub">Photography</a>
-<a href="writing.html">Writing</a>
-<a href="now.html">Now</a>
-<a href="questions.html">Questions</a>
-<a href="bio.html">Biography</a>
-<a href="https://daodezion.com" target="_blank" rel="noopener">Dao De Zion ↗</a>
-
-</nav>
-
-<main class="content">
-
-<header class="page-header">
-  <h1>Artwork</h1>
-  <nav class="year-nav"></nav>
-  <p class="page-intro">patterns in jade</p>
-</header>
-
-<div class="gallery-controls">
-  <div id="random-container"></div>
-</div>
-
-<section class="gallery"></section>
-
-</main>
-
+    <section class="gallery"></section>
+  </main>
 </div>
 
 <script src="archive.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>

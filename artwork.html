@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Artwork - Christopher Shenefelt</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="layout">
-
   <nav class="sidebar">
     <h1>Christopher Shenefelt</h1>
-
     <a href="index.html">Home</a>
     <a href="archive.html">Archive</a>
     <a href="art.html" class="active">Artwork</a>
+    <a href="exhibits.html" class="nav-sub">Exhibits</a>
+    <a href="photo.html" class="nav-sub">Photography</a>
     <a href="writing.html">Writing</a>
     <a href="now.html">Now</a>
     <a href="questions.html">Questions</a>
@@ -25,32 +24,31 @@
   </nav>
 
   <main class="content">
-
     <div class="art-page">
-
       <h1 id="title"></h1>
-
       <p id="description"></p>
-
       <div class="art-navigation" id="nav"></div>
-
       <div class="art-image">
         <img id="image" alt="">
       </div>
-
     </div>
-
   </main>
-
 </div>
 
 <script src="archive.js"></script>
 <script>
+function applyViewerImage(img, item, sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px") {
+  img.src = item.image;
+  if (item.imageSrcset) img.srcset = item.imageSrcset;
+  img.sizes = sizes;
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const from = params.get("from") || "art";
 
-/* visible sequence only */
 const artItems = archive
   .filter(x => x.type === "art" && x.showOnArt !== false)
   .sort((a, b) => {
@@ -65,7 +63,6 @@ const artItems = archive
     return getIndex(a.id) - getIndex(b.id);
   });
 
-/* direct access item: allows hidden works by URL */
 const item = archive.find(x => x.type === "art" && x.id === id);
 
 if (!item) {
@@ -78,9 +75,10 @@ if (!item) {
   const next = inSequence ? artItems[index + 1] : null;
 
   document.getElementById("title").textContent = item.title || "";
-  document.getElementById("image").src = item.image;
-  document.getElementById("image").alt = item.title || "";
   document.getElementById("description").textContent = item.description || "";
+
+  const img = document.getElementById("image");
+  applyViewerImage(img, item);
 
   const backHref = from === "archive" ? "archive.html" : "art.html";
   const backText = from === "archive" ? "Back to Archive" : "Back to Art";
@@ -107,6 +105,5 @@ if (!item) {
   });
 }
 </script>
-
 </body>
 </html>
