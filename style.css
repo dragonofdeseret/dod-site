@@ -195,7 +195,13 @@ body {
 }
 
 .content h1 {
-  margin-bottom: 10px;
+  max-width: 1100px;
+  line-height: 1.15;
+}
+
+.content p,
+.page-intro {
+  max-width: 700px;
 }
 
 .content h1::after {

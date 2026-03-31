@@ -1180,8 +1180,7 @@ function buildFooter() {
   footer.className = "site-footer";
 
   footer.innerHTML = `
-    <p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret</p>
-    <p>artwork and writing © their respective years</p>
+    <p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret | artwork and writing © their respective years</p>
   `;
 
   content.appendChild(footer);
