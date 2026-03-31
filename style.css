@@ -35,18 +35,18 @@ body {
   background:
     repeating-linear-gradient(
       90deg,
-      rgba(255,255,255,0.012) 0,
-      rgba(255,255,255,0.012) 1px,
+      rgba(255,255,255,0.01) 0,
+      rgba(255,255,255,0.01) 1px,
       transparent 1px,
       transparent 96px
     ),
     linear-gradient(
       180deg,
-      #0f1638 0%,
-      #0a1230 42%,
-      #070d24 100%
+      #08112d 0%,
+      #040c27 42%,
+      #030921 100%
     );
-  background-color: #070d24;
+  background-color: #030921;
   position: relative;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -57,83 +57,83 @@ body::before,
 body::after {
   content: "";
   position: fixed;
-  inset: -12%;
+  inset: -10%;
   pointer-events: none;
   z-index: 0;
-  will-change: transform, opacity, background-position;
+  will-change: transform, background-position, opacity;
 }
 
 body::before {
-  opacity: 0.82;
+  opacity: 0.5;
   background:
     linear-gradient(
-      125deg,
+      130deg,
       transparent 0%,
-      rgba(86, 112, 255, 0.00) 18%,
-      rgba(86, 112, 255, 0.08) 30%,
-      rgba(52, 84, 220, 0.16) 46%,
-      rgba(30, 58, 168, 0.22) 58%,
-      rgba(52, 84, 220, 0.10) 70%,
-      rgba(86, 112, 255, 0.00) 82%,
+      rgba(55, 95, 235, 0) 18%,
+      rgba(55, 95, 235, 0.12) 32%,
+      rgba(45, 78, 205, 0.22) 46%,
+      rgba(25, 48, 140, 0.26) 58%,
+      rgba(55, 95, 235, 0.12) 72%,
+      rgba(55, 95, 235, 0) 84%,
       transparent 100%
     ),
     linear-gradient(
       235deg,
       transparent 0%,
-      rgba(64, 88, 220, 0.00) 20%,
-      rgba(64, 88, 220, 0.07) 34%,
-      rgba(36, 64, 190, 0.14) 50%,
-      rgba(26, 42, 120, 0.18) 62%,
-      rgba(64, 88, 220, 0.08) 74%,
-      rgba(64, 88, 220, 0.00) 86%,
+      rgba(68, 52, 150, 0) 22%,
+      rgba(68, 52, 150, 0.08) 38%,
+      rgba(44, 72, 190, 0.18) 52%,
+      rgba(24, 44, 120, 0.22) 64%,
+      rgba(68, 52, 150, 0.08) 76%,
+      rgba(68, 52, 150, 0) 88%,
       transparent 100%
     );
-  background-size: 140% 140%;
+  background-size: 180% 180%;
   background-position: 0% 50%, 100% 50%;
-  filter: blur(22px);
-  animation: dragonCurrentA 9s ease-in-out infinite alternate;
+  filter: blur(16px);
+  animation: dragonMistA 7s ease-in-out infinite alternate;
 }
 
 body::after {
-  opacity: 0.52;
+  opacity: 0.38;
   background:
-    radial-gradient(58% 24% at 18% 22%, rgba(92, 126, 255, 0.16), transparent 72%),
-    radial-gradient(62% 22% at 84% 30%, rgba(52, 86, 220, 0.14), transparent 74%),
-    radial-gradient(54% 26% at 52% 84%, rgba(30, 58, 168, 0.13), transparent 74%),
-    radial-gradient(40% 16% at 42% 48%, rgba(72, 52, 150, 0.08), transparent 76%);
-  background-size: 120% 120%;
+    radial-gradient(48% 20% at 18% 24%, rgba(78, 118, 255, 0.22), transparent 72%),
+    radial-gradient(52% 18% at 82% 28%, rgba(42, 82, 210, 0.18), transparent 74%),
+    radial-gradient(45% 24% at 52% 82%, rgba(26, 58, 170, 0.18), transparent 74%),
+    radial-gradient(34% 14% at 46% 48%, rgba(72, 48, 135, 0.10), transparent 78%);
+  background-size: 135% 135%;
   background-position: 50% 50%;
-  filter: blur(30px);
-  animation: dragonCurrentB 12s ease-in-out infinite alternate;
+  filter: blur(24px);
+  animation: dragonMistB 10s ease-in-out infinite alternate;
 }
 
-@keyframes dragonCurrentA {
+@keyframes dragonMistA {
   0% {
-    transform: translate3d(0px, 0px, 0) scale(1.03) rotate(0deg);
+    transform: translate3d(0, 0, 0) scale(1.02) rotate(0deg);
     background-position: 0% 50%, 100% 50%;
   }
   50% {
-    transform: translate3d(-20px, 14px, 0) scale(1.06) rotate(-0.8deg);
-    background-position: 18% 44%, 82% 56%;
+    transform: translate3d(-28px, 16px, 0) scale(1.05) rotate(-0.9deg);
+    background-position: 24% 44%, 76% 58%;
   }
   100% {
-    transform: translate3d(18px, -16px, 0) scale(1.05) rotate(0.8deg);
-    background-position: 34% 52%, 66% 48%;
+    transform: translate3d(24px, -18px, 0) scale(1.04) rotate(0.9deg);
+    background-position: 42% 54%, 58% 46%;
   }
 }
 
-@keyframes dragonCurrentB {
+@keyframes dragonMistB {
   0% {
-    transform: translate3d(0px, 0px, 0) scale(1.02);
+    transform: translate3d(0, 0, 0) scale(1.01);
     background-position: 50% 50%;
   }
   50% {
-    transform: translate3d(16px, 18px, 0) scale(1.05);
-    background-position: 46% 54%;
+    transform: translate3d(20px, 18px, 0) scale(1.04);
+    background-position: 46% 56%;
   }
   100% {
-    transform: translate3d(-18px, -14px, 0) scale(1.04);
-    background-position: 54% 46%;
+    transform: translate3d(-22px, -16px, 0) scale(1.03);
+    background-position: 55% 45%;
   }
 }
 
