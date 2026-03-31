@@ -62,6 +62,7 @@ function normalizeArchive(items) {
 ===================== */
 
 const archive = normalizeArchive([
+
   {
     id: "2026-01-01",
     type: "art",
@@ -80,15 +81,14 @@ const archive = normalizeArchive([
   year: 2025,
   date: "2025-08-28",
   image: "images/art/2025/2025-08-28.webp",
-  description: "With an eye single to the glory of God",
+  description: "Short description",
   sideNoteTitle: "With an eye single to the glory of God",
   sideNote: `
-    <p><strong>Note:</strong> Here</p>
     <p><strong>Year:</strong> 2025</p>
     <p><strong>Medium:</strong> Prisma Color on Paper</p>
-    <p>Cover for book: "Harmonic Theism"</p>
+    <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
   `
-},
+  },
   {
     id: "2024-08-22",
     type: "art",
