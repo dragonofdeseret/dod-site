@@ -82,7 +82,7 @@ const archive = normalizeArchive([
     image: "images/art/2025/2025-08-28.webp",
     description: "With an eye single to the glory of God",
     sideNoteTitle: "With an eye single to the glory of God",
-    sideNote: Note Here
+    sideNote: Note Here,
     <p><strong>Year: </strong>2025</p>
     <p><strong>Medium: </strong>Prisma Color on Paper</p>
     <p>Cover for book: "Harmonic Theism"</p>
