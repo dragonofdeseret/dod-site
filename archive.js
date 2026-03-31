@@ -42,18 +42,20 @@ function normalizeArchive(items) {
 ====================== */
 
 /* {
-  id: "",
+  id: "example-id",
   type: "art",
-  title: "",
-  image: "images/art/year/date.webp",
-  description: "Short page description.",
+  title: "Example Title",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/example.webp",
+  description: "Short description",
   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year: </strong>2026</p>
-    <p><strong>Medium: </strong>Ink on paper</p>
-    <p>A note for this specific work.</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note here.</p>
   `
-} */
+}, */
 
 /* ==================
          ART
@@ -78,7 +80,7 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-08-28",
     image: "images/art/2025/2025-08-28.webp",
-    description: "With an eye single to the glory of God"
+    description: "With an eye single to the glory of God",
     sideNoteTitle: "With an eye single to the glory of God",
     sideNote: Note Here
     <p><strong>Year: </strong>2025</p>
