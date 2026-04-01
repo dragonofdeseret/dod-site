@@ -711,26 +711,18 @@ function buildExhibitPage() {
   gallery.innerHTML = "";
 
   if (!works.length) {
-    gallery.innerHTML = "<p>No works found for this exhibit.</p>";
+    const empty = document.createElement("p");
+    empty.textContent = "No works found for this exhibit.";
+    gallery.appendChild(empty);
   } else {
-    const [featured, ...rest] = works;
+    const rail = document.createElement("div");
+    rail.className = "exhibit-rail";
 
-    if (featured) {
-      const featuredButton = makeLightboxButton(featured, "exhibit-featured");
-      gallery.appendChild(featuredButton);
-    }
+    works.forEach((item) => {
+      rail.appendChild(createExhibitCard(item));
+    });
 
-    if (rest.length) {
-      const grid = document.createElement("div");
-      grid.className = "exhibit-grid";
-
-      rest.forEach((item) => {
-        const button = makeLightboxButton(item);
-        grid.appendChild(button);
-      });
-
-      gallery.appendChild(grid);
-    }
+    gallery.appendChild(rail);
   }
 
   let backHref = "exhibits.html";
@@ -757,6 +749,51 @@ function buildExhibitPage() {
     prev ? `exhibit.html?id=${prev.id}&from=${from}` : "",
     next ? `exhibit.html?id=${next.id}&from=${from}` : ""
   );
+}
+
+function createExhibitCard(item) {
+  const card = document.createElement("article");
+  card.className = "exhibit-card";
+
+  const link = document.createElement("a");
+  link.className = "exhibit-lightbox";
+  link.href = `artwork.html?id=${item.id}&from=exhibit`;
+
+  const figure = document.createElement("figure");
+
+  const img = document.createElement("img");
+  applyViewerImage(
+    img,
+    item,
+    "(max-width: 700px) 86vw, (max-width: 1100px) 72vw, 48vw"
+  );
+  img.alt = item.title || "";
+
+  img.addEventListener("click", (e) => {
+    e.preventDefault();
+    openLightbox(item.image, item.title || "");
+  });
+
+  const caption = document.createElement("figcaption");
+  caption.className = "exhibit-caption";
+
+  const title = document.createElement("span");
+  title.className = "exhibit-caption-title";
+  title.textContent = item.title || "";
+
+  const meta = document.createElement("span");
+  meta.className = "exhibit-caption-meta";
+  meta.textContent = item.date || item.year || "";
+
+  caption.appendChild(title);
+  caption.appendChild(meta);
+
+  figure.appendChild(img);
+  figure.appendChild(caption);
+  link.appendChild(figure);
+  card.appendChild(link);
+
+  return card;
 }
 
 /* ======================
