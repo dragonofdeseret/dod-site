@@ -161,7 +161,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_10.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -176,7 +176,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_9.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -191,7 +191,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_8.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -206,7 +206,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_7.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -221,7 +221,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_6.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -236,7 +236,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_5.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -251,7 +251,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_4.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -266,7 +266,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_3.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -281,7 +281,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_2.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -296,7 +296,7 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_1.webp",
-    exhibit: "joe"
+    exhibit: "joe",
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -917,7 +917,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-11_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 2,
-    exhibitSpan: "half"
   },
   {
     id: "2022-06-11_1",
@@ -928,7 +927,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-11_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 1,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -940,7 +938,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-08_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 6,
-    exhibitSpan: "half"
   },
   {
     id: "2022-06-08_1",
@@ -951,7 +948,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-08_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 5,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -963,7 +959,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-05_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 4,
-    exhibitSpan: "half"
   },
   {
     id: "2022-06-05_1",
@@ -974,7 +969,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-05_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 3,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -994,7 +988,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-27_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 4,
-    exhibitSpan: "half"
   },
   {
     id: "2022-05-27_1",
@@ -1005,7 +998,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-27_1.webp",
     exhibit: "HZ2",
     exhibitOrder: 3,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -1017,7 +1009,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-26_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 2,
-    exhibitSpan: "half"
   },
   {
     id: "2022-05-26_1",
@@ -1028,7 +1019,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-26_1.webp",
     exhibit: "HZ2",
     exhibitOrder: 1,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -1040,7 +1030,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_5.webp",
     exhibit: "HZ1",
     exhibitOrder: 4,
-    exhibitSpan: "half"
   },
   {
     id: "2022-05-23_4",
@@ -1051,7 +1040,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_4.webp",
     exhibit: "HZ1",
     exhibitOrder: 3,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
@@ -1063,7 +1051,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_3.webp",
     exhibit: "HZ1",
     exhibitOrder: 2,
-    exhibitSpan: "half"
   },
   {
     id: "2022-05-23_2",
@@ -1074,7 +1061,6 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_2.webp",
     exhibit: "HZ1",
     exhibitOrder: 1,
-    exhibitSpan: "half",
     showOnArt: false
   },
   {
