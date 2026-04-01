@@ -528,20 +528,26 @@ function buildArtworkPage() {
   const id = params.get("id");
   const from = params.get("from") || "art";
 
-  const artItems = sortByDateDescWithIdTiebreak(
+  const allArtItems = sortByDateDescWithIdTiebreak(
+    archive.filter((item) => item.type === "art")
+  );
+
+  const visibleArtItems = sortByDateDescWithIdTiebreak(
     archive.filter((item) => item.type === "art" && item.showOnArt !== false)
   );
 
-  const index = artItems.findIndex((item) => item.id === id);
+  const item = allArtItems.find((item) => item.id === id);
 
-  if (index === -1) {
+  if (!item) {
     window.location.href = "art.html";
     return;
   }
 
-  const item = artItems[index];
-  const prev = artItems[index - 1];
-  const next = artItems[index + 1];
+  const navPool = item.showOnArt === false ? [item] : visibleArtItems;
+  const index = navPool.findIndex((entry) => entry.id === item.id);
+
+  const prev = navPool[index - 1];
+  const next = navPool[index + 1];
 
   document.getElementById("title").textContent = item.title || "";
 
@@ -578,8 +584,6 @@ function buildArtworkPage() {
   } else if (from === "exhibit") {
     backHref = "exhibits.html";
     backText = "Back to Exhibits";
-  } else {
-    backText = "Back";
   }
 
   const navEl = document.getElementById("nav");

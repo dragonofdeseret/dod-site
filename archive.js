@@ -71,7 +71,12 @@ const archive = normalizeArchive([
     image: "images/art/2026/2026-01-01.webp",
     showOnArt: false,
     showOnArchive: false,
-    description: "Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us."
+ sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025–2026</p>
+    <p><strong>Medium:</strong> Pencil</p>
+    <p>Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us.</p>
+  `
   },
   {
     id: "2025-05-07",
