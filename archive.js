@@ -48,12 +48,11 @@ function normalizeArchive(items) {
   year: 2025,
   date: "2025-08-28",
   image: "images/art/2025/example.webp",
-  description: "Short description",
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2025</p>
     <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note here.</p>
+    <p>Optional note/description here.</p>
   `
 }, */
 
@@ -73,6 +72,64 @@ const archive = normalizeArchive([
     showOnArt: false,
     showOnArchive: false,
     description: "Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us."
+  },
+  {
+    id: "2025-05-07",
+    type: "art",
+    title: "May 7, 2025",
+    year: 2025,
+    date: "2025-05-07",
+    image: "images/art/2025/2025-05-07.webp"
+  },
+{
+  id: "2024-11-18_3",
+  type: "art",
+  title: "November 18, 2024 | #3",
+  year: 2024,
+  date: "2024-11-18",
+  image: "images/art/2024/2024-11-18_3.webp",
+  sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+  sideNote: `
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
+    <p>Vignette Detail</p>
+  `
+},
+{
+  id: "2024-11-18_2",
+  type: "art",
+  title: "November 18, 2024 | #2",
+  year: 2024,
+  date: "2024-11-18",
+  image: "images/art/2024/2024-11-18_2.webp",
+  sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+  sideNote: `
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
+    <p>Vignette Detail</p>
+  `
+},
+{
+  id: "2024-11-18_1",
+  type: "art",
+  title: "November 18, 2024 | #1",
+  year: 2024,
+  date: "2024-11-18",
+  image: "images/art/2024/2024-11-18_1.webp",
+  sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+  sideNote: `
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
+    <p>Painting was unfinished. 1/2 has since been painted over.</p>
+  `
+},
+  {
+    id: "2024-09-08",
+    type: "art",
+    title: "September 8, 2024",
+    year: 2024,
+    date: "2024-09-08",
+    image: "images/art/2024/2024-09-08.webp"
   },
   {
   id: "2025-08-28",
@@ -97,32 +154,159 @@ const archive = normalizeArchive([
     date: "2024-08-22",
     image: "images/art/2024/2024-08-22_1.webp"
   },
+ {
+    id: "2024-08-02_10",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_10.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
+ {
+    id: "2024-08-02_9",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_9.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
+ {
+    id: "2024-08-02_8",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_8.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Into–Outer Darkness</p>
+  `
+  },
+ {
+    id: "2024-08-02_7",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_7.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
+ {
+    id: "2024-08-02_6",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_6.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
+ {
+    id: "2024-08-02_5",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_5.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
+ {
+    id: "2024-08-02_4",
+    type: "art",
+    title: "August 2, 2024",
+    year: 2024,
+    date: "2024-08-02",
+    image: "images/art/2024/2024-08-02_4.webp",
+    exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer detail</p>
+  `
+  },
   {
     id: "2024-08-02_3",
     type: "art",
-    title: "August 2, 2024 | #3",
+    title: "August 2, 2024",
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_3.webp",
     exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic</p>
+      <p>All Seeing Sierpinski</p>
+  `
   },
   {
     id: "2024-08-02_2",
     type: "art",
-    title: "August 2, 2024 | #2",
+    title: "August 2, 2024",
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_2.webp",
     exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>Glow layer for those with eyes to see</p>
+  `
   },
   {
     id: "2024-08-02_1",
     type: "art",
-    title: "August 2, 2024 | #1",
+    title: "August 2, 2024",
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_1.webp",
     exhibit: "joe"
+    sideNoteTitle: "I Know the Church is True",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p>229 days - 7 months & 16 days</p>
+      <p>20 LSD trips, (~8,000µg)</p>
+      <p>3 Mushroom trips</p>
+      <p>3 DMT trips</>
+      <p>Restoration of Belief</p>
+  `
   },
   {
     id: "2024-06-25",
@@ -271,12 +455,28 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-10-23.webp"
   },
   {
-    id: "2023-09-01",
+    id: "2023-09-01_2",
     type: "art",
-    title: "September 1, 2023",
+    title: "September 1, 2023 | #2",
     year: 2023,
     date: "2023-09-01",
-    image: "images/art/2023/2023-09-01.webp"
+    image: "images/art/2023/2023-09-01_2.webp"
+  },
+  {
+    id: "2023-09-01_1",
+    type: "art",
+    title: "September 1, 2023 | #1",
+    year: 2023,
+    date: "2023-09-01",
+    image: "images/art/2023/2023-09-01_1.webp"
+  },
+  {
+    id: "2023-08-26_detail",
+    type: "art",
+    title: "August 26, 2023 | Detail",
+    year: 2023,
+    date: "2023-08-26",
+    image: "images/art/2023/2023-08-26_detail.webp",
   },
   {
     id: "2023-08-26_4",
@@ -369,6 +569,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-07-16_1.webp"
   },
   {
+    id: "2023-07-10",
+    type: "art",
+    title: "July 10, 2023",
+    year: 2023,
+    date: "2023-07-10",
+    image: "images/art/2023/2023-07-10.webp"
+  },
+  {
     id: "2023-07-05",
     type: "art",
     title: "July 5, 2023",
@@ -377,6 +585,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-07-05.webp",
     exhibit: "woulds",
     exhibitOrder: 1
+  },
+  {
+    id: "2023-06-27",
+    type: "art",
+    title: "June 27, 2023",
+    year: 2023,
+    date: "2023-06-27",
+    image: "images/art/2023/2023-06-27.webp"
   },
   {
     id: "2023-06-24",
@@ -1019,6 +1235,20 @@ const archive = normalizeArchive([
     date: "2020-11-18",
     image: "images/art/2020/2020-11-18.webp"
   },
+  {
+    id: "1997-03-30",
+    type: "art",
+    title: "1997-03-30",
+    year: 1997,
+    date: "1997-03-30",
+    image: "images/art/1997/1997-03-30.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+      <p><strong>Year:</strong> 1997</p>
+      <p><strong>Medium:</strong> Paper</p>
+      <p>Second grade art project of recurring dream</p>
+    `
+  },
 
   /* ==================
          WRITING
@@ -1228,10 +1458,37 @@ const archive = normalizeArchive([
     substance: "LSD"
   },
 
+/* ===================
+       EXAMPLE
+====================== */
+
+/* {
+  id: "example-id",
+  type: "art",
+  title: "Example Title",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/example.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
+}, */
+
   /* ==================
         PHOTOGRAPHY
   ===================== */
-  
+ 
+{
+    id: "2026-03-31",
+    type: "photo",
+    title: "March 31, 2026",
+    year: 2026,
+    date: "2026-03-31",
+    image: "images/photography/2026/2026-03-31.webp",
+  },
 {
     id: "2026-03-30",
     type: "photo",
@@ -1241,6 +1498,84 @@ const archive = normalizeArchive([
     image: "images/photography/2026/2026-03-30.webp",
     description: "⚪️"
   },
+{
+    id: "2026-03-26",
+    type: "photo",
+    title: "March 26, 2026",
+    year: 2026,
+    date: "2026-03-26",
+    image: "images/photography/2026/2026-03-26.webp",
+  },
+{
+    id: "2026-02-22",
+    type: "photo",
+    title: "February 22, 2026",
+    year: 2026,
+    date: "2026-02-22",
+    image: "images/photography/2026/2026-02-22.webp",
+  },
+{
+    id: "2026-02-18",
+    type: "photo",
+    title: "February 18, 2026",
+    year: 2026,
+    date: "2026-02-18",
+    image: "images/photography/2026/2026-02-18.webp",
+  },
+{
+    id: "2026-02-16",
+    type: "photo",
+    title: "February 16, 2026",
+    year: 2026,
+    date: "2026-02-16",
+    image: "images/photography/2026/2026-02-16.webp",
+  },
+{
+    id: "2026-01-29",
+    type: "photo",
+    title: "January 29, 2026",
+    year: 2026,
+    date: "2026-01-29",
+    image: "images/photography/2026/2026-01-29.webp",
+  },
+{
+    id: "2026-01-01",
+    type: "photo",
+    title: "January 1, 2026",
+    year: 2026,
+    date: "2026-01-01",
+    image: "images/photography/2026/2026-01-01.webp",
+  }, 
+ {
+    id: "2025-12-30",
+    type: "photo",
+    title: "December 30, 2025",
+    year: 2025,
+    date: "2025-12-30",
+    image: "images/photography/2025/2025-12-30.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> LSD on gel</p>
+    <p></p>
+  `
+  },
+ {
+    id: "2025-12-10",
+    type: "photo",
+    title: "December 10, 2025",
+    year: 2025,
+    date: "2025-12-10",
+    image: "images/photography/2025/2025-12-10.webp",
+  },
+ {
+    id: "2025-12-01",
+    type: "photo",
+    title: "December 1, 2025",
+    year: 2025,
+    date: "2025-12-01",
+    image: "images/photography/2025/2025-12-01.webp",
+  },
   {
     id: "2025-10-21",
     type: "photo",
@@ -1248,7 +1583,56 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-10-21",
     image: "images/photography/2025/2025-10-21.webp",
-    description: "Jovial Company"
+    sideNoteTitle: "Jovial Company",
+  sideNote: `
+    <p><strong>Medium:</strong> JSH 1:28</p>
+    <p>I am sometimes associated with jovial company</p>
+  `
+  },
+ {
+    id: "2025-10-16_5",
+    type: "photo",
+    title: "October 16, 2025 | #5",
+    year: 2025,
+    date: "2025-10-16",
+    image: "images/photography/2025/2025-10-16_5.webp",
+    description: ""
+  },
+ {
+    id: "2025-10-16_4",
+    type: "photo",
+    title: "October 16, 2025 | #4",
+    year: 2025,
+    date: "2025-10-16",
+    image: "images/photography/2025/2025-10-16_4.webp",
+    description: ""
+  },
+ {
+    id: "2025-10-16_3",
+    type: "photo",
+    title: "October 16, 2025 | #3",
+    year: 2025,
+    date: "2025-10-16",
+    image: "images/photography/2025/2025-10-16_3.webp",
+    description: ""
+  },
+ {
+    id: "2025-10-16_2",
+    type: "photo",
+    title: "October 16, 2025 | #2",
+    year: 2025,
+    date: "2025-10-16",
+    image: "images/photography/2025/2025-10-16_2.webp",
+    description: ""
+  },
+ {
+    id: "2025-10-16_1",
+    type: "photo",
+    title: "October 16, 2025 | #1",
+    year: 2025,
+    date: "2025-10-16",
+    image: "images/photography/2025/2025-10-16_1.webp",
+    description: ""
   },
   {
     id: "2025-09-07",
@@ -1258,6 +1642,22 @@ const archive = normalizeArchive([
     date: "2025-09-07",
     image: "images/photography/2025/2025-09-07.webp",
     description: ""
+  },
+{
+    id: "2025-08-15",
+    type: "photo",
+    title: "August 15, 2025",
+    year: 2025,
+    date: "2025-08-15",
+    image: "images/photography/2025/2025-08-15.webp",
+  },
+ {
+    id: "2025-08-13",
+    type: "photo",
+    title: "August 13, 2025",
+    year: 2025,
+    date: "2025-08-13",
+    image: "images/photography/2025/2025-08-13.webp",
   },
   {
     id: "2025-07-30_5",
@@ -1304,6 +1704,14 @@ const archive = normalizeArchive([
     image: "images/photography/2025/2025-07-30_1.webp",
     description: ""
   },
+ {
+    id: "2025-07-20",
+    type: "photo",
+    title: "July 20, 2025",
+    year: 2025,
+    date: "2025-07-20",
+    image: "images/photography/2025/2025-07-20.webp",
+  },
   {
     id: "2025-07-13_3",
     type: "photo",
@@ -1331,6 +1739,14 @@ const archive = normalizeArchive([
     image: "images/photography/2025/2025-07-13_1.webp",
     description: ""
   },
+ {
+    id: "2025-04-23",
+    type: "photo",
+    title: "April 23, 2025",
+    year: 2025,
+    date: "2025-04-23",
+    image: "images/photography/2025/2025-04-23.webp",
+  },
   {
     id: "2025-03-15",
     type: "photo",
@@ -1338,7 +1754,45 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-03-15",
     image: "images/photography/2025/2025-03-15.webp",
-    description: "Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece."
+          sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> Date Unknown</p>
+    <p><strong>Medium:</strong> Greece</p>
+   <p> Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece. </p>
+  `
+  },
+ {
+    id: "2025-02-25",
+    type: "photo",
+    title: "February 25, 2025",
+    year: 2025,
+    date: "2025-02-25",
+    image: "images/photography/2025/2025-02-25.webp",
+  },
+ {
+    id: "2025-02-24",
+    type: "photo",
+    title: "February 24, 2025",
+    year: 2025,
+    date: "2025-02-24",
+    image: "images/photography/2025/2025-02-24.webp",
+  },
+ {
+    id: "2024-08-31",
+    type: "photo",
+    title: "August 31, 2024",
+    year: 2024,
+    date: "2024-08-31",
+    image: "images/photography/2024/2024-08-31.webp",
+  },
+ {
+    id: "2024-10-22",
+    type: "photo",
+    title: "October 22, 2024",
+    year: 2024,
+    date: "2024-10-22",
+    image: "images/photography/2024/2024-10-22.webp",
+    description: ""
   },
   {
     id: "2024-07-14",
@@ -1394,6 +1848,66 @@ const archive = normalizeArchive([
     image: "images/photography/2024/2024-05-11_1.webp",
     description: ""
   },
+ {
+    id: "2023-02-18_2",
+    type: "photo",
+    title: "February 18, 2024 | #2",
+    year: 2024,
+    date: "2024-02-18",
+    image: "images/photography/2024/2024-02-18_2.webp",
+  },
+ {
+    id: "2023-02-18_1",
+    type: "photo",
+    title: "February 18, 2024 | #1",
+    year: 2024,
+    date: "2024-02-18",
+    image: "images/photography/2024/2024-02-18_1.webp",
+  },
+ {
+    id: "2023-12-06_2",
+    type: "photo",
+    title: "December 6, 2023 | #2",
+    year: 2023,
+    date: "2023-12-06",
+    image: "images/photography/2023/2023-12-06_2.webp",
+    description: ""
+  },
+ {
+    id: "2023-12-06_1",
+    type: "photo",
+    title: "December 6, 2023 | #1",
+    year: 2023,
+    date: "2023-12-06",
+    image: "images/photography/2023/2023-12-06_1.webp",
+    description: ""
+  },
+  {
+    id: "2023-10-17",
+    type: "photo",
+    title: "October 17, 2023",
+    year: 2023,
+    date: "2023-10-17",
+    image: "images/photography/2023/2023-10-17.webp",
+          sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> MDMA</p>
+  `
+  },
+{
+    id: "2023-10-11",
+    type: "photo",
+    title: "October 11, 2023",
+    year: 2023,
+    date: "2023-10-11",
+    image: "images/photography/2023/2023-10-11.webp",
+        sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Golden Teachers</p>
+  `
+  },
   {
     id: "2023-10-06",
     type: "photo",
@@ -1402,6 +1916,61 @@ const archive = normalizeArchive([
     date: "2023-10-06",
     image: "images/photography/2023/2023-10-06.webp",
     description: ""
+  },
+  {
+    id: "2023-09-24",
+    type: "photo",
+    title: "September 24, 2023",
+    year: 2023,
+    date: "2023-09-24",
+    image: "images/photography/2023/2023-09-24.webp",
+  },
+  {
+    id: "2023-07-29",
+    type: "photo",
+    title: "July 29, 2023",
+    year: 2023,
+    date: "2023-07-29",
+    image: "images/photography/2023/2023-07-29.webp",
+  },
+  {
+    id: "2023-06-17",
+    type: "photo",
+    title: "June 17, 2023",
+    year: 2023,
+    date: "2023-06-17",
+    image: "images/photography/2023/2023-06-17.webp",
+      sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> N,N-DMT</p>
+  `
+  },
+  {
+    id: "2023-06-03",
+    type: "photo",
+    title: "June 3, 2023",
+    year: 2023,
+    date: "2023-06-03",
+    image: "images/photography/2023/2023-06-03.webp",
+      sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> S-MDA</p>
+  `
+  },
+  {
+    id: "2023-04-20",
+    type: "photo",
+    title: "April 20, 2023",
+    year: 2023,
+    date: "2023-04-20",
+    image: "images/photography/2023/2023-04-20.webp",
+         sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> LSD paper sheet</p>
+  `
   },
   {
     id: "2023-01-03",
@@ -1419,6 +1988,105 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-12-10",
     image: "images/photography/2022/2022-12-10.webp",
+    description: ""
+  },
+{
+    id: "2022-12-03",
+    type: "photo",
+    title: "December 3, 2022",
+    year: 2022,
+    date: "2022-12-03",
+    image: "images/photography/2022/2022-12-03.webp",
+    description: ""
+  },
+ {
+    id: "2021-12-15",
+    type: "photo",
+    title: "December 15, 2021",
+    year: 2021,
+    date: "2021-12-15",
+    image: "images/photography/2021/2021-12-15.webp",
+    description: ""
+  },
+ {
+    id: "2021-10-04_2",
+    type: "photo",
+    title: "October 4, 2021 | #2",
+    year: 2021,
+    date: "2021-10-04",
+    image: "images/photography/2021/2021-10-04_2.webp",
+    description: ""
+  },
+ {
+    id: "2021-10-04_1",
+    type: "photo",
+    title: "October 4, 2021 | #1",
+    year: 2021,
+    date: "2021-10-04",
+    image: "images/photography/2021/2021-10-04_1.webp",
+    description: ""
+  },
+ {
+    id: "2021-06-05_2",
+    type: "photo",
+    title: "June 5, 2021 | #2",
+    year: 2021,
+    date: "2021-06-05",
+    image: "images/photography/2021/2021-06-05_2.webp",
+    description: ""
+  },
+ {
+    id: "2021-06-05_1",
+    type: "photo",
+    title: "June 5, 2021 | #1",
+    year: 2021,
+    date: "2021-06-05",
+    image: "images/photography/2021/2021-06-05_1.webp",
+    description: ""
+  },
+ {
+    id: "2021-05-27",
+    type: "photo",
+    title: "May 27, 2021",
+    year: 2021,
+    date: "2021-05-27",
+    image: "images/photography/2021/2021-05-27.webp",
+    description: ""
+  },
+ {
+    id: "2020-11-11",
+    type: "photo",
+    title: "November 11, 2020",
+    year: 2020,
+    date: "2020-11-11",
+    image: "images/photography/2020/2020-11-11.webp",
+    description: ""
+  },
+ {
+    id: "2020-11-04_2",
+    type: "photo",
+    title: "November 3, 2020 | #2",
+    year: 2020,
+    date: "2020-11-04",
+    image: "images/photography/2020/2020-11-04_2.webp",
+    description: ""
+  },
+ {
+    id: "2020-11-04_1",
+    type: "photo",
+    title: "November 4, 2020 | #1",
+    year: 2020,
+    date: "2020-11-04",
+    image: "images/photography/2020/2020-11-04_1.webp",
+    description: ""
+  },
+ {
+    id: "2020-11-03",
+    type: "photo",
+    title: "November 3, 2020",
+    year: 2020,
+    date: "2020-11-03",
+    image: "images/photography/2020/2020-11-03.webp",
     description: ""
   },
   {
@@ -1466,6 +2134,24 @@ const archive = normalizeArchive([
     image: "images/photography/2019/2019-11-03.webp",
     description: ""
   },
+ {
+    id: "2019-09-30",
+    type: "photo",
+    title: "September 30, 2019",
+    year: 2019,
+    date: "2019-09-30",
+    image: "images/photography/2019/2019-09-30.webp",
+    description: ""
+  },
+ {
+    id: "2019-09-29_3",
+    type: "photo",
+    title: "September 29, 2019 | #3",
+    year: 2019,
+    date: "2019-09-29",
+    image: "images/photography/2019/2019-09-29_3.webp",
+    description: ""
+  },
   {
     id: "2019-09-29_2",
     type: "photo",
@@ -1484,6 +2170,14 @@ const archive = normalizeArchive([
     image: "images/photography/2019/2019-09-29_1.webp",
     description: ""
   },
+{
+  id: "2019-07-18",
+  type: "art",
+  title: "July 18, 2019",
+  year: 2019,
+  date: "2019-07-18",
+  image: "images/art/2019/2019-07-18.webp",
+},
   {
     id: "2019-06-09_1 | #1",
     type: "photo",
@@ -1493,6 +2187,38 @@ const archive = normalizeArchive([
     image: "images/photography/2019/2019-06-09_1.webp",
     description: ""
   },
+{
+  id: "2019-03-03",
+  type: "art",
+  title: "March 3, 2019",
+  year: 2019,
+  date: "2019-03-03",
+  image: "images/art/2019/2019-03-03.webp",
+},
+{
+  id: "2019-02-16",
+  type: "art",
+  title: "February 16, 2019",
+  year: 2019,
+  date: "2019-02-16",
+  image: "images/art/2019/2019-02-16.webp",
+},
+{
+  id: "2018-11-29",
+  type: "art",
+  title: "November 29, 2018",
+  year: 2018,
+  date: "2018-11-29",
+  image: "images/art/2018/2018-11-29.webp",
+},
+{
+  id: "2018-08-14",
+  type: "art",
+  title: "August 14, 2018",
+  year: 2018,
+  date: "2018-08-14",
+  image: "images/art/2018/2018-08-14.webp",
+},
   {
     id: "2017-08-25",
     type: "photo",
@@ -1500,9 +2226,102 @@ const archive = normalizeArchive([
     year: 2017,
     date: "2017-08-25",
     image: "images/photography/2017/2017-08-25.webp",
-    description: "Unfinished"
-  }
+  },
+{
+  id: "2016-12-20",
+  type: "art",
+  title: "December 20, 2016",
+  year: 2016,
+  date: "2016-12-20",
+  image: "images/art/2016/2016-12-20.webp",
+},
+{
+  id: "2016-08-07",
+  type: "art",
+  title: "August 7, 2016",
+  year: 2016,
+  date: "2016-08-07",
+  image: "images/art/2016/2016-08-07.webp",
+},
+{
+  id: "2015-02-13",
+  type: "art",
+  title: "February 13, 2015",
+  year: 2015,
+  date: "2015-02-13",
+  image: "images/art/2015/2015-02-13.webp",
+},
+{
+  id: "2014-11-27",
+  type: "art",
+  title: "November 27, 2014",
+  year: 2014,
+  date: "2014-11-27",
+  image: "images/art/2014/2014-11-27.webp",
+},
+{
+  id: "2014-10-25",
+  type: "art",
+  title: "October 25, 2014",
+  year: 2014,
+  date: "2014-10-25",
+  image: "images/art/2014/2014-10-25.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2014</p>
+    <p><strong>Medium:</strong> Kingsbury Hall Sunset</p>
+    <p>Production: ODT's Thriller</p>
+  `
+},
+{
+  id: "2014-07-23",
+  type: "art",
+  title: "July 23, 2014",
+  year: 2014,
+  date: "2014-07-23",
+  image: "images/art/2014/2014-07-23.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2013</p>
+    <p><strong>Medium:</strong> Bird watching</p>
+    <p>Naked, Msr. André, Armani</p>
+  `
+},
+{
+  id: "2013-09-24",
+  type: "art",
+  title: "September 24, 2013",
+  year: 2013,
+  date: "2013-09-24",
+  image: "images/art/2013/2013-09-24.webp",
+  sideNoteTitle: "",
+  sideNote: `
+    <p><strong>Year:</strong> 2013</p>
+    <p><strong>Medium:</strong> Austad Auditorium</p>
+    <p></p>
+  `
+}
+
 ]);
+
+/* ===================
+       EXAMPLE
+====================== */
+
+/* {
+  id: "example-id",
+  type: "art",
+  title: "Example Title",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/example.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
+}, */
 
 /* ==================
        EXHIBITS
