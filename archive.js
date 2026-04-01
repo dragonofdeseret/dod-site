@@ -1450,11 +1450,11 @@ const archive = normalizeArchive([
 
 /* {
   id: "example-id",
-  type: "art",
+  type: "photo",
   title: "Example Title",
   year: 2025,
   date: "2025-08-28",
-  image: "images/art/2025/example.webp",
+  image: "images/photography/2025/example.webp",
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -1491,6 +1491,20 @@ const archive = normalizeArchive([
     year: 2026,
     date: "2026-03-26",
     image: "images/photography/2026/2026-03-26.webp",
+  },
+ {
+    id: "2026-03-15",
+    type: "photo",
+    title: "March 15, 2026",
+    year: 2026,
+    date: "2026-03-15",
+    image: "images/photography/2026/2026-03-15.webp",
+          sideNoteTitle: "Details",
+      sideNote: `
+    <p><strong>Year:</strong> Date Unknown</p>
+    <p><strong>Medium:</strong> Greece</p>
+   <p> Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece. </p>
+  `
   },
 {
     id: "2026-02-22",
@@ -1732,20 +1746,6 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-04-23",
     image: "images/photography/2025/2025-04-23.webp",
-  },
-  {
-    id: "2025-03-15",
-    type: "photo",
-    title: "March 15, 2025",
-    year: 2025,
-    date: "2025-03-15",
-    image: "images/photography/2025/2025-03-15.webp",
-          sideNoteTitle: "Details",
-      sideNote: `
-    <p><strong>Year:</strong> Date Unknown</p>
-    <p><strong>Medium:</strong> Greece</p>
-   <p> Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece. </p>
-  `
   },
  {
     id: "2025-02-25",
@@ -2000,8 +2000,7 @@ const archive = normalizeArchive([
     title: "October 4, 2021 | #2",
     year: 2021,
     date: "2021-10-04",
-    image: "images/photography/2021/2021-10-04_2.webp",
-    description: ""
+    image: "images/photography/2021/2021-10-04_2.webp"
   },
  {
     id: "2021-10-04_1",
@@ -2009,8 +2008,7 @@ const archive = normalizeArchive([
     title: "October 4, 2021 | #1",
     year: 2021,
     date: "2021-10-04",
-    image: "images/photography/2021/2021-10-04_1.webp",
-    description: ""
+    image: "images/photography/2021/2021-10-04_1.webp"
   },
  {
     id: "2021-06-05_2",
@@ -2158,11 +2156,11 @@ const archive = normalizeArchive([
   },
 {
   id: "2019-07-18",
-  type: "art",
+  type: "photo",
   title: "July 18, 2019",
   year: 2019,
   date: "2019-07-18",
-  image: "images/art/2019/2019-07-18.webp"
+  image: "images/photography/2019/2019-07-18.webp"
 },
   {
     id: "2019-06-09",
@@ -2174,35 +2172,35 @@ const archive = normalizeArchive([
   },
 {
   id: "2019-03-03",
-  type: "art",
+  type: "photo",
   title: "March 3, 2019",
   year: 2019,
   date: "2019-03-03",
-  image: "images/art/2019/2019-03-03.webp"
+  image: "images/photography/2019/2019-03-03.webp"
 },
 {
   id: "2019-02-16",
-  type: "art",
+  type: "photo",
   title: "February 16, 2019",
   year: 2019,
   date: "2019-02-16",
-  image: "images/art/2019/2019-02-16.webp"
+  image: "images/photography/2019/2019-02-16.webp"
 },
 {
   id: "2018-11-29",
-  type: "art",
+  type: "photo",
   title: "November 29, 2018",
   year: 2018,
   date: "2018-11-29",
-  image: "images/art/2018/2018-11-29.webp"
+  image: "images/photography/2018/2018-11-29.webp"
 },
 {
   id: "2018-08-14",
-  type: "art",
+  type: "photo",
   title: "August 14, 2018",
   year: 2018,
   date: "2018-08-14",
-  image: "images/art/2018/2018-08-14.webp"
+  image: "images/photography/2018/2018-08-14.webp"
 },
   {
     id: "2017-08-25",
@@ -2214,43 +2212,43 @@ const archive = normalizeArchive([
   },
 {
   id: "2016-12-20",
-  type: "art",
+  type: "photo",
   title: "December 20, 2016",
   year: 2016,
   date: "2016-12-20",
-  image: "images/art/2016/2016-12-20.webp"
+  image: "images/photography/2016/2016-12-20.webp"
 },
 {
   id: "2016-08-07",
-  type: "art",
+  type: "photo",
   title: "August 7, 2016",
   year: 2016,
   date: "2016-08-07",
-  image: "images/art/2016/2016-08-07.webp"
+  image: "images/photography/2016/2016-08-07.webp"
 },
 {
   id: "2015-02-13",
-  type: "art",
+  type: "photo",
   title: "February 13, 2015",
   year: 2015,
   date: "2015-02-13",
-  image: "images/art/2015/2015-02-13.webp"
+  image: "images/photography/2015/2015-02-13.webp"
 },
 {
   id: "2014-11-27",
-  type: "art",
+  type: "photo",
   title: "November 27, 2014",
   year: 2014,
   date: "2014-11-27",
-  image: "images/art/2014/2014-11-27.webp"
+  image: "images/photography/2014/2014-11-27.webp"
 },
 {
   id: "2014-10-25",
-  type: "art",
+  type: "photo",
   title: "October 25, 2014",
   year: 2014,
   date: "2014-10-25",
-  image: "images/art/2014/2014-10-25.webp",
+  image: "images/photography/2014/2014-10-25.webp",
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2014</p>
@@ -2260,11 +2258,11 @@ const archive = normalizeArchive([
 },
 {
   id: "2014-07-23",
-  type: "art",
+  type: "photo",
   title: "July 23, 2014",
   year: 2014,
   date: "2014-07-23",
-  image: "images/art/2014/2014-07-23.webp",
+  image: "images/photography/2014/2014-07-23.webp",
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2013</p>
@@ -2274,11 +2272,11 @@ const archive = normalizeArchive([
 },
 {
   id: "2013-09-24",
-  type: "art",
+  type: "photo",
   title: "September 24, 2013",
   year: 2013,
   date: "2013-09-24",
-  image: "images/art/2013/2013-09-24.webp",
+  image: "images/photography/2013/2013-09-24.webp",
   sideNoteTitle: "",
   sideNote: `
     <p><strong>Year:</strong> 2013</p>
