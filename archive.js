@@ -2162,16 +2162,15 @@ const archive = normalizeArchive([
   title: "July 18, 2019",
   year: 2019,
   date: "2019-07-18",
-  image: "images/art/2019/2019-07-18.webp",
+  image: "images/art/2019/2019-07-18.webp"
 },
   {
-    id: "2019-06-09_1 | #1",
+    id: "2019-06-09",
     type: "photo",
     title: "June 9, 2019",
     year: 2019,
     date: "2019-06-09",
-    image: "images/photography/2019/2019-06-09_1.webp",
-    description: ""
+    image: "images/photography/2019/2019-06-09.webp"
   },
 {
   id: "2019-03-03",
@@ -2179,7 +2178,7 @@ const archive = normalizeArchive([
   title: "March 3, 2019",
   year: 2019,
   date: "2019-03-03",
-  image: "images/art/2019/2019-03-03.webp",
+  image: "images/art/2019/2019-03-03.webp"
 },
 {
   id: "2019-02-16",
@@ -2187,7 +2186,7 @@ const archive = normalizeArchive([
   title: "February 16, 2019",
   year: 2019,
   date: "2019-02-16",
-  image: "images/art/2019/2019-02-16.webp",
+  image: "images/art/2019/2019-02-16.webp"
 },
 {
   id: "2018-11-29",
@@ -2195,7 +2194,7 @@ const archive = normalizeArchive([
   title: "November 29, 2018",
   year: 2018,
   date: "2018-11-29",
-  image: "images/art/2018/2018-11-29.webp",
+  image: "images/art/2018/2018-11-29.webp"
 },
 {
   id: "2018-08-14",
@@ -2203,7 +2202,7 @@ const archive = normalizeArchive([
   title: "August 14, 2018",
   year: 2018,
   date: "2018-08-14",
-  image: "images/art/2018/2018-08-14.webp",
+  image: "images/art/2018/2018-08-14.webp"
 },
   {
     id: "2017-08-25",
@@ -2211,7 +2210,7 @@ const archive = normalizeArchive([
     title: "August 25, 2017",
     year: 2017,
     date: "2017-08-25",
-    image: "images/photography/2017/2017-08-25.webp",
+    image: "images/photography/2017/2017-08-25.webp"
   },
 {
   id: "2016-12-20",
@@ -2219,7 +2218,7 @@ const archive = normalizeArchive([
   title: "December 20, 2016",
   year: 2016,
   date: "2016-12-20",
-  image: "images/art/2016/2016-12-20.webp",
+  image: "images/art/2016/2016-12-20.webp"
 },
 {
   id: "2016-08-07",
@@ -2227,7 +2226,7 @@ const archive = normalizeArchive([
   title: "August 7, 2016",
   year: 2016,
   date: "2016-08-07",
-  image: "images/art/2016/2016-08-07.webp",
+  image: "images/art/2016/2016-08-07.webp"
 },
 {
   id: "2015-02-13",
@@ -2235,7 +2234,7 @@ const archive = normalizeArchive([
   title: "February 13, 2015",
   year: 2015,
   date: "2015-02-13",
-  image: "images/art/2015/2015-02-13.webp",
+  image: "images/art/2015/2015-02-13.webp"
 },
 {
   id: "2014-11-27",
@@ -2243,7 +2242,7 @@ const archive = normalizeArchive([
   title: "November 27, 2014",
   year: 2014,
   date: "2014-11-27",
-  image: "images/art/2014/2014-11-27.webp",
+  image: "images/art/2014/2014-11-27.webp"
 },
 {
   id: "2014-10-25",
