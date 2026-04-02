@@ -774,8 +774,12 @@ function createExhibitCard(item) {
     openLightbox(item.image, item.title || "");
   });
 
-  const caption = document.createElement("figcaption");
-  caption.className = "exhibit-caption";
+const caption = document.createElement("figcaption");
+caption.className = "exhibit-caption";
+caption.innerHTML = `
+  <span class="exhibit-caption-title">${item.exhibitCaptionTitle || item.title || ""}</span>
+  <span class="exhibit-caption-meta">${item.exhibitCaptionMeta || item.date || item.year || ""}</span>
+`;
 
   const title = document.createElement("span");
   title.className = "exhibit-caption-title";

@@ -168,6 +168,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_10.webp",
     exhibit: "joe",
     exhibitOrder: 7,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+   
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -184,6 +187,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_9.webp",
     exhibit: "joe",
     exhibitOrder: 8,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+ 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -200,6 +206,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_8.webp",
     exhibit: "joe",
     exhibitOrder: 9,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+   
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -216,6 +225,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_7.webp",
     exhibit: "joe",
     exhibitOrder: 6,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+   
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -232,6 +244,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_6.webp",
     exhibit: "joe",
     exhibitOrder: 4,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -248,6 +263,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_5.webp",
     exhibit: "joe",
     exhibitOrder: 3,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -264,6 +282,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_4.webp",
     exhibit: "joe",
     exhibitOrder: 5,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -280,6 +301,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_3.webp",
     exhibit: "joe",
     exhibitOrder: 10,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -296,6 +320,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_2.webp",
     exhibit: "joe",
     exhibitOrder: 2,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -312,6 +339,9 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_1.webp",
     exhibit: "joe",
     exhibitOrder: 1,
+    exhibitCaptionTitle: "I Know the Church is True",
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
