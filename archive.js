@@ -1492,15 +1492,39 @@ const archive = normalizeArchive([
        QUOTES
 ====================== */
 
+
 {
-  id: "quote_2026_03_30",
+  id: "quote_2025_02_15",
   type: "quote",
-  date: "2026-03-30",
+  date: "2025-02-15",
+  text: `Daoism is anarchist, acosmotic, and has more breadth then Buddhism. 
+The Daodejing is a very complex text that has been bastardized by many, and it includes the rich history of the wisdom of the Yijing.
+
+Buddhism is a methodology of escape.
+Daoism is a methodology of acceptance.`
+  detail: "Response to question on X regarding the differences between Buddhism and Daoism."
+},
+{
+  id: "quote_2022_11_30",
+  type: "quote",
+  date: "2022-11-30",
   text: `The straw man has no brain
 The steel man has no heart
 The sage has neither—
 For they make the world of straw and steel men
 One muddled mind, treating them as children.`
+},
+{
+  id: "quote_2022_09_24",
+  type: "quote",
+  date: "2022-09-24",
+  text: `I think, therefore I am.
+I am, therefore, I think.
+Therefore, I think I am;
+Wherefore, I am, I think...
+I think I am, therefore, 
+I am.
+Quoth the human—[n]evermore.`
 },
 
 /* ===================

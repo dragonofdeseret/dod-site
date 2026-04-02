@@ -1061,6 +1061,14 @@ function buildQuotesPage(items = archive) {
 
       entry.appendChild(meta);
       entry.appendChild(text);
+
+      if (typeof item.detail === "string" && item.detail.trim()) {
+        const detail = document.createElement("div");
+        detail.className = "quote-detail";
+        detail.textContent = item.detail.trim();
+        entry.appendChild(detail);
+      }
+
       container.appendChild(entry);
     });
 }
