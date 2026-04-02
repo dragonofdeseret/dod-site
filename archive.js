@@ -169,7 +169,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 7,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
    
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -188,7 +188,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 8,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
  
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -207,7 +207,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 9,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
    
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -226,7 +226,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 6,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
    
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -245,7 +245,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 4,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -264,7 +264,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 3,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -283,7 +283,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 5,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -302,7 +302,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 10,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -321,7 +321,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 2,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -340,7 +340,7 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 1,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'"
+    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
