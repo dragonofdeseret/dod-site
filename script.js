@@ -774,20 +774,16 @@ function createExhibitCard(item) {
     openLightbox(item.image, item.title || "");
   });
 
-const caption = document.createElement("figcaption");
-caption.className = "exhibit-caption";
-caption.innerHTML = `
-  <span class="exhibit-caption-title">${item.exhibitCaptionTitle || item.title || ""}</span>
-  <span class="exhibit-caption-meta">${item.exhibitCaptionMeta || item.date || item.year || ""}</span>
-`;
+  const caption = document.createElement("figcaption");
+  caption.className = "exhibit-caption";
 
   const title = document.createElement("span");
   title.className = "exhibit-caption-title";
-  title.textContent = item.title || "";
+  title.textContent = item.exhibitCaptionTitle || item.title || "";
 
   const meta = document.createElement("span");
   meta.className = "exhibit-caption-meta";
-  meta.textContent = item.date || item.year || "";
+  meta.textContent = item.exhibitCaptionMeta || "";
 
   caption.appendChild(title);
   caption.appendChild(meta);
