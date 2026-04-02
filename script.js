@@ -1025,6 +1025,59 @@ function buildTripReportsPage() {
 }
 
 /* ====================
+        QUOTES
+======================= */
+
+function formatQuoteDate(dateString) {
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) return dateString || "";
+
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+}
+
+function buildQuotesPage() {
+  if (!window.location.pathname.includes("quotes.html")) return;
+  if (typeof archive === "undefined") return;
+
+  const container = document.getElementById("quotes-list");
+  if (!container) return;
+
+  const quoteItems = archive
+    .filter(item => item.type === "quote")
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  container.innerHTML = "";
+
+  if (!quoteItems.length) {
+    container.innerHTML = `<p class="page-intro">No quotes yet.</p>`;
+    return;
+  }
+
+  quoteItems.forEach(item => {
+    const entry = document.createElement("article");
+    entry.className = "quote-entry";
+
+    const meta = document.createElement("h3");
+    meta.className = "quote-meta";
+    meta.textContent = formatQuoteDate(item.date);
+
+    const text = document.createElement("div");
+    text.className = "quote-text";
+    text.textContent = item.text || "";
+
+    entry.appendChild(meta);
+    entry.appendChild(text);
+
+    container.appendChild(entry);
+  });
+}
+
+/* ====================
        QUESTIONS
 ======================= */
 
@@ -1190,6 +1243,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
+  buildQuotesPage();
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();

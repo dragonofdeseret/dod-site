@@ -1308,32 +1308,50 @@ h2 {
   max-width: 700px;
 }
 
-/* =============
-   GUESTBOOK
-================ */
+/* ====================
+      QUOTES PAGE
+======================= */
 
-.guestbook-intro {
-  max-width: 520px;
-  margin-bottom: 40px;
-  color: #bbb;
-  line-height: 1.7;
+.quotes-list {
+  position: relative;
+  max-width: 850px;
 }
 
-.guestbook-intro p {
-  margin-bottom: 16px;
+.quote-entry {
+  position: relative;
+  padding: 0 0 28px 0;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
-hr {
-  border: none;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin: 40px 0;
+.quote-entry::before {
+  content: "";
+  position: absolute;
+  left: -44px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.75;
 }
 
-.guestbook-outro {
-  margin-top: 60px;
-  font-style: italic;
-  opacity: 0.6;
-  text-align: center;
+.quote-meta {
+  opacity: 0.58;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+}
+
+.quote-text {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  max-width: 720px;
+}
+
+.quote-text p {
+  margin: 0;
 }
 
 /* ==========
@@ -1371,17 +1389,9 @@ hr {
   opacity: 0.35;
 }
 
-/* ========================
-    GISCUS TYPOGRAPHY
-=========================== */
-
-.giscus,
-.giscus-frame {
-  font-family: Baskerville, "Libre Baskerville", Georgia, serif;
-}
 
 /* ====================
-      QUESTIONS PAGE
+    QUESTIONS PAGE
 ======================= */
 
 .questions-note {
