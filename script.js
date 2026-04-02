@@ -1040,9 +1040,9 @@ function formatQuoteDate(dateString) {
   });
 }
 
-function buildQuotesPage(items) {
+function buildQuotesPage(items = archive) {
   const container = document.querySelector(".quotes-list");
-  if (!container) return;
+  if (!container || !Array.isArray(items)) return;
 
   container.innerHTML = "";
 
@@ -1072,18 +1072,14 @@ function renderQuoteText(item) {
   if (Array.isArray(item.lines) && item.lines.length) {
     wrapper.classList.add("quote-text-lines");
 
-    item.lines
-      .filter((line) => typeof line === "string")
-      .forEach((line) => {
-        const lineEl = document.createElement("div");
-        lineEl.className = "quote-line";
-        lineEl.textContent = line;
-        wrapper.appendChild(lineEl);
-      });
+    item.lines.forEach((line) => {
+      const lineEl = document.createElement("div");
+      lineEl.className = "quote-line";
+      lineEl.textContent = line;
+      wrapper.appendChild(lineEl);
+    });
 
-    if (wrapper.childNodes.length > 0) {
-      return wrapper;
-    }
+    return wrapper;
   }
 
   if (typeof item.text === "string" && item.text.trim()) {
@@ -1092,8 +1088,6 @@ function renderQuoteText(item) {
     return wrapper;
   }
 
-  wrapper.classList.add("quote-text-block");
-  wrapper.textContent = "";
   return wrapper;
 }
 
@@ -1263,7 +1257,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
-  buildQuotesPage();
+  buildQuotesPage(archive);
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();
