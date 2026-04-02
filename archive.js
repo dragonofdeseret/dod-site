@@ -1634,51 +1634,6 @@ const archive = normalizeArchive([
     <p>I am sometimes associated with jovial company</p>
   `
   },
- {
-    id: "2025-10-16_5",
-    type: "photo",
-    title: "October 16, 2025 | #5",
-    year: 2025,
-    date: "2025-10-16",
-    image: "images/photography/2025/2025-10-16_5.webp",
-    description: ""
-  },
- {
-    id: "2025-10-16_4",
-    type: "photo",
-    title: "October 16, 2025 | #4",
-    year: 2025,
-    date: "2025-10-16",
-    image: "images/photography/2025/2025-10-16_4.webp",
-    description: ""
-  },
- {
-    id: "2025-10-16_3",
-    type: "photo",
-    title: "October 16, 2025 | #3",
-    year: 2025,
-    date: "2025-10-16",
-    image: "images/photography/2025/2025-10-16_3.webp",
-    description: ""
-  },
- {
-    id: "2025-10-16_2",
-    type: "photo",
-    title: "October 16, 2025 | #2",
-    year: 2025,
-    date: "2025-10-16",
-    image: "images/photography/2025/2025-10-16_2.webp",
-    description: ""
-  },
- {
-    id: "2025-10-16_1",
-    type: "photo",
-    title: "October 16, 2025 | #1",
-    year: 2025,
-    date: "2025-10-16",
-    image: "images/photography/2025/2025-10-16_1.webp",
-    description: ""
-  },
   {
     id: "2025-09-07",
     type: "photo",
@@ -1720,24 +1675,6 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_4.webp",
-    description: ""
-  },
-  {
-    id: "2025-07-30_3",
-    type: "photo",
-    title: "July 30, 2025 | #3",
-    year: 2025,
-    date: "2025-07-30",
-    image: "images/photography/2025/2025-07-30_3.webp",
-    description: ""
-  },
-  {
-    id: "2025-07-30_2",
-    type: "photo",
-    title: "July 30, 2025 | #2",
-    year: 2025,
-    date: "2025-07-30",
-    image: "images/photography/2025/2025-07-30_2.webp",
     description: ""
   },
   {
@@ -1807,14 +1744,6 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-02-24",
     image: "images/photography/2025/2025-02-24.webp",
-  },
- {
-    id: "2024-08-31",
-    type: "photo",
-    title: "August 31, 2024",
-    year: 2024,
-    date: "2024-08-31",
-    image: "images/photography/2024/2024-08-31.webp",
   },
  {
     id: "2024-10-22",
