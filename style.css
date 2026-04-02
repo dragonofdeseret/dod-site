@@ -968,7 +968,7 @@ h2 {
   grid-auto-flow: column;
   grid-auto-columns: minmax(340px, 48vw);
   gap: 28px;
-  width: 100%
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.25rem 0 1rem;
@@ -1526,18 +1526,18 @@ hr {
 
 @media (max-width: 900px) {
   .layout {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .sidebar {
-    width: 100%;
-    flex: none;
-    border-right: none;
-    border-bottom: 1px solid #444;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 165px;
+    flex: 0 0 165px;
+    border-right: 1px solid #444;
+    border-bottom: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
     gap: 14px;
-    padding: 25px 20px;
+    padding: 22px 16px;
   }
 
   .sidebar a {
@@ -1545,8 +1545,9 @@ hr {
   }
 
   .sidebar h1 {
-    width: 100%;
-    margin-bottom: 10px;
+    width: auto;
+    margin-bottom: 14px;
+    font-size: 16px;
   }
 
   .content {

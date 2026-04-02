@@ -1662,7 +1662,7 @@ const archive = normalizeArchive([
   {
     id: "2025-07-30_5",
     type: "photo",
-    title: "July 30, 2025 | #5",
+    title: "July 30, 2025 | #3",
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_5.webp",
@@ -1671,7 +1671,7 @@ const archive = normalizeArchive([
   {
     id: "2025-07-30_4",
     type: "photo",
-    title: "July 30, 2025 | #4",
+    title: "July 30, 2025 | #2",
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_4.webp",
