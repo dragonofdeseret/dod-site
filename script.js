@@ -1217,7 +1217,7 @@ function renderQuoteText(item) {
   const wrapper = document.createElement("div");
   wrapper.className = "quote-text";
 
-  if (Array.isArray(item.lines) && item.lines.length) {
+  if (Array.isArray(item.lines) && item.lines.length > 0) {
     wrapper.classList.add("quote-text-lines");
 
     item.lines.forEach((line) => {
@@ -1226,9 +1226,14 @@ function renderQuoteText(item) {
       lineEl.textContent = line;
       wrapper.appendChild(lineEl);
     });
-  } else if (typeof item.text === "string" && item.text.trim()) {
+
+    return wrapper;
+  }
+
+  if (typeof item.text === "string" && item.text.trim()) {
     wrapper.classList.add("quote-text-block");
     wrapper.textContent = item.text;
+    return wrapper;
   }
 
   return wrapper;
