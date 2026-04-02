@@ -1265,7 +1265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
-  buildQuotesPage(archive);
+  buildQuotesPage();
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();

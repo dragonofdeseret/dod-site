@@ -1492,7 +1492,6 @@ const archive = normalizeArchive([
        QUOTES
 ====================== */
 
-
 {
   id: "quote_2025_02_15",
   type: "quote",
@@ -1501,7 +1500,7 @@ const archive = normalizeArchive([
 The Daodejing is a very complex text that has been bastardized by many, and it includes the rich history of the wisdom of the Yijing.
 
 Buddhism is a methodology of escape.
-Daoism is a methodology of acceptance.`
+Daoism is a methodology of acceptance.`,
   detail: "Response to question on X regarding the differences between Buddhism and Daoism."
 },
 {
