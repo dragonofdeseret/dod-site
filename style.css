@@ -1352,6 +1352,22 @@ h2 {
 
 .quote-text p {
   margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.quote-text-block {
+  white-space: pre-line;
+}
+
+.quote-text-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.quote-line {
+  white-space: normal;
 }
 
 /* ==========

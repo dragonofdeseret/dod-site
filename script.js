@@ -1213,6 +1213,27 @@ function setupQuestionForm() {
   });
 }
 
+function renderQuoteText(item) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "quote-text";
+
+  if (Array.isArray(item.lines) && item.lines.length) {
+    wrapper.classList.add("quote-text-lines");
+
+    item.lines.forEach((line) => {
+      const lineEl = document.createElement("div");
+      lineEl.className = "quote-line";
+      lineEl.textContent = line;
+      wrapper.appendChild(lineEl);
+    });
+  } else if (typeof item.text === "string" && item.text.trim()) {
+    wrapper.classList.add("quote-text-block");
+    wrapper.textContent = item.text;
+  }
+
+  return wrapper;
+}
+
 /* ====================
          FOOTER
 ======================= */
