@@ -167,6 +167,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_10.webp",
     exhibit: "joe",
+    exhibitOrder: 7,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -182,6 +183,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_9.webp",
     exhibit: "joe",
+    exhibitOrder: 8,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -197,6 +199,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_8.webp",
     exhibit: "joe",
+    exhibitOrder: 9,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -212,6 +215,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_7.webp",
     exhibit: "joe",
+    exhibitOrder: 6,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -227,6 +231,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_6.webp",
     exhibit: "joe",
+    exhibitOrder: 4,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -242,6 +247,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_5.webp",
     exhibit: "joe",
+    exhibitOrder: 3,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -257,6 +263,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_4.webp",
     exhibit: "joe",
+    exhibitOrder: 5,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -272,6 +279,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_3.webp",
     exhibit: "joe",
+    exhibitOrder: 10,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -287,6 +295,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_2.webp",
     exhibit: "joe",
+    exhibitOrder: 2,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
@@ -302,6 +311,7 @@ const archive = normalizeArchive([
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_1.webp",
     exhibit: "joe",
+    exhibitOrder: 1,
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
