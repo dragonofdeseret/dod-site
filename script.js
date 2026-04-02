@@ -1040,41 +1040,61 @@ function formatQuoteDate(dateString) {
   });
 }
 
-function buildQuotesPage() {
-  if (!window.location.pathname.includes("quotes.html")) return;
-  if (typeof archive === "undefined") return;
-
-  const container = document.getElementById("quotes-list");
+function buildQuotesPage(items) {
+  const container = document.querySelector(".quotes-list");
   if (!container) return;
-
-  const quoteItems = archive
-    .filter(item => item.type === "quote")
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   container.innerHTML = "";
 
-  if (!quoteItems.length) {
-    container.innerHTML = `<p class="page-intro">No quotes yet.</p>`;
-    return;
+  items
+    .filter((item) => item.type === "quote")
+    .sort((a, b) => toDate(b.date) - toDate(a.date))
+    .forEach((item) => {
+      const entry = document.createElement("article");
+      entry.className = "quote-entry";
+
+      const meta = document.createElement("div");
+      meta.className = "quote-meta";
+      meta.textContent = formatQuoteDate(item.date);
+
+      const text = renderQuoteText(item);
+
+      entry.appendChild(meta);
+      entry.appendChild(text);
+      container.appendChild(entry);
+    });
+}
+
+function renderQuoteText(item) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "quote-text";
+
+  if (Array.isArray(item.lines) && item.lines.length) {
+    wrapper.classList.add("quote-text-lines");
+
+    item.lines
+      .filter((line) => typeof line === "string")
+      .forEach((line) => {
+        const lineEl = document.createElement("div");
+        lineEl.className = "quote-line";
+        lineEl.textContent = line;
+        wrapper.appendChild(lineEl);
+      });
+
+    if (wrapper.childNodes.length > 0) {
+      return wrapper;
+    }
   }
 
-  quoteItems.forEach(item => {
-    const entry = document.createElement("article");
-    entry.className = "quote-entry";
+  if (typeof item.text === "string" && item.text.trim()) {
+    wrapper.classList.add("quote-text-block");
+    wrapper.textContent = item.text.trim();
+    return wrapper;
+  }
 
-    const meta = document.createElement("h3");
-    meta.className = "quote-meta";
-    meta.textContent = formatQuoteDate(item.date);
-
-    const text = document.createElement("div");
-    text.className = "quote-text";
-    text.textContent = item.text || "";
-
-    entry.appendChild(meta);
-    entry.appendChild(text);
-
-    container.appendChild(entry);
-  });
+  wrapper.classList.add("quote-text-block");
+  wrapper.textContent = "";
+  return wrapper;
 }
 
 /* ====================
@@ -1211,32 +1231,6 @@ function setupQuestionForm() {
       status.textContent = "something went wrong";
     }
   });
-}
-
-function renderQuoteText(item) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "quote-text";
-
-  if (Array.isArray(item.lines) && item.lines.length > 0) {
-    wrapper.classList.add("quote-text-lines");
-
-    item.lines.forEach((line) => {
-      const lineEl = document.createElement("div");
-      lineEl.className = "quote-line";
-      lineEl.textContent = line;
-      wrapper.appendChild(lineEl);
-    });
-
-    return wrapper;
-  }
-
-  if (typeof item.text === "string" && item.text.trim()) {
-    wrapper.classList.add("quote-text-block");
-    wrapper.textContent = item.text;
-    return wrapper;
-  }
-
-  return wrapper;
 }
 
 /* ====================
