@@ -1493,7 +1493,7 @@ const archive = normalizeArchive([
 ====================== */
 
 {
-  id: "quote_2026_03_30_01_text",
+  id: "quote_2026_03_30",
   type: "quote",
   date: "2026-03-30",
   text: `The straw man has no brain
@@ -1501,18 +1501,6 @@ The steel man has no heart
 The sage has neither—
 For they make the world of straw and steel men
 One muddled mind, treating them as children.`
-},
-{
-  id: "quote_2026_03_30_01_line",
-  type: "quote",
-  date: "2026-03-30",
-  lines: [
-    "The straw man has no brain",
-    "The steel man has no heart",
-    "The sage has neither—",
-    "For they make the world of straw and steel men",
-    "One muddled mind, treating them as children."
-  ]
 },
 
 /* ===================
