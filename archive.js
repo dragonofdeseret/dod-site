@@ -1570,7 +1570,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   date: "2022-09-24",
   text: `Psychescope: 1. The telescope and microscope for the psyche. 2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
 
-Psychescopic: 1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`
+Psychescopic: 1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`,
 detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
 },
 {
