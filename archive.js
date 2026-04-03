@@ -1488,8 +1488,9 @@ const archive = normalizeArchive([
     sections: ["trips"],
     substance: "LSD"
   },
+
 /* ===================
-       QUOTES
+       MARGINS
 ====================== */
 
 {
@@ -1524,6 +1525,28 @@ Wherefore, I am, I think...
 I think I am, therefore, 
 I am.
 Quoth the human—[n]evermore.`
+},
+
+/* ===================
+       QUOTES
+====================== */
+
+{
+  id: "Harding1",
+  type: "quotes",
+  text: "We suffer because we overlook the fact that, at heart, we are alright.",
+  author: "D.E. Harding",
+  source: "The Science of the First Person"
+},
+{
+  id: "Sondheim1",
+  type: "quotes",
+  text: `Content Dictates Form.
+Less is More.
+God is in the Details.
+All in the service of — Clarity.`
+  author: "Stephen Sondheim",
+  source: "Lyric Book"
 },
 
 /* ===================
