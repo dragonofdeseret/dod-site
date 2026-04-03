@@ -1041,7 +1041,7 @@ function formatQuoteDate(dateString) {
 }
 
 function buildMarginsPage(items = archive) {
-  const container = document.querySelector(".quotes-list");
+  const container = document.querySelector(".margins-list");
   if (!container || !Array.isArray(items)) return;
 
   container.innerHTML = "";
@@ -1314,7 +1314,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildWritingIndex();
   buildTripReportsPage();
   buildMarginsPage(archive);
-  buildQuotesPage();
+  buildQuotesPage(archive);
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();
