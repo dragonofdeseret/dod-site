@@ -1029,15 +1029,31 @@ function buildTripReportsPage() {
 ======================= */
 
 function formatQuoteDate(dateString) {
-  const date = new Date(dateString);
+  if (!dateString) return "";
 
-  if (Number.isNaN(date.getTime())) return dateString || "";
+  const parts = dateString.split("-");
+  if (parts.length !== 3) return dateString;
 
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
+  const year = Number(parts[0]);
+  const month = Number(parts[1]);
+  const day = Number(parts[2]);
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  if (
+    Number.isNaN(year) ||
+    Number.isNaN(month) ||
+    Number.isNaN(day) ||
+    month < 1 ||
+    month > 12
+  ) {
+    return dateString;
+  }
+
+  return `${monthNames[month - 1]} ${day}, ${year}`;
 }
 
 function buildMarginsPage(items = archive) {
