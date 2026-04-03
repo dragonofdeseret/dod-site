@@ -1135,32 +1135,6 @@ function renderQuoteText(item) {
   return wrapper;
 }
 
-function renderQuoteText(item) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "quote-text";
-
-  if (Array.isArray(item.lines) && item.lines.length) {
-    wrapper.classList.add("quote-text-lines");
-
-    item.lines.forEach((line) => {
-      const lineEl = document.createElement("div");
-      lineEl.className = "quote-line";
-      lineEl.textContent = line;
-      wrapper.appendChild(lineEl);
-    });
-
-    return wrapper;
-  }
-
-  if (typeof item.text === "string" && item.text.trim()) {
-    wrapper.classList.add("quote-text-block");
-    wrapper.textContent = item.text.trim();
-    return wrapper;
-  }
-
-  return wrapper;
-}
-
 function buildQuotesPage(items = archive) {
   const container = document.querySelector(".quotes-list");
   if (!container || !Array.isArray(items)) return;

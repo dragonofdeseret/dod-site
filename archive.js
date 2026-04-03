@@ -1577,18 +1577,22 @@ DMT is not merely a Schedule I controlled substance that everyone carries around
 detail: "Excerpts from The Quantum Moiré, 2022."
 },
 {
-  id: "2022_09_22_4",
+  id: "2022-09-24",
   type: "margins",
   title: "New Term: Psychescope",
+  year: 2022,
   date: "2022-09-24",
   allowHtml: true,
-  text: `<h2> Psychescope:</h2>
-1. The telescope and microscope for the psyche. 
-2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
+  text: `
+    <h2>Psychescope:</h2>
+    <p>1. The telescope and microscope for the psyche.</p>
+    <p>2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of consciousness.</p>
 
-<h2>Psychescopic:</h2> 
-1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`,
-detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
+    <h2>Psychescopic:</h2>
+    <p>1. Visible only through a psychescope.</p>
+    <p>2. Capable of viewing layered dimensional spectrums of transmissible light.</p>
+  `,
+  detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
 },
 {
   id: "2022_09_22_3",

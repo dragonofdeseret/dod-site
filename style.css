@@ -1450,6 +1450,20 @@ h2 {
 
 .margins-list .quote-text {
   color: rgba(255,255,255,0.88);
+  margin: 1.4rem 0 0.55rem;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.margins-list .quote-text h2:first-child {
+  margin-top: 0;
+}
+
+.margins-list .quote-text p {
+  margin: 0 0 0.8rem;
+  max-width: none;
 }
 
 .margins-list .quote-detail {
@@ -1493,7 +1507,6 @@ h2 {
   pointer-events: none;
 }
 
-/* avoid quote mark on margins if both share quote-text class structure */
 .margins-list .quote-entry .quote-text::before {
   content: none;
 }
