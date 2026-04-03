@@ -1025,7 +1025,7 @@ function buildTripReportsPage() {
 }
 
 /* ====================
-        MARGINS
+    MARGINS / QUOTES
 ======================= */
 
 function formatQuoteDate(dateString) {
@@ -1097,6 +1097,54 @@ function renderQuoteText(item) {
   }
 
   return wrapper;
+}
+
+function buildQuotesPage(items = archive) {
+  const container = document.querySelector(".quotess-list");
+  if (!container || !Array.isArray(items)) return;
+
+  container.innerHTML = "";
+
+  items
+    .filter((item) => item.type === "quote")
+    .sort((a, b) => toDate(b.date) - toDate(a.date))
+    .forEach((item) => {
+      const entry = document.createElement("article");
+      entry.className = "quote-entry";
+
+      const meta = document.createElement("div");
+      meta.className = "quote-meta";
+      meta.textContent = formatQuoteDate(item.date);
+
+      const text = renderQuoteText(item);
+
+      entry.appendChild(meta);
+      entry.appendChild(text);
+
+      if (item.author || item.source) {
+        const attribution = document.createElement("div");
+        attribution.className = "quote-attribution";
+
+        attribution.textContent = [
+          item.author,
+          item.source
+        ].filter(Boolean).join(", ");
+
+        if (attribution.textContent) {
+          attribution.textContent = "— " + attribution.textContent;
+          entry.appendChild(attribution);
+        }
+      }
+
+      if (item.detail) {
+        const detail = document.createElement("div");
+        detail.className = "quote-detail";
+        detail.textContent = item.detail;
+        entry.appendChild(detail);
+      }
+
+      container.appendChild(entry);
+    });
 }
 
 /* ====================
@@ -1266,6 +1314,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildWritingIndex();
   buildTripReportsPage();
   buildMarginsPage();
+  buildQuotesPage();
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();
