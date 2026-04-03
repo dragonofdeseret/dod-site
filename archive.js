@@ -1527,19 +1527,19 @@ I am.
 Quoth the human—[n]evermore.`
 },
 {
+id: "2022_01_17",
+  type: "margins",
+  date: "2022-01-17",
+  text: `
+Now, as far as deconstruction goes the first question one ought ask themselves is whether or not they have deconstructed deconstruction.`,
+detail: "Excerpt from: The Epistle of Christopher, 2022"
+},
+{
  id: "2022_01_17",
   type: "margins",
   date: "2022-01-17",
   text: `
 Many would say that the idea of there being nothing we can do to improve ourselves, our circumstances, or an institution such as the church is rather a depressing idea. For Latter-day Saints it’s a metaphorical homage to that foundation-less, and drifting great and spacious building; full of the sneers and jeers of those lost in a vast and misunderstood Deconstruction of their very foundation; lost for a meaning of who they are and where they stand, and why. It also harkens back to pre-existent days when Lucifer presented a plan he had envisioned where everyone would be saved and receive salvation because we would be forced to obey—nothing we could do—no gift of free agency. But you see, that plan in and of itself is a doing and a choice. Had we been sent to Earth under this plan it wouldn’t have been a plan of involuntary non-doing but rather a plan of voluntarily doing exactly what we voluntarily chose and set out to involuntarily complete.`,
-detail: "Excerpt from: The Epistle of Christopher, 2022"
-},
-{
-id: "2022_01_17",
-  type: "margins",
-  date: "2022-01-17",
-  text: `
-Now as far as deconstruction goes the first question one ought ask themselves is whether or not you have deconstructed deconstruction.`,
 detail: "Excerpt from: The Epistle of Christopher, 2022"
 },
 {
