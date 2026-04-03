@@ -1313,7 +1313,9 @@ function buildFooter() {
   content.appendChild(footer);
 }
 
-INIT
+/* ====================
+          INIT
+======================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
