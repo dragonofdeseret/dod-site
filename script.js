@@ -1313,7 +1313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
-  buildMarginsPage();
+  buildMarginsPage(archive);
   buildQuotesPage();
   buildExhibitsArchive();
   buildExhibitPage();

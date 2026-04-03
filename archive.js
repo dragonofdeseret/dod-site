@@ -1544,7 +1544,7 @@ Quoth the human—[n]evermore.`
   text: `Content Dictates Form.
 Less is More.
 God is in the Details.
-All in the service of — Clarity.`
+All in the service of — Clarity.`,
   author: "Stephen Sondheim",
   source: "Lyric Book"
 },
