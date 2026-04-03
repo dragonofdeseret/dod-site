@@ -1340,6 +1340,15 @@ const archive = normalizeArchive([
     sections: ["writing"]
   },
   {
+    id: "BSnSG",
+    type: "writing",
+    title: "Broken Shelves and Snow Globes",
+    date: "2023-09-24",
+    year: 2023,
+    file: "pdf/BSnSG.pdf",
+    sections: ["writing"],
+  },
+  {
     id: "Toyn",
     type: "writing",
     title: "Recurring Toyn Dream | ~2000–2005",
@@ -1532,6 +1541,7 @@ const archive = normalizeArchive([
 {
   id: "2025_02_15",
   type: "margins",
+  title: "Daoism v. Buddhism",
   date: "2025-02-15",
   text: `Daoism is anarchist, acosmotic, and has more breadth then Buddhism. 
 The Daodejing is a very complex text that has been bastardized by many, and it includes the rich history of the wisdom of the Yijing.
@@ -1543,6 +1553,7 @@ Daoism is a methodology of acceptance.`,
 {
   id: "2025_01_22",
   type: "margins",
+  title: "Psychescopes of Consciousness",
   date: "2025-01-22",
   text: `The true telescope and microscope for Consciousness is called a Psychescope, which is a blend of tryptamine's refracting light through cerebrospinal fluid.`,
 detail: "Discussion of consciousness and psychedelics on X."
@@ -1550,15 +1561,16 @@ detail: "Discussion of consciousness and psychedelics on X."
 {
   id: "2024_07_23",
   type: "margins",
+  title: "DMT as a Psychescope",
   date: "2024-07-23",
   text: `
-One of the first things I learned from these experiences was that we can classify something like
-DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
+One of the first things I learned from these experiences was that we can classify something like DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
 detail: "Conversations had on X."
 },
 {
   id: "2022_09_22_5",
   type: "margins",
+  title: "DMT",
   date: "2022-09-24",
   text: `
 DMT is not merely a Schedule I controlled substance that everyone carries around in them endogenously every moment of every day, it is a reality expander and psychescopic tool for exploring deeply personal and mutually entailed vast quantum worlds of which we cannot possibly conceive on our own.`,
@@ -1567,15 +1579,20 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 {
   id: "2022_09_22_4",
   type: "margins",
+  title: "New Term: Psychescope",
   date: "2022-09-24",
-  text: `Psychescope: 1. The telescope and microscope for the psyche. 2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
+  text: `<h2> Psychescope:</h2>
+1. The telescope and microscope for the psyche. 
+2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
 
-Psychescopic: 1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`,
+<h2>Psychescopic:</h2> 
+1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`,
 detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
 },
 {
   id: "2022_09_22_3",
   type: "margins",
+  title: "Point of Reference",
   date: "2022-09-24",
   text: `
 There appears to be no distinct or significant point of reference in which to reside or from which to observe the universe because space, while out there, is actually all in your head, and time, while morphic in all places, is only a memory; thus spacetime is a peculiar mirage of insignificant individuation. This must be the same for the Earth. It is a significant liquid space marble with an individual reference point around an individual sun, but Earth, while it is out there in space, is only everything inside of its atmospheres.`,
@@ -1584,9 +1601,9 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 {
   id: "2022_09_22_2",
   type: "margins",
+  title: "What Neurons Do",
   date: "2022-09-24",
-  text: `Simply stated, what neurons do is what the universe does and what the universe does is what neurons do... 
-What neurons and DNA do is what atoms and photons do, and what atoms and photons do is what neurons and DNA do...
+  text: `Simply stated, what neurons do is what the universe does and what the universe does is what neurons do... What neurons and DNA do is what atoms and photons do, and what atoms and photons do is what neurons and DNA do...
 
 There is space, structure, taxonomy, morphology, and ecology; an entire ecosystem hidden behind this iridescently transvisible veil of contracted human perception. I believe this is the dark matter we seek to illuminate. It is out there as our mutually entangled[interwoven] spacial opposite, just as it is entirely and exactly here within us as our mutually entailed neural moiré; the Dark and Grey Matter Terrain of experience. `,
 detail: "Excerpts from The Quantum Moiré, 2022."
@@ -1594,6 +1611,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 {
   id: "2022_09_22_1",
   type: "margins",
+  title: "I think, therefore, I Quoth",
   date: "2022-09-24",
   text: `I think, therefore I am.
 I am, therefore, I think.
@@ -1607,6 +1625,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 {
   id: "2022_08_02",
   type: "margins",
+  title: "DMSD",
   date: "2022-08-02",
   text: `Dimitri in the Sky with Diamonds (DMSD) = The combination of LSD, with 20-40mg of DMT at first peak.`,
   detail: "DMSD journeys of summer and fall 2022."
@@ -1614,6 +1633,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 {
   id: "2022_06_23",
   type: "margins",
+  title: "The Straw, Steel, and Sage men",
   date: "2022-06-23",
   text: `The straw man has no brain
 The steel man has no heart
@@ -1625,6 +1645,7 @@ detail: "date unknown, likely 2022-ish X post."
 {
 id: "2022_05_11",
   type: "margins",
+  title: "Free Will v. Determinism",
   date: "2022-05-11",
   text: `
 Regarding Free Will vs Determinism. I find that what we really have is a slightly wider array of functions any one person can inhabit depending on how they recall the world, and thus how they believe the world arises. Any one can inhabit the following forms of world recollection and belief—whether or not they are free to choose to inhabit one of these or not, is up to which one they recall:
@@ -1638,6 +1659,7 @@ detail: "TikTok and YouTube conversations of 2022"
 {
 id: "2022_01_17_3",
   type: "margins",
+  title: "Deconstructing Deconstruction",
   date: "2022-01-17",
   text: `
 Now, as far as deconstruction goes the first question one ought ask themselves is whether or not they have deconstructed deconstruction.`,
@@ -1646,6 +1668,7 @@ detail: "Excerpt from: The Epistle of Christopher, 2022"
 {
  id: "2022_01_17_2",
   type: "margins",
+  title: "Nonsctruction",
   date: "2022-01-17",
   text: `
 Many would say that the idea of there being nothing we can do to improve ourselves, our circumstances, or an institution such as the church is rather a depressing idea. For Latter-day Saints it’s a metaphorical homage to that foundation-less, and drifting great and spacious building; full of the sneers and jeers of those lost in a vast and misunderstood Deconstruction of their very foundation; lost for a meaning of who they are and where they stand, and why. It also harkens back to pre-existent days when Lucifer presented a plan he had envisioned where everyone would be saved and receive salvation because we would be forced to obey—nothing we could do—no gift of free agency. But you see, that plan in and of itself is a doing and a choice. Had we been sent to Earth under this plan it wouldn’t have been a plan of involuntary non-doing but rather a plan of voluntarily doing exactly what we voluntarily chose and set out to involuntarily complete.`,
@@ -1654,6 +1677,7 @@ detail: "Excerpt from: The Epistle of Christopher, 2022"
 {
 id: "2022_01_17_1",
   type: "margins",
+  title: "Deconstruction is just a Moment",
   date: "2022-01-17",
   text: `
 For example, (not discounting the corresponding turmoil), many individuals have no doubt found comfort and opened eyes in the empirical deconstruction of Letter to a CES Director. Revelations of church historical inaccuracies or outright deceptions is enough to get anyone’s tapir and leave, but it is another thing altogether to cleave to these revelations in the very same way one does their restored eternal family doctrine. In this way the status of Deconstruction becomes the goal rather than having understood and fully realized what it means to undergo this process—if you need undergo it at all. 
