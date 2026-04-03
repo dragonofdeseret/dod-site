@@ -1855,6 +1855,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-12-01",
     image: "images/photography/2025/2025-12-01.webp",
+    showOnArchive: false,
   },
   {
     id: "2025-10-21",
