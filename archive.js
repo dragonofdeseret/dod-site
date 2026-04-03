@@ -1505,17 +1505,33 @@ Daoism is a methodology of acceptance.`,
   detail: "Response to question on X regarding the differences between Buddhism and Daoism."
 },
 {
-  id: "2022_11_30",
+  id: "2025_01_22",
   type: "margins",
-  date: "2022-11-30",
-  text: `The straw man has no brain
-The steel man has no heart
-The sage has neither—
-For they make the world of straw and steel men
-One muddled mind, treating them as children.`
+  date: "2025-01-22",
+  text: `The true telescope and microscope for Consciousness is called a Psychescope, which is a blend of tryptamine's refracting light through cerebrospinal fluid.`,
+detail: Discussion of consciousness and psychedelics on X.
 },
 {
-  id: "2022_09_24",
+  id: "2022_09_22_3",
+  type: "margins",
+  date: "2022-09-24",
+  text: `Psychescope: 1. The telescope and microscope for the psyche. 2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
+
+Psychescopic: 1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`
+detail: Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022.
+},
+{
+  id: "2022_09_22_2",
+  type: "margins",
+  date: "2022-09-24",
+  text: `Simply stated, what neurons do is what the universe does and what the universe does is what neurons do... 
+What neurons and DNA do is what atoms and photons do, and what atoms and photons do is what neurons and DNA do...
+
+There is space, structure, taxonomy, morphology, and ecology; an entire ecosystem hidden behind this iridescently transvisible veil of contracted human perception. I believe this is the dark matter we seek to illuminate. It is out there as our mutually entangled[interwoven] spacial opposite, just as it is entirely and exactly here within us as our mutually entailed neural moiré; the Dark and Grey Matter Terrain of experience. `,
+detail: "Excerpts from The Quantum Moiré, 2022
+},
+{
+  id: "2022_09_22_1",
   type: "margins",
   date: "2022-09-24",
   text: `I think, therefore I am.
@@ -1527,7 +1543,38 @@ I am.
 Quoth the human—[n]evermore.`
 },
 {
-id: "2022_01_17",
+  id: "2022_08_02",
+  type: "margins",
+  date: "2022-08-02",
+  text: `Dimitri in the Sky with Diamonds (DMSD) = The combination of LSD, with 20-40mg of DMT at first peak.`,
+detail: DMSD journeys of summer and fall 2022.
+},
+{
+  id: "2022_06_23",
+  type: "margins",
+  date: "2022-06-23",
+  text: `The straw man has no brain
+The steel man has no heart
+The sage has neither—
+For they make the world of straw and steel men
+One muddled mind, treating them as children.`,
+detail: date unknown, likely 2022-ish X post. 
+},
+{
+id: "2022_05_11",
+  type: "margins",
+  date: "2022-05-11",
+  text: `
+Regarding Free Will vs Determinism. I find that what we really have is a slightly wider array of functions any one person can inhabit depending on how they recall the world, and thus how they believe the world arises. Any one can inhabit the following forms of world recollection and belief—whether or not they are free to choose to inhabit one of these or not, is up to which one they recall:
+
+Functional Determinism
+Nonfunctional Determinism
+Functional Nondeterminism
+Nonfunctional Nondeterminism`,
+detail: "TikTok and YouTube conversations of 2022"
+},
+{
+id: "2022_01_17_3",
   type: "margins",
   date: "2022-01-17",
   text: `
@@ -1535,7 +1582,7 @@ Now, as far as deconstruction goes the first question one ought ask themselves i
 detail: "Excerpt from: The Epistle of Christopher, 2022"
 },
 {
- id: "2022_01_17",
+ id: "2022_01_17_2",
   type: "margins",
   date: "2022-01-17",
   text: `
@@ -1543,7 +1590,7 @@ Many would say that the idea of there being nothing we can do to improve ourselv
 detail: "Excerpt from: The Epistle of Christopher, 2022"
 },
 {
-id: "2022_01_17",
+id: "2022_01_17_1",
   type: "margins",
   date: "2022-01-17",
   text: `
