@@ -1494,7 +1494,7 @@ const archive = normalizeArchive([
 ====================== */
 
 {
-  id: "quote_2025_02_15",
+  id: "2025_02_15",
   type: "margins",
   date: "2025-02-15",
   text: `Daoism is anarchist, acosmotic, and has more breadth then Buddhism. 
@@ -1505,7 +1505,7 @@ Daoism is a methodology of acceptance.`,
   detail: "Response to question on X regarding the differences between Buddhism and Daoism."
 },
 {
-  id: "quote_2022_11_30",
+  id: "2022_11_30",
   type: "margins",
   date: "2022-11-30",
   text: `The straw man has no brain
@@ -1515,7 +1515,7 @@ For they make the world of straw and steel men
 One muddled mind, treating them as children.`
 },
 {
-  id: "quote_2022_09_24",
+  id: "2022_09_24",
   type: "margins",
   date: "2022-09-24",
   text: `I think, therefore I am.
@@ -1533,14 +1533,14 @@ Quoth the human—[n]evermore.`
 
 {
   id: "Harding1",
-  type: "quotes",
+  type: "quote",
   text: "We suffer because we overlook the fact that, at heart, we are alright.",
   author: "D.E. Harding",
   source: "The Science of the First Person"
 },
 {
   id: "Sondheim1",
-  type: "quotes",
+  type: "quote",
   text: `Content Dictates Form.
 Less is More.
 God is in the Details.
