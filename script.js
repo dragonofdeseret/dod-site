@@ -536,7 +536,7 @@ function buildArtworkPage() {
     archive.filter((item) => item.type === "art" && item.showOnArt !== false)
   );
 
-  const item = allArtItems.find((item) => item.id === id);
+  const item = allArtItems.find((entry) => entry.id === id);
 
   if (!item) {
     window.location.href = "art.html";
@@ -576,7 +576,7 @@ function buildArtworkPage() {
   imageEl.addEventListener("click", () => openLightbox(item.image, item.title || ""));
 
   let backHref = "art.html";
-  let backText = "Back";
+  let backText = "Back to Artwork";
 
   if (from === "archive") {
     backHref = "archive.html";
@@ -595,9 +595,6 @@ function buildArtworkPage() {
     backText,
     (entry) => `artwork.html?id=${entry.id}&from=${from}`
   );
-
-  preloadImage(prev && prev.image);
-  preloadImage(next && next.image);
 
   bindArrowNavigation(
     prev ? `artwork.html?id=${prev.id}&from=${from}` : "",
