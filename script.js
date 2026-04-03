@@ -1047,7 +1047,7 @@ function buildMarginsPage(items = archive) {
   container.innerHTML = "";
 
   items
-    .filter((item) => item.type === "quote")
+    .filter((item) => item.type === "margins")
     .sort((a, b) => toDate(b.date) - toDate(a.date))
     .forEach((item) => {
       const entry = document.createElement("article");
