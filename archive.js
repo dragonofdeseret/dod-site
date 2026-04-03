@@ -1295,6 +1295,15 @@ const archive = normalizeArchive([
     sections: ["writing"]
   },
   {
+    id: "DragonPearl",
+    type: "writing",
+    title: "A Dragon Guards the Pearl of Enlightenment",
+    year: 2025,
+    date: "2025-09-22",
+    file: "pdf/DragonPearl.pdf",
+    sections: ["writing"]
+  },
+  {
     id: "AcidLullabies",
     type: "writing",
     title: "Acid Lullabies: LSD Interactions with Chronic Pain & Insomnia, a Hypothesis",
