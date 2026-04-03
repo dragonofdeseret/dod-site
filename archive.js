@@ -1533,14 +1533,14 @@ Quoth the human—[n]evermore.`
 
 {
   id: "Harding1",
-  type: "quote",
+  type: "quotes",
   text: "We suffer because we overlook the fact that, at heart, we are alright.",
   author: "D.E. Harding",
   source: "The Science of the First Person"
 },
 {
   id: "Sondheim1",
-  type: "quote",
+  type: "quotes",
   text: `Content Dictates Form.
 Less is More.
 God is in the Details.

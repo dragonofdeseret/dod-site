@@ -1100,13 +1100,13 @@ function renderQuoteText(item) {
 }
 
 function buildQuotesPage(items = archive) {
-  const container = document.querySelector(".quotess-list");
+  const container = document.querySelector(".quotes-list");
   if (!container || !Array.isArray(items)) return;
 
   container.innerHTML = "";
 
   items
-    .filter((item) => item.type === "quote")
+    .filter((item) => item.type === "quotes")
     .sort((a, b) => toDate(b.date) - toDate(a.date))
     .forEach((item) => {
       const entry = document.createElement("article");
@@ -1117,18 +1117,15 @@ function buildQuotesPage(items = archive) {
       meta.textContent = formatQuoteDate(item.date);
 
       const text = renderQuoteText(item);
-
       entry.appendChild(meta);
       entry.appendChild(text);
 
       if (item.author || item.source) {
         const attribution = document.createElement("div");
         attribution.className = "quote-attribution";
-
-        attribution.textContent = [
-          item.author,
-          item.source
-        ].filter(Boolean).join(", ");
+        attribution.textContent = [item.author, item.source]
+          .filter(Boolean)
+          .join(", ");
 
         if (attribution.textContent) {
           attribution.textContent = "— " + attribution.textContent;
@@ -1136,10 +1133,10 @@ function buildQuotesPage(items = archive) {
         }
       }
 
-      if (item.detail) {
+      if (typeof item.detail === "string" && item.detail.trim()) {
         const detail = document.createElement("div");
         detail.className = "quote-detail";
-        detail.textContent = item.detail;
+        detail.textContent = item.detail.trim();
         entry.appendChild(detail);
       }
 
@@ -1303,24 +1300,25 @@ function buildFooter() {
   content.appendChild(footer);
 }
 
-/* ====================
-        INIT
-======================= */
-
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
-  buildMarginsPage(archive);
-  buildQuotesPage(archive);
   buildExhibitsArchive();
   buildExhibitPage();
-  buildArtworkPage();
-  buildPhotographyPage();
-  buildWritingPage();
   buildQuestionsPage();
   fetchPublicQuestions();
+
+  buildMarginsPage(archive);
+  buildQuotesPage(archive);
+
+  if (window.location.pathname.includes("artwork.html")) {
+    enhanceArtworkPage();
+  }
+
+  buildPhotographyPage();
+  buildWritingPage();
   buildFooter();
 });
