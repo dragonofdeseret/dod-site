@@ -1560,6 +1560,15 @@ Daoism is a methodology of acceptance.`,
   detail: "Response to question on X regarding the differences between Buddhism and Daoism."
 },
 {
+  id: "2025_02_20",
+  type: "margins",
+  title: "Why There is No Schizophrenia in the Congenitally Blind",
+  date: "2025-02-20",
+  text: `
+Every sense is the specialization of the sense of touch. With no light touching the occipital lobe, it has rewired itself through plasticity to conform likely to the parietal lobe; “seeing” through the primary touch sense, (i.e. braille). The negative impact is enlarged ventricles in the prefrontal cortex and other regions. This may play a role in schizophrenia. Ventricles are the network housing the medium which defracts light for perception of dreams, psychedelics, or delusions, etc, –cerebrospinal fluid. CSF has nothing to defract in the congenitally blind, and is instead overloaded with other sensory information attempting to build an alternative consensus model/framework to reality.`,
+detail: "Popular response to a video by '@idea.soup' which was reposted on X."
+},
+{
   id: "2025_01_22",
   type: "margins",
   title: "Psychescopes of Consciousness",
@@ -1575,6 +1584,14 @@ detail: "Discussion of consciousness and psychedelics on X."
   text: `
 One of the first things I learned from these experiences was that we can classify something like DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
 detail: "Conversations had on X."
+},
+{
+  id: "2024_06_16",
+  type: "margins",
+  title: "All Sense is the Specialization of the Sense of Touch",
+  date: "2024-06-16",
+  text: `
+All senses are the specialization of the sense of touch. This is why psychedelics feel so real. In a sense, you finally know that you're touching light when you see it, and touching sound when you hear it. It's in the tactile experience.`,
 },
 {
   id: "2022_09_22_5",
