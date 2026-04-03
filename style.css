@@ -1314,35 +1314,31 @@ h2 {
 
 .margins-list,
 .quotes-list {
-  padding: 1.75rem 1.5rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.035) 0%,
-      rgba(255,255,255,0.012) 100%
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.04),
-    0 24px 60px rgba(0,0,0,0.32);
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
 }
+
+/* quiet folio cards */
 
 .quote-entry {
   position: relative;
   width: 100%;
   max-width: 760px;
-  padding: 1.4rem 1.5rem 1.2rem;
-  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.45rem 1.55rem 1.25rem;
+  border: 1px solid rgba(255,255,255,0.07);
   background:
     linear-gradient(
       180deg,
-      rgba(255,255,255,0.045) 0%,
-      rgba(255,255,255,0.018) 100%
+      rgba(7, 12, 28, 0.94) 0%,
+      rgba(5, 9, 22, 0.98) 100%
     );
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.04),
-    0 18px 40px rgba(0,0,0,0.28);
-  backdrop-filter: blur(1.5px);
+    inset 0 1px 0 rgba(255,255,255,0.03),
+    0 16px 36px rgba(0,0,0,0.26);
   transition:
     transform 0.22s ease,
     border-color 0.22s ease,
@@ -1350,43 +1346,46 @@ h2 {
     background 0.22s ease;
 }
 
-.quote-entry:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,0.13);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.05),
-    0 24px 52px rgba(0,0,0,0.38);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.055) 0%,
-      rgba(255,255,255,0.022) 100%
-    );
-}
+/* soft folio header rule */
 
 .quote-entry::before {
   content: "";
   position: absolute;
-  left: 1.5rem;
+  left: 1.55rem;
   top: 0;
-  width: 56px;
+  width: 72px;
   height: 1px;
-  background: rgba(255,255,255,0.18);
-  opacity: 0.8;
+  background: rgba(255,255,255,0.14);
 }
+
+.quote-entry:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 22px 46px rgba(0,0,0,0.34);
+}
+
+/* date / metadata */
 
 .quote-meta {
-  opacity: 0.56;
-  font-size: 0.76rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   margin-bottom: 1rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  opacity: 0.62;
+  color: rgba(255,255,255,0.72);
 }
 
+/* main reading body */
+
 .quote-text {
+  max-width: 34em;
   font-size: 1.14rem;
-  line-height: 1.95;
-  max-width: 640px;
+  line-height: 1.88;
+  letter-spacing: 0.005em;
+  color: rgba(255,255,255,0.9);
+  text-wrap: pretty;
 }
 
 .quote-text-block {
@@ -1396,73 +1395,131 @@ h2 {
 .quote-text-lines {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.18rem;
 }
 
 .quote-line {
   display: block;
+  margin: 0;
 }
+
+/* attribution */
 
 .quote-attribution {
   margin-top: 1rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 0.95rem;
+  padding-top: 0.8rem;
+  max-width: 34em;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  font-size: 0.94rem;
   line-height: 1.6;
-  opacity: 0.78;
+  color: rgba(255,255,255,0.76);
 }
+
+/* curator / contextual note */
 
 .quote-detail {
-  margin-top: 0.9rem;
-  max-width: 620px;
-  font-size: 0.92rem;
-  line-height: 1.7;
-  opacity: 0.62;
-  font-style: italic;
+  margin-top: 0.85rem;
+  max-width: 36em;
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: rgba(255,255,255,0.66);
+  font-style: normal;
 }
 
-/* page-specific nuance */
+/* subtle page distinction */
 
 .margins-list .quote-entry {
-  border-left: 1px solid rgba(255,255,255,0.14);
+  border-left: 1px solid rgba(255,255,255,0.11);
 }
 
+.margins-list .quote-text {
+  color: rgba(255,255,255,0.88);
+}
+
+.margins-list .quote-detail {
+  margin-top: 0.95rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.88rem;
+  line-height: 1.66;
+  color: rgba(255,255,255,0.56);
+}
+
+/* quotes by others */
+
 .quotes-list .quote-entry {
-  border-left: 1px solid rgba(140, 150, 255, 0.18);
+  border-left: 1px solid rgba(124, 145, 255, 0.18);
 }
 
 .quotes-list .quote-text {
-  font-size: 1.18rem;
-  max-width: 34em;
+  color: rgba(255,255,255,0.92);
 }
 
 .quotes-list .quote-attribution {
-  opacity: 0.84;
+  color: rgba(255,255,255,0.82);
 }
+
+/* optional hanging opening quote mark for quoted others only */
+
+.quotes-list .quote-text-block:first-child,
+.quotes-list .quote-text-lines:first-child {
+  position: relative;
+}
+
+.quotes-list .quote-entry .quote-text::before {
+  content: "“";
+  position: absolute;
+  left: -0.38rem;
+  top: -0.2rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: rgba(255,255,255,0.14);
+  pointer-events: none;
+}
+
+/* avoid quote mark on margins if both share quote-text class structure */
+.margins-list .quote-entry .quote-text::before {
+  content: none;
+}
+
+/* mobile */
 
 @media (max-width: 700px) {
   .margins-list,
   .quotes-list {
-    gap: 18px;
+    gap: 16px;
   }
 
   .quote-entry {
-    padding: 1.15rem 1rem 1rem;
+    padding: 1.1rem 1rem 1rem;
   }
 
   .quote-entry::before {
     left: 1rem;
-    width: 42px;
-  }
-
-  .quote-text {
-    font-size: 1.04rem;
-    line-height: 1.8;
+    width: 48px;
   }
 
   .quote-meta {
-    font-size: 0.72rem;
     margin-bottom: 0.8rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+
+  .quote-text {
+    font-size: 1.03rem;
+    line-height: 1.8;
+    max-width: 100%;
+  }
+
+  .quote-attribution,
+  .quote-detail {
+    max-width: 100%;
+  }
+
+  .quotes-list .quote-entry .quote-text::before {
+    left: -0.18rem;
+    top: -0.08rem;
+    font-size: 1.25rem;
   }
 }
 
