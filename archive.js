@@ -1494,7 +1494,7 @@ const archive = normalizeArchive([
 
 {
   id: "quote_2025_02_15",
-  type: "quote",
+  type: "margins",
   date: "2025-02-15",
   text: `Daoism is anarchist, acosmotic, and has more breadth then Buddhism. 
 The Daodejing is a very complex text that has been bastardized by many, and it includes the rich history of the wisdom of the Yijing.
@@ -1505,7 +1505,7 @@ Daoism is a methodology of acceptance.`,
 },
 {
   id: "quote_2022_11_30",
-  type: "quote",
+  type: "margins",
   date: "2022-11-30",
   text: `The straw man has no brain
 The steel man has no heart
@@ -1515,7 +1515,7 @@ One muddled mind, treating them as children.`
 },
 {
   id: "quote_2022_09_24",
-  type: "quote",
+  type: "margins",
   date: "2022-09-24",
   text: `I think, therefore I am.
 I am, therefore, I think.

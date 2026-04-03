@@ -1025,7 +1025,7 @@ function buildTripReportsPage() {
 }
 
 /* ====================
-        QUOTES
+        MARGINS
 ======================= */
 
 function formatQuoteDate(dateString) {
@@ -1040,7 +1040,7 @@ function formatQuoteDate(dateString) {
   });
 }
 
-function buildQuotesPage(items = archive) {
+function buildMarginsPage(items = archive) {
   const container = document.querySelector(".quotes-list");
   if (!container || !Array.isArray(items)) return;
 
@@ -1265,7 +1265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
-  buildQuotesPage();
+  buildMarginsPage();
   buildExhibitsArchive();
   buildExhibitPage();
   buildArtworkPage();
