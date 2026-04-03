@@ -1389,11 +1389,47 @@ const archive = normalizeArchive([
     sections: ["trips"],
     substance: "Psilocybin"
   },
+{
+    id: "TCJ",
+    type: "writing",
+    title: "The Cosmic Joke",
+    date: "2022-09-22",
+    year: 2022,
+    file: "pdf/TCJ.pdf",
+    sections: ["writing"],
+  },
+  {
+    id: "TCAE",
+    type: "writing",
+    title: "The Cosmological Axis of Evil",
+    date: "2022-09-22",
+    year: 2022,
+    file: "pdf/TCAE.pdf",
+    sections: ["writing"]
+  },
+{
+    id: "Vintepathy",
+    type: "writing",
+    title: "Vintepathy",
+    date: "2022-09-22",
+    year: 2022,
+    file: "pdf/Vintepathy.pdf",
+    sections: ["writing"],
+  },
+{
+    id: "RoEM",
+    type: "writing",
+    title: "DMT: Representation of Entity Morphology",
+    date: "2022-09-22",
+    year: 2022,
+    file: "pdf/RoEM.pdf",
+    sections: ["writing"],
+  },
   {
     id: "DMTERRAIN",
     type: "writing",
     title: "The Dark Matter Terrain",
-    date: "2022-09-23",
+    date: "2022-09-22",
     year: 2022,
     file: "pdf/DMTERRAIN.pdf",
     sections: ["writing"]
@@ -1509,7 +1545,7 @@ Daoism is a methodology of acceptance.`,
   type: "margins",
   date: "2025-01-22",
   text: `The true telescope and microscope for Consciousness is called a Psychescope, which is a blend of tryptamine's refracting light through cerebrospinal fluid.`,
-detail: Discussion of consciousness and psychedelics on X.
+detail: "Discussion of consciousness and psychedelics on X."
 },
 {
   id: "2024_07_23",
@@ -1518,16 +1554,32 @@ detail: Discussion of consciousness and psychedelics on X.
   text: `
 One of the first things I learned from these experiences was that we can classify something like
 DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
-detail: Conversations had on X
+detail: "Conversations had on X."
 },
 {
-  id: "2022_09_22_3",
+  id: "2022_09_22_5",
+  type: "margins",
+  date: "2022-09-24",
+  text: `
+DMT is not merely a Schedule I controlled substance that everyone carries around in them endogenously every moment of every day, it is a reality expander and psychescopic tool for exploring deeply personal and mutually entailed vast quantum worlds of which we cannot possibly conceive on our own.`,
+detail: "Excerpts from The Quantum Moiré, 2022."
+},
+{
+  id: "2022_09_22_4",
   type: "margins",
   date: "2022-09-24",
   text: `Psychescope: 1. The telescope and microscope for the psyche. 2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.
 
 Psychescopic: 1. Visible only through a psychescope. 2. Capable of viewing layered dimensional spectrums of transvisible light.`
-detail: Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022.
+detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
+},
+{
+  id: "2022_09_22_3",
+  type: "margins",
+  date: "2022-09-24",
+  text: `
+There appears to be no distinct or significant point of reference in which to reside or from which to observe the universe because space, while out there, is actually all in your head, and time, while morphic in all places, is only a memory; thus spacetime is a peculiar mirage of insignificant individuation. This must be the same for the Earth. It is a significant liquid space marble with an individual reference point around an individual sun, but Earth, while it is out there in space, is only everything inside of its atmospheres.`,
+detail: "Excerpts from The Quantum Moiré, 2022."
 },
 {
   id: "2022_09_22_2",
@@ -1537,7 +1589,7 @@ detail: Term coined after many heavy DMT, LSD and DMSD experiences in summer of 
 What neurons and DNA do is what atoms and photons do, and what atoms and photons do is what neurons and DNA do...
 
 There is space, structure, taxonomy, morphology, and ecology; an entire ecosystem hidden behind this iridescently transvisible veil of contracted human perception. I believe this is the dark matter we seek to illuminate. It is out there as our mutually entangled[interwoven] spacial opposite, just as it is entirely and exactly here within us as our mutually entailed neural moiré; the Dark and Grey Matter Terrain of experience. `,
-detail: "Excerpts from The Quantum Moiré, 2022
+detail: "Excerpts from The Quantum Moiré, 2022."
 },
 {
   id: "2022_09_22_1",
@@ -1549,14 +1601,15 @@ Therefore, I think I am;
 Wherefore, I am, I think...
 I think I am, therefore, 
 I am.
-Quoth the human—[n]evermore.`
+Quoth the human—[n]evermore.`,
+detail: "Excerpts from The Quantum Moiré, 2022."
 },
 {
   id: "2022_08_02",
   type: "margins",
   date: "2022-08-02",
   text: `Dimitri in the Sky with Diamonds (DMSD) = The combination of LSD, with 20-40mg of DMT at first peak.`,
-detail: DMSD journeys of summer and fall 2022.
+  detail: "DMSD journeys of summer and fall 2022."
 },
 {
   id: "2022_06_23",
@@ -1567,7 +1620,7 @@ The steel man has no heart
 The sage has neither—
 For they make the world of straw and steel men
 One muddled mind, treating them as children.`,
-detail: date unknown, likely 2022-ish X post. 
+detail: "date unknown, likely 2022-ish X post." 
 },
 {
 id: "2022_05_11",
