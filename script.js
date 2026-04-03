@@ -186,6 +186,14 @@ function getItemUrl(item, from = "archive") {
     return `writings.html?id=${item.id}${from ? `&from=${from}` : ""}`;
   }
 
+  if (item.type === "margins") {
+    return `margins.html#${item.id}`;
+  }
+
+  if (item.type === "quotes") {
+    return `quotes.html#${item.id}`;
+  }
+
   return item.link || "#";
 }
 
@@ -326,6 +334,14 @@ function buildArchive() {
         preview = document.createElement("div");
         preview.className = "archive-badge";
         preview.textContent = "PDF";
+      } else if (item.type === "margins") {
+        preview = document.createElement("div");
+        preview.className = "archive-badge archive-badge--wide";
+        preview.textContent = "Margins";
+      } else if (item.type === "quotes") {
+        preview = document.createElement("div");
+        preview.className = "archive-badge archive-badge--wide";
+        preview.textContent = "Quotes";
       } else if (item.image) {
         preview = document.createElement("img");
         preview.className = "archive-thumb";
@@ -1065,6 +1081,7 @@ function buildMarginsPage(items = archive) {
     .forEach((item) => {
       const entry = document.createElement("article");
       entry.className = "quote-entry";
+      entry.id = item.id;
 
       const meta = document.createElement("div");
       meta.className = "quote-meta";
@@ -1084,6 +1101,38 @@ function buildMarginsPage(items = archive) {
 
       container.appendChild(entry);
     });
+}
+
+function renderQuoteText(item) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "quote-text";
+
+  if (Array.isArray(item.lines) && item.lines.length) {
+    wrapper.classList.add("quote-text-lines");
+
+    item.lines.forEach((line) => {
+      const lineEl = document.createElement("div");
+      lineEl.className = "quote-line";
+      lineEl.textContent = line;
+      wrapper.appendChild(lineEl);
+    });
+
+    return wrapper;
+  }
+
+  if (typeof item.text === "string" && item.text.trim()) {
+    wrapper.classList.add("quote-text-block");
+
+    if (item.allowHtml === true) {
+      wrapper.innerHTML = item.text.trim();
+    } else {
+      wrapper.textContent = item.text.trim();
+    }
+
+    return wrapper;
+  }
+
+  return wrapper;
 }
 
 function renderQuoteText(item) {

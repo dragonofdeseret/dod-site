@@ -1581,6 +1581,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   type: "margins",
   title: "New Term: Psychescope",
   date: "2022-09-24",
+  allowHtml: true,
   text: `<h2> Psychescope:</h2>
 1. The telescope and microscope for the psyche. 
 2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of conscious awareness.

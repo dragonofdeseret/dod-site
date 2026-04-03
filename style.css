@@ -516,6 +516,22 @@ h2 {
   flex-shrink: 0;
 }
 
+.archive-badge--wide {
+  width: 84px;
+  padding: 0 6px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .archive-badge--wide {
+    width: 64px;
+    font-size: 0.55rem;
+  }
+}
+
 .gallery-item img {
   width: 100%;
   display: block;
