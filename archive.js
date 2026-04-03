@@ -1590,7 +1590,7 @@ detail: "Excerpts from The Quantum Moiré, 2022."
 
     <h2>Psychescopic:</h2>
     <p>1. Visible only through a psychescope.</p>
-    <p>2. Capable of viewing layered dimensional spectrums of transmissible light.</p>
+    <p>2. Capable of viewing layered dimensional spectrums of transvisible light.</p>
   `,
   detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
 },
