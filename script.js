@@ -1313,6 +1313,8 @@ function buildFooter() {
   content.appendChild(footer);
 }
 
+INIT
+
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
@@ -1327,9 +1329,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buildMarginsPage(archive);
   buildQuotesPage(archive);
 
-  if (window.location.pathname.includes("artwork.html")) {
-    enhanceArtworkPage();
-  }
+ if (window.location.pathname.includes("artwork.html")) {
+  buildArtworkPage();
+}
 
   buildPhotographyPage();
   buildWritingPage();
