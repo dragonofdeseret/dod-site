@@ -1512,6 +1512,15 @@ Daoism is a methodology of acceptance.`,
 detail: Discussion of consciousness and psychedelics on X.
 },
 {
+  id: "2024_07_23",
+  type: "margins",
+  date: "2024-07-23",
+  text: `
+One of the first things I learned from these experiences was that we can classify something like
+DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
+detail: Conversations had on X
+},
+{
   id: "2022_09_22_3",
   type: "margins",
   date: "2022-09-24",
@@ -1879,6 +1888,14 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-02-24",
     image: "images/photography/2025/2025-02-24.webp",
+  },
+{
+    id: "2025-02-13",
+    type: "photo",
+    title: "February 13, 2025",
+    year: 2025,
+    date: "2025-02-13",
+    image: "images/photography/2025/2025-02-13.webp",
   },
  {
     id: "2024-10-22",
