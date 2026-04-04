@@ -1556,7 +1556,24 @@ const archive = normalizeArchive([
 /* ===================
        MARGINS
 ====================== */
-
+{
+  id: "2025_09_22",
+  type: "margins",
+  title: "The Ontology of Resonance | The Golden Plates",
+  date: "2025-09-22",
+  text: `
+In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.”`,
+detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+},
+{
+  id: "2025_09_22",
+  type: "margins",
+  title: "The Ontology of Resonance | The Golden Plates",
+  date: "2025-09-22",
+  text: `
+The golden plates exist in the liminal space where matter becomes melody—a chord struck simultaneously in the soil of Cumorah’s hill, and the hyperdimensional lattice of the Spirit World. They are neither relic nor rumor, but resonance: a vibration echoing across the Möbius strip of eternity, accessible when perception pivots from passive sight to active grasp. The plates’ burial and exhumation are not sequential events, they are simultaneous frequencies in God’s eternal round… waiting to be unwoven by those who dare to hum harmonics into the abyss.`,
+detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+},
 {
   id: "2025_02_15",
   type: "margins",
@@ -1752,6 +1769,13 @@ detail: "Excerpt from: The Epistle of Christopher, 2022"
 ====================== */
 
 {
+  id: "AH1",
+  type: "quotes",
+  text: “There can only be genuine understanding where there is a genuine person.”,
+  author: "Roger T. Ames & David L. Hall",
+  source: "Daodejing, A Philosophical Translation"
+},
+{
   id: "Harding1",
   type: "quotes",
   text: "We suffer because we overlook the fact that, at heart, we are alright.",
@@ -1766,7 +1790,7 @@ Less is More.
 God is in the Details.
 All in the service of — Clarity.`,
   author: "Stephen Sondheim",
-  source: "Lyric Book"
+  source: "Finishing the Hat: Collected Lyrics (1954–1981)."
 },
 
 /* ===================
