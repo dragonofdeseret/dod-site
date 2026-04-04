@@ -84,7 +84,9 @@ const archive = normalizeArchive([
     title: "May 7, 2025",
     year: 2025,
     date: "2025-05-07",
-    image: "images/art/2025/2025-05-07.webp"
+    image: "images/art/2025/2025-05-07.webp",
+    medium: "Prisma Color",
+    tags: ["Symbolism", "Dragon", "Mormonism"]
   },
 {
   id: "2024-11-18_3",
@@ -1292,7 +1294,8 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-11-16",
     file: "pdf/NaturalisticBoM.pdf",
-    sections: ["writing"]
+    sections: ["writing"],
+    Tags: ["Metaphysics", "Mormonism"]
   },
   {
     id: "DragonPearl",
