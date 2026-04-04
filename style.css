@@ -581,8 +581,8 @@ h2 {
 
 .filter-row {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  align-items: wrap;
+  gap: 8px;
 }
 
 .filter-label {
