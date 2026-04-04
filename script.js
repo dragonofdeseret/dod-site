@@ -315,8 +315,12 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
+  const allowedTypes = new Set(["art", "photo", "writing", "trip"]);
+
   const grouped = groupByYear(
-    archive.filter((item) => item.showOnArchive !== false)
+    archive.filter((item) =>
+      allowedTypes.has(item.type) && item.showOnArchive !== false
+    )
   );
 
   container.innerHTML = "";
@@ -349,31 +353,17 @@ function buildArchive() {
       meta.className = "archive-meta";
       meta.textContent = item.date || item.year || "";
 
-      let preview = null;
-
-      if (item.type === "writing") {
-        preview = document.createElement("div");
-        preview.className = "archive-badge";
-        preview.textContent = "PDF";
-      } else if (item.type === "margins") {
-        preview = document.createElement("div");
-        preview.className = "archive-badge archive-badge--wide";
-        preview.textContent = "Margins";
-      } else if (item.type === "quotes") {
-        preview = document.createElement("div");
-        preview.className = "archive-badge archive-badge--wide";
-        preview.textContent = "Quotes";
-      } else if (item.image) {
-        preview = document.createElement("img");
-        preview.className = "archive-thumb";
-        preview.src = item.image;
-        preview.alt = item.title || "";
-        preview.loading = "lazy";
-        preview.decoding = "async";
-      }
-
       metaWrap.appendChild(meta);
-      if (preview) metaWrap.appendChild(preview);
+
+      if (item.thumb || item.image) {
+        const thumb = document.createElement("img");
+        thumb.className = "archive-thumb";
+        thumb.src = item.thumb || item.image;
+        thumb.alt = item.title || "";
+        thumb.loading = "lazy";
+        thumb.decoding = "async";
+        metaWrap.appendChild(thumb);
+      }
 
       row.appendChild(title);
       row.appendChild(metaWrap);
