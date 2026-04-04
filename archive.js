@@ -1780,7 +1780,7 @@ detail: "Excerpt from: The Epistle of Christopher, 2022"
 {
   id: "AH1",
   type: "quotes",
-  text: “There can only be genuine understanding where there is a genuine person.”,
+  text: "There can only be genuine understanding where there is a genuine person.",
   author: "Roger T. Ames & David L. Hall",
   source: "Daodejing, A Philosophical Translation"
 },
