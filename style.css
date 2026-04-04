@@ -251,7 +251,7 @@ a {
 }
 
 .content::after {
-  content: "";
+  content: "none";
   display: block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.9);
   margin-top: auto;
@@ -1564,4 +1564,25 @@ blockquote.margin-text {
   .pdf-mobile-link {
     display: block;
   }
+}
+
+/* ===========
+    FOOTER
+============== */
+
+.site-footer {
+  margin-top: auto;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  opacity: 0.6;
+  max-width: 1400px;
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
 }
