@@ -2069,6 +2069,15 @@ All in the service of — Clarity.`,
     image: "images/photography/2024/2024-05-11_1.webp",
     description: ""
   },
+  {
+    id: "2022-04-02",
+    type: "photo",
+    title: "April 2, 2022",
+    year: 2022,
+    date: "2022-04-02",
+    image: "images/photography/2022/2022-04-02.webp",
+    description: ""
+  },
  {
     id: "2023-02-18_2",
     type: "photo",
@@ -2220,6 +2229,25 @@ All in the service of — Clarity.`,
     image: "images/photography/2022/2022-12-03.webp",
     description: ""
   },
+{
+    id: "2022-07-30",
+    type: "photo",
+    title: "July 30, 2022",
+    year: 2022,
+    date: "2022-07-30",
+    image: "images/photography/2022/2022-07-30.webp",
+    sideNoteTitle: "Details",
+      sideNote: `An early morning cross-referencing the Dao.`
+  },
+  {
+    id: "2022-06-07",
+    type: "photo",
+    title: "June 7, 2022",
+    year: 2022,
+    date: "2022-06-07",
+    image: "images/photography/2022/2022-06-07.webp",
+    description: ""
+  },
  {
     id: "2021-12-15",
     type: "photo",
@@ -2306,15 +2334,6 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-03",
     image: "images/photography/2020/2020-11-03.webp",
-    description: ""
-  },
-  {
-    id: "2022-06-07",
-    type: "photo",
-    title: "June 7, 2022",
-    year: 2022,
-    date: "2022-06-07",
-    image: "images/photography/2022/2022-06-07.webp",
     description: ""
   },
   {
