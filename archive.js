@@ -1656,11 +1656,11 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   date: "2022-09-24",
   allowHtml: true,
   text: `
-    <h2>Psychescope:</h2>
+    <h3>Psychescope:</h3>
     <p>1. The telescope and microscope for the psyche.</p>
     <p>2. An instrument, tool, technology, or methodology used to activate altered and/or expanded states of consciousness.</p>
 
-    <h2>Psychescopic:</h2>
+    <h3>Psychescopic:</h3>
     <p>1. Visible only through a psychescope.</p>
     <p>2. Capable of viewing layered dimensional spectrums of transvisible light.</p>
   `,
