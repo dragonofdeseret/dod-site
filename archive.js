@@ -2088,12 +2088,12 @@ All in the service of — Clarity.`,
     description: ""
   },
   {
-    id: "2022-04-02",
+    id: "2024-04-02",
     type: "photo",
-    title: "April 2, 2022",
-    year: 2022,
-    date: "2022-04-02",
-    image: "images/photography/2022/2022-04-02.webp",
+    title: "April 2, 2024",
+    year: 2024,
+    date: "2024-04-02",
+    image: "images/photography/2024/2024-04-02.webp",
     description: ""
   },
  {
