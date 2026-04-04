@@ -25,7 +25,17 @@ function mediaFromPath(path, kind = "art") {
 
 function normalizeArchive(items) {
   return items.map((item) => {
-    if (!item.image) return item;
+    if (!item || !item.image) return item;
+
+    // Already normalized: leave it alone.
+    if (
+      item.thumb ||
+      item.imageSrcset ||
+      item.thumbSrcset ||
+      /-(480|800|1200|2000)\.webp$/i.test(String(item.image))
+    ) {
+      return item;
+    }
 
     const kind = item.type === "photo" ? "photo" : "art";
 
