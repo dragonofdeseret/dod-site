@@ -1683,7 +1683,6 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
-  buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
   buildExhibitsArchive();
