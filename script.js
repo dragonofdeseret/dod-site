@@ -270,6 +270,74 @@ function makeLightboxButton(item, className = "exhibit-lightbox") {
   return button;
 }
 
+function normalizeToArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (value) return [value];
+  return [];
+}
+
+function getUniqueValues(items, key) {
+  return [...new Set(
+    items.flatMap(item => normalizeToArray(item[key]))
+  )].sort((a, b) => String(a).localeCompare(String(b)));
+}
+
+function renderMultiSelectFilter(container, values, selectedValues, onToggle, allLabel = "All") {
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const clearButton = document.createElement("button");
+  clearButton.type = "button";
+  clearButton.className = `tag-pill tag-pill-clear${selectedValues.size === 0 ? " active" : ""}`;
+  clearButton.textContent = allLabel;
+  clearButton.addEventListener("click", () => onToggle(null, true));
+  container.appendChild(clearButton);
+
+  values.forEach(value => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `tag-pill${selectedValues.has(value) ? " active" : ""}`;
+    button.textContent = value;
+    button.addEventListener("click", () => onToggle(value, false));
+    container.appendChild(button);
+  });
+}
+
+function toggleSetValue(set, value) {
+  const next = new Set(set);
+  if (next.has(value)) {
+    next.delete(value);
+  } else {
+    next.add(value);
+  }
+  return next;
+}
+
+function itemMatchesSelectedValues(item, key, selectedValues) {
+  if (!selectedValues || selectedValues.size === 0) return true;
+
+  const itemValues = normalizeToArray(item[key]);
+  return itemValues.some(value => selectedValues.has(value));
+}
+
+function appendInlineTags(parent, values) {
+  const tags = normalizeToArray(values);
+  if (!tags.length) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "item-tags-inline";
+
+  tags.forEach(tag => {
+    const pill = document.createElement("span");
+    pill.className = "item-tag-inline";
+    pill.textContent = tag;
+    wrap.appendChild(pill);
+  });
+
+  parent.appendChild(wrap);
+}
+
 /* ======================
     LIGHTBOX VIEWER
 ========================= */
@@ -380,12 +448,73 @@ function buildArchive() {
    WRITING INDEX (writing.html)
 ================================= */
 
+function normalizeToArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (value) return [value];
+  return [];
+}
+
+function getUniqueValues(items, key) {
+  return [...new Set(
+    items.flatMap(item => normalizeToArray(item[key]))
+  )].sort((a, b) => String(a).localeCompare(String(b)));
+}
+
+function buildFilterUI(container, values, activeValue, onSelect, allLabel = "All") {
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const allButton = document.createElement("button");
+  allButton.type = "button";
+  allButton.className = `tag-pill${activeValue === null ? " active" : ""}`;
+  allButton.textContent = allLabel;
+  allButton.addEventListener("click", () => onSelect(null));
+  container.appendChild(allButton);
+
+  values.forEach(value => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `tag-pill${activeValue === value ? " active" : ""}`;
+    button.textContent = value;
+    button.addEventListener("click", () => {
+      onSelect(activeValue === value ? null : value);
+    });
+    container.appendChild(button);
+  });
+}
+
+function itemMatchesFilter(item, key, activeValue) {
+  if (!activeValue) return true;
+  return normalizeToArray(item[key]).includes(activeValue);
+}
+
+function appendInlineTags(parent, values) {
+  const tags = normalizeToArray(values);
+  if (!tags.length) return;
+
+  const wrap = document.createElement("div");
+  wrap.className = "item-tags-inline";
+
+  tags.forEach(tag => {
+    const pill = document.createElement("span");
+    pill.className = "item-tag-inline";
+    pill.textContent = tag;
+    wrap.appendChild(pill);
+  });
+
+  parent.appendChild(wrap);
+}
+
 function buildWritingIndex() {
   const container = document.getElementById("writing");
   if (!container || typeof archive === "undefined") return;
 
+  const yearNav = document.querySelector(".year-nav");
+  const tagFilter = document.querySelector(".tag-filter-writing");
+
   const writingItems = archive
-    .filter((item) => {
+    .filter(item => {
       if (item.type !== "writing") return false;
       if (item.showOnWriting === false) return false;
 
@@ -394,46 +523,102 @@ function buildWritingIndex() {
         !item.sections ||
         item.sections.includes("writing")
       );
-    });
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  const grouped = groupByYear(sortByDateDesc(writingItems));
+  const groupedByYear = {};
 
-  container.innerHTML = "";
-  buildYearNav(grouped.map((group) => group.year));
-
-  grouped.forEach((group) => {
-    const yearBlock = document.createElement("div");
-    yearBlock.className = "archive-year";
-    yearBlock.id = `year-${group.year}`;
-
-    const yearTitle = document.createElement("h2");
-    yearTitle.textContent = group.year;
-
-    const list = document.createElement("div");
-    list.className = "archive-list";
-
-    group.items.forEach((item) => {
-      const row = document.createElement("a");
-      row.className = "archive-row";
-      row.href = `writings.html?id=${item.id}`;
-
-      const title = document.createElement("div");
-      title.className = "archive-title";
-      title.textContent = item.title || "";
-
-      const meta = document.createElement("div");
-      meta.className = "archive-meta";
-      meta.textContent = item.date || item.year || "";
-
-      row.appendChild(title);
-      row.appendChild(meta);
-      list.appendChild(row);
-    });
-
-    yearBlock.appendChild(yearTitle);
-    yearBlock.appendChild(list);
-    container.appendChild(yearBlock);
+  writingItems.forEach(item => {
+    const year = new Date(item.date).getFullYear();
+    if (!groupedByYear[year]) groupedByYear[year] = [];
+    groupedByYear[year].push(item);
   });
+
+  const years = Object.keys(groupedByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const allTags = getUniqueValues(writingItems, "tags");
+  let selectedTags = new Set();
+
+  function matchesAllActiveFilters(item) {
+    return itemMatchesSelectedValues(item, "tags", selectedTags);
+  }
+
+  function renderYearNav() {
+    if (!yearNav) return;
+
+    yearNav.innerHTML = "";
+
+    years.forEach(year => {
+      const link = document.createElement("a");
+      link.href = `#year-${year}`;
+      link.textContent = year;
+      yearNav.appendChild(link);
+    });
+  }
+
+  function renderWriting() {
+    container.innerHTML = "";
+
+    years.forEach(year => {
+      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
+
+      if (!itemsForYear.length) return;
+
+      const yearBlock = document.createElement("div");
+      yearBlock.className = "archive-year";
+      yearBlock.id = `year-${year}`;
+
+      const yearTitle = document.createElement("h2");
+      yearTitle.textContent = year;
+
+      const list = document.createElement("div");
+      list.className = "archive-list";
+
+      itemsForYear.forEach(item => {
+        const row = document.createElement("a");
+        row.className = "archive-row";
+        row.href = `writings.html?id=${item.id}`;
+
+        const title = document.createElement("div");
+        title.className = "archive-title";
+        title.textContent = item.title || "";
+
+        appendInlineTags(title, item.tags);
+
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = item.date || item.year || "";
+
+        row.appendChild(title);
+        row.appendChild(meta);
+        list.appendChild(row);
+      });
+
+      yearBlock.appendChild(yearTitle);
+      yearBlock.appendChild(list);
+      container.appendChild(yearBlock);
+    });
+  }
+
+  function renderTagFilter() {
+    renderMultiSelectFilter(
+      tagFilter,
+      allTags,
+      selectedTags,
+      (value, clearAll) => {
+        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
+        renderTagFilter();
+        renderWriting();
+      },
+      "All"
+    );
+  }
+
+  renderYearNav();
+  renderTagFilter();
+  renderWriting();
 }
 
 /* ======================
@@ -462,85 +647,125 @@ function buildGallery() {
   const gallery = document.querySelector(".gallery");
   if (!gallery || typeof archive === "undefined") return;
 
-  const artItems = sortByDateDesc(
-    archive.filter((item) => item.type === "art" && item.showOnArt !== false)
-  );
+  const yearNav = document.querySelector(".year-nav");
+  const mediaFilter = document.querySelector(".tag-filter-media");
+  const tagFilter = document.querySelector(".tag-filter-art-tags");
 
-  const grouped = groupByYear(artItems);
+  const artItems = archive
+    .filter(item => item.type === "art" && item.showOnArt !== false)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  gallery.innerHTML = "";
-  buildYearNav(grouped.map((group) => group.year));
+  const groupedByYear = {};
 
-  grouped.forEach((group) => {
-    const yearSection = document.createElement("section");
-    yearSection.className = "gallery-year";
-    yearSection.id = `year-${group.year}`;
-
-    const heading = document.createElement("h2");
-    heading.textContent = group.year;
-
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
-
-    group.items.forEach((item) => {
-      const link = document.createElement("a");
-      link.href = `artwork.html?id=${item.id}`;
-
-      const img = document.createElement("img");
-      applyGalleryImage(img, item);
-
-      link.appendChild(img);
-      grid.appendChild(link);
-    });
-
-    yearSection.appendChild(heading);
-    yearSection.appendChild(grid);
-    gallery.appendChild(yearSection);
+  artItems.forEach(item => {
+    const year = new Date(item.date).getFullYear();
+    if (!groupedByYear[year]) groupedByYear[year] = [];
+    groupedByYear[year].push(item);
   });
 
+  const years = Object.keys(groupedByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const allMedia = getUniqueValues(artItems, "medium");
+  const allTags = getUniqueValues(artItems, "tags");
+
+  let selectedMedia = new Set();
+  let selectedTags = new Set();
+
+  function matchesAllActiveFilters(item) {
+    const matchesMedia = itemMatchesSelectedValues(item, "medium", selectedMedia);
+    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
+    return matchesMedia && matchesTags;
+  }
+
+  function renderYearNav() {
+    if (!yearNav) return;
+
+    yearNav.innerHTML = "";
+
+    years.forEach(year => {
+      const link = document.createElement("a");
+      link.href = `#year-${year}`;
+      link.textContent = year;
+      yearNav.appendChild(link);
+    });
+  }
+
+  function renderGalleryItems() {
+    gallery.innerHTML = "";
+
+    years.forEach(year => {
+      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
+
+      if (!itemsForYear.length) return;
+
+      const yearSection = document.createElement("section");
+      yearSection.className = "gallery-year";
+      yearSection.id = `year-${year}`;
+
+      const heading = document.createElement("h2");
+      heading.textContent = year;
+
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
+
+      itemsForYear.forEach(item => {
+        const link = document.createElement("a");
+        link.href = `artwork.html?id=${item.id}`;
+
+        const img = document.createElement("img");
+        applyGalleryImage(img, item);
+
+        const meta = [];
+        if (item.title) meta.push(item.title);
+        if (item.medium) meta.push(item.medium);
+
+        img.alt = meta.length ? meta.join(" — ") : "Artwork";
+
+        link.appendChild(img);
+        grid.appendChild(link);
+      });
+
+      yearSection.appendChild(heading);
+      yearSection.appendChild(grid);
+      gallery.appendChild(yearSection);
+    });
+  }
+
+  function renderMediaFilter() {
+    renderMultiSelectFilter(
+      mediaFilter,
+      allMedia,
+      selectedMedia,
+      (value, clearAll) => {
+        selectedMedia = clearAll ? new Set() : toggleSetValue(selectedMedia, value);
+        renderMediaFilter();
+        renderGalleryItems();
+      },
+      "All"
+    );
+  }
+
+  function renderTagFilter() {
+    renderMultiSelectFilter(
+      tagFilter,
+      allTags,
+      selectedTags,
+      (value, clearAll) => {
+        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
+        renderTagFilter();
+        renderGalleryItems();
+      },
+      "All"
+    );
+  }
+
+  renderYearNav();
+  renderMediaFilter();
+  renderTagFilter();
+  renderGalleryItems();
   buildRandomButton(artItems);
-}
-
-function buildPhotoArchive() {
-  const container = document.getElementById("photo-archive");
-  if (!container || typeof archive === "undefined") return;
-
-  const photoItems = sortByDateDesc(
-    archive.filter((item) => item.type === "photo" && item.showOnPhoto !== false)
-  );
-
-  const grouped = groupByYear(photoItems);
-
-  container.innerHTML = "";
-  buildYearNav(grouped.map((group) => group.year));
-
-  grouped.forEach((group) => {
-    const yearBlock = document.createElement("div");
-    yearBlock.className = "archive-year";
-    yearBlock.id = `year-${group.year}`;
-
-    const yearTitle = document.createElement("h2");
-    yearTitle.textContent = group.year;
-
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
-
-    group.items.forEach((item) => {
-      const link = document.createElement("a");
-      link.href = `photography.html?id=${item.id}&from=photo`;
-      link.className = "gallery-item";
-
-      const img = document.createElement("img");
-      applyGalleryImage(img, item);
-
-      link.appendChild(img);
-      grid.appendChild(link);
-    });
-
-    yearBlock.appendChild(yearTitle);
-    yearBlock.appendChild(grid);
-    container.appendChild(yearBlock);
-  });
 }
 
 /* ========================
@@ -981,20 +1206,18 @@ function buildTripReportsPage() {
   if (!container || typeof archive === "undefined") return;
 
   const yearNav = document.querySelector(".year-nav");
-  const tagFilter = document.querySelector(".tag-filter");
+  const substanceFilter = document.querySelector(".tag-filter-substances");
+  const tagFilter = document.querySelector(".tag-filter-tags");
 
   const tripItems = archive
     .filter(item => {
       if (item.type !== "writing") return false;
-
-      const inTrips =
-        item.section === "trips" ||
-        (Array.isArray(item.sections) && item.sections.includes("trips"));
-
-      if (!inTrips) return false;
       if (item.showOnWriting === false) return false;
 
-      return true;
+      return (
+        item.section === "trips" ||
+        (Array.isArray(item.sections) && item.sections.includes("trips"))
+      );
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -1010,15 +1233,17 @@ function buildTripReportsPage() {
     .map(Number)
     .sort((a, b) => b - a);
 
-  const allTags = [...new Set(
-    tripItems.flatMap(item => {
-      if (Array.isArray(item.substance)) return item.substance;
-      if (item.substance) return [item.substance];
-      return [];
-    })
-  )].sort((a, b) => a.localeCompare(b));
+  const allSubstances = getUniqueValues(tripItems, "substance");
+  const allTags = getUniqueValues(tripItems, "tags");
 
-  let activeTag = null;
+  let selectedSubstances = new Set();
+  let selectedTags = new Set();
+
+  function matchesAllActiveFilters(item) {
+    const matchesSubstances = itemMatchesSelectedValues(item, "substance", selectedSubstances);
+    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
+    return matchesSubstances && matchesTags;
+  }
 
   function renderYearNav() {
     if (!yearNav) return;
@@ -1033,53 +1258,25 @@ function buildTripReportsPage() {
     });
   }
 
-  function renderTagFilter() {
-    if (!tagFilter) return;
+  function buildMetaText(item) {
+    const parts = [];
 
-    tagFilter.innerHTML = "";
+    if (item.date) parts.push(item.date);
 
-    const allButton = document.createElement("button");
-    allButton.type = "button";
-    allButton.className = `tag-pill${activeTag === null ? " active" : ""}`;
-    allButton.textContent = "All";
-    allButton.addEventListener("click", () => {
-      activeTag = null;
-      renderTagFilter();
-      renderTrips();
-    });
-    tagFilter.appendChild(allButton);
+    const selectedCount = selectedSubstances.size + selectedTags.size;
+    if (selectedCount === 0) {
+      const substances = normalizeToArray(item.substance);
+      if (substances.length) parts.push(substances.join(" · "));
+    }
 
-    allTags.forEach(tag => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = `tag-pill${activeTag === tag ? " active" : ""}`;
-      button.textContent = tag;
-      button.addEventListener("click", () => {
-        activeTag = activeTag === tag ? null : tag;
-        renderTagFilter();
-        renderTrips();
-      });
-      tagFilter.appendChild(button);
-    });
-  }
-
-  function itemMatchesActiveTag(item) {
-    if (!activeTag) return true;
-
-    const tags = Array.isArray(item.substance)
-      ? item.substance
-      : item.substance
-        ? [item.substance]
-        : [];
-
-    return tags.includes(activeTag);
+    return parts.join("  |  ");
   }
 
   function renderTrips() {
     container.innerHTML = "";
 
     years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(itemMatchesActiveTag);
+      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
 
       if (!itemsForYear.length) return;
 
@@ -1100,35 +1297,18 @@ function buildTripReportsPage() {
 
         const title = document.createElement("div");
         title.className = "archive-title";
+        title.textContent = item.title || "";
 
-        const titleText = document.createElement("span");
-        titleText.textContent = item.title || "";
+        const combinedInlineTags = [
+          ...normalizeToArray(item.substance),
+          ...normalizeToArray(item.tags)
+        ];
 
-        title.appendChild(titleText);
-
-        const tags = Array.isArray(item.substance)
-          ? item.substance
-          : item.substance
-            ? [item.substance]
-            : [];
-
-        if (tags.length) {
-          const tagsWrap = document.createElement("div");
-          tagsWrap.className = "trip-tags-inline";
-
-          tags.forEach(tag => {
-            const pill = document.createElement("span");
-            pill.className = "trip-tag-inline";
-            pill.textContent = tag;
-            tagsWrap.appendChild(pill);
-          });
-
-          title.appendChild(tagsWrap);
-        }
+        appendInlineTags(title, combinedInlineTags);
 
         const meta = document.createElement("div");
         meta.className = "archive-meta";
-        meta.textContent = item.date || "";
+        meta.textContent = buildMetaText(item);
 
         row.appendChild(title);
         row.appendChild(meta);
@@ -1141,7 +1321,36 @@ function buildTripReportsPage() {
     });
   }
 
+  function renderSubstanceFilter() {
+    renderMultiSelectFilter(
+      substanceFilter,
+      allSubstances,
+      selectedSubstances,
+      (value, clearAll) => {
+        selectedSubstances = clearAll ? new Set() : toggleSetValue(selectedSubstances, value);
+        renderSubstanceFilter();
+        renderTrips();
+      },
+      "All"
+    );
+  }
+
+  function renderTagFilter() {
+    renderMultiSelectFilter(
+      tagFilter,
+      allTags,
+      selectedTags,
+      (value, clearAll) => {
+        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
+        renderTagFilter();
+        renderTrips();
+      },
+      "All"
+    );
+  }
+
   renderYearNav();
+  renderSubstanceFilter();
   renderTagFilter();
   renderTrips();
 }
