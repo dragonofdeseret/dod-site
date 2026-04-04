@@ -1,21 +1,62 @@
-/* ======================
-       DATA SAFETY
-========================= */
+/* =====================
+   DATA ACCESS + SAFETY
+======================== */
 
-if (typeof archive === "undefined") {
-  console.error("archive.js not loaded or has syntax errors");
+window.exhibits = Array.isArray(window.exhibits) ? window.exhibits : [];
+window.questions = Array.isArray(window.questions) ? window.questions : [];
+window.publicQuestions = Array.isArray(window.publicQuestions) ? window.publicQuestions : [];
+
+function normalizeLoadedItem(item) {
+  if (!item || typeof item !== "object") return item;
+
+  const tags = item.tags || item.Tags || [];
+  const sections = item.sections || (item.section ? [item.section] : []);
+
+  return {
+    ...item,
+    tags,
+    sections
+  };
 }
 
-if (typeof exhibits === "undefined") {
-  window.exhibits = [];
+function getArtItems() {
+  return Array.isArray(window.artItems)
+    ? window.artItems.map(normalizeLoadedItem)
+    : [];
 }
 
-if (typeof questions === "undefined") {
-  window.questions = [];
+function getPhotoItems() {
+  return Array.isArray(window.photoItems)
+    ? window.photoItems.map(normalizeLoadedItem)
+    : [];
 }
 
-if (typeof publicQuestions === "undefined") {
-  window.publicQuestions = [];
+function getWritingItems() {
+  return Array.isArray(window.writingItems)
+    ? window.writingItems.map(normalizeLoadedItem)
+    : [];
+}
+
+function getMarginItems() {
+  return Array.isArray(window.marginItems)
+    ? window.marginItems.map(normalizeLoadedItem)
+    : [];
+}
+
+function getQuoteItems() {
+  return Array.isArray(window.quoteItems)
+    ? window.quoteItems.map(normalizeLoadedItem)
+    : [];
+}
+
+function getAllArchiveItems() {
+  return [
+    ...getArtItems(),
+    ...getPhotoItems(),
+    ...getWritingItems(),
+    ...getMarginItems(),
+    ...getQuoteItems()
+  ];
 }
 
 /* ==================
@@ -43,6 +84,12 @@ function sortByDateDescWithIdTiebreak(items) {
 
     return getIndex(a.id) - getIndex(b.id);
   });
+}
+
+function normalizeToArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (value) return [value];
+  return [];
 }
 
 function groupByYear(items) {
@@ -101,30 +148,17 @@ function buildYearNav(years) {
   });
 }
 
-function buildSubstanceNav(substances) {
-  const nav = document.querySelector(".year-nav");
-  if (!nav) return;
-
-  nav.innerHTML = "";
-
-  substances.forEach((substance, index) => {
-    const link = document.createElement("a");
-    link.href = `#substance-${slugify(substance)}`;
-    link.textContent = substance;
-    nav.appendChild(link);
-
-    if (index < substances.length - 1) {
-      nav.appendChild(document.createTextNode(" "));
-    }
-  });
-}
-
 function slugify(str) {
   return String(str)
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function getUniqueValues(items, key) {
+  return [...new Set(items.flatMap((item) => normalizeToArray(item[key])))]
+    .sort((a, b) => String(a).localeCompare(String(b)));
 }
 
 function getThumbSrc(item) {
@@ -143,32 +177,20 @@ function getFullSrcset(item) {
   return item.imageSrcset || "";
 }
 
-function applyGalleryImage(
-  img,
-  item,
-  sizes = "(max-width: 900px) calc(100vw - 44px), 260px"
-) {
+function applyGalleryImage(img, item, sizes = "(max-width: 900px) calc(100vw - 44px), 260px") {
   img.src = getThumbSrc(item);
-
   const srcset = getThumbSrcset(item);
   if (srcset) img.srcset = srcset;
-
   img.sizes = sizes;
   img.loading = "lazy";
   img.decoding = "async";
   img.alt = item.title || "";
 }
 
-function applyViewerImage(
-  img,
-  item,
-  sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px"
-) {
+function applyViewerImage(img, item, sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px") {
   img.src = getFullSrc(item);
-
   const srcset = getFullSrcset(item);
   if (srcset) img.srcset = srcset;
-
   img.sizes = sizes;
   img.decoding = "async";
   img.alt = item.title || "";
@@ -180,40 +202,30 @@ function preloadImage(src) {
   img.src = src;
 }
 
+function isTripItem(item) {
+  return normalizeToArray(item.sections).includes("trips");
+}
+
+function isWritingItem(item) {
+  const sections = normalizeToArray(item.sections);
+  return !sections.length || sections.includes("writing");
+}
+
 function getItemUrl(item, from = "archive") {
   if (!item) return "#";
 
-  if (item.type === "art") {
-    return `artwork.html?id=${item.id}${from ? `&from=${from}` : ""}`;
-  }
-
-  if (item.type === "photo") {
-    return `photography.html?id=${item.id}${from ? `&from=${from}` : ""}`;
-  }
-
-  if (item.type === "exhibit") {
-    return `exhibit.html?id=${item.id}${from ? `&from=${from}` : ""}`;
-  }
+  if (item.type === "art") return `artwork.html?id=${item.id}${from ? `&from=${from}` : ""}`;
+  if (item.type === "photo") return `photography.html?id=${item.id}${from ? `&from=${from}` : ""}`;
+  if (item.type === "exhibit") return `exhibit.html?id=${item.id}${from ? `&from=${from}` : ""}`;
 
   if (item.type === "writing") {
-    const isTrip =
-      item.section === "trips" ||
-      (Array.isArray(item.sections) && item.sections.includes("trips"));
-
-    if (isTrip) {
-      return `tripreports.html?id=${item.id}${from ? `&from=${from}` : ""}`;
-    }
-
-    return `writings.html?id=${item.id}${from ? `&from=${from}` : ""}`;
+    return isTripItem(item)
+      ? `tripreports.html?id=${item.id}${from ? `&from=${from}` : ""}`
+      : `writings.html?id=${item.id}${from ? `&from=${from}` : ""}`;
   }
 
-  if (item.type === "margins") {
-    return `margins.html#${item.id}`;
-  }
-
-  if (item.type === "quotes") {
-    return `quotes.html#${item.id}`;
-  }
+  if (item.type === "margins") return `margins.html#${item.id}`;
+  if (item.type === "quotes") return `quotes.html#${item.id}`;
 
   return item.link || "#";
 }
@@ -245,41 +257,9 @@ function bindArrowNavigation(prevUrl, nextUrl) {
 
     if (lightboxOpen) return;
 
-    if (e.key === "ArrowLeft" && prevUrl) {
-      window.location.href = prevUrl;
-    }
-
-    if (e.key === "ArrowRight" && nextUrl) {
-      window.location.href = nextUrl;
-    }
+    if (e.key === "ArrowLeft" && prevUrl) window.location.href = prevUrl;
+    if (e.key === "ArrowRight" && nextUrl) window.location.href = nextUrl;
   });
-}
-
-function makeLightboxButton(item, className = "exhibit-lightbox") {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = className;
-  button.setAttribute("aria-label", item.title || "Open image");
-
-  const img = document.createElement("img");
-  applyGalleryImage(img, item, "(max-width: 980px) calc(100vw - 44px), 960px");
-
-  button.appendChild(img);
-  button.addEventListener("click", () => openLightbox(item.image, item.title || ""));
-
-  return button;
-}
-
-function normalizeToArray(value) {
-  if (Array.isArray(value)) return value.filter(Boolean);
-  if (value) return [value];
-  return [];
-}
-
-function getUniqueValues(items, key) {
-  return [...new Set(
-    items.flatMap(item => normalizeToArray(item[key]))
-  )].sort((a, b) => String(a).localeCompare(String(b)));
 }
 
 function renderMultiSelectFilter(container, values, selectedValues, onToggle, allLabel = "All") {
@@ -294,7 +274,7 @@ function renderMultiSelectFilter(container, values, selectedValues, onToggle, al
   clearButton.addEventListener("click", () => onToggle(null, true));
   container.appendChild(clearButton);
 
-  values.forEach(value => {
+  values.forEach((value) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `tag-pill${selectedValues.has(value) ? " active" : ""}`;
@@ -306,19 +286,15 @@ function renderMultiSelectFilter(container, values, selectedValues, onToggle, al
 
 function toggleSetValue(set, value) {
   const next = new Set(set);
-  if (next.has(value)) {
-    next.delete(value);
-  } else {
-    next.add(value);
-  }
+  if (next.has(value)) next.delete(value);
+  else next.add(value);
   return next;
 }
 
 function itemMatchesSelectedValues(item, key, selectedValues) {
   if (!selectedValues || selectedValues.size === 0) return true;
-
   const itemValues = normalizeToArray(item[key]);
-  return itemValues.some(value => selectedValues.has(value));
+  return itemValues.some((value) => selectedValues.has(value));
 }
 
 function appendInlineTags(parent, values) {
@@ -328,7 +304,7 @@ function appendInlineTags(parent, values) {
   const wrap = document.createElement("div");
   wrap.className = "item-tags-inline";
 
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     const pill = document.createElement("span");
     pill.className = "item-tag-inline";
     pill.textContent = tag;
@@ -338,14 +314,13 @@ function appendInlineTags(parent, values) {
   parent.appendChild(wrap);
 }
 
-/* ======================
+/* =====================
     LIGHTBOX VIEWER
-========================= */
+======================== */
 
 function closeLightbox() {
   const viewer = document.querySelector(".image-viewer");
   if (!viewer) return;
-
   document.body.style.overflow = "";
   viewer.remove();
 }
@@ -366,9 +341,7 @@ function openLightbox(src, alt = "") {
   viewer.appendChild(img);
 
   viewer.addEventListener("click", (e) => {
-    if (e.target === viewer || e.target === img) {
-      closeLightbox();
-    }
+    if (e.target === viewer || e.target === img) closeLightbox();
   });
 
   document.body.appendChild(viewer);
@@ -381,15 +354,15 @@ function openLightbox(src, alt = "") {
 
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container || typeof archive === "undefined") return;
+  if (!container) return;
 
-  const allowedTypes = new Set(["art", "photo", "writing", "trip"]);
+  const items = getAllArchiveItems()
+    .filter((item) => {
+      if (item.showOnArchive === false) return false;
+      return item.type === "art" || item.type === "photo" || item.type === "writing";
+    });
 
-  const grouped = groupByYear(
-    archive.filter((item) =>
-      allowedTypes.has(item.type) && item.showOnArchive !== false
-    )
-  );
+  const grouped = groupByYear(items);
 
   container.innerHTML = "";
   buildYearNav(grouped.map((group) => group.year));
@@ -420,7 +393,6 @@ function buildArchive() {
       const meta = document.createElement("div");
       meta.className = "archive-meta";
       meta.textContent = item.date || item.year || "";
-
       metaWrap.appendChild(meta);
 
       if (item.thumb || item.image) {
@@ -448,109 +420,36 @@ function buildArchive() {
    WRITING INDEX (writing.html)
 ================================= */
 
-function normalizeToArray(value) {
-  if (Array.isArray(value)) return value.filter(Boolean);
-  if (value) return [value];
-  return [];
-}
-
-function getUniqueValues(items, key) {
-  return [...new Set(
-    items.flatMap(item => normalizeToArray(item[key]))
-  )].sort((a, b) => String(a).localeCompare(String(b)));
-}
-
-function buildFilterUI(container, values, activeValue, onSelect, allLabel = "All") {
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const allButton = document.createElement("button");
-  allButton.type = "button";
-  allButton.className = `tag-pill${activeValue === null ? " active" : ""}`;
-  allButton.textContent = allLabel;
-  allButton.addEventListener("click", () => onSelect(null));
-  container.appendChild(allButton);
-
-  values.forEach(value => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `tag-pill${activeValue === value ? " active" : ""}`;
-    button.textContent = value;
-    button.addEventListener("click", () => {
-      onSelect(activeValue === value ? null : value);
-    });
-    container.appendChild(button);
-  });
-}
-
-function itemMatchesFilter(item, key, activeValue) {
-  if (!activeValue) return true;
-  return normalizeToArray(item[key]).includes(activeValue);
-}
-
-function appendInlineTags(parent, values) {
-  const tags = normalizeToArray(values);
-  if (!tags.length) return;
-
-  const wrap = document.createElement("div");
-  wrap.className = "item-tags-inline";
-
-  tags.forEach(tag => {
-    const pill = document.createElement("span");
-    pill.className = "item-tag-inline";
-    pill.textContent = tag;
-    wrap.appendChild(pill);
-  });
-
-  parent.appendChild(wrap);
-}
-
 function buildWritingIndex() {
   const container = document.getElementById("writing");
-  if (!container || typeof archive === "undefined") return;
+  if (!container) return;
 
   const yearNav = document.querySelector(".year-nav");
   const tagFilter = document.querySelector(".tag-filter-writing");
 
-  const writingItems = archive
-    .filter(item => {
-      if (item.type !== "writing") return false;
-      if (item.showOnWriting === false) return false;
-
-      return (
-        item.showOnWriting === true ||
-        !item.sections ||
-        item.sections.includes("writing")
-      );
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const writingItems = sortByDateDesc(
+    getWritingItems().filter((item) => item.showOnWriting !== false && isWritingItem(item))
+  );
 
   const groupedByYear = {};
-
-  writingItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
+  writingItems.forEach((item) => {
+    const year = toDate(item.date).getFullYear();
     if (!groupedByYear[year]) groupedByYear[year] = [];
     groupedByYear[year].push(item);
   });
 
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
+  const years = Object.keys(groupedByYear).map(Number).sort((a, b) => b - a);
   const allTags = getUniqueValues(writingItems, "tags");
   let selectedTags = new Set();
 
-  function matchesAllActiveFilters(item) {
+  function matches(item) {
     return itemMatchesSelectedValues(item, "tags", selectedTags);
   }
 
-  function renderYearNav() {
+  function renderYearLinks() {
     if (!yearNav) return;
-
     yearNav.innerHTML = "";
-
-    years.forEach(year => {
+    years.forEach((year) => {
       const link = document.createElement("a");
       link.href = `#year-${year}`;
       link.textContent = year;
@@ -561,9 +460,8 @@ function buildWritingIndex() {
   function renderWriting() {
     container.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    years.forEach((year) => {
+      const itemsForYear = groupedByYear[year].filter(matches);
       if (!itemsForYear.length) return;
 
       const yearBlock = document.createElement("div");
@@ -576,15 +474,14 @@ function buildWritingIndex() {
       const list = document.createElement("div");
       list.className = "archive-list";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const row = document.createElement("a");
         row.className = "archive-row";
-        row.href = `writings.html?id=${item.id}`;
+        row.href = `writings.html?id=${item.id}&from=writing`;
 
         const title = document.createElement("div");
         title.className = "archive-title";
         title.textContent = item.title || "";
-
         appendInlineTags(title, item.tags);
 
         const meta = document.createElement("div");
@@ -616,7 +513,7 @@ function buildWritingIndex() {
     );
   }
 
-  renderYearNav();
+  renderYearLinks();
   renderTagFilter();
   renderWriting();
 }
@@ -634,7 +531,6 @@ function buildRandomButton(artItems) {
   const button = document.createElement("button");
   button.className = "random-button";
   button.textContent = "Surprise Me";
-
   button.addEventListener("click", () => {
     const random = artItems[Math.floor(Math.random() * artItems.length)];
     window.location.href = `artwork.html?id=${random.id}`;
@@ -645,46 +541,39 @@ function buildRandomButton(artItems) {
 
 function buildGallery() {
   const gallery = document.querySelector(".gallery");
-  if (!gallery || typeof archive === "undefined") return;
+  if (!gallery) return;
 
   const yearNav = document.querySelector(".year-nav");
   const mediaFilter = document.querySelector(".tag-filter-media");
   const tagFilter = document.querySelector(".tag-filter-art-tags");
 
-  const artItems = archive
-    .filter(item => item.type === "art" && item.showOnArt !== false)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const artItems = sortByDateDesc(getArtItems().filter((item) => item.showOnArt !== false));
 
   const groupedByYear = {};
-
-  artItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
+  artItems.forEach((item) => {
+    const year = toDate(item.date).getFullYear();
     if (!groupedByYear[year]) groupedByYear[year] = [];
     groupedByYear[year].push(item);
   });
 
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
+  const years = Object.keys(groupedByYear).map(Number).sort((a, b) => b - a);
   const allMedia = getUniqueValues(artItems, "medium");
   const allTags = getUniqueValues(artItems, "tags");
 
   let selectedMedia = new Set();
   let selectedTags = new Set();
 
-  function matchesAllActiveFilters(item) {
-    const matchesMedia = itemMatchesSelectedValues(item, "medium", selectedMedia);
-    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
-    return matchesMedia && matchesTags;
+  function matches(item) {
+    return (
+      itemMatchesSelectedValues(item, "medium", selectedMedia) &&
+      itemMatchesSelectedValues(item, "tags", selectedTags)
+    );
   }
 
-  function renderYearNav() {
+  function renderYearLinks() {
     if (!yearNav) return;
-
     yearNav.innerHTML = "";
-
-    years.forEach(year => {
+    years.forEach((year) => {
       const link = document.createElement("a");
       link.href = `#year-${year}`;
       link.textContent = year;
@@ -695,9 +584,8 @@ function buildGallery() {
   function renderGalleryItems() {
     gallery.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    years.forEach((year) => {
+      const itemsForYear = groupedByYear[year].filter(matches);
       if (!itemsForYear.length) return;
 
       const yearSection = document.createElement("section");
@@ -710,9 +598,9 @@ function buildGallery() {
       const grid = document.createElement("div");
       grid.className = "gallery-grid";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const link = document.createElement("a");
-        link.href = `artwork.html?id=${item.id}`;
+        link.href = `artwork.html?id=${item.id}&from=art`;
 
         const img = document.createElement("img");
         applyGalleryImage(img, item);
@@ -720,7 +608,6 @@ function buildGallery() {
         const meta = [];
         if (item.title) meta.push(item.title);
         if (item.medium) meta.push(item.medium);
-
         img.alt = meta.length ? meta.join(" — ") : "Artwork";
 
         link.appendChild(img);
@@ -761,33 +648,23 @@ function buildGallery() {
     );
   }
 
-  renderYearNav();
+  renderYearLinks();
   renderMediaFilter();
   renderTagFilter();
   renderGalleryItems();
   buildRandomButton(artItems);
 }
 
-/* ========================
-    ARTWORK DETAIL PAGE
-=========================== */
-
 function buildArtworkPage() {
   const layout = document.getElementById("art-layout");
-  if (!layout || typeof archive === "undefined") return;
+  if (!layout) return;
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const from = params.get("from") || "art";
 
-  const allArtItems = sortByDateDescWithIdTiebreak(
-    archive.filter((item) => item.type === "art")
-  );
-
-  const visibleArtItems = sortByDateDescWithIdTiebreak(
-    archive.filter((item) => item.type === "art" && item.showOnArt !== false)
-  );
-
+  const allArtItems = sortByDateDescWithIdTiebreak(getArtItems());
+  const visibleArtItems = sortByDateDescWithIdTiebreak(getArtItems().filter((item) => item.showOnArt !== false));
   const item = allArtItems.find((entry) => entry.id === id);
 
   if (!item) {
@@ -797,11 +674,11 @@ function buildArtworkPage() {
 
   const navPool = item.showOnArt === false ? [item] : visibleArtItems;
   const index = navPool.findIndex((entry) => entry.id === item.id);
-
   const prev = navPool[index - 1];
   const next = navPool[index + 1];
 
-  document.getElementById("title").textContent = item.title || "";
+  const titleEl = document.getElementById("title");
+  if (titleEl) titleEl.textContent = item.title || "";
 
   if (item.sideNote) {
     layout.innerHTML = `
@@ -829,7 +706,6 @@ function buildArtworkPage() {
 
   let backHref = "art.html";
   let backText = "Back to Artwork";
-
   if (from === "archive") {
     backHref = "archive.html";
     backText = "Back to Archive";
@@ -838,9 +714,8 @@ function buildArtworkPage() {
     backText = "Back to Exhibits";
   }
 
-  const navEl = document.getElementById("nav");
   setNavigation(
-    navEl,
+    document.getElementById("nav"),
     prev,
     next,
     backHref,
@@ -854,40 +729,35 @@ function buildArtworkPage() {
   );
 }
 
-/* ======================
+/* =====================
         EXHIBITS
-========================= */
+======================== */
 
 function getExhibitWorks(exhibitId) {
-  return archive
-    .filter((item) => item.type === "art" && item.exhibit === exhibitId)
+  return getArtItems()
+    .filter((item) => item.exhibit === exhibitId)
     .sort((a, b) => {
       const orderA = typeof a.exhibitOrder === "number" ? a.exhibitOrder : 9999;
       const orderB = typeof b.exhibitOrder === "number" ? b.exhibitOrder : 9999;
-
       if (orderA !== orderB) return orderA - orderB;
-
       const dateDiff = toDate(a.date) - toDate(b.date);
       if (dateDiff !== 0) return dateDiff;
-
       return (a.title || "").localeCompare(b.title || "");
     });
 }
 
 function buildExhibitsArchive() {
   const container = document.getElementById("exhibits-archive");
-  if (!container || typeof exhibits === "undefined") return;
+  if (!container || !window.exhibits.length) return;
 
   const grouped = {};
-
-  exhibits.forEach((exhibit) => {
+  window.exhibits.forEach((exhibit) => {
     const year = exhibit.year || toDate(exhibit.date).getFullYear();
     if (!grouped[year]) grouped[year] = [];
     grouped[year].push(exhibit);
   });
 
   const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
-
   container.innerHTML = "";
   buildYearNav(years);
 
@@ -928,78 +798,6 @@ function buildExhibitsArchive() {
   });
 }
 
-function buildExhibitPage() {
-  if (!window.location.pathname.includes("exhibit.html")) return;
-  if (typeof exhibits === "undefined" || typeof archive === "undefined") return;
-
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  const from = params.get("from") || "exhibits";
-  if (!id) return;
-
-  const exhibitItems = sortByDateDesc(exhibits);
-  const index = exhibitItems.findIndex((item) => item.id === id);
-
-  if (index === -1) return;
-
-  const exhibit = exhibitItems[index];
-  const prev = exhibitItems[index - 1];
-  const next = exhibitItems[index + 1];
-
-  const titleEl = document.getElementById("exhibit-title");
-  const descEl = document.getElementById("exhibit-description");
-  const gallery = document.querySelector(".exhibit-gallery");
-  const navEl = document.getElementById("exhibit-nav");
-
-  if (titleEl) titleEl.textContent = exhibit.title || "";
-  if (descEl) descEl.textContent = exhibit.description || "";
-  if (!gallery) return;
-
-  const works = getExhibitWorks(id);
-
-  gallery.innerHTML = "";
-
-  if (!works.length) {
-    const empty = document.createElement("p");
-    empty.textContent = "No works found for this exhibit.";
-    gallery.appendChild(empty);
-  } else {
-    const rail = document.createElement("div");
-    rail.className = "exhibit-rail";
-
-    works.forEach((item) => {
-      rail.appendChild(createExhibitCard(item));
-    });
-
-    gallery.appendChild(rail);
-  }
-
-  let backHref = "exhibits.html";
-  let backText = "Back to Exhibits";
-
-  if (from === "archive") {
-    backHref = "archive.html";
-    backText = "Back to Archive";
-  } else if (from === "art") {
-    backHref = "art.html";
-    backText = "Back to Artwork";
-  }
-
-  setNavigation(
-    navEl,
-    prev,
-    next,
-    backHref,
-    backText,
-    (entry) => `exhibit.html?id=${entry.id}&from=${from}`
-  );
-
-  bindArrowNavigation(
-    prev ? `exhibit.html?id=${prev.id}&from=${from}` : "",
-    next ? `exhibit.html?id=${next.id}&from=${from}` : ""
-  );
-}
-
 function createExhibitCard(item) {
   const card = document.createElement("article");
   card.className = "exhibit-card";
@@ -1009,13 +807,8 @@ function createExhibitCard(item) {
   link.href = `artwork.html?id=${item.id}&from=exhibit`;
 
   const figure = document.createElement("figure");
-
   const img = document.createElement("img");
-  applyViewerImage(
-    img,
-    item,
-    "(max-width: 700px) 86vw, (max-width: 1100px) 72vw, 48vw"
-  );
+  applyViewerImage(img, item, "(max-width: 700px) 86vw, (max-width: 1100px) 72vw, 48vw");
   img.alt = item.title || "";
 
   img.addEventListener("click", (e) => {
@@ -1036,7 +829,6 @@ function createExhibitCard(item) {
 
   caption.appendChild(title);
   caption.appendChild(meta);
-
   figure.appendChild(img);
   figure.appendChild(caption);
   link.appendChild(figure);
@@ -1045,29 +837,126 @@ function createExhibitCard(item) {
   return card;
 }
 
-/* ======================
+function buildExhibitPage() {
+  if (!window.location.pathname.includes("exhibit.html") || !window.exhibits.length) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const from = params.get("from") || "exhibits";
+  if (!id) return;
+
+  const exhibitItems = sortByDateDesc(window.exhibits);
+  const index = exhibitItems.findIndex((item) => item.id === id);
+  if (index === -1) return;
+
+  const exhibit = exhibitItems[index];
+  const prev = exhibitItems[index - 1];
+  const next = exhibitItems[index + 1];
+
+  const titleEl = document.getElementById("exhibit-title");
+  const descEl = document.getElementById("exhibit-description");
+  const gallery = document.querySelector(".exhibit-gallery");
+
+  if (titleEl) titleEl.textContent = exhibit.title || "";
+  if (descEl) descEl.textContent = exhibit.description || "";
+  if (!gallery) return;
+
+  const works = getExhibitWorks(id);
+  gallery.innerHTML = "";
+
+  if (!works.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "No works found for this exhibit.";
+    gallery.appendChild(empty);
+  } else {
+    const rail = document.createElement("div");
+    rail.className = "exhibit-rail";
+    works.forEach((item) => rail.appendChild(createExhibitCard(item)));
+    gallery.appendChild(rail);
+  }
+
+  let backHref = "exhibits.html";
+  let backText = "Back to Exhibits";
+  if (from === "archive") {
+    backHref = "archive.html";
+    backText = "Back to Archive";
+  } else if (from === "art") {
+    backHref = "art.html";
+    backText = "Back to Artwork";
+  }
+
+  setNavigation(
+    document.getElementById("exhibit-nav"),
+    prev,
+    next,
+    backHref,
+    backText,
+    (entry) => `exhibit.html?id=${entry.id}&from=${from}`
+  );
+
+  bindArrowNavigation(
+    prev ? `exhibit.html?id=${prev.id}&from=${from}` : "",
+    next ? `exhibit.html?id=${next.id}&from=${from}` : ""
+  );
+}
+
+/* =====================
        PHOTOGRAPHY
-========================= */
+======================== */
+
+function buildPhotoIndex() {
+  const container = document.getElementById("photo-archive");
+  if (!container) return;
+
+  const items = sortByDateDesc(getPhotoItems().filter((item) => item.showOnPhoto !== false));
+  const grouped = groupByYear(items);
+
+  container.innerHTML = "";
+  buildYearNav(grouped.map((group) => group.year));
+
+  grouped.forEach((group) => {
+    const yearSection = document.createElement("section");
+    yearSection.className = "gallery-year";
+    yearSection.id = `year-${group.year}`;
+
+    const heading = document.createElement("h2");
+    heading.textContent = group.year;
+
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+
+    group.items.forEach((item) => {
+      const link = document.createElement("a");
+      link.href = `photography.html?id=${item.id}&from=photo`;
+
+      const img = document.createElement("img");
+      applyGalleryImage(img, item);
+      img.alt = item.title || "Photography";
+
+      link.appendChild(img);
+      grid.appendChild(link);
+    });
+
+    yearSection.appendChild(heading);
+    yearSection.appendChild(grid);
+    container.appendChild(yearSection);
+  });
+}
 
 function buildPhotographyPage() {
   const layout = document.getElementById("photo-layout");
-  if (!layout || typeof archive === "undefined") return;
+  if (!layout) return;
 
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
   const from = params.get("from") || "photo";
-
   if (!id) {
     window.location.href = "photo.html";
     return;
   }
 
-  const items = sortByDateDescWithIdTiebreak(
-    archive.filter((item) => item.type === "photo" && item.showOnPhoto !== false)
-  );
-
+  const items = sortByDateDescWithIdTiebreak(getPhotoItems().filter((item) => item.showOnPhoto !== false));
   const index = items.findIndex((item) => item.id === id);
-
   if (index === -1) {
     window.location.href = "photo.html";
     return;
@@ -1077,7 +966,8 @@ function buildPhotographyPage() {
   const prev = items[index - 1];
   const next = items[index + 1];
 
-  document.getElementById("photo-title").textContent = item.title || "";
+  const titleEl = document.getElementById("photo-title");
+  if (titleEl) titleEl.textContent = item.title || "";
 
   if (item.sideNote) {
     layout.innerHTML = `
@@ -1104,21 +994,17 @@ function buildPhotographyPage() {
   imgEl.addEventListener("click", () => openLightbox(item.image, item.title || ""));
 
   let backHref = "photo.html";
-  let backText = "Back";
-
+  let backText = "Back to Photography";
   if (from === "archive") {
     backHref = "archive.html";
     backText = "Back to Archive";
   } else if (from === "art") {
     backHref = "art.html";
     backText = "Back to Artwork";
-  } else {
-    backText = "Back";
   }
 
-  const navEl = document.getElementById("photo-nav");
   setNavigation(
-    navEl,
+    document.getElementById("photo-nav"),
     prev,
     next,
     backHref,
@@ -1135,16 +1021,13 @@ function buildPhotographyPage() {
   );
 }
 
-/* ==========================================
-   INDIVIDUAL WRITING PAGES (writings.html)
-============================================= */
+/* =====================
+   WRITING + TRIPS VIEW
+======================== */
 
-function buildWritingPage() {
-  if (typeof archive === "undefined") return;
-
+function buildWritingViewer() {
   const isWritingViewer = window.location.pathname.includes("writings.html");
   const isTripViewer = window.location.pathname.includes("tripreports.html");
-
   if (!isWritingViewer && !isTripViewer) return;
 
   const params = new URLSearchParams(window.location.search);
@@ -1152,21 +1035,11 @@ function buildWritingPage() {
   const from = params.get("from");
   if (!id) return;
 
-  const items = archive.filter((item) => {
-    if (item.type !== "writing") return false;
-
-    if (isTripViewer) {
-      return item.sections && item.sections.includes("trips");
-    }
-
-    return !item.sections || item.sections.includes("writing");
-  });
-
+  const items = sortByDateDesc(getWritingItems().filter((item) => isTripViewer ? isTripItem(item) : isWritingItem(item)));
   const index = items.findIndex((item) => item.id === id);
   if (index === -1) return;
 
   const item = items[index];
-
   const frame = document.getElementById("pdf-frame");
   const titleEl = document.getElementById("writing-title");
   const descEl = document.getElementById("writing-description");
@@ -1176,7 +1049,6 @@ function buildWritingPage() {
 
   if (titleEl) titleEl.textContent = item.title || "";
   if (descEl) descEl.textContent = item.description || "";
-
   if (frame) frame.src = item.file || "";
   if (downloadLink) downloadLink.href = item.file || "";
   if (mobilePdfLink) mobilePdfLink.href = item.file || "";
@@ -1190,67 +1062,46 @@ function buildWritingPage() {
       backLink.textContent = "← Back to Trip Reports";
     } else {
       backLink.href = isTripViewer ? "trips.html" : "writing.html";
-      backLink.textContent = isTripViewer
-        ? "← Back to Trip Reports"
-        : "← Back to Writing";
+      backLink.textContent = isTripViewer ? "← Back to Trip Reports" : "← Back to Writing";
     }
   }
 }
 
-/* ==============================================
-         TRIP REPORTS INDEX / VIEWER
-================================================= */
-
 function buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
-  if (!container || typeof archive === "undefined") return;
+  if (!container) return;
 
   const yearNav = document.querySelector(".year-nav");
   const substanceFilter = document.querySelector(".tag-filter-substances");
   const tagFilter = document.querySelector(".tag-filter-tags");
 
-  const tripItems = archive
-    .filter(item => {
-      if (item.type !== "writing") return false;
-      if (item.showOnWriting === false) return false;
-
-      return (
-        item.section === "trips" ||
-        (Array.isArray(item.sections) && item.sections.includes("trips"))
-      );
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  const tripItems = sortByDateDesc(getWritingItems().filter((item) => item.showOnWriting !== false && isTripItem(item)));
 
   const groupedByYear = {};
-
-  tripItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
+  tripItems.forEach((item) => {
+    const year = toDate(item.date).getFullYear();
     if (!groupedByYear[year]) groupedByYear[year] = [];
     groupedByYear[year].push(item);
   });
 
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
+  const years = Object.keys(groupedByYear).map(Number).sort((a, b) => b - a);
   const allSubstances = getUniqueValues(tripItems, "substance");
   const allTags = getUniqueValues(tripItems, "tags");
 
   let selectedSubstances = new Set();
   let selectedTags = new Set();
 
-  function matchesAllActiveFilters(item) {
-    const matchesSubstances = itemMatchesSelectedValues(item, "substance", selectedSubstances);
-    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
-    return matchesSubstances && matchesTags;
+  function matches(item) {
+    return (
+      itemMatchesSelectedValues(item, "substance", selectedSubstances) &&
+      itemMatchesSelectedValues(item, "tags", selectedTags)
+    );
   }
 
-  function renderYearNav() {
+  function renderYearLinks() {
     if (!yearNav) return;
-
     yearNav.innerHTML = "";
-
-    years.forEach(year => {
+    years.forEach((year) => {
       const link = document.createElement("a");
       link.href = `#year-${year}`;
       link.textContent = year;
@@ -1260,7 +1111,6 @@ function buildTripReportsPage() {
 
   function buildMetaText(item) {
     const parts = [];
-
     if (item.date) parts.push(item.date);
 
     const selectedCount = selectedSubstances.size + selectedTags.size;
@@ -1275,9 +1125,8 @@ function buildTripReportsPage() {
   function renderTrips() {
     container.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    years.forEach((year) => {
+      const itemsForYear = groupedByYear[year].filter(matches);
       if (!itemsForYear.length) return;
 
       const block = document.createElement("div");
@@ -1290,7 +1139,7 @@ function buildTripReportsPage() {
       const list = document.createElement("div");
       list.className = "archive-list";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const row = document.createElement("a");
         row.className = "archive-row";
         row.href = `tripreports.html?id=${item.id}&from=trips`;
@@ -1298,13 +1147,7 @@ function buildTripReportsPage() {
         const title = document.createElement("div");
         title.className = "archive-title";
         title.textContent = item.title || "";
-
-        const combinedInlineTags = [
-          ...normalizeToArray(item.substance),
-          ...normalizeToArray(item.tags)
-        ];
-
-        appendInlineTags(title, combinedInlineTags);
+        appendInlineTags(title, [...normalizeToArray(item.substance), ...normalizeToArray(item.tags)]);
 
         const meta = document.createElement("div");
         meta.className = "archive-meta";
@@ -1349,7 +1192,7 @@ function buildTripReportsPage() {
     );
   }
 
-  renderYearNav();
+  renderYearLinks();
   renderSubstanceFilter();
   renderTagFilter();
   renderTrips();
@@ -1374,27 +1217,42 @@ function formatQuoteDate(dateString) {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  if (
-    Number.isNaN(year) ||
-    Number.isNaN(month) ||
-    Number.isNaN(day) ||
-    month < 1 ||
-    month > 12
-  ) {
+  if (Number.isNaN(year) || Number.isNaN(month) || Number.isNaN(day) || month < 1 || month > 12) {
     return dateString;
   }
 
   return `${monthNames[month - 1]} ${day}, ${year}`;
 }
 
-function buildMarginsPage(items = archive) {
+function renderQuoteText(item) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "quote-text";
+
+  if (Array.isArray(item.lines) && item.lines.length) {
+    wrapper.classList.add("quote-text-lines");
+    item.lines.forEach((line) => {
+      const lineEl = document.createElement("div");
+      lineEl.className = "quote-line";
+      lineEl.textContent = line;
+      wrapper.appendChild(lineEl);
+    });
+    return wrapper;
+  }
+
+  if (typeof item.text === "string" && item.text.trim()) {
+    wrapper.classList.add("quote-text-block");
+    if (item.allowHtml === true) wrapper.innerHTML = item.text.trim();
+    else wrapper.textContent = item.text.trim();
+  }
+
+  return wrapper;
+}
+
+function buildMarginsPage() {
   const container = document.querySelector(".margins-list");
-  if (!container || !Array.isArray(items)) return;
+  if (!container) return;
 
-  const margins = items
-    .filter((item) => item.type === "margins")
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
-
+  const margins = sortByDateDesc(getMarginItems());
   container.innerHTML = "";
 
   if (!margins.length) {
@@ -1422,10 +1280,8 @@ function buildMarginsPage(items = archive) {
       meta.className = "quote-meta";
       meta.textContent = formatQuoteDate(item.date);
 
-      const text = renderQuoteText(item);
-
       entry.appendChild(meta);
-      entry.appendChild(text);
+      entry.appendChild(renderQuoteText(item));
 
       if (typeof item.detail === "string" && item.detail.trim()) {
         const detail = document.createElement("div");
@@ -1443,81 +1299,46 @@ function buildMarginsPage(items = archive) {
   buildYearNav(grouped.map((group) => group.year));
 }
 
-function renderQuoteText(item) {
-  const wrapper = document.createElement("div");
-  wrapper.className = "quote-text";
-
-  if (Array.isArray(item.lines) && item.lines.length) {
-    wrapper.classList.add("quote-text-lines");
-
-    item.lines.forEach((line) => {
-      const lineEl = document.createElement("div");
-      lineEl.className = "quote-line";
-      lineEl.textContent = line;
-      wrapper.appendChild(lineEl);
-    });
-
-    return wrapper;
-  }
-
-  if (typeof item.text === "string" && item.text.trim()) {
-    wrapper.classList.add("quote-text-block");
-
-    if (item.allowHtml === true) {
-      wrapper.innerHTML = item.text.trim();
-    } else {
-      wrapper.textContent = item.text.trim();
-    }
-
-    return wrapper;
-  }
-
-  return wrapper;
-}
-
-function buildQuotesPage(items = archive) {
+function buildQuotesPage() {
   const container = document.querySelector(".quotes-list");
-  if (!container || !Array.isArray(items)) return;
+  if (!container) return;
 
   container.innerHTML = "";
 
-  items
-    .filter((item) => item.type === "quotes")
-    .sort((a, b) => toDate(b.date) - toDate(a.date))
-    .forEach((item) => {
-      const entry = document.createElement("article");
-      entry.className = "quote-entry";
+  sortByDateDesc(getQuoteItems()).forEach((item) => {
+    const entry = document.createElement("article");
+    entry.className = "quote-entry";
+    if (item.id) entry.id = item.id;
 
+    const hasDate = Boolean(item.date);
+    if (hasDate) {
       const meta = document.createElement("div");
       meta.className = "quote-meta";
       meta.textContent = formatQuoteDate(item.date);
-
-      const text = renderQuoteText(item);
       entry.appendChild(meta);
-      entry.appendChild(text);
+    }
 
-      if (item.author || item.source) {
-        const attribution = document.createElement("div");
-        attribution.className = "quote-attribution";
-        attribution.textContent = [item.author, item.source]
-          .filter(Boolean)
-          .join(", ");
+    entry.appendChild(renderQuoteText(item));
 
-        if (attribution.textContent) {
-          attribution.textContent = "— " + attribution.textContent;
-          entry.appendChild(attribution);
-        }
+    if (item.author || item.source) {
+      const attribution = document.createElement("div");
+      attribution.className = "quote-attribution";
+      attribution.textContent = [item.author, item.source].filter(Boolean).join(", ");
+      if (attribution.textContent) {
+        attribution.textContent = "— " + attribution.textContent;
+        entry.appendChild(attribution);
       }
+    }
 
-      if (typeof item.detail === "string" && item.detail.trim()) {
-        const detail = document.createElement("div");
-        detail.className = "quote-detail";
-        detail.textContent = item.detail.trim();
-        entry.appendChild(detail);
-      }
+    if (typeof item.detail === "string" && item.detail.trim()) {
+      const detail = document.createElement("div");
+      detail.className = "quote-detail";
+      detail.textContent = item.detail.trim();
+      entry.appendChild(detail);
+    }
 
-      container.appendChild(entry);
-    });
+    container.appendChild(entry);
+  });
 }
 
 /* ====================
@@ -1529,16 +1350,13 @@ const QUESTIONS_API_URL =
 
 function formatQuestionDate(dateString) {
   const date = new Date(dateString);
-
-  return date
-    .toLocaleString("en-US", {
-      month: "numeric",
-      day: "numeric",
-      year: "2-digit",
-      hour: "numeric",
-      minute: "2-digit"
-    })
-    .replace(",", "  ");
+  return date.toLocaleString("en-US", {
+    month: "numeric",
+    day: "numeric",
+    year: "2-digit",
+    hour: "numeric",
+    minute: "2-digit"
+  }).replace(",", "  ");
 }
 
 async function fetchPublicQuestions() {
@@ -1547,9 +1365,8 @@ async function fetchPublicQuestions() {
   try {
     const res = await fetch(QUESTIONS_API_URL);
     if (!res.ok) throw new Error("Failed to fetch questions");
-
     const data = await res.json();
-    publicQuestions = Array.isArray(data.questions) ? data.questions : [];
+    window.publicQuestions = Array.isArray(data.questions) ? data.questions : [];
     buildQuestionsPage();
   } catch (err) {
     console.error("Error fetching public questions:", err);
@@ -1563,9 +1380,7 @@ function buildQuestionsPage() {
   const container = document.getElementById("questions-list");
   if (!container) return;
 
-  const merged = [...publicQuestions, ...questions].sort(
-    (a, b) => toDate(b.date) - toDate(a.date)
-  );
+  const merged = [...window.publicQuestions, ...window.questions].sort((a, b) => toDate(b.date) - toDate(a.date));
 
   const seen = new Set();
   const allQuestions = merged.filter((item) => {
@@ -1621,7 +1436,6 @@ function setupQuestionForm() {
 
     const question = input.value.trim();
     const website = honeypot ? honeypot.value.trim() : "";
-
     if (!question) return;
 
     status.textContent = "submitting...";
@@ -1629,25 +1443,16 @@ function setupQuestionForm() {
     try {
       const res = await fetch(QUESTIONS_API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify({
-          question,
-          website
-        })
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ question, website })
       });
 
       const data = await res.json();
-
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Submission failed");
-      }
+      if (!res.ok || !data.ok) throw new Error(data.error || "Submission failed");
 
       input.value = "";
       if (honeypot) honeypot.value = "";
       status.textContent = "submitted";
-
       await fetchPublicQuestions();
     } catch (err) {
       console.error("Error submitting question:", err);
@@ -1662,17 +1467,11 @@ function setupQuestionForm() {
 
 function buildFooter() {
   const content = document.querySelector(".content");
-  if (!content) return;
-
-  if (document.querySelector(".site-footer")) return;
+  if (!content || document.querySelector(".site-footer")) return;
 
   const footer = document.createElement("div");
   footer.className = "site-footer";
-
-  footer.innerHTML = `
-    <p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret | artwork and writing © their respective years</p>
-  `;
-
+  footer.innerHTML = `<p>© ${new Date().getFullYear()} Christopher Shenefelt | The Dragon of Deseret | artwork and writing © their respective years</p>`;
   content.appendChild(footer);
 }
 
@@ -1681,23 +1480,22 @@ function buildFooter() {
 ======================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  buildGallery();
-  buildArchive();
-  buildWritingIndex();
-  buildTripReportsPage();
-  buildExhibitsArchive();
-  buildExhibitPage();
+  const path = window.location.pathname;
+
+  if (path.includes("archive.html")) buildArchive();
+  if (path.includes("art.html")) buildGallery();
+  if (path.includes("artwork.html")) buildArtworkPage();
+  if (path.includes("exhibits.html")) buildExhibitsArchive();
+  if (path.includes("exhibit.html")) buildExhibitPage();
+  if (path.includes("photo.html")) buildPhotoIndex();
+  if (path.includes("photography.html")) buildPhotographyPage();
+  if (path.includes("writing.html")) buildWritingIndex();
+  if (path.includes("writings.html") || path.includes("tripreports.html")) buildWritingViewer();
+  if (path.includes("trips.html")) buildTripReportsPage();
+  if (path.includes("margins.html")) buildMarginsPage();
+  if (path.includes("quotes.html")) buildQuotesPage();
+
   buildQuestionsPage();
   fetchPublicQuestions();
-
-  buildMarginsPage(archive);
-  buildQuotesPage(archive);
-
- if (window.location.pathname.includes("artwork.html")) {
-  buildArtworkPage();
-}
-
-  buildPhotographyPage();
-  buildWritingPage();
   buildFooter();
 });
