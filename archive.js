@@ -1339,6 +1339,16 @@ const archive = normalizeArchive([
     file: "pdf/THOOGTEOOS.pdf",
     sections: ["writing"]
   },
+ {
+    id: "ND",
+    type: "writing",
+    title: "Nothing Doubting",
+    year: 2024,
+    date: "2024-01-09",
+    file: "pdf/ND.pdf",
+    sections: ["trips"]
+    substance: ["Psilocybin", "Visionary"]
+  },
   {
     id: "FSoC",
     type: "writing",
@@ -1365,7 +1375,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/Toyn.pdf",
     sections: ["trips"],
-    substance: "Dreams"
+    substance: ["Dreams"]
   },
   {
     id: "RDMain",
@@ -1375,7 +1385,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/RDMain.pdf",
     sections: ["trips"],
-    substance: "Dreams"
+    substance: ["Dreams", "Visionary"]
   },
   {
     id: "CB",
@@ -1385,7 +1395,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/CB.pdf",
     sections: ["trips"],
-    substance: "Zen"
+    substance: ["Zen"]
   },
   {
     id: "TrampOBE",
@@ -1395,7 +1405,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/TrampOBE.pdf",
     sections: ["trips"],
-    substance: "OBE"
+    substance: ["OBE"]
   },
   {
     id: "GT",
@@ -1405,7 +1415,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/GT.pdf",
     sections: ["trips"],
-    substance: "Psilocybin"
+    substance: ["Psilocybin"]
   },
 {
     id: "TCJ",
@@ -1446,7 +1456,7 @@ const archive = normalizeArchive([
   {
     id: "DMTERRAIN",
     type: "writing",
-    title: "The Dark Matter Terrain",
+    title: "DMT: The Dark Matter Terrain",
     date: "2022-09-22",
     year: 2022,
     file: "pdf/DMTERRAIN.pdf",
@@ -1460,7 +1470,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/HGA.pdf",
     sections: ["trips"],
-    substance: "Psilocybin"
+    substance: ["Psilocybin"]
   },
   {
     id: "IAMT",
@@ -1470,7 +1480,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/IAMT.pdf",
     sections: ["trips"],
-    substance: "DMT"
+    substance: ["DMT"]
   },
   {
     id: "TGCoB",
@@ -1480,7 +1490,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/TGCoB.pdf",
     sections: ["trips"],
-    substance: "DMT"
+    substance: ["DMT"]
   },
   {
     id: "DogBuddha",
@@ -1540,7 +1550,7 @@ const archive = normalizeArchive([
     year: 2019,
     file: "pdf/AIW.pdf",
     sections: ["trips"],
-    substance: "LSD"
+    substance: ["LSD", "Visionary"]
   },
 
 /* ===================

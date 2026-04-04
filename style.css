@@ -251,7 +251,7 @@ a {
 }
 
 .content::after {
-  content: "none";
+  content: "";
   display: block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.9);
   margin-top: auto;
@@ -1570,14 +1570,37 @@ blockquote.margin-text {
     FOOTER
 ============== */
 
+.layout {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.content {
+  flex: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+}
+
+/* remove the fake bottom line entirely */
+.content::after {
+  content: none !important;
+  display: none !important;
+}
+
 .site-footer {
   margin-top: auto;
-  padding-top: 30px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  font-size: 14px;
-  line-height: 1.5;
-  letter-spacing: 0.3px;
-  opacity: 0.6;
+  padding-top: 18px;
+  padding-bottom: 0;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0.15px;
+  opacity: 0.58;
+  width: 100%;
   max-width: 1400px;
 }
 
@@ -1585,4 +1608,8 @@ blockquote.margin-text {
   margin: 0;
   font-size: inherit;
   line-height: inherit;
+}
+
+.site-footer p + p {
+  margin-top: 2px;
 }
