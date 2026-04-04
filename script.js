@@ -980,8 +980,11 @@ function buildTripReportsPage() {
   const container = document.getElementById("trip-reports");
   if (!container || typeof archive === "undefined") return;
 
+  const yearNav = document.querySelector(".year-nav");
+  const tagFilter = document.querySelector(".tag-filter");
+
   const tripItems = archive
-    .filter((item) => {
+    .filter(item => {
       if (item.type !== "writing") return false;
 
       const inTrips =
@@ -993,59 +996,154 @@ function buildTripReportsPage() {
 
       return true;
     })
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  const grouped = {};
+  const groupedByYear = {};
 
-  tripItems.forEach((item) => {
-    const substances = Array.isArray(item.substance)
+  tripItems.forEach(item => {
+    const year = new Date(item.date).getFullYear();
+    if (!groupedByYear[year]) groupedByYear[year] = [];
+    groupedByYear[year].push(item);
+  });
+
+  const years = Object.keys(groupedByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
+  const allTags = [...new Set(
+    tripItems.flatMap(item => {
+      if (Array.isArray(item.substance)) return item.substance;
+      if (item.substance) return [item.substance];
+      return [];
+    })
+  )].sort((a, b) => a.localeCompare(b));
+
+  let activeTag = null;
+
+  function renderYearNav() {
+    if (!yearNav) return;
+
+    yearNav.innerHTML = "";
+
+    years.forEach(year => {
+      const link = document.createElement("a");
+      link.href = `#year-${year}`;
+      link.textContent = year;
+      yearNav.appendChild(link);
+    });
+  }
+
+  function renderTagFilter() {
+    if (!tagFilter) return;
+
+    tagFilter.innerHTML = "";
+
+    const allButton = document.createElement("button");
+    allButton.type = "button";
+    allButton.className = `tag-pill${activeTag === null ? " active" : ""}`;
+    allButton.textContent = "All";
+    allButton.addEventListener("click", () => {
+      activeTag = null;
+      renderTagFilter();
+      renderTrips();
+    });
+    tagFilter.appendChild(allButton);
+
+    allTags.forEach(tag => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `tag-pill${activeTag === tag ? " active" : ""}`;
+      button.textContent = tag;
+      button.addEventListener("click", () => {
+        activeTag = activeTag === tag ? null : tag;
+        renderTagFilter();
+        renderTrips();
+      });
+      tagFilter.appendChild(button);
+    });
+  }
+
+  function itemMatchesActiveTag(item) {
+    if (!activeTag) return true;
+
+    const tags = Array.isArray(item.substance)
       ? item.substance
-      : [item.substance || "Other"];
+      : item.substance
+        ? [item.substance]
+        : [];
 
-    substances.forEach((substance) => {
-      if (!grouped[substance]) grouped[substance] = [];
-      grouped[substance].push(item);
+    return tags.includes(activeTag);
+  }
+
+  function renderTrips() {
+    container.innerHTML = "";
+
+    years.forEach(year => {
+      const itemsForYear = groupedByYear[year].filter(itemMatchesActiveTag);
+
+      if (!itemsForYear.length) return;
+
+      const block = document.createElement("div");
+      block.className = "archive-year";
+      block.id = `year-${year}`;
+
+      const heading = document.createElement("h2");
+      heading.textContent = year;
+
+      const list = document.createElement("div");
+      list.className = "archive-list";
+
+      itemsForYear.forEach(item => {
+        const row = document.createElement("a");
+        row.className = "archive-row";
+        row.href = `tripreports.html?id=${item.id}&from=trips`;
+
+        const title = document.createElement("div");
+        title.className = "archive-title";
+
+        const titleText = document.createElement("span");
+        titleText.textContent = item.title || "";
+
+        title.appendChild(titleText);
+
+        const tags = Array.isArray(item.substance)
+          ? item.substance
+          : item.substance
+            ? [item.substance]
+            : [];
+
+        if (tags.length) {
+          const tagsWrap = document.createElement("div");
+          tagsWrap.className = "trip-tags-inline";
+
+          tags.forEach(tag => {
+            const pill = document.createElement("span");
+            pill.className = "trip-tag-inline";
+            pill.textContent = tag;
+            tagsWrap.appendChild(pill);
+          });
+
+          title.appendChild(tagsWrap);
+        }
+
+        const meta = document.createElement("div");
+        meta.className = "archive-meta";
+        meta.textContent = item.date || "";
+
+        row.appendChild(title);
+        row.appendChild(meta);
+        list.appendChild(row);
+      });
+
+      block.appendChild(heading);
+      block.appendChild(list);
+      container.appendChild(block);
     });
-  });
+  }
 
-  const substances = Object.keys(grouped).sort((a, b) => a.localeCompare(b));
-
-  container.innerHTML = "";
-  buildSubstanceNav(substances);
-
-  substances.forEach((substance) => {
-    const block = document.createElement("div");
-    block.className = "archive-year";
-    block.id = `substance-${slugify(substance)}`;
-
-    const heading = document.createElement("h2");
-    heading.textContent = substance;
-
-    const list = document.createElement("div");
-    list.className = "archive-list";
-
-    grouped[substance].forEach((item) => {
-      const row = document.createElement("a");
-      row.className = "archive-row";
-      row.href = `tripreports.html?id=${item.id}&from=trips`;
-
-      const title = document.createElement("div");
-      title.className = "archive-title";
-      title.textContent = item.title || "";
-
-      const meta = document.createElement("div");
-      meta.className = "archive-meta";
-      meta.textContent = item.date || "";
-
-      row.appendChild(title);
-      row.appendChild(meta);
-      list.appendChild(row);
-    });
-
-    block.appendChild(heading);
-    block.appendChild(list);
-    container.appendChild(block);
-  });
+  renderYearNav();
+  renderTagFilter();
+  renderTrips();
 }
 
 /* ====================
