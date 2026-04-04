@@ -68,10 +68,31 @@ function buildYearNav(years) {
 
   nav.innerHTML = "";
 
+  const isMobile = window.matchMedia("(max-width: 700px)").matches;
+  const topOffset = isMobile ? 24 : 70;
+
   years.forEach((year, index) => {
     const link = document.createElement("a");
     link.href = `#year-${year}`;
     link.textContent = year;
+
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const target = document.getElementById(`year-${year}`);
+      if (!target) return;
+
+      const targetTop =
+        target.getBoundingClientRect().top + window.pageYOffset - topOffset;
+
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: isMobile ? "auto" : "smooth"
+      });
+
+      history.replaceState(null, "", `#year-${year}`);
+    });
+
     nav.appendChild(link);
 
     if (index < years.length - 1) {
@@ -1073,12 +1094,29 @@ function buildMarginsPage(items = archive) {
   const container = document.querySelector(".margins-list");
   if (!container || !Array.isArray(items)) return;
 
+  const margins = items
+    .filter((item) => item.type === "margins")
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
+
   container.innerHTML = "";
 
-  items
-    .filter((item) => item.type === "margins")
-    .sort((a, b) => toDate(b.date) - toDate(a.date))
-    .forEach((item) => {
+  if (!margins.length) {
+    buildYearNav([]);
+    return;
+  }
+
+  const grouped = groupByYear(margins);
+
+  grouped.forEach((group) => {
+    const yearSection = document.createElement("section");
+    yearSection.className = "margins-year";
+    yearSection.id = `year-${group.year}`;
+
+    const yearHeading = document.createElement("h2");
+    yearHeading.textContent = group.year;
+    yearSection.appendChild(yearHeading);
+
+    group.items.forEach((item) => {
       const entry = document.createElement("article");
       entry.className = "quote-entry";
       entry.id = item.id;
@@ -1099,8 +1137,13 @@ function buildMarginsPage(items = archive) {
         entry.appendChild(detail);
       }
 
-      container.appendChild(entry);
+      yearSection.appendChild(entry);
     });
+
+    container.appendChild(yearSection);
+  });
+
+  buildYearNav(grouped.map((group) => group.year));
 }
 
 function renderQuoteText(item) {
