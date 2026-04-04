@@ -1594,6 +1594,16 @@ detail: "Conversations had on X."
 All senses are the specialization of the sense of touch. This is why psychedelics feel so real. In a sense, you finally know that you're touching light when you see it, and touching sound when you hear it. It's in the tactile experience.`,
 },
 {
+ id: "2022_10-05",
+  type: "margins",
+  title: "Death of Anti-Mormonism, (1945–2022)",
+  date: "2022-10-05",
+  text: `
+Modern-day Anti-mormonism reached full postmodern novelty on January 24, 2022. This was confirmed on October 1, 2022 by Dieter F. Uchtdorf.
+
+A new era is on the rise.`
+},
+{
   id: "2022_09_22_5",
   type: "margins",
   title: "DMT",
@@ -1652,6 +1662,14 @@ I think I am, therefore,
 I am.
 Quoth the human—[n]evermore.`,
 detail: "Excerpts from The Quantum Moiré, 2022."
+},
+{
+ id: "2022_09-14",
+  type: "margins",
+  title: "Meditation",
+  date: "2022-09-14",
+  text: `
+Meditation is life's day-to-day anesthetic.`
 },
 {
   id: "2022_08_02",
