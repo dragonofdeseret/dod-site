@@ -84,9 +84,23 @@ const archive = normalizeArchive([
     title: "May 7, 2025",
     year: 2025,
     date: "2025-05-07",
-    image: "images/art/2025/2025-05-07.webp",
-    medium: "Prisma Color",
-    tags: ["Symbolism", "Dragon", "Mormonism"]
+    image: "images/art/2025/2025-05-07.webp"
+  },
+  {
+  id: "2025-08-28",
+  type: "art",
+  title: "August 28, 2025",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/2025-08-28.webp",
+  medium: "Prisma Color",
+  tags: ["Symbolism", "Dragon", "Mormonism"],
+  sideNoteTitle: "With an eye single to the glory of God",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Prisma Color on Paper</p>
+    <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
+  `
   },
 {
   id: "2024-11-18_3",
@@ -137,21 +151,6 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-09-08",
     image: "images/art/2024/2024-09-08.webp"
-  },
-  {
-  id: "2025-08-28",
-  type: "art",
-  title: "August 28, 2025",
-  year: 2025,
-  date: "2025-08-28",
-  image: "images/art/2025/2025-08-28.webp",
-  description: "Short description",
-  sideNoteTitle: "With an eye single to the glory of God",
-  sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Prisma Color on Paper</p>
-    <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
-  `
   },
   {
     id: "2024-08-22",
