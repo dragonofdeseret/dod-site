@@ -1559,12 +1559,22 @@ const archive = normalizeArchive([
 {
   id: "2025_09_22",
   type: "margins",
-  title: "The Ontology of Resonance | The Golden Plates",
+  title: "The Divine Ecology",
   date: "2025-09-22",
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.”`,
 detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
+{
+  id: "2025_09_22",
+  type: "margins",
+  title: "The Depth of Mormon Theology",
+  date: "2025-09-22",
+  text: `
+“The Mormon tradition sings a vision of God that is both expansive and intimate—being and becoming, law and light. Yet this harmonic theology is too often distorted… [Others'] flattened images, while understandable given limited exposure, tragically overlook the depth and intricacies of Mormon theology.”,
+detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+},
+
 {
   id: "2025_09_22",
   type: "margins",
