@@ -1557,32 +1557,31 @@ const archive = normalizeArchive([
        MARGINS
 ====================== */
 {
-  id: "2025_09_22",
+  id: "2025_09_22_3",
   type: "margins",
   title: "The Divine Ecology",
   date: "2025-09-22",
   text: `
-In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.”`,
-detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
+  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
 {
-  id: "2025_09_22",
+  id: "2025_09_22_2",
   type: "margins",
   title: "The Depth of Mormon Theology",
   date: "2025-09-22",
   text: `
-“The Mormon tradition sings a vision of God that is both expansive and intimate—being and becoming, law and light. Yet this harmonic theology is too often distorted… [Others'] flattened images, while understandable given limited exposure, tragically overlook the depth and intricacies of Mormon theology.”,
-detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+The Mormon tradition sings a vision of God that is both expansive and intimate—being and becoming, law and light. Yet this harmonic theology is too often distorted… [Others'] flattened images, while understandable given limited exposure, tragically overlook the depth and intricacies of Mormon theology.`,
+  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
-
 {
-  id: "2025_09_22",
+  id: "2025_09_22_1",
   type: "margins",
   title: "The Ontology of Resonance | The Golden Plates",
   date: "2025-09-22",
   text: `
 The golden plates exist in the liminal space where matter becomes melody—a chord struck simultaneously in the soil of Cumorah’s hill, and the hyperdimensional lattice of the Spirit World. They are neither relic nor rumor, but resonance: a vibration echoing across the Möbius strip of eternity, accessible when perception pivots from passive sight to active grasp. The plates’ burial and exhumation are not sequential events, they are simultaneous frequencies in God’s eternal round… waiting to be unwoven by those who dare to hum harmonics into the abyss.`,
-detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
 {
   id: "2025_02_15",
