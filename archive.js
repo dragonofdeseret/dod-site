@@ -1449,7 +1449,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/TCJ.pdf",
     sections: ["writing"],
-    tags: ["DMT", consciousness"]
+    tags: ["DMT", "consciousness"]
   },
   {
     id: "TCAE",
