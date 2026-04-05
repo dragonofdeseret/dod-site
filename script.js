@@ -389,12 +389,12 @@ function createArchiveBadge(item) {
     return badge;
   }
 
-  if (item.type === "margin") {
+  if (item.type === "margin" || item.type === "margins") {
     badge.textContent = "M";
     return badge;
   }
 
-  if (item.type === "quote") {
+  if (item.type === "quote" || item.type === "quotes") {
     badge.textContent = "Q";
     return badge;
   }
@@ -405,18 +405,32 @@ function createArchiveBadge(item) {
 
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container) return;
+  if (!container || typeof archive === "undefined") return;
 
-  const archiveItems = getAllArchiveItems();
-  const allowedTypes = new Set(["art", "photo", "writing", "margin", "quote"]);
+  const allowedTypes = new Set(["art", "photo", "writing", "margin", "margins", "quote", "quotes"]);
 
-  const grouped = groupByYear(
-    archiveItems.filter((item) => {
-      if (!allowedTypes.has(item.type)) return false;
+  const archiveItems = sortByDateDescWithIdTiebreak(
+    archive.filter((item) => {
+      if (!item || !allowedTypes.has(item.type)) return false;
       if (item.showOnArchive === false) return false;
       return true;
     })
   );
+
+  const groupedMap = {};
+
+  archiveItems.forEach((item) => {
+    const year = item.year || toDate(item.date).getFullYear();
+    if (!groupedMap[year]) groupedMap[year] = [];
+    groupedMap[year].push(item);
+  });
+
+  const grouped = Object.keys(groupedMap)
+    .sort((a, b) => Number(b) - Number(a))
+    .map((year) => ({
+      year,
+      items: groupedMap[year]
+    }));
 
   container.innerHTML = "";
   buildYearNav(grouped.map((group) => group.year));
