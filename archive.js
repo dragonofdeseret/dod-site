@@ -1295,7 +1295,7 @@ const archive = normalizeArchive([
     isBook: true,
     file: "pdf/NaturalisticBoM.pdf",
     sections: ["writing"],
-    Tags: ["Metaphysics", "Mormonism"]
+    tags: ["mormon-theology", "metaphysics", "book-of-mormon", "headless-way"]
   },
   {
     id: "DragonPearl",
@@ -1306,6 +1306,18 @@ const archive = normalizeArchive([
     isBook: true,
     file: "pdf/DragonPearl.pdf",
     sections: ["writing"]
+    tags: ["mormon-theology", "metaphysics", "Daoism", "cosmology", "panpsychism", "intelligence-theory"]
+  },
+ {
+    id: "CtP",
+    type: "writing",
+    title: "Called to Purge",
+    year: 2025,
+    date: "2025-03-05",
+    isBook: true,
+    file: "pdf/CtP.pdf",
+    sections: ["writing"]
+    tags: ["mormon-theology", "metaphysics", "dreams", "consciousness", "phenomenology", "visionary"]
   },
   {
     id: "AcidLullabies",
@@ -1315,6 +1327,7 @@ const archive = normalizeArchive([
     date: "2025-02-16",
     file: "pdf/AcidLullabies.pdf",
     sections: ["writing"]
+    tags: ["LSD", "psychedelics", "consciousness", "science", "theory"],
   },
   {
     id: "HL",
@@ -1324,6 +1337,7 @@ const archive = normalizeArchive([
     date: "2024-09-29",
     file: "pdf/HL.pdf",
     sections: ["writing"]
+    tags: ["mormon-theology", "metaphysics", "theory", "phenomenology", "panpsychism", "intelligence-theory", "book-of-mormon"]
   },
   {
     id: "AIPR",
@@ -1333,6 +1347,7 @@ const archive = normalizeArchive([
     date: "2024-06-24",
     file: "pdf/AIPR.pdf",
     sections: ["writing"]
+    tags: ["consciousness", "artificial-intelligence", "Daoism"]
   },
   {
     id: "THOOGTEOOS",
@@ -1342,8 +1357,9 @@ const archive = normalizeArchive([
     date: "2024-05-11",
     file: "pdf/THOOGTEOOS.pdf",
     sections: ["writing"]
+    tags: ["mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
   },
- {
+  {
     id: "ND",
     type: "writing",
     title: "Nothing Doubting",
@@ -1351,7 +1367,8 @@ const archive = normalizeArchive([
     date: "2024-01-09",
     file: "pdf/ND.pdf",
     sections: ["trips"],
-    substance: ["Psilocybin", "Visionary"]
+    substance: ["Psilocybin"]
+    tags: ["visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
   },
   {
     id: "FSoC",
@@ -1361,6 +1378,7 @@ const archive = normalizeArchive([
     date: "2023-12-21",
     file: "pdf/FSoC.pdf",
     sections: ["writing"]
+    tags: ["consciousness", "science", "zazen"]
   },
   {
     id: "BSnSG",
@@ -1370,6 +1388,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/BSnSG.pdf",
     sections: ["writing"],
+    tags: ["deconstruction", "ex-mormonism", "phenomenology"]
   },
   {
     id: "Toyn",
@@ -1379,7 +1398,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/Toyn.pdf",
     sections: ["trips"],
-    substance: ["Dreams"]
+    tags: ["dreams", "visionary", "phenomenology", "consciousness"]
   },
   {
     id: "RDMain",
@@ -1389,7 +1408,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/RDMain.pdf",
     sections: ["trips"],
-    substance: ["Dreams", "Visionary"]
+    tags: ["dreams", "visionary", "phenomenology", "consciousness"]
   },
   {
     id: "CB",
@@ -1399,7 +1418,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/CB.pdf",
     sections: ["trips"],
-    substance: ["Zen"]
+    tags: ["meditation", "zazen", "visionary", "phenomenology", "consciousness"]
   },
   {
     id: "TrampOBE",
@@ -1409,7 +1428,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/TrampOBE.pdf",
     sections: ["trips"],
-    substance: ["OBE"]
+    tags: ["phenomenology", "consciousness"]
   },
   {
     id: "GT",
@@ -1420,6 +1439,7 @@ const archive = normalizeArchive([
     file: "pdf/GT.pdf",
     sections: ["trips"],
     substance: ["Psilocybin"]
+    tags: ["visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
   },
 {
     id: "TCJ",
@@ -1429,6 +1449,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/TCJ.pdf",
     sections: ["writing"],
+    tags: ["DMT", consciousness"]
   },
   {
     id: "TCAE",
@@ -1456,6 +1477,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/RoEM.pdf",
     sections: ["writing"],
+    tags: ["DMT", "consciousness", "science", "theory"]
   },
   {
     id: "DMTERRAIN",
@@ -1465,6 +1487,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/DMTERRAIN.pdf",
     sections: ["writing"]
+    tags: ["DMT", "consciousness", "science", "theory", "psychedelics"]
   },
   {
     id: "HGA",
@@ -1475,6 +1498,7 @@ const archive = normalizeArchive([
     file: "pdf/HGA.pdf",
     sections: ["trips"],
     substance: ["Psilocybin"]
+    tags: ["visionary", "psychedelics", "consciousness", "phenomenology"]
   },
   {
     id: "IAMT",
@@ -1485,6 +1509,7 @@ const archive = normalizeArchive([
     file: "pdf/IAMT.pdf",
     sections: ["trips"],
     substance: ["DMT"]
+    tags: ["visionary", "DMT", consciousness", "phenomenology", "psychedelics"]
   },
   {
     id: "TGCoB",
@@ -1495,6 +1520,7 @@ const archive = normalizeArchive([
     file: "pdf/TGCoB.pdf",
     sections: ["trips"],
     substance: ["DMT"]
+    tags: ["visionary", "DMT", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
   },
   {
     id: "DogBuddha",
@@ -1504,7 +1530,8 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/DogBuddha.pdf",
     sections: ["trips"],
-    substance: ["LSD", "Zen"]
+    substance: ["LSD"]
+    tags: ["zazen", "LSD" "psychedelics" "consciousness"]
   },
   {
     id: "WMZ",
@@ -1514,7 +1541,8 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/WMZ.pdf",
     sections: ["trips"],
-    substance: ["LSD", "Zen"]
+    substance: ["LSD"]
+    tags: ["zazen", "LSD" "psychedelics" "consciousness"]
   },
   {
     id: "ForestofLee",
@@ -1525,6 +1553,7 @@ const archive = normalizeArchive([
     date: "2021-08-31",
     file: "pdf/ForestofLee.pdf",
     sections: ["writing"]
+    tags: ["mormon-theology", "phenomenology"]
   },
   {
     id: "Triplette",
@@ -1534,7 +1563,7 @@ const archive = normalizeArchive([
     year: 2020,
     file: "pdf/Triplette.pdf",
     sections: ["trips"],
-    substance: ["Zen", "Cannabis"]
+    tags: ["zazen", "cannabis", "consciousness", meditation", "phenomenology"]
   },
   {
     id: "SiA",
@@ -1545,6 +1574,7 @@ const archive = normalizeArchive([
     file: "pdf/SiA.pdf",
     sections: ["trips"],
     substance: ["Cannabis"]
+    tags: ["visionary", "DMT", "cannabis", "medical", "phenomenology"]
   },
   {
     id: "AIW",
@@ -1554,7 +1584,8 @@ const archive = normalizeArchive([
     year: 2019,
     file: "pdf/AIW.pdf",
     sections: ["trips"],
-    substance: ["LSD", "Visionary"]
+    substance: ["LSD"]
+    tags: ["visionary", "LSD", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
   },
 
 /* ===================
