@@ -1509,7 +1509,7 @@ const archive = normalizeArchive([
     file: "pdf/IAMT.pdf",
     sections: ["trips"],
     substance: ["DMT"],
-    tags: ["visionary", "DMT", consciousness", "phenomenology", "psychedelics"]
+    tags: ["visionary", "DMT", "consciousness", "phenomenology", "psychedelics"]
   },
   {
     id: "TGCoB",
