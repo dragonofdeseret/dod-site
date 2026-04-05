@@ -1452,6 +1452,42 @@ blockquote.margin-text {
   border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+.writing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 18px 0 0;
+  font-size: 14px;
+}
+
+.writing-actions a {
+  text-decoration: none;
+  opacity: 0.78;
+}
+
+.writing-actions a:hover {
+  opacity: 1;
+}
+
+#download-link {
+  margin-left: auto;
+}
+
+@media (max-width: 700px) {
+  .writing-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #download-link {
+    margin-left: 0;
+  }
+}
+
 /* ==============================
    PDF / ESSAYS
 ================================= */
