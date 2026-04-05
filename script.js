@@ -449,62 +449,68 @@ function buildArchive() {
     list.className = "archive-list";
 
     group.items.forEach((item) => {
-  const row = document.createElement("div");
-  row.className = "archive-row";
+      const row = document.createElement("div");
+      row.className = "archive-row";
 
-  /* ---------- TITLE AREA ---------- */
+      const title = document.createElement("div");
+      title.className = "archive-title";
 
-  const title = document.createElement("div");
-  title.className = "archive-title";
+      const mainLink = document.createElement("a");
+      mainLink.href = getItemUrl(item, "archive");
+      mainLink.textContent = item.title || item.date || "";
+      title.appendChild(mainLink);
 
-  const mainLink = document.createElement("a");
-  mainLink.href = getItemUrl(item, "archive");
-  mainLink.textContent = item.title || item.date || "";
+      if (item.isBook) {
+        const buy = document.createElement("a");
+        buy.href = "https://a.co/d/04zcw8xP";
+        buy.target = "_blank";
+        buy.rel = "noopener";
+        buy.className = "buy-link-inline";
+        buy.textContent = "Buy ↗";
 
-  title.appendChild(mainLink);
+        title.appendChild(document.createTextNode(" "));
+        title.appendChild(buy);
+      }
 
-  if (item.isBook) {
-    const buy = document.createElement("a");
-    buy.href = "https://a.co/d/04zcw8xP";
-    buy.target = "_blank";
-    buy.rel = "noopener";
-    buy.className = "buy-link-inline";
-    buy.textContent = "Buy ↗";
+      const metaWrap = document.createElement("div");
+      metaWrap.className = "archive-meta-wrap";
 
-    title.appendChild(document.createTextNode(" "));
-    title.appendChild(buy);
-  }
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || item.year || "";
+      metaWrap.appendChild(meta);
 
-  /* ---------- META / RIGHT SIDE ---------- */
+      if (item.thumb || item.image) {
+        const thumbLink = document.createElement("a");
+        thumbLink.href = getItemUrl(item, "archive");
 
-  const metaWrap = document.createElement("div");
-  metaWrap.className = "archive-meta-wrap";
+        const thumb = document.createElement("img");
+        thumb.className = "archive-thumb";
+        applyGalleryImage(thumb, item, "60px");
+        thumb.alt = item.title || "";
 
-  const meta = document.createElement("div");
-  meta.className = "archive-meta";
-  meta.textContent = item.date || item.year || "";
-  metaWrap.appendChild(meta);
+        thumbLink.appendChild(thumb);
+        metaWrap.appendChild(thumbLink);
+      } else {
+        const badge = createArchiveBadge(item);
 
-  if (item.thumb || item.image) {
-    const thumbLink = document.createElement("a");
-    thumbLink.href = getItemUrl(item, "archive");
+        const badgeLink = document.createElement("a");
+        badgeLink.href = getItemUrl(item, "archive");
+        badgeLink.appendChild(badge);
 
-    const thumb = document.createElement("img");
-    thumb.className = "archive-thumb";
-    applyGalleryImage(thumb, item, "60px");
-    thumb.alt = item.title || "";
+        metaWrap.appendChild(badgeLink);
+      }
 
-    thumbLink.appendChild(thumb);
-    metaWrap.appendChild(thumbLink);
-  } else {
-    const badge = createArchiveBadge(item);
+      row.appendChild(title);
+      row.appendChild(metaWrap);
+      list.appendChild(row);
+    });
 
-    const badgeLink = document.createElement("a");
-    badgeLink.href = getItemUrl(item, "archive");
-    badgeLink.appendChild(badge);
-
-    metaWrap.appendChild(badgeLink);
-  }
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
+  });
+}
 
   /* ---------- ASSEMBLE ---------- */
 
