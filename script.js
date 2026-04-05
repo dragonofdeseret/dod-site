@@ -383,21 +383,23 @@ function createArchiveBadge(item) {
   const badge = document.createElement("div");
   badge.className = "archive-badge";
 
-  if (item.type === "writing") {
-    badge.classList.add("archive-badge--wide");
-    badge.textContent = item.format ? String(item.format).toUpperCase() : "PDF";
-    return badge;
-  }
+if (item.type === "writing") {
+  badge.classList.add("archive-badge--wide");
+  badge.textContent = item.format ? String(item.format).toUpperCase() : "PDF";
+  return badge;
+}
 
-  if (item.type === "margin" || item.type === "margins") {
-    badge.textContent = "Margins";
-    return badge;
-  }
+if (item.type === "margin" || item.type === "margins") {
+  badge.classList.add("archive-badge--wide");
+  badge.textContent = "Margins";
+  return badge;
+}
 
-  if (item.type === "quote" || item.type === "quotes") {
-    badge.textContent = "Quotes";
-    return badge;
-  }
+if (item.type === "quote" || item.type === "quotes") {
+  badge.classList.add("archive-badge--wide");
+  badge.textContent = "Quotes";
+  return badge;
+}
 
   badge.textContent = "•";
   return badge;
