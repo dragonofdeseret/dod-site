@@ -910,14 +910,12 @@ h2 {
 }
 
 .gallery img {
-#photo-archive img,
-.photo-viewer img {
+  width: 100%;
+  display: block;
   background: #111;
   padding: 12px;
   border-radius: 3px;
   box-shadow: var(--shadow-1);
-  width: 100%;
-  display: block;
   transition: box-shadow 0.22s ease;
   transform: none;
 }
