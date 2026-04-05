@@ -959,20 +959,34 @@ h2 {
 .buy-link-inline {
   display: inline-block;
   margin-left: 10px;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
   text-decoration: none;
-  border: 1px solid rgba(255,255,255,0.28);
-  padding: 4px 8px;
-  opacity: 0.75;
-  transition: opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  opacity: 0.45;
 }
 
 .buy-link-inline:hover {
   opacity: 1;
   border-color: rgba(255,255,255,0.5);
   background: rgba(255,255,255,0.04);
+}
+
+.secret-link {
+  display: inline-block;
+  margin-left: 0;
+  text-decoration: none !important;
+  color: transparent;
+  opacity: 0;
+  width: 0.45em;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+.secret-link:hover,
+.secret-link:focus {
+  color: inherit;
+  opacity: 0.06;
 }
 
 /* ==============================
@@ -1496,6 +1510,61 @@ blockquote.margin-text {
 
 .pdf-mobile-link a:hover {
   opacity: 1;
+}
+
+/* ====================
+    QUESTIONS PAGE
+======================= */
+
+.questions-note {
+  opacity: 0.6;
+  font-size: 0.95rem;
+  min-height: 1.2em;
+}
+
+.question-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+.question-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 80px;
+  background: #000;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.question-form button {
+  align-self: flex-start;
+  background: none;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.question-form button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.hidden-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* ==============================
