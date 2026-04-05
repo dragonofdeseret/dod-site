@@ -512,74 +512,9 @@ function buildArchive() {
   });
 }
 
-  /* ---------- ASSEMBLE ---------- */
-
-  row.appendChild(title);
-  row.appendChild(metaWrap);
-  list.appendChild(row);
-});
-
 /* ==============================
    WRITING INDEX (writing.html)
 ================================= */
-
-function normalizeToArray(value) {
-  if (Array.isArray(value)) return value.filter(Boolean);
-  if (value) return [value];
-  return [];
-}
-
-function getUniqueValues(items, key) {
-  return [...new Set(
-    items.flatMap(item => normalizeToArray(item[key]))
-  )].sort((a, b) => String(a).localeCompare(String(b)));
-}
-
-function buildFilterUI(container, values, activeValue, onSelect, allLabel = "All") {
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const allButton = document.createElement("button");
-  allButton.type = "button";
-  allButton.className = `tag-pill${activeValue === null ? " active" : ""}`;
-  allButton.textContent = allLabel;
-  allButton.addEventListener("click", () => onSelect(null));
-  container.appendChild(allButton);
-
-  values.forEach(value => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `tag-pill${activeValue === value ? " active" : ""}`;
-    button.textContent = value;
-    button.addEventListener("click", () => {
-      onSelect(activeValue === value ? null : value);
-    });
-    container.appendChild(button);
-  });
-}
-
-function itemMatchesFilter(item, key, activeValue) {
-  if (!activeValue) return true;
-  return normalizeToArray(item[key]).includes(activeValue);
-}
-
-function appendInlineTags(parent, values) {
-  const tags = normalizeToArray(values);
-  if (!tags.length) return;
-
-  const wrap = document.createElement("div");
-  wrap.className = "item-tags-inline";
-
-  tags.forEach(tag => {
-    const pill = document.createElement("span");
-    pill.className = "item-tag-inline";
-    pill.textContent = tag;
-    wrap.appendChild(pill);
-  });
-
-  parent.appendChild(wrap);
-}
 
 function buildWritingIndex() {
   const container = document.getElementById("writing");
@@ -1198,7 +1133,7 @@ function buildPhotographyPage() {
   const from = params.get("from") || "photo";
 
   if (!id) {
-    window.location.href = "photo.html";
+    window.location.href = "photography.html";
     return;
   }
 
@@ -1209,7 +1144,7 @@ function buildPhotographyPage() {
   const index = items.findIndex((item) => item.id === id);
 
   if (index === -1) {
-    window.location.href = "photo.html";
+    window.location.href = "photography.html";
     return;
   }
 
@@ -1253,7 +1188,7 @@ function buildPhotographyPage() {
     openLightbox(item.image, item.title || "");
   });
 
-  let backHref = "photo.html";
+  let backHref = "photography.html";
   let backText = "Back to Photography";
 
   if (from === "archive") {
@@ -1303,9 +1238,12 @@ function buildWritingPage() {
   const items = archive.filter((item) => {
     if (item.type !== "writing") return false;
 
-    if (isTripViewer) {
-      return item.sections && item.sections.includes("trips");
-    }
+   if (isTripViewer) {
+  return (
+    item.section === "trips" ||
+    (Array.isArray(item.sections) && item.sections.includes("trips"))
+  );
+}
 
     return !item.sections || item.sections.includes("writing");
   });
@@ -1829,24 +1767,29 @@ function buildFooter() {
 ======================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  buildGallery();
-  buildArchive();
-  buildPhotoArchive();
-  buildWritingIndex();
-  buildTripReportsPage();
-  buildExhibitsArchive();
-  buildExhibitPage();
-  buildQuestionsPage();
-  fetchPublicQuestions();
+  if (typeof buildGallery === "function") buildGallery();
+  if (typeof buildArchive === "function") buildArchive();
+  if (typeof buildPhotoArchive === "function") buildPhotoArchive();
+  if (typeof buildWritingIndex === "function") buildWritingIndex();
+  if (typeof buildTripReportsPage === "function") buildTripReportsPage();
+  if (typeof buildExhibitsArchive === "function") buildExhibitsArchive();
+  if (typeof buildExhibitPage === "function") buildExhibitPage();
+  if (typeof buildQuestionsPage === "function") buildQuestionsPage();
+  if (typeof fetchPublicQuestions === "function") fetchPublicQuestions();
 
-  buildMarginsPage(archive);
-  buildQuotesPage(archive);
+  if (typeof archive !== "undefined") {
+    if (typeof buildMarginsPage === "function") buildMarginsPage(archive);
+    if (typeof buildQuotesPage === "function") buildQuotesPage(archive);
+  }
 
-  if (window.location.pathname.includes("artwork.html")) {
+  if (
+    window.location.pathname.includes("artwork.html") &&
+    typeof buildArtworkPage === "function"
+  ) {
     buildArtworkPage();
   }
 
-  buildPhotographyPage();
-  buildWritingPage();
-  buildFooter();
+  if (typeof buildPhotographyPage === "function") buildPhotographyPage();
+  if (typeof buildWritingPage === "function") buildWritingPage();
+  if (typeof buildFooter === "function") buildFooter();
 });
