@@ -1531,7 +1531,7 @@ const archive = normalizeArchive([
     file: "pdf/DogBuddha.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["zazen", "LSD" "psychedelics" "consciousness"]
+    tags: ["zazen", "LSD", "psychedelics", "consciousness"]
   },
   {
     id: "WMZ",
@@ -1542,7 +1542,7 @@ const archive = normalizeArchive([
     file: "pdf/WMZ.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["zazen", "LSD" "psychedelics" "consciousness"]
+    tags: ["zazen", "LSD", "psychedelics", "consciousness"]
   },
   {
     id: "ForestofLee",
