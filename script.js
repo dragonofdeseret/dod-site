@@ -390,12 +390,12 @@ function createArchiveBadge(item) {
   }
 
   if (item.type === "margin" || item.type === "margins") {
-    badge.textContent = "M";
+    badge.textContent = "Margins";
     return badge;
   }
 
   if (item.type === "quote" || item.type === "quotes") {
-    badge.textContent = "Q";
+    badge.textContent = "Quotes";
     return badge;
   }
 
