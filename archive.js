@@ -1563,7 +1563,7 @@ const archive = normalizeArchive([
     year: 2020,
     file: "pdf/Triplette.pdf",
     sections: ["trips"],
-    tags: ["zazen", "cannabis", "consciousness", meditation", "phenomenology"]
+    tags: ["zazen", "cannabis", "consciousness", "meditation", "phenomenology"]
   },
   {
     id: "SiA",
