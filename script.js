@@ -1049,6 +1049,71 @@ function createExhibitCard(item) {
        PHOTOGRAPHY
 ========================= */
 
+function buildPhotoArchive() {
+  const container = document.getElementById("photo-archive");
+  if (!container || typeof archive === "undefined") return;
+
+  const items = sortByDateDescWithIdTiebreak(
+    archive.filter((item) => item.type === "photo" && item.showOnPhoto !== false)
+  );
+
+  container.innerHTML = "";
+
+  if (!items.length) {
+    container.innerHTML = "<p>No photographs available.</p>";
+    return;
+  }
+
+  const groupedMap = {};
+
+  items.forEach((item) => {
+    const year = item.year || toDate(item.date).getFullYear();
+    if (!groupedMap[year]) groupedMap[year] = [];
+    groupedMap[year].push(item);
+  });
+
+  const grouped = Object.keys(groupedMap)
+    .sort((a, b) => Number(b) - Number(a))
+    .map((year) => ({
+      year,
+      items: groupedMap[year]
+    }));
+
+  buildYearNav(grouped.map((group) => group.year));
+
+  grouped.forEach((group) => {
+    const yearBlock = document.createElement("section");
+    yearBlock.className = "gallery-year";
+    yearBlock.id = `year-${group.year}`;
+
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = group.year;
+
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
+
+    group.items.forEach((item) => {
+      const link = document.createElement("a");
+      link.href = `photography.html?id=${item.id}&from=photo`;
+      link.className = "gallery-item";
+
+      const img = document.createElement("img");
+      applyGalleryImage(
+        img,
+        item,
+        "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
+      );
+
+      link.appendChild(img);
+      grid.appendChild(link);
+    });
+
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(grid);
+    container.appendChild(yearBlock);
+  });
+}
+
 function buildPhotographyPage() {
   const layout = document.getElementById("photo-layout");
   if (!layout || typeof archive === "undefined") return;
@@ -1074,10 +1139,11 @@ function buildPhotographyPage() {
   }
 
   const item = items[index];
-  const prev = items[index - 1];
-  const next = items[index + 1];
+  const prev = items[index - 1] || null;
+  const next = items[index + 1] || null;
 
-  document.getElementById("photo-title").textContent = item.title || "";
+  const titleEl = document.getElementById("photo-title");
+  if (titleEl) titleEl.textContent = item.title || "";
 
   if (item.sideNote) {
     layout.innerHTML = `
@@ -1100,11 +1166,20 @@ function buildPhotographyPage() {
   }
 
   const imgEl = document.getElementById("photo-image");
-  applyViewerImage(imgEl, item, "(max-width: 1200px) calc(100vw - 44px), 900px");
-  imgEl.addEventListener("click", () => openLightbox(item.image, item.title || ""));
+  if (!imgEl) return;
+
+  applyViewerImage(
+    imgEl,
+    item,
+    "(max-width: 1200px) calc(100vw - 44px), 900px"
+  );
+
+  imgEl.addEventListener("click", () => {
+    openLightbox(item.image, item.title || "");
+  });
 
   let backHref = "photo.html";
-  let backText = "Back";
+  let backText = "Back to Photography";
 
   if (from === "archive") {
     backHref = "archive.html";
@@ -1112,8 +1187,6 @@ function buildPhotographyPage() {
   } else if (from === "art") {
     backHref = "art.html";
     backText = "Back to Artwork";
-  } else {
-    backText = "Back";
   }
 
   const navEl = document.getElementById("photo-nav");
@@ -1683,6 +1756,7 @@ function buildFooter() {
 document.addEventListener("DOMContentLoaded", () => {
   buildGallery();
   buildArchive();
+  buildPhotoArchive();
   buildWritingIndex();
   buildTripReportsPage();
   buildExhibitsArchive();
@@ -1693,9 +1767,9 @@ document.addEventListener("DOMContentLoaded", () => {
   buildMarginsPage(archive);
   buildQuotesPage(archive);
 
- if (window.location.pathname.includes("artwork.html")) {
-  buildArtworkPage();
-}
+  if (window.location.pathname.includes("artwork.html")) {
+    buildArtworkPage();
+  }
 
   buildPhotographyPage();
   buildWritingPage();
