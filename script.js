@@ -1,178 +1,136 @@
 /* ==========
-   UTILITIES
+   UTIL
 ========== */
 
 function $(sel, root = document) {
   return root.querySelector(sel);
 }
 
-function $all(sel, root = document) {
-  return Array.from(root.querySelectorAll(sel));
-}
-
 function toDate(str) {
   return new Date(str);
-}
-
-function groupByYear(items) {
-  const groups = {};
-  items.forEach(item => {
-    const year = item.year || (item.date ? new Date(item.date).getFullYear() : "Unknown");
-    if (!groups[year]) groups[year] = [];
-    groups[year].push(item);
-  });
-  return groups;
 }
 
 function sortByDateDesc(a, b) {
   return new Date(b.date) - new Date(a.date);
 }
 
-/* ==========
-   DATA ACCESS
-========== */
-
-function getArtItems() {
-  return window.artItems || [];
-}
-
-function getPhotoItems() {
-  return window.photoItems || [];
-}
-
-function getWritingItems() {
-  return window.writingItems || [];
-}
-
-function getMarginsItems() {
-  return window.marginsItems || [];
-}
-
-function getQuotesItems() {
-  return window.quotesItems || [];
-}
-
-function getExhibits() {
-  return window.exhibits || [];
-}
-
-function getAllArchiveItems() {
-  return [
-    ...getArtItems(),
-    ...getPhotoItems(),
-    ...getWritingItems(),
-    ...getMarginsItems(),
-    ...getQuotesItems()
-  ];
+function groupByYear(items) {
+  const map = {};
+  items.forEach(item => {
+    const year = item.year || new Date(item.date).getFullYear();
+    if (!map[year]) map[year] = [];
+    map[year].push(item);
+  });
+  return map;
 }
 
 /* ==========
-   IMAGE HELPERS
+   DATA
 ========== */
 
-function applyImage(img, item, useThumb = true) {
-  if (!img || !item) return;
+const artItems = window.artItems || [];
+const photoItems = window.photoItems || [];
+const writingItems = window.writingItems || [];
+const exhibits = window.exhibits || [];
 
-  const src = useThumb ? (item.thumb || item.image) : item.image;
+/* ==========
+   IMAGE
+========== */
 
+function applyImage(img, item, thumb = true) {
+  const src = thumb ? (item.thumb || item.image) : item.image;
   img.src = src;
 
-  if (useThumb && item.thumbSrcset) {
+  if (thumb && item.thumbSrcset) {
     img.srcset = item.thumbSrcset;
-    img.sizes = "(max-width: 600px) 100vw, 300px";
-  } else if (!useThumb && item.imageSrcset) {
+    img.sizes = "(max-width: 700px) 100vw, 300px";
+  } else if (!thumb && item.imageSrcset) {
     img.srcset = item.imageSrcset;
   }
 }
 
 /* ==========
-   ART GRID
+   ART PAGE
 ========== */
 
-function buildArtGrid() {
-  const container = $("#art-archive");
+function buildArtPage() {
+  const container = document.querySelector(".gallery");
   if (!container) return;
 
-  const items = getArtItems().slice().sort(sortByDateDesc);
-  const groups = groupByYear(items);
+  const items = [...artItems].sort(sortByDateDesc);
+  const grouped = groupByYear(items);
 
   container.innerHTML = "";
 
-  Object.keys(groups).sort((a,b)=>b-a).forEach(year => {
-    const section = document.createElement("section");
-    section.className = "archive-year";
+  Object.keys(grouped)
+    .sort((a, b) => b - a)
+    .forEach(year => {
+      const section = document.createElement("section");
+      section.className = "gallery-year";
 
-    const h2 = document.createElement("h2");
-    h2.textContent = year;
-    section.appendChild(h2);
+      const title = document.createElement("h2");
+      title.textContent = year;
+      section.appendChild(title);
 
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
 
-    groups[year].forEach(item => {
-      const card = document.createElement("div");
-      card.className = "gallery-item";
+      grouped[year].forEach(item => {
+        const link = document.createElement("a");
+        link.href = `artwork.html?id=${item.id}`;
 
-      const img = document.createElement("img");
-      applyImage(img, item, true);
+        const img = document.createElement("img");
+        applyImage(img, item, true);
 
-      card.appendChild(img);
-
-      card.addEventListener("click", () => {
-        window.location.href = `artwork.html?id=${item.id}`;
+        link.appendChild(img);
+        grid.appendChild(link);
       });
 
-      grid.appendChild(card);
+      section.appendChild(grid);
+      container.appendChild(section);
     });
-
-    section.appendChild(grid);
-    container.appendChild(section);
-  });
 }
 
 /* ==========
-   PHOTO GRID
+   PHOTO INDEX
 ========== */
 
-function buildPhotoArchive() {
-  const container = $("#photo-archive");
+function buildPhotoIndex() {
+  const container = document.querySelector("#photo-archive");
   if (!container) return;
 
-  const items = getPhotoItems().slice().sort(sortByDateDesc);
-  const groups = groupByYear(items);
+  const items = [...photoItems].sort(sortByDateDesc);
+  const grouped = groupByYear(items);
 
   container.innerHTML = "";
 
-  Object.keys(groups).sort((a,b)=>b-a).forEach(year => {
-    const section = document.createElement("section");
-    section.className = "archive-year";
+  Object.keys(grouped)
+    .sort((a, b) => b - a)
+    .forEach(year => {
+      const section = document.createElement("section");
+      section.className = "gallery-year";
 
-    const h2 = document.createElement("h2");
-    h2.textContent = year;
-    section.appendChild(h2);
+      const title = document.createElement("h2");
+      title.textContent = year;
+      section.appendChild(title);
 
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
 
-    groups[year].forEach(item => {
-      const card = document.createElement("div");
-      card.className = "gallery-item";
+      grouped[year].forEach(item => {
+        const link = document.createElement("a");
+        link.href = `photo.html?id=${item.id}`;
 
-      const img = document.createElement("img");
-      applyImage(img, item, true);
+        const img = document.createElement("img");
+        applyImage(img, item, true);
 
-      card.appendChild(img);
-
-      card.addEventListener("click", () => {
-        window.location.href = `photo.html?id=${item.id}`;
+        link.appendChild(img);
+        grid.appendChild(link);
       });
 
-      grid.appendChild(card);
+      section.appendChild(grid);
+      container.appendChild(section);
     });
-
-    section.appendChild(grid);
-    container.appendChild(section);
-  });
 }
 
 /* ==========
@@ -180,13 +138,11 @@ function buildPhotoArchive() {
 ========== */
 
 function buildArtworkPage() {
-  const container = $("#artwork-layout");
+  const container = document.querySelector(".art-image");
   if (!container) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  const item = getArtItems().find(i => i.id === id);
+  const id = new URLSearchParams(location.search).get("id");
+  const item = artItems.find(i => i.id === id);
   if (!item) return;
 
   container.innerHTML = "";
@@ -202,13 +158,11 @@ function buildArtworkPage() {
 ========== */
 
 function buildPhotoPage() {
-  const container = $("#photo-layout");
+  const container = document.querySelector("#photo-layout");
   if (!container) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  const item = getPhotoItems().find(i => i.id === id);
+  const id = new URLSearchParams(location.search).get("id");
+  const item = photoItems.find(i => i.id === id);
   if (!item) return;
 
   container.innerHTML = "";
@@ -223,9 +177,9 @@ function buildPhotoPage() {
    EXHIBITS
 ========== */
 
-function getExhibitWorks(exhibitId) {
-  return getArtItems()
-    .filter(i => i.exhibit === exhibitId)
+function getExhibitWorks(id) {
+  return artItems
+    .filter(i => i.exhibit === id)
     .sort((a, b) => {
       const ao = Number(a.exhibitOrder ?? 9999);
       const bo = Number(b.exhibitOrder ?? 9999);
@@ -234,34 +188,30 @@ function getExhibitWorks(exhibitId) {
     });
 }
 
-function buildExhibitsArchive() {
-  const container = $("#exhibits-archive");
+function buildExhibitsPage() {
+  const container = document.querySelector("#exhibits-archive");
   if (!container) return;
 
-  const exhibits = getExhibits();
   container.innerHTML = "";
 
-  exhibits.forEach(exhibit => {
+  exhibits.forEach(ex => {
     const div = document.createElement("div");
     div.className = "exhibit-card";
+    div.textContent = ex.title || ex.id;
 
-    div.textContent = exhibit.title || exhibit.id;
-
-    div.addEventListener("click", () => {
-      window.location.href = `exhibit.html?id=${exhibit.id}`;
-    });
+    div.onclick = () => {
+      location.href = `exhibit.html?id=${ex.id}`;
+    };
 
     container.appendChild(div);
   });
 }
 
 function buildExhibitPage() {
-  const container = $("#exhibit-layout");
+  const container = document.querySelector(".exhibit-gallery");
   if (!container) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
+  const id = new URLSearchParams(location.search).get("id");
   const works = getExhibitWorks(id);
 
   container.innerHTML = "";
@@ -274,57 +224,14 @@ function buildExhibitPage() {
 }
 
 /* ==========
-   WRITING
-========== */
-
-function buildWritingIndex() {
-  const container = $("#writing-archive");
-  if (!container) return;
-
-  const items = getWritingItems().slice().sort(sortByDateDesc);
-
-  container.innerHTML = "";
-
-  items.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "writing-item";
-    div.textContent = item.title || item.date;
-
-    container.appendChild(div);
-  });
-}
-
-/* ==========
-   ARCHIVE PAGE
-========== */
-
-function buildArchivePage() {
-  const container = $("#archive");
-  if (!container) return;
-
-  const items = getAllArchiveItems().slice().sort(sortByDateDesc);
-
-  container.innerHTML = "";
-
-  items.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "archive-item";
-    div.textContent = item.title || item.date;
-    container.appendChild(div);
-  });
-}
-
-/* ==========
    INIT
 ========== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  buildArtGrid();
-  buildPhotoArchive();
+  buildArtPage();
+  buildPhotoIndex();
   buildArtworkPage();
   buildPhotoPage();
-  buildExhibitsArchive();
+  buildExhibitsPage();
   buildExhibitPage();
-  buildWritingIndex();
-  buildArchivePage();
 });
