@@ -928,6 +928,19 @@ h2 {
   transform: none;
 }
 
+/* Photography page only: match artwork framing */
+
+#photo-archive .gallery-item img,
+.photo-viewer img,
+.media-row .media-image img {
+  background: #111;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow:
+    var(--shadow-3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
 @media (hover: hover) and (pointer: fine) {
   .gallery-grid a:hover img,
   .gallery-grid .gallery-item:hover img {
