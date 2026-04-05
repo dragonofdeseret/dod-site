@@ -379,16 +379,43 @@ function openLightbox(src, alt = "") {
     ARCHIVE (archive.html)
 ============================ */
 
+function createArchiveBadge(item) {
+  const badge = document.createElement("div");
+  badge.className = "archive-badge";
+
+  if (item.type === "writing") {
+    badge.classList.add("archive-badge--wide");
+    badge.textContent = item.format ? String(item.format).toUpperCase() : "PDF";
+    return badge;
+  }
+
+  if (item.type === "margin") {
+    badge.textContent = "M";
+    return badge;
+  }
+
+  if (item.type === "quote") {
+    badge.textContent = "Q";
+    return badge;
+  }
+
+  badge.textContent = "•";
+  return badge;
+}
+
 function buildArchive() {
   const container = document.getElementById("archive");
-  if (!container || typeof archive === "undefined") return;
+  if (!container) return;
 
-  const allowedTypes = new Set(["art", "photo", "writing", "trip"]);
+  const archiveItems = getAllArchiveItems();
+  const allowedTypes = new Set(["art", "photo", "writing", "margin", "quote"]);
 
   const grouped = groupByYear(
-    archive.filter((item) =>
-      allowedTypes.has(item.type) && item.showOnArchive !== false
-    )
+    archiveItems.filter((item) => {
+      if (!allowedTypes.has(item.type)) return false;
+      if (item.showOnArchive === false) return false;
+      return true;
+    })
   );
 
   container.innerHTML = "";
@@ -412,7 +439,7 @@ function buildArchive() {
 
       const title = document.createElement("div");
       title.className = "archive-title";
-      title.textContent = item.title || "";
+      title.textContent = item.title || item.date || "";
 
       const metaWrap = document.createElement("div");
       metaWrap.className = "archive-meta-wrap";
@@ -420,17 +447,16 @@ function buildArchive() {
       const meta = document.createElement("div");
       meta.className = "archive-meta";
       meta.textContent = item.date || item.year || "";
-
       metaWrap.appendChild(meta);
 
       if (item.thumb || item.image) {
         const thumb = document.createElement("img");
         thumb.className = "archive-thumb";
-        thumb.src = item.thumb || item.image;
+        applyGalleryImage(thumb, item, "60px");
         thumb.alt = item.title || "";
-        thumb.loading = "lazy";
-        thumb.decoding = "async";
         metaWrap.appendChild(thumb);
+      } else {
+        metaWrap.appendChild(createArchiveBadge(item));
       }
 
       row.appendChild(title);
