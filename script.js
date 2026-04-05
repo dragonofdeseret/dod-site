@@ -223,6 +223,20 @@ function buildExhibitPage() {
   });
 }
 
+(function () {
+  if (window.archive && window.archive.length) return;
+
+  const combined = [
+    ...(window.artItems || []),
+    ...(window.photoItems || []),
+    ...(window.writingItems || []),
+    ...(window.marginsItems || []),
+    ...(window.quotesItems || [])
+  ];
+
+  window.archive = combined;
+})();
+
 /* ==========
    INIT
 ========== */
