@@ -137,19 +137,6 @@ window.photoItems = normalizeArchive([
     "mediaKind": "photo"
   },
   {
-    "id": "2025-12-01",
-    "type": "photo",
-    "title": "December 1, 2025",
-    "year": 2025,
-    "date": "2025-12-01",
-    "image": "images/photography/2025/2025-12-01-2000.webp",
-    "showOnArchive": false,
-    "thumb": "images/photography/2025/2025-12-01-800.webp",
-    "imageSrcset": "images/photography/2025/2025-12-01-1200.webp 1200w, images/photography/2025/2025-12-01-2000.webp 2000w",
-    "thumbSrcset": "images/photography/2025/2025-12-01-480.webp 480w, images/photography/2025/2025-12-01-800.webp 800w, images/photography/2025/2025-12-01-1200.webp 1200w",
-    "mediaKind": "photo"
-  },
-  {
     "id": "2025-10-21",
     "type": "photo",
     "title": "October 21, 2025",

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="bg-motion" aria-hidden="true"></div>
+  <div class="bg-motion" aria-hidden="true"></div>
   <div class="layout">
     <nav class="sidebar">
       <h1>Christopher Shenefelt</h1>
@@ -18,15 +18,12 @@
       <a href="now.html">Now</a>
       <a href="questions.html" class="active">Questions</a>
       <a href="bio.html">Biography</a>
-
     </nav>
 
     <main class="content">
       <header class="page-header">
         <h1>Questions</h1>
-        <p class="page-intro">
-          ask a question
-        </p>
+        <p class="page-intro">ask a question</p>
       </header>
 
       <section class="questions-intro">
@@ -45,6 +42,8 @@
             class="hidden-honeypot"
             tabindex="-1"
             autocomplete="off"
+            aria-hidden="true"
+            hidden
           >
 
           <button type="submit">submit</button>
@@ -59,14 +58,7 @@
     </main>
   </div>
 
-<script src="media-helpers.js"></script>
-<script src="art-exhibits-data.js"></script>
-<script src="photography-data.js"></script>
-<script src="writing-trips-data.js"></script>
-<script src="margins-data.js"></script>
-<script src="quotes-data.js"></script>
-<script src="archive.js"></script>
-<script src="script.js"></script>
-
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
