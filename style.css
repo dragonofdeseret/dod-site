@@ -376,7 +376,18 @@ h2 {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 6px;   /* tighter spacing */
+  gap: 6px;
+}
+
+.sidebar-external {
+  opacity: 0.45;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding-top: 0;
+}
+
+.sidebar-external:hover {
+  opacity: 0.8;
 }
 
 /* ==============================
@@ -954,28 +965,6 @@ h2 {
 #random-container {
   display: flex;
   justify-content: flex-start;
-}
-
-.buy-link-inline {
-  display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  text-decoration: none;
-  opacity: 0.45;
-}
-
-.buy-link-inline:hover {
-  opacity: 1;
-  border-color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.04);
-}
-
-.external-link {
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  opacity: 0.45;
-  text-decoration: none;
 }
 
 .secret-link {
