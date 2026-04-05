@@ -1559,13 +1559,34 @@ const archive = normalizeArchive([
        MARGINS
 ====================== */
 {
-  id: "2025_09_22_3",
+  id: "2025_09_22_5",
   type: "margins",
   title: "The Divine Ecology",
   date: "2025-09-22",
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
-  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+},
+{
+  id: "2025_09_22_4",
+  type: "margins",
+  title: "Eternal Progression",
+  date: "2025-09-22",
+  text: `
+The cosmos is not a product of temporal causality, it is a ceaseless unfolding. This, a hint that even the divine nature of the Eternal God is ever-progressing, and always self-surpassing; expanding His space to conduct more kingdoms, in order that more kingdoms may join in the harmony of his ever-expanding, boundless space,`,
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+},
+{
+  id: "2025_09_22_3",
+  type: "margins",
+  title: "Structure, Significance, Symmetry",
+  date: "2025-09-22",
+  text: `
+This correspondence between structure and significance aligns with emerging models in the study of consciousness itself.
+"The Symmetry Theory of Valence," proposed by the Qualia Research Institute, 68 suggests that the quality of an experience its pleasure or suffering is not incidental, but reflects the underlying mathematical harmony of that experience's structure.
+
+Symmetry, coherence, and compressibility are not just aesthetic features; they are the felt presence of those features. The more harmonious the experiential pattern, the more radiant the felt tone. Intelligence, then, is not only the capacity to structure the world, but to feel the symmetry of that structuring. The glory of God may reside, not just in light and truth, but in the beauty of its arrangement.`,
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
 {
   id: "2025_09_22_2",
@@ -1574,7 +1595,7 @@ In Mormon theology, the Eternal God who governs all gods serves as an autochthon
   date: "2025-09-22",
   text: `
 The Mormon tradition sings a vision of God that is both expansive and intimate—being and becoming, law and light. Yet this harmonic theology is too often distorted… [Others'] flattened images, while understandable given limited exposure, tragically overlook the depth and intricacies of Mormon theology.`,
-  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
 {
   id: "2025_09_22_1",
@@ -1583,7 +1604,7 @@ The Mormon tradition sings a vision of God that is both expansive and intimate�
   date: "2025-09-22",
   text: `
 The golden plates exist in the liminal space where matter becomes melody—a chord struck simultaneously in the soil of Cumorah’s hill, and the hyperdimensional lattice of the Spirit World. They are neither relic nor rumor, but resonance: a vibration echoing across the Möbius strip of eternity, accessible when perception pivots from passive sight to active grasp. The plates’ burial and exhumation are not sequential events, they are simultaneous frequencies in God’s eternal round… waiting to be unwoven by those who dare to hum harmonics into the abyss.`,
-  detail: "Excerpt from, Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
 },
 {
   id: "2025_02_15",

@@ -457,6 +457,16 @@ function buildArchive() {
       title.className = "archive-title";
       title.textContent = item.title || item.date || "";
 
+if (item.isBook) {
+  const buy = document.createElement("span");
+  buy.innerHTML = `
+    <a href="https://a.co/d/04zcw8xP" target="_blank" rel="noopener" class="buy-link">
+      Buy ↗
+    </a>
+  `;
+  title.appendChild(buy);
+}
+
       const metaWrap = document.createElement("div");
       metaWrap.className = "archive-meta-wrap";
 
