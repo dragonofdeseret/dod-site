@@ -449,52 +449,69 @@ function buildArchive() {
     list.className = "archive-list";
 
     group.items.forEach((item) => {
-      const row = document.createElement("a");
-      row.className = "archive-row";
-      row.href = getItemUrl(item, "archive");
+  const row = document.createElement("div");
+  row.className = "archive-row";
 
-      const title = document.createElement("div");
-      title.className = "archive-title";
-      title.textContent = item.title || item.date || "";
+  /* ---------- TITLE AREA ---------- */
 
-if (item.isBook) {
-  const buy = document.createElement("span");
-  buy.innerHTML = `
-    <a href="https://a.co/d/04zcw8xP" target="_blank" rel="noopener" class="buy-link">
-      Buy ↗
-    </a>
-  `;
-  title.appendChild(buy);
-}
+  const title = document.createElement("div");
+  title.className = "archive-title";
 
-      const metaWrap = document.createElement("div");
-      metaWrap.className = "archive-meta-wrap";
+  const mainLink = document.createElement("a");
+  mainLink.href = getItemUrl(item, "archive");
+  mainLink.textContent = item.title || item.date || "";
 
-      const meta = document.createElement("div");
-      meta.className = "archive-meta";
-      meta.textContent = item.date || item.year || "";
-      metaWrap.appendChild(meta);
+  title.appendChild(mainLink);
 
-      if (item.thumb || item.image) {
-        const thumb = document.createElement("img");
-        thumb.className = "archive-thumb";
-        applyGalleryImage(thumb, item, "60px");
-        thumb.alt = item.title || "";
-        metaWrap.appendChild(thumb);
-      } else {
-        metaWrap.appendChild(createArchiveBadge(item));
-      }
+  if (item.isBook) {
+    const buy = document.createElement("a");
+    buy.href = "https://a.co/d/04zcw8xP";
+    buy.target = "_blank";
+    buy.rel = "noopener";
+    buy.className = "buy-link-inline";
+    buy.textContent = "Buy ↗";
 
-      row.appendChild(title);
-      row.appendChild(metaWrap);
-      list.appendChild(row);
-    });
+    title.appendChild(document.createTextNode(" "));
+    title.appendChild(buy);
+  }
 
-    yearBlock.appendChild(yearTitle);
-    yearBlock.appendChild(list);
-    container.appendChild(yearBlock);
-  });
-}
+  /* ---------- META / RIGHT SIDE ---------- */
+
+  const metaWrap = document.createElement("div");
+  metaWrap.className = "archive-meta-wrap";
+
+  const meta = document.createElement("div");
+  meta.className = "archive-meta";
+  meta.textContent = item.date || item.year || "";
+  metaWrap.appendChild(meta);
+
+  if (item.thumb || item.image) {
+    const thumbLink = document.createElement("a");
+    thumbLink.href = getItemUrl(item, "archive");
+
+    const thumb = document.createElement("img");
+    thumb.className = "archive-thumb";
+    applyGalleryImage(thumb, item, "60px");
+    thumb.alt = item.title || "";
+
+    thumbLink.appendChild(thumb);
+    metaWrap.appendChild(thumbLink);
+  } else {
+    const badge = createArchiveBadge(item);
+
+    const badgeLink = document.createElement("a");
+    badgeLink.href = getItemUrl(item, "archive");
+    badgeLink.appendChild(badge);
+
+    metaWrap.appendChild(badgeLink);
+  }
+
+  /* ---------- ASSEMBLE ---------- */
+
+  row.appendChild(title);
+  row.appendChild(metaWrap);
+  list.appendChild(row);
+});
 
 /* ==============================
    WRITING INDEX (writing.html)

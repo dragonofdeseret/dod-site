@@ -769,6 +769,14 @@ h2 {
   font-weight: 500;
 }
 
+.archive-title a {
+  text-decoration: none;
+}
+
+.archive-title a:hover {
+  text-decoration: underline;
+}
+
 .archive-meta-wrap {
   display: flex;
   align-items: center;
