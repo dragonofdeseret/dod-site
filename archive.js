@@ -1292,6 +1292,7 @@ const archive = normalizeArchive([
     title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
     year: 2025,
     date: "2025-11-16",
+    isBook: true,
     file: "pdf/NaturalisticBoM.pdf",
     sections: ["writing"],
     Tags: ["Metaphysics", "Mormonism"]
@@ -1302,6 +1303,7 @@ const archive = normalizeArchive([
     title: "A Dragon Guards the Pearl of Enlightenment",
     year: 2025,
     date: "2025-09-22",
+    isBook: true,
     file: "pdf/DragonPearl.pdf",
     sections: ["writing"]
   },
@@ -1563,6 +1565,7 @@ const archive = normalizeArchive([
   type: "margins",
   title: "The Divine Ecology",
   date: "2025-09-22",
+  isBook: true,
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
   detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
