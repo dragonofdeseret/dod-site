@@ -1,5 +1,5 @@
 /* ======================
-       DATA SAFETY
+   DATA SAFETY
 ========================= */
 
 if (typeof archive === "undefined") {
@@ -19,7 +19,7 @@ if (typeof publicQuestions === "undefined") {
 }
 
 /* ==================
-       HELPERS
+   HELPERS
 ===================== */
 
 function toDate(value) {
@@ -62,11 +62,10 @@ function groupByYear(items) {
     }));
 }
 
-function buildYearNav(years) {
-  const nav = document.querySelector(".year-nav");
-  if (!nav) return;
+function buildYearNav(years, navEl = document.querySelector(".year-nav")) {
+  if (!navEl) return;
 
-  nav.innerHTML = "";
+  navEl.innerHTML = "";
 
   const isMobile = window.matchMedia("(max-width: 700px)").matches;
   const topOffset = isMobile ? 24 : 70;
@@ -93,28 +92,10 @@ function buildYearNav(years) {
       history.replaceState(null, "", `#year-${year}`);
     });
 
-    nav.appendChild(link);
+    navEl.appendChild(link);
 
     if (index < years.length - 1) {
-      nav.appendChild(document.createTextNode(" "));
-    }
-  });
-}
-
-function buildSubstanceNav(substances) {
-  const nav = document.querySelector(".year-nav");
-  if (!nav) return;
-
-  nav.innerHTML = "";
-
-  substances.forEach((substance, index) => {
-    const link = document.createElement("a");
-    link.href = `#substance-${slugify(substance)}`;
-    link.textContent = substance;
-    nav.appendChild(link);
-
-    if (index < substances.length - 1) {
-      nav.appendChild(document.createTextNode(" "));
+      navEl.appendChild(document.createTextNode(" "));
     }
   });
 }
@@ -125,6 +106,12 @@ function slugify(str) {
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function normalizeToArray(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (value) return [value];
+  return [];
 }
 
 function getThumbSrc(item) {
@@ -207,11 +194,11 @@ function getItemUrl(item, from = "archive") {
     return `writings.html?id=${item.id}${from ? `&from=${from}` : ""}`;
   }
 
-  if (item.type === "margins") {
+  if (item.type === "margin" || item.type === "margins") {
     return `margins.html#${item.id}`;
   }
 
-  if (item.type === "quotes") {
+  if (item.type === "quote" || item.type === "quotes") {
     return `quotes.html#${item.id}`;
   }
 
@@ -255,46 +242,27 @@ function bindArrowNavigation(prevUrl, nextUrl) {
   });
 }
 
-function makeLightboxButton(item, className = "exhibit-lightbox") {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = className;
-  button.setAttribute("aria-label", item.title || "Open image");
-
-  const img = document.createElement("img");
-  applyGalleryImage(img, item, "(max-width: 980px) calc(100vw - 44px), 960px");
-
-  button.appendChild(img);
-  button.addEventListener("click", () => openLightbox(item.image, item.title || ""));
-
-  return button;
-}
-
-function normalizeToArray(value) {
-  if (Array.isArray(value)) return value.filter(Boolean);
-  if (value) return [value];
-  return [];
-}
-
-function getUniqueValues(items, key) {
-  return [...new Set(
-    items.flatMap(item => normalizeToArray(item[key]))
-  )].sort((a, b) => String(a).localeCompare(String(b)));
-}
-
-function renderMultiSelectFilter(container, values, selectedValues, onToggle, allLabel = "All") {
+function renderMultiSelectFilter(
+  container,
+  values,
+  selectedValues,
+  onToggle,
+  allLabel = "All"
+) {
   if (!container) return;
 
   container.innerHTML = "";
 
   const clearButton = document.createElement("button");
   clearButton.type = "button";
-  clearButton.className = `tag-pill tag-pill-clear${selectedValues.size === 0 ? " active" : ""}`;
+  clearButton.className = `tag-pill tag-pill-clear${
+    selectedValues.size === 0 ? " active" : ""
+  }`;
   clearButton.textContent = allLabel;
   clearButton.addEventListener("click", () => onToggle(null, true));
   container.appendChild(clearButton);
 
-  values.forEach(value => {
+  values.forEach((value) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `tag-pill${selectedValues.has(value) ? " active" : ""}`;
@@ -314,13 +282,6 @@ function toggleSetValue(set, value) {
   return next;
 }
 
-function itemMatchesSelectedValues(item, key, selectedValues) {
-  if (!selectedValues || selectedValues.size === 0) return true;
-
-  const itemValues = normalizeToArray(item[key]);
-  return itemValues.some(value => selectedValues.has(value));
-}
-
 function appendInlineTags(parent, values) {
   const tags = normalizeToArray(values);
   if (!tags.length) return;
@@ -328,7 +289,7 @@ function appendInlineTags(parent, values) {
   const wrap = document.createElement("div");
   wrap.className = "item-tags-inline";
 
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     const pill = document.createElement("span");
     pill.className = "item-tag-inline";
     pill.textContent = tag;
@@ -339,7 +300,118 @@ function appendInlineTags(parent, values) {
 }
 
 /* ======================
-    LIGHTBOX VIEWER
+   FILTER ENGINE
+======================== */
+
+function createFilterEngine(config) {
+  const {
+    items = [],
+    groups = [],
+    sortYearsDesc = true
+  } = config || {};
+
+  const groupedByYear = {};
+
+  items.forEach((item) => {
+    const year = item.year || toDate(item.date).getFullYear();
+    if (!groupedByYear[year]) groupedByYear[year] = [];
+    groupedByYear[year].push(item);
+  });
+
+  const years = Object.keys(groupedByYear)
+    .map(Number)
+    .sort((a, b) => (sortYearsDesc ? b - a : a - b));
+
+  const state = {};
+
+  groups.forEach((group) => {
+    state[group.name] = new Set();
+  });
+
+  function getValuesForGroup(group) {
+    return [...new Set(
+      items.flatMap((item) => normalizeToArray(item[group.key]))
+    )].sort((a, b) => String(a).localeCompare(String(b)));
+  }
+
+  function matchesGroup(item, group) {
+    const selected = state[group.name];
+    if (!selected || selected.size === 0) return true;
+
+    const itemValues = normalizeToArray(item[group.key]);
+
+    if (group.mode === "and") {
+      return [...selected].every((value) => itemValues.includes(value));
+    }
+
+    return itemValues.some((value) => selected.has(value));
+  }
+
+  function matchesAll(item) {
+    return groups.every((group) => matchesGroup(item, group));
+  }
+
+  function getItemsForYear(year) {
+    return (groupedByYear[year] || []).filter(matchesAll);
+  }
+
+  function renderFilters() {
+    groups.forEach((group) => {
+      if (!group.container) return;
+
+      renderMultiSelectFilter(
+        group.container,
+        getValuesForGroup(group),
+        state[group.name],
+        (value, clearAll) => {
+          state[group.name] = clearAll
+            ? new Set()
+            : toggleSetValue(state[group.name], value);
+
+          if (typeof group.onChange === "function") {
+            group.onChange(state[group.name]);
+          }
+
+          renderFilters();
+
+          if (typeof config.onUpdate === "function") {
+            config.onUpdate();
+          }
+        },
+        group.allLabel || "All"
+      );
+    });
+  }
+
+  function renderYearNav(navEl) {
+    if (!navEl) return;
+
+    navEl.innerHTML = "";
+
+    years.forEach((year) => {
+      const itemsForYear = getItemsForYear(year);
+      if (!itemsForYear.length) return;
+
+      const link = document.createElement("a");
+      link.href = `#year-${year}`;
+      link.textContent = year;
+      navEl.appendChild(link);
+    });
+  }
+
+  return {
+    years,
+    state,
+    groups,
+    renderFilters,
+    renderYearNav,
+    getItemsForYear,
+    matchesAll
+  };
+}
+
+/* ======================
+   LIGHTBOX VIEWER
 ========================= */
 
 function closeLightbox() {
@@ -376,30 +448,30 @@ function openLightbox(src, alt = "") {
 }
 
 /* =========================
-    ARCHIVE (archive.html)
+   ARCHIVE (archive.html)
 ============================ */
 
 function createArchiveBadge(item) {
   const badge = document.createElement("div");
   badge.className = "archive-badge";
 
-if (item.type === "writing") {
-  badge.classList.add("archive-badge--wide");
-  badge.textContent = item.format ? String(item.format).toUpperCase() : "PDF";
-  return badge;
-}
+  if (item.type === "writing") {
+    badge.classList.add("archive-badge--wide");
+    badge.textContent = item.format ? String(item.format).toUpperCase() : "PDF";
+    return badge;
+  }
 
-if (item.type === "margin" || item.type === "margins") {
-  badge.classList.add("archive-badge--wide");
-  badge.textContent = "Margins";
-  return badge;
-}
+  if (item.type === "margin" || item.type === "margins") {
+    badge.classList.add("archive-badge--wide");
+    badge.textContent = "Margins";
+    return badge;
+  }
 
-if (item.type === "quote" || item.type === "quotes") {
-  badge.classList.add("archive-badge--wide");
-  badge.textContent = "Quotes";
-  return badge;
-}
+  if (item.type === "quote" || item.type === "quotes") {
+    badge.classList.add("archive-badge--wide");
+    badge.textContent = "Quotes";
+    return badge;
+  }
 
   badge.textContent = "•";
   return badge;
@@ -409,7 +481,15 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
-  const allowedTypes = new Set(["art", "photo", "writing", "margin", "margins", "quote", "quotes"]);
+  const allowedTypes = new Set([
+    "art",
+    "photo",
+    "writing",
+    "margin",
+    "margins",
+    "quote",
+    "quotes"
+  ]);
 
   const archiveItems = sortByDateDescWithIdTiebreak(
     archive.filter((item) => {
@@ -467,7 +547,6 @@ function buildArchive() {
         buy.rel = "noopener";
         buy.className = "buy-link-inline";
         buy.textContent = "Buy ↗";
-
         title.appendChild(document.createTextNode(" "));
         title.appendChild(buy);
       }
@@ -493,11 +572,9 @@ function buildArchive() {
         metaWrap.appendChild(thumbLink);
       } else {
         const badge = createArchiveBadge(item);
-
         const badgeLink = document.createElement("a");
         badgeLink.href = getItemUrl(item, "archive");
         badgeLink.appendChild(badge);
-
         metaWrap.appendChild(badgeLink);
       }
 
@@ -524,9 +601,15 @@ function buildWritingIndex() {
   const tagFilter = document.querySelector(".tag-filter-writing");
 
   const writingItems = archive
-    .filter(item => {
+    .filter((item) => {
       if (item.type !== "writing") return false;
       if (item.showOnWriting === false) return false;
+
+      const isTrip =
+        item.section === "trips" ||
+        (Array.isArray(item.sections) && item.sections.includes("trips"));
+
+      if (isTrip) return false;
 
       return (
         item.showOnWriting === true ||
@@ -534,46 +617,15 @@ function buildWritingIndex() {
         item.sections.includes("writing")
       );
     })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
 
-  const groupedByYear = {};
-
-  writingItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
-    if (!groupedByYear[year]) groupedByYear[year] = [];
-    groupedByYear[year].push(item);
-  });
-
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
-  const allTags = getUniqueValues(writingItems, "tags");
-  let selectedTags = new Set();
-
-  function matchesAllActiveFilters(item) {
-    return itemMatchesSelectedValues(item, "tags", selectedTags);
-  }
-
-  function renderYearNav() {
-    if (!yearNav) return;
-
-    yearNav.innerHTML = "";
-
-    years.forEach(year => {
-      const link = document.createElement("a");
-      link.href = `#year-${year}`;
-      link.textContent = year;
-      yearNav.appendChild(link);
-    });
-  }
+  let engine;
 
   function renderWriting() {
     container.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
       if (!itemsForYear.length) return;
 
       const yearBlock = document.createElement("div");
@@ -586,7 +638,7 @@ function buildWritingIndex() {
       const list = document.createElement("div");
       list.className = "archive-list";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const row = document.createElement("a");
         row.className = "archive-row";
         row.href = `writings.html?id=${item.id}`;
@@ -610,29 +662,30 @@ function buildWritingIndex() {
       yearBlock.appendChild(list);
       container.appendChild(yearBlock);
     });
+
+    engine.renderYearNav(yearNav);
   }
 
-  function renderTagFilter() {
-    renderMultiSelectFilter(
-      tagFilter,
-      allTags,
-      selectedTags,
-      (value, clearAll) => {
-        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
-        renderTagFilter();
-        renderWriting();
-      },
-      "All"
-    );
-  }
+  engine = createFilterEngine({
+    items: writingItems,
+    groups: [
+      {
+        name: "writingTags",
+        key: "tags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderWriting
+  });
 
-  renderYearNav();
-  renderTagFilter();
+  engine.renderFilters();
   renderWriting();
 }
 
 /* ======================
-    GALLERY (art.html)
+   GALLERY (art.html)
 ========================= */
 
 function buildRandomButton(artItems) {
@@ -662,52 +715,16 @@ function buildGallery() {
   const tagFilter = document.querySelector(".tag-filter-art-tags");
 
   const artItems = archive
-    .filter(item => item.type === "art" && item.showOnArt !== false)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    .filter((item) => item.type === "art" && item.showOnArt !== false)
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
 
-  const groupedByYear = {};
-
-  artItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
-    if (!groupedByYear[year]) groupedByYear[year] = [];
-    groupedByYear[year].push(item);
-  });
-
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
-  const allMedia = getUniqueValues(artItems, "medium");
-  const allTags = getUniqueValues(artItems, "tags");
-
-  let selectedMedia = new Set();
-  let selectedTags = new Set();
-
-  function matchesAllActiveFilters(item) {
-    const matchesMedia = itemMatchesSelectedValues(item, "medium", selectedMedia);
-    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
-    return matchesMedia && matchesTags;
-  }
-
-  function renderYearNav() {
-    if (!yearNav) return;
-
-    yearNav.innerHTML = "";
-
-    years.forEach(year => {
-      const link = document.createElement("a");
-      link.href = `#year-${year}`;
-      link.textContent = year;
-      yearNav.appendChild(link);
-    });
-  }
+  let engine;
 
   function renderGalleryItems() {
     gallery.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
       if (!itemsForYear.length) return;
 
       const yearSection = document.createElement("section");
@@ -720,7 +737,7 @@ function buildGallery() {
       const grid = document.createElement("div");
       grid.className = "gallery-grid";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const link = document.createElement("a");
         link.href = `artwork.html?id=${item.id}`;
 
@@ -741,45 +758,38 @@ function buildGallery() {
       yearSection.appendChild(grid);
       gallery.appendChild(yearSection);
     });
+
+    engine.renderYearNav(yearNav);
   }
 
-  function renderMediaFilter() {
-    renderMultiSelectFilter(
-      mediaFilter,
-      allMedia,
-      selectedMedia,
-      (value, clearAll) => {
-        selectedMedia = clearAll ? new Set() : toggleSetValue(selectedMedia, value);
-        renderMediaFilter();
-        renderGalleryItems();
+  engine = createFilterEngine({
+    items: artItems,
+    groups: [
+      {
+        name: "artMedia",
+        key: "medium",
+        container: mediaFilter,
+        allLabel: "All",
+        mode: "or"
       },
-      "All"
-    );
-  }
+      {
+        name: "artTags",
+        key: "tags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderGalleryItems
+  });
 
-  function renderTagFilter() {
-    renderMultiSelectFilter(
-      tagFilter,
-      allTags,
-      selectedTags,
-      (value, clearAll) => {
-        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
-        renderTagFilter();
-        renderGalleryItems();
-      },
-      "All"
-    );
-  }
-
-  renderYearNav();
-  renderMediaFilter();
-  renderTagFilter();
+  engine.renderFilters();
   renderGalleryItems();
   buildRandomButton(artItems);
 }
 
 /* ========================
-    ARTWORK DETAIL PAGE
+   ARTWORK DETAIL PAGE
 =========================== */
 
 function buildArtworkPage() {
@@ -808,10 +818,11 @@ function buildArtworkPage() {
   const navPool = item.showOnArt === false ? [item] : visibleArtItems;
   const index = navPool.findIndex((entry) => entry.id === item.id);
 
-  const prev = navPool[index - 1];
-  const next = navPool[index + 1];
+  const prev = navPool[index - 1] || null;
+  const next = navPool[index + 1] || null;
 
-  document.getElementById("title").textContent = item.title || "";
+  const titleEl = document.getElementById("title");
+  if (titleEl) titleEl.textContent = item.title || "";
 
   if (item.sideNote) {
     layout.innerHTML = `
@@ -834,6 +845,8 @@ function buildArtworkPage() {
   }
 
   const imageEl = document.getElementById("art-image");
+  if (!imageEl) return;
+
   applyViewerImage(imageEl, item);
   imageEl.addEventListener("click", () => openLightbox(item.image, item.title || ""));
 
@@ -865,7 +878,7 @@ function buildArtworkPage() {
 }
 
 /* ======================
-        EXHIBITS
+   EXHIBITS
 ========================= */
 
 function getExhibitWorks(exhibitId) {
@@ -882,6 +895,51 @@ function getExhibitWorks(exhibitId) {
 
       return (a.title || "").localeCompare(b.title || "");
     });
+}
+
+function createExhibitCard(item) {
+  const card = document.createElement("article");
+  card.className = "exhibit-card";
+
+  const link = document.createElement("a");
+  link.className = "exhibit-lightbox";
+  link.href = `artwork.html?id=${item.id}&from=exhibit`;
+
+  const figure = document.createElement("figure");
+
+  const img = document.createElement("img");
+  applyViewerImage(
+    img,
+    item,
+    "(max-width: 700px) 86vw, (max-width: 1100px) 72vw, 48vw"
+  );
+  img.alt = item.title || "";
+
+  img.addEventListener("click", (e) => {
+    e.preventDefault();
+    openLightbox(item.image, item.title || "");
+  });
+
+  const caption = document.createElement("figcaption");
+  caption.className = "exhibit-caption";
+
+  const title = document.createElement("span");
+  title.className = "exhibit-caption-title";
+  title.textContent = item.exhibitCaptionTitle || item.title || "";
+
+  const meta = document.createElement("span");
+  meta.className = "exhibit-caption-meta";
+  meta.textContent = item.exhibitCaptionMeta || "";
+
+  caption.appendChild(title);
+  caption.appendChild(meta);
+
+  figure.appendChild(img);
+  figure.appendChild(caption);
+  link.appendChild(figure);
+  card.appendChild(link);
+
+  return card;
 }
 
 function buildExhibitsArchive() {
@@ -953,8 +1011,8 @@ function buildExhibitPage() {
   if (index === -1) return;
 
   const exhibit = exhibitItems[index];
-  const prev = exhibitItems[index - 1];
-  const next = exhibitItems[index + 1];
+  const prev = exhibitItems[index - 1] || null;
+  const next = exhibitItems[index + 1] || null;
 
   const titleEl = document.getElementById("exhibit-title");
   const descEl = document.getElementById("exhibit-description");
@@ -966,7 +1024,6 @@ function buildExhibitPage() {
   if (!gallery) return;
 
   const works = getExhibitWorks(id);
-
   gallery.innerHTML = "";
 
   if (!works.length) {
@@ -1010,53 +1067,8 @@ function buildExhibitPage() {
   );
 }
 
-function createExhibitCard(item) {
-  const card = document.createElement("article");
-  card.className = "exhibit-card";
-
-  const link = document.createElement("a");
-  link.className = "exhibit-lightbox";
-  link.href = `artwork.html?id=${item.id}&from=exhibit`;
-
-  const figure = document.createElement("figure");
-
-  const img = document.createElement("img");
-  applyViewerImage(
-    img,
-    item,
-    "(max-width: 700px) 86vw, (max-width: 1100px) 72vw, 48vw"
-  );
-  img.alt = item.title || "";
-
-  img.addEventListener("click", (e) => {
-    e.preventDefault();
-    openLightbox(item.image, item.title || "");
-  });
-
-  const caption = document.createElement("figcaption");
-  caption.className = "exhibit-caption";
-
-  const title = document.createElement("span");
-  title.className = "exhibit-caption-title";
-  title.textContent = item.exhibitCaptionTitle || item.title || "";
-
-  const meta = document.createElement("span");
-  meta.className = "exhibit-caption-meta";
-  meta.textContent = item.exhibitCaptionMeta || "";
-
-  caption.appendChild(title);
-  caption.appendChild(meta);
-
-  figure.appendChild(img);
-  figure.appendChild(caption);
-  link.appendChild(figure);
-  card.appendChild(link);
-
-  return card;
-}
-
 /* ======================
-       PHOTOGRAPHY
+   PHOTOGRAPHY
 ========================= */
 
 function buildPhotoArchive() {
@@ -1238,20 +1250,31 @@ function buildWritingPage() {
   const items = archive.filter((item) => {
     if (item.type !== "writing") return false;
 
-   if (isTripViewer) {
-  return (
-    item.section === "trips" ||
-    (Array.isArray(item.sections) && item.sections.includes("trips"))
-  );
-}
+    if (isTripViewer) {
+      return (
+        item.section === "trips" ||
+        (Array.isArray(item.sections) && item.sections.includes("trips"))
+      );
+    }
 
-    return !item.sections || item.sections.includes("writing");
+    const isTrip =
+      item.section === "trips" ||
+      (Array.isArray(item.sections) && item.sections.includes("trips"));
+
+    if (isTrip) return false;
+
+    return (
+      item.showOnWriting === true ||
+      !item.sections ||
+      item.sections.includes("writing")
+    );
   });
 
-  const index = items.findIndex((item) => item.id === id);
+  const sortedItems = sortByDateDescWithIdTiebreak(items);
+  const index = sortedItems.findIndex((item) => item.id === id);
   if (index === -1) return;
 
-  const item = items[index];
+  const item = sortedItems[index];
 
   const frame = document.getElementById("pdf-frame");
   const titleEl = document.getElementById("writing-title");
@@ -1284,7 +1307,7 @@ function buildWritingPage() {
 }
 
 /* ==============================================
-         TRIP REPORTS INDEX / VIEWER
+   TRIP REPORTS INDEX / VIEWER
 ================================================= */
 
 function buildTripReportsPage() {
@@ -1296,7 +1319,7 @@ function buildTripReportsPage() {
   const tagFilter = document.querySelector(".tag-filter-tags");
 
   const tripItems = archive
-    .filter(item => {
+    .filter((item) => {
       if (item.type !== "writing") return false;
       if (item.showOnWriting === false) return false;
 
@@ -1305,51 +1328,18 @@ function buildTripReportsPage() {
         (Array.isArray(item.sections) && item.sections.includes("trips"))
       );
     })
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
 
-  const groupedByYear = {};
-
-  tripItems.forEach(item => {
-    const year = new Date(item.date).getFullYear();
-    if (!groupedByYear[year]) groupedByYear[year] = [];
-    groupedByYear[year].push(item);
-  });
-
-  const years = Object.keys(groupedByYear)
-    .map(Number)
-    .sort((a, b) => b - a);
-
-  const allSubstances = getUniqueValues(tripItems, "substance");
-  const allTags = getUniqueValues(tripItems, "tags");
-
-  let selectedSubstances = new Set();
-  let selectedTags = new Set();
-
-  function matchesAllActiveFilters(item) {
-    const matchesSubstances = itemMatchesSelectedValues(item, "substance", selectedSubstances);
-    const matchesTags = itemMatchesSelectedValues(item, "tags", selectedTags);
-    return matchesSubstances && matchesTags;
-  }
-
-  function renderYearNav() {
-    if (!yearNav) return;
-
-    yearNav.innerHTML = "";
-
-    years.forEach(year => {
-      const link = document.createElement("a");
-      link.href = `#year-${year}`;
-      link.textContent = year;
-      yearNav.appendChild(link);
-    });
-  }
+  let engine;
 
   function buildMetaText(item) {
     const parts = [];
 
     if (item.date) parts.push(item.date);
 
-    const selectedCount = selectedSubstances.size + selectedTags.size;
+    const selectedCount =
+      engine.state.tripSubstances.size + engine.state.tripTags.size;
+
     if (selectedCount === 0) {
       const substances = normalizeToArray(item.substance);
       if (substances.length) parts.push(substances.join(" · "));
@@ -1361,9 +1351,8 @@ function buildTripReportsPage() {
   function renderTrips() {
     container.innerHTML = "";
 
-    years.forEach(year => {
-      const itemsForYear = groupedByYear[year].filter(matchesAllActiveFilters);
-
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
       if (!itemsForYear.length) return;
 
       const block = document.createElement("div");
@@ -1376,7 +1365,7 @@ function buildTripReportsPage() {
       const list = document.createElement("div");
       list.className = "archive-list";
 
-      itemsForYear.forEach(item => {
+      itemsForYear.forEach((item) => {
         const row = document.createElement("a");
         row.className = "archive-row";
         row.href = `tripreports.html?id=${item.id}&from=trips`;
@@ -1405,44 +1394,37 @@ function buildTripReportsPage() {
       block.appendChild(list);
       container.appendChild(block);
     });
+
+    engine.renderYearNav(yearNav);
   }
 
-  function renderSubstanceFilter() {
-    renderMultiSelectFilter(
-      substanceFilter,
-      allSubstances,
-      selectedSubstances,
-      (value, clearAll) => {
-        selectedSubstances = clearAll ? new Set() : toggleSetValue(selectedSubstances, value);
-        renderSubstanceFilter();
-        renderTrips();
+  engine = createFilterEngine({
+    items: tripItems,
+    groups: [
+      {
+        name: "tripSubstances",
+        key: "substance",
+        container: substanceFilter,
+        allLabel: "All",
+        mode: "or"
       },
-      "All"
-    );
-  }
+      {
+        name: "tripTags",
+        key: "tags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderTrips
+  });
 
-  function renderTagFilter() {
-    renderMultiSelectFilter(
-      tagFilter,
-      allTags,
-      selectedTags,
-      (value, clearAll) => {
-        selectedTags = clearAll ? new Set() : toggleSetValue(selectedTags, value);
-        renderTagFilter();
-        renderTrips();
-      },
-      "All"
-    );
-  }
-
-  renderYearNav();
-  renderSubstanceFilter();
-  renderTagFilter();
+  engine.renderFilters();
   renderTrips();
 }
 
 /* ====================
-    MARGINS / QUOTES
+   MARGINS / QUOTES
 ======================= */
 
 function formatQuoteDate(dateString) {
@@ -1471,62 +1453,6 @@ function formatQuoteDate(dateString) {
   }
 
   return `${monthNames[month - 1]} ${day}, ${year}`;
-}
-
-function buildMarginsPage(items = archive) {
-  const container = document.querySelector(".margins-list");
-  if (!container || !Array.isArray(items)) return;
-
-  const margins = items
-    .filter((item) => item.type === "margins")
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
-
-  container.innerHTML = "";
-
-  if (!margins.length) {
-    buildYearNav([]);
-    return;
-  }
-
-  const grouped = groupByYear(margins);
-
-  grouped.forEach((group) => {
-    const yearSection = document.createElement("section");
-    yearSection.className = "margins-year";
-    yearSection.id = `year-${group.year}`;
-
-    const yearHeading = document.createElement("h2");
-    yearHeading.textContent = group.year;
-    yearSection.appendChild(yearHeading);
-
-    group.items.forEach((item) => {
-      const entry = document.createElement("article");
-      entry.className = "quote-entry";
-      entry.id = item.id;
-
-      const meta = document.createElement("div");
-      meta.className = "quote-meta";
-      meta.textContent = formatQuoteDate(item.date);
-
-      const text = renderQuoteText(item);
-
-      entry.appendChild(meta);
-      entry.appendChild(text);
-
-      if (typeof item.detail === "string" && item.detail.trim()) {
-        const detail = document.createElement("div");
-        detail.className = "quote-detail";
-        detail.textContent = item.detail.trim();
-        entry.appendChild(detail);
-      }
-
-      yearSection.appendChild(entry);
-    });
-
-    container.appendChild(yearSection);
-  });
-
-  buildYearNav(grouped.map((group) => group.year));
 }
 
 function renderQuoteText(item) {
@@ -1561,6 +1487,84 @@ function renderQuoteText(item) {
   return wrapper;
 }
 
+function buildMarginsPage(items = archive) {
+  const container = document.querySelector(".margins-list");
+  const yearNav = document.querySelector(".year-nav");
+  const tagFilter = document.querySelector(".tag-filter-margins");
+
+  if (!container || !Array.isArray(items)) return;
+
+  const margins = items
+    .filter((item) => item.type === "margins" || item.type === "margin")
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
+
+  let engine;
+
+  function renderMargins() {
+    container.innerHTML = "";
+
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
+      if (!itemsForYear.length) return;
+
+      const yearSection = document.createElement("section");
+      yearSection.className = "margins-year";
+      yearSection.id = `year-${year}`;
+
+      const yearHeading = document.createElement("h2");
+      yearHeading.textContent = year;
+      yearSection.appendChild(yearHeading);
+
+      itemsForYear.forEach((item) => {
+        const entry = document.createElement("article");
+        entry.className = "quote-entry";
+        entry.id = item.id;
+
+        const meta = document.createElement("div");
+        meta.className = "quote-meta";
+        meta.textContent = formatQuoteDate(item.date);
+
+        const text = renderQuoteText(item);
+
+        entry.appendChild(meta);
+        entry.appendChild(text);
+
+        if (typeof item.detail === "string" && item.detail.trim()) {
+          const detail = document.createElement("div");
+          detail.className = "quote-detail";
+          detail.textContent = item.detail.trim();
+          entry.appendChild(detail);
+        }
+
+        appendInlineTags(entry, item.marginsTags);
+
+        yearSection.appendChild(entry);
+      });
+
+      container.appendChild(yearSection);
+    });
+
+    engine.renderYearNav(yearNav);
+  }
+
+  engine = createFilterEngine({
+    items: margins,
+    groups: [
+      {
+        name: "marginsTags",
+        key: "marginsTags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderMargins
+  });
+
+  engine.renderFilters();
+  renderMargins();
+}
+
 function buildQuotesPage(items = archive) {
   const container = document.querySelector(".quotes-list");
   if (!container || !Array.isArray(items)) return;
@@ -1568,11 +1572,12 @@ function buildQuotesPage(items = archive) {
   container.innerHTML = "";
 
   items
-    .filter((item) => item.type === "quotes")
+    .filter((item) => item.type === "quotes" || item.type === "quote")
     .sort((a, b) => toDate(b.date) - toDate(a.date))
     .forEach((item) => {
       const entry = document.createElement("article");
       entry.className = "quote-entry";
+      entry.id = item.id || "";
 
       const meta = document.createElement("div");
       meta.className = "quote-meta";
@@ -1607,7 +1612,7 @@ function buildQuotesPage(items = archive) {
 }
 
 /* ====================
-       QUESTIONS
+   QUESTIONS
 ======================= */
 
 const QUESTIONS_API_URL =
@@ -1635,7 +1640,7 @@ async function fetchPublicQuestions() {
     if (!res.ok) throw new Error("Failed to fetch questions");
 
     const data = await res.json();
-    publicQuestions = Array.isArray(data.questions) ? data.questions : [];
+    window.publicQuestions = Array.isArray(data.questions) ? data.questions : [];
     buildQuestionsPage();
   } catch (err) {
     console.error("Error fetching public questions:", err);
@@ -1743,7 +1748,7 @@ function setupQuestionForm() {
 }
 
 /* ====================
-         FOOTER
+   FOOTER
 ======================= */
 
 function buildFooter() {
@@ -1763,7 +1768,7 @@ function buildFooter() {
 }
 
 /* ====================
-          INIT
+   INIT
 ======================= */
 
 document.addEventListener("DOMContentLoaded", () => {
