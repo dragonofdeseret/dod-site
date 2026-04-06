@@ -1332,20 +1332,8 @@ function buildTripReportsPage() {
 
   let engine;
 
-  function buildMetaText(item) {
-    const parts = [];
-
-    if (item.date) parts.push(item.date);
-
-    const selectedCount =
-      engine.state.tripSubstances.size + engine.state.tripTags.size;
-
-    if (selectedCount === 0) {
-      const substances = normalizeToArray(item.substance);
-      if (substances.length) parts.push(substances.join(" · "));
-    }
-
-    return parts.join("  |  ");
+   function buildMetaText(item) {
+    return item.date || "";
   }
 
   function renderTrips() {
