@@ -110,10 +110,11 @@ const archive = normalizeArchive([
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_3.webp",
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+  sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
-    <p>Vignette Detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
 },
 {
@@ -124,10 +125,11 @@ const archive = normalizeArchive([
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_2.webp",
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
-    <p>Vignette Detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
 },
 {
@@ -138,10 +140,11 @@ const archive = normalizeArchive([
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_1.webp",
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
+   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Oil on 3x3 canvas</p>
-    <p>Painting was unfinished. 1/2 has since been painted over.</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
 },
   {
@@ -150,7 +153,13 @@ const archive = normalizeArchive([
     title: "September 8, 2024",
     year: 2024,
     date: "2024-09-08",
-    image: "images/art/2024/2024-09-08.webp"
+    image: "images/art/2024/2024-09-08.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2024-08-22",
@@ -158,7 +167,13 @@ const archive = normalizeArchive([
     title: "August 22, 2024",
     year: 2024,
     date: "2024-08-22",
-    image: "images/art/2024/2024-08-22_1.webp"
+    image: "images/art/2024/2024-08-22_1.webp",
+  sideNoteTitle: "Details",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
  {
     id: "2024-08-02_10",
@@ -171,12 +186,11 @@ const archive = normalizeArchive([
     exhibitOrder: 7,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-   
-    sideNoteTitle: "I Know the Church is True",
+    sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -190,12 +204,11 @@ const archive = normalizeArchive([
     exhibitOrder: 8,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
- 
-    sideNoteTitle: "I Know the Church is True",
+    sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -209,12 +222,11 @@ const archive = normalizeArchive([
     exhibitOrder: 9,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-   
-    sideNoteTitle: "I Know the Church is True",
+    sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Into–Outer Darkness</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -228,12 +240,11 @@ const archive = normalizeArchive([
     exhibitOrder: 6,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-   
-    sideNoteTitle: "I Know the Church is True",
+     sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -247,12 +258,11 @@ const archive = normalizeArchive([
     exhibitOrder: 4,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-
-    sideNoteTitle: "I Know the Church is True",
+    sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -267,11 +277,11 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
-    sideNoteTitle: "I Know the Church is True",
+     sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
  {
@@ -286,11 +296,11 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
-    sideNoteTitle: "I Know the Church is True",
+      sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer detail</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
   {
@@ -305,11 +315,11 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
-    sideNoteTitle: "I Know the Church is True",
+      sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic</p>
-      <p>All Seeing Sierpinski</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
   {
@@ -324,11 +334,11 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
-    sideNoteTitle: "I Know the Church is True",
+     sideNoteTitle: "Details",
     sideNote: `
-      <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
-      <p>Glow layer for those with eyes to see</p>
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
   `
   },
   {
@@ -360,7 +370,13 @@ const archive = normalizeArchive([
     title: "June 25, 2024",
     year: 2024,
     date: "2024-06-25",
-    image: "images/art/2024/2024-06-25.webp"
+    image: "images/art/2024/2024-06-25.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2024-01-30",
@@ -370,7 +386,13 @@ const archive = normalizeArchive([
     date: "2024-01-30",
     image: "images/art/2024/2024-01-30.webp",
     exhibit: "woulds",
-    exhibitOrder: 13
+    exhibitOrder: 13,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2024-01-28_2",
@@ -380,7 +402,13 @@ const archive = normalizeArchive([
     date: "2024-01-28",
     image: "images/art/2024/2024-01-28_2.webp",
     exhibit: "woulds",
-    exhibitOrder: 12
+    exhibitOrder: 12,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2024-01-28_1",
@@ -388,7 +416,13 @@ const archive = normalizeArchive([
     title: "January 28, 2024 | #1",
     year: 2024,
     date: "2024-01-28",
-    image: "images/art/2024/2024-01-28_1.webp"
+    image: "images/art/2024/2024-01-28_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-14_2",
@@ -398,7 +432,13 @@ const archive = normalizeArchive([
     date: "2023-12-14",
     image: "images/art/2023/2023-12-14_2.webp",
     exhibit: "woulds",
-    exhibitOrder: 11
+    exhibitOrder: 11,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-14_1",
@@ -408,7 +448,13 @@ const archive = normalizeArchive([
     date: "2023-12-14",
     image: "images/art/2023/2023-12-14_1.webp",
     exhibit: "woulds",
-    exhibitOrder: 10
+    exhibitOrder: 10,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-10_3",
@@ -418,7 +464,13 @@ const archive = normalizeArchive([
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_3.webp",
     exhibit: "woulds",
-    exhibitOrder: 9
+    exhibitOrder: 9,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-10_2",
@@ -426,7 +478,13 @@ const archive = normalizeArchive([
     title: "December 10, 2023 | #2",
     year: 2023,
     date: "2023-12-10",
-    image: "images/art/2023/2023-12-10_2.webp"
+    image: "images/art/2023/2023-12-10_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-10_1",
@@ -436,7 +494,13 @@ const archive = normalizeArchive([
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_1.webp",
     exhibit: "woulds",
-    exhibitOrder: 8
+    exhibitOrder: 8,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-06_2",
@@ -444,7 +508,13 @@ const archive = normalizeArchive([
     title: "December 6, 2023 | #2",
     year: 2023,
     date: "2023-12-06",
-    image: "images/art/2023/2023-12-06_2.webp"
+    image: "images/art/2023/2023-12-06_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-12-06_1",
@@ -454,7 +524,13 @@ const archive = normalizeArchive([
     date: "2023-12-06",
     image: "images/art/2023/2023-12-06_1.webp",
     exhibit: "woulds",
-    exhibitOrder: 7
+    exhibitOrder: 7,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-11-13_2",
@@ -464,7 +540,13 @@ const archive = normalizeArchive([
     date: "2023-11-13",
     image: "images/art/2023/2023-11-13_2.webp",
     exhibit: "woulds",
-    exhibitOrder: 6
+    exhibitOrder: 6,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-11-13_1",
@@ -474,7 +556,13 @@ const archive = normalizeArchive([
     date: "2023-11-13",
     image: "images/art/2023/2023-11-13_1.webp",
     exhibit: "woulds",
-    exhibitOrder: 5
+    exhibitOrder: 5,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-10-31_1",
@@ -482,7 +570,13 @@ const archive = normalizeArchive([
     title: "October 31, 2023",
     year: 2023,
     date: "2023-10-31",
-    image: "images/art/2023/2023-10-31_1.webp"
+    image: "images/art/2023/2023-10-31_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-10-24",
@@ -490,7 +584,13 @@ const archive = normalizeArchive([
     title: "October 24, 2023",
     year: 2023,
     date: "2023-10-24",
-    image: "images/art/2023/2023-10-24.webp"
+    image: "images/art/2023/2023-10-24.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-10-23",
@@ -498,7 +598,13 @@ const archive = normalizeArchive([
     title: "October 23, 2023",
     year: 2023,
     date: "2023-10-23",
-    image: "images/art/2023/2023-10-23.webp"
+    image: "images/art/2023/2023-10-23.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-09-01_2",
@@ -506,7 +612,13 @@ const archive = normalizeArchive([
     title: "September 1, 2023 | #2",
     year: 2023,
     date: "2023-09-01",
-    image: "images/art/2023/2023-09-01_2.webp"
+    image: "images/art/2023/2023-09-01_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-09-01_1",
@@ -514,7 +626,13 @@ const archive = normalizeArchive([
     title: "September 1, 2023 | #1",
     year: 2023,
     date: "2023-09-01",
-    image: "images/art/2023/2023-09-01_1.webp"
+    image: "images/art/2023/2023-09-01_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-26_detail",
@@ -523,6 +641,12 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_detail.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-26_4",
@@ -531,7 +655,13 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_4.webp",
-    exhibit: "detour"
+    exhibit: "detour",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-26_3",
@@ -540,7 +670,13 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_3.webp",
-    exhibit: "detour"
+    exhibit: "detour",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-26_2",
@@ -549,7 +685,13 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_2.webp",
-    exhibit: "detour"
+    exhibit: "detour",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-26_1",
@@ -558,7 +700,13 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_1.webp",
-    exhibit: "detour"
+    exhibit: "detour",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-13_2",
@@ -568,7 +716,13 @@ const archive = normalizeArchive([
     date: "2023-08-13",
     image: "images/art/2023/2023-08-13_2.webp",
     exhibit: "woulds",
-    exhibitOrder: 4
+    exhibitOrder: 4,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-13_1",
@@ -578,7 +732,13 @@ const archive = normalizeArchive([
     date: "2023-08-13",
     image: "images/art/2023/2023-08-13_1.webp",
     exhibit: "woulds",
-    exhibitOrder: 3
+    exhibitOrder: 3,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-08-06",
@@ -586,7 +746,13 @@ const archive = normalizeArchive([
     title: "August 6, 2023",
     year: 2023,
     date: "2023-08-06",
-    image: "images/art/2023/2023-08-06.webp"
+    image: "images/art/2023/2023-08-06.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-07-30",
@@ -594,7 +760,13 @@ const archive = normalizeArchive([
     title: "July 30, 2023",
     year: 2023,
     date: "2023-07-30",
-    image: "images/art/2023/2023-07-30.webp"
+    image: "images/art/2023/2023-07-30.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-07-16_2",
@@ -604,7 +776,13 @@ const archive = normalizeArchive([
     date: "2023-07-16",
     image: "images/art/2023/2023-07-16_2.webp",
     exhibit: "woulds",
-    exhibitOrder: 2
+    exhibitOrder: 2,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-07-16_1",
@@ -612,7 +790,13 @@ const archive = normalizeArchive([
     title: "July 16, 2023 | #1",
     year: 2023,
     date: "2023-07-16",
-    image: "images/art/2023/2023-07-16_1.webp"
+    image: "images/art/2023/2023-07-16_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-07-10",
@@ -620,7 +804,13 @@ const archive = normalizeArchive([
     title: "July 10, 2023",
     year: 2023,
     date: "2023-07-10",
-    image: "images/art/2023/2023-07-10.webp"
+    image: "images/art/2023/2023-07-10.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-07-05",
@@ -630,7 +820,13 @@ const archive = normalizeArchive([
     date: "2023-07-05",
     image: "images/art/2023/2023-07-05.webp",
     exhibit: "woulds",
-    exhibitOrder: 1
+    exhibitOrder: 1,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-06-27",
@@ -638,7 +834,13 @@ const archive = normalizeArchive([
     title: "June 27, 2023",
     year: 2023,
     date: "2023-06-27",
-    image: "images/art/2023/2023-06-27.webp"
+    image: "images/art/2023/2023-06-27.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-06-24",
@@ -646,7 +848,13 @@ const archive = normalizeArchive([
     title: "June 24, 2023",
     year: 2023,
     date: "2023-06-24",
-    image: "images/art/2023/2023-06-24.webp"
+    image: "images/art/2023/2023-06-24.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-28",
@@ -654,7 +862,13 @@ const archive = normalizeArchive([
     title: "May 27, 2023",
     year: 2023,
     date: "2023-05-28",
-    image: "images/art/2023/2023-05-28.webp"
+    image: "images/art/2023/2023-05-28.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-21_3",
@@ -663,7 +877,13 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_3.webp",
-    page: "art/2023-05-21_3.html"
+    page: "art/2023-05-21_3.html",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-21_2",
@@ -671,7 +891,13 @@ const archive = normalizeArchive([
     title: "May 21, 2023 | #2",
     year: 2023,
     date: "2023-05-21",
-    image: "images/art/2023/2023-05-21_2.webp"
+    image: "images/art/2023/2023-05-21_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-21_1",
@@ -679,7 +905,13 @@ const archive = normalizeArchive([
     title: "May 21, 2023 | #1",
     year: 2023,
     date: "2023-05-21",
-    image: "images/art/2023/2023-05-21_1.webp"
+    image: "images/art/2023/2023-05-21_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-18_2",
@@ -687,7 +919,13 @@ const archive = normalizeArchive([
     title: "May 18, 2023 | #2",
     year: 2023,
     date: "2023-05-18",
-    image: "images/art/2023/2023-05-18_2.webp"
+    image: "images/art/2023/2023-05-18_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-18_1",
@@ -695,7 +933,13 @@ const archive = normalizeArchive([
     title: "May 18, 2023 | #1",
     year: 2023,
     date: "2023-05-18",
-    image: "images/art/2023/2023-05-18_1.webp"
+    image: "images/art/2023/2023-05-18_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-13_3",
@@ -706,7 +950,12 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_3.webp",
     exhibit: "HZ5",
     exhibitOrder: 3,
-    exhibitSpan: "full"
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-13_2",
@@ -717,7 +966,12 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_2.webp",
     exhibit: "HZ5",
     exhibitOrder: 2,
-    exhibitSpan: "full"
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-13_1",
@@ -728,7 +982,12 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_1.webp",
     exhibit: "HZ5",
     exhibitOrder: 1,
-    exhibitSpan: "full"
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-07_4",
@@ -736,7 +995,13 @@ const archive = normalizeArchive([
     title: "May 7, 2023 | #4",
     year: 2023,
     date: "2023-05-07",
-    image: "images/art/2023/2023-05-07_4.webp"
+    image: "images/art/2023/2023-05-07_4.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-07_3",
@@ -744,7 +1009,13 @@ const archive = normalizeArchive([
     title: "May 7, 2023 | #3",
     year: 2023,
     date: "2023-05-07",
-    image: "images/art/2023/2023-05-07_3.webp"
+    image: "images/art/2023/2023-05-07_3.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-07_2",
@@ -752,7 +1023,13 @@ const archive = normalizeArchive([
     title: "May 7, 2023 | #2",
     year: 2023,
     date: "2023-05-07",
-    image: "images/art/2023/2023-05-07_2.webp"
+    image: "images/art/2023/2023-05-07_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-05-07_1",
@@ -760,7 +1037,13 @@ const archive = normalizeArchive([
     title: "May 7, 2023 | #1",
     year: 2023,
     date: "2023-05-07",
-    image: "images/art/2023/2023-05-07_1.webp"
+    image: "images/art/2023/2023-05-07_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>Optional note/description here.</p>
+  `
   },
   {
     id: "2023-09-19",
@@ -768,7 +1051,13 @@ const archive = normalizeArchive([
     title: "September 19, 2022",
     year: 2022,
     date: "2022-09-19",
-    image: "images/art/2022/2022-09-19.webp"
+    image: "images/art/2022/2022-09-19.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink and Oil on Canvas</p>
+    <p>An otherworldly landscape completed while cross-faded on cannabis and two 12% beers.</p>
+  `
   },
   {
     id: "2022-08-28_3",
@@ -776,7 +1065,13 @@ const archive = normalizeArchive([
     title: "August 28, 2022 | #3",
     year: 2022,
     date: "2022-08-28",
-    image: "images/art/2022/2022-08-28_3.webp"
+    image: "images/art/2022/2022-08-28_3.webp",
+    sideNoteTitle: "Release",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>A release of existential tension.</p>
+  `
   },
   {
     id: "2022-08-28_2",
@@ -784,7 +1079,13 @@ const archive = normalizeArchive([
     title: "August 28, 2022 | #2",
     year: 2022,
     date: "2022-08-28",
-    image: "images/art/2022/2022-08-28_2.webp"
+    image: "images/art/2022/2022-08-28_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>A landscape that overlayed my backyard after a DMT come up. Painted in ~90s after coming up on 20mg.</p>
+  `
   },
   {
     id: "2022-08-28_1",
@@ -792,7 +1093,13 @@ const archive = normalizeArchive([
     title: "August 28, 2022 | #1",
     year: 2022,
     date: "2022-08-28",
-    image: "images/art/2022/2022-08-28_1.webp"
+    image: "images/art/2022/2022-08-28_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas/p>
+    <p>My backyard on a DMT come up. Painted in ~90s while coming up on 20mg.</p>
+  `
   },
   {
     id: "2022-08-14_2",
@@ -800,7 +1107,13 @@ const archive = normalizeArchive([
     title: "August 14, 2022 | #2",
     year: 2022,
     date: "2022-08-14",
-    image: "images/art/2022/2022-08-14_2.webp"
+    image: "images/art/2022/2022-08-14_2.webp",
+    sideNoteTitle: "DMT Haven",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p></p>
+  `
   },
   {
     id: "2022-08-14_1",
@@ -808,7 +1121,13 @@ const archive = normalizeArchive([
     title: "August 14, 2022 | #1",
     year: 2022,
     date: "2022-08-14",
-    image: "images/art/2022/2022-08-14_1.webp"
+    image: "images/art/2022/2022-08-14_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas/p>
+    <p>Crossing DMT thresholds</p>
+  `
   },
   {
     id: "2022-08-02",
@@ -816,7 +1135,13 @@ const archive = normalizeArchive([
     title: "August 2, 2022",
     year: 2022,
     date: "2022-08-02",
-    image: "images/art/2022/2022-08-02.webp"
+    image: "images/art/2022/2022-08-02.webp",
+    sideNoteTitle: "Sophia's Seblueision | Man Meditating in Cabin",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Inspired by filbert brush zen painting completed on June 25, 2022/</p>
+  `
   },
   {
     id: "2022-08-01_2",
@@ -827,7 +1152,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-01_2.webp",
     exhibit: "HZ4",
     exhibitOrder: 7,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Vivid Valley View + Section Inspirations",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper, Oil on Canvas</p>
+    <p>Compilation of meditative Ink on Canvas Paper works from weeks prior.</p>
+  `
   },
   {
     id: "2022-08-01_1",
@@ -837,15 +1168,27 @@ const archive = normalizeArchive([
     date: "2022-08-01",
     image: "images/art/2022/2022-08-01_1.webp",
     exhibit: "HZ4",
-    exhibitOrder: 6
+    exhibitOrder: 6,
+    sideNoteTitle: "Vivid Valley View",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Compilation of meditative Ink on Canvas Paper works from weeks prior.</p>
+  `
   },
   {
     id: "2022-07-15_2",
     type: "art",
-    title: "July 15, 2022 | 2nd Grade",
+    title: "2nd Grade",
     year: 2022,
     date: "2022-07-15",
-    image: "images/art/2022/2022-07-15_2.webp"
+    image: "images/art/2022/2022-07-15_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 1997</p>
+    <p><strong>Medium:</strong> Chalk on Paper</p>
+    <p>Second grade art project relevant to a meditative painting completed in 2022. See next photo.</p>
+  `
   },
   {
     id: "2022-07-15_1",
@@ -853,15 +1196,27 @@ const archive = normalizeArchive([
     title: "July 15, 2022 | #1",
     year: 2022,
     date: "2022-07-15",
-    image: "images/art/2022/2022-07-15_1.webp"
+    image: "images/art/2022/2022-07-15_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>I dipped a 1 inch round brush in a mixture of white and pthalo green, meditated in front of the canvas for about 30 seconds, and then completed the scene within 90 seconds. It was already a person favorite for some time, but the following spring I was going through some childhood memories when I came across an art project from second grade which matched the very well. See previos photo.</p>
+  `
   },
-  {
+    {
     id: "2022-06-25",
     type: "art",
-    title: "June 6 2022",
+    title: "June 25, 2022",
     year: 2022,
-    date: "2022-06-25",
-    image: "images/art/2022/2022-06-25.webp"
+    date: "2022-06-18",
+    image: "images/art/2022/2022-06-25.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on paper</p>
+    <p>I dipped a filbert brush in white oil paint, meditated in front of the canvas for a moment, and then completed a hasty scene. This would later become inspiration for "Sophia's Sebluesion/Man Meditating in Cabin — August 2, 2022"</p>
+  `
   },
   {
     id: "2022-06-24",
@@ -869,7 +1224,13 @@ const archive = normalizeArchive([
     title: "June 24, 2022",
     year: 2022,
     date: "2022-06-24",
-    image: "images/art/2022/2022-06-24.webp"
+    image: "images/art/2022/2022-06-24.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Salt Lake City. Completed using leftover palette paint. A personal favorite.</p>
+  `
   },
   {
     id: "2022-06-23",
@@ -877,15 +1238,13 @@ const archive = normalizeArchive([
     title: "June 23, 2022",
     year: 2022,
     date: "2022-06-23",
-    image: "images/art/2022/2022-06-23.webp"
-  },
-  {
-    id: "2022-06-18_6",
-    type: "art",
-    title: "June 18, 2022 | #6",
-    year: 2022,
-    date: "2022-06-18",
-    image: "images/art/2022/2022-06-18_6.webp"
+    image: "images/art/2022/2022-06-23.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>I don't really remember this one, more is it in my possession, but now as I look back at it for some reason it always makes me think of A Series of Unfortunate Events.</p>
+  `
   },
   {
     id: "2022-06-18_5",
@@ -895,7 +1254,13 @@ const archive = normalizeArchive([
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_5.webp",
     exhibit: "HZ4",
-    exhibitOrder: 1
+    exhibitOrder: 1,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper</p>
+    <p>I dipped a 1 inch round brush in ink and held it above the paper meditating until the moment spontaneously arose to strike the page and quickly complete a scene within a few strokes.</p>
+  `
   },
   {
     id: "2022-06-18_4",
@@ -905,7 +1270,13 @@ const archive = normalizeArchive([
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_4.webp",
     exhibit: "HZ4",
-    exhibitOrder: 5
+    exhibitOrder: 5,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper</p>
+    <p>I dipped a 1 inch round brush in ink and held it above the paper meditating until the moment spontaneously arose to strike the page and quickly complete a scene within a few strokes.</p>
+  `
   },
   {
     id: "2022-06-18_3",
@@ -915,7 +1286,13 @@ const archive = normalizeArchive([
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_3.webp",
     exhibit: "HZ4",
-    exhibitOrder: 2
+    exhibitOrder: 2,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper</p>
+    <p>I dipped a 1 inch round brush in ink and held it above the paper meditating until the moment spontaneously arose to strike the page and quickly complete a scene within a few strokes.</p>
+  `
   },
   {
     id: "2022-06-18_2",
@@ -925,7 +1302,13 @@ const archive = normalizeArchive([
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_2.webp",
     exhibit: "HZ4",
-    exhibitOrder: 4
+    exhibitOrder: 4,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper</p>
+    <p>I dipped a 1 inch round brush in ink and held it above the paper meditating until the moment spontaneously arose to strike the page and quickly complete a scene within a few strokes.</p>
+  `
   },
   {
     id: "2022-06-18_1",
@@ -935,7 +1318,13 @@ const archive = normalizeArchive([
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_1.webp",
     exhibit: "HZ4",
-    exhibitOrder: 3
+    exhibitOrder: 3,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas Paper</p>
+    <p>I dipped a 1 inch round brush in ink and held it above the paper meditating until the moment spontaneously arose to strike the page and quickly complete a scene within a few strokes.</p>
+  `
   },
   {
     id: "2022-06-15_2",
@@ -943,7 +1332,13 @@ const archive = normalizeArchive([
     title: "June 15, 2022",
     year: 2022,
     date: "2022-06-15",
-    image: "images/art/2022/2022-06-15_2.webp"
+    image: "images/art/2022/2022-06-15_2.webp",
+    sideNoteTitle: "Purple Palms",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Scene completed after spreading oil on canvas with hand broom.</p>
+  `
   },
   {
     id: "2022-06-15_1",
@@ -952,7 +1347,13 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_1.webp",
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Oil spread on canvas after being dipped in a hand broom.</p>
+  `
   },
   {
     id: "2022-06-11_2",
@@ -963,6 +1364,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-11_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 2,
+    sideNoteTitle: "Man Meditating Cliffside",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil and Blood on Canvas</p>
+    <p>Scene completed after spreading blood on canvas after cutting my palm with a knife accidentally.</p>
+  `
   },
   {
     id: "2022-06-11_1",
@@ -973,7 +1380,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-11_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 1,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Man Meditating Cliffside | Blot",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Blood on Canvas</p>
+    <p>I cut my palm while folding a knife closed. It had a terrible closing mechanism and I was on LSD. I walked back in the house and saw an empty canvas, so I spread some blood on it before I cleaned up. I then went and completed the scene from what was left behind.</p>
+  `
   },
   {
     id: "2022-06-08_2",
@@ -984,6 +1397,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-08_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 6,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>Scene completed from ink spread on canvas by Siberian Elm limb</p>
+  `
   },
   {
     id: "2022-06-08_1",
@@ -994,7 +1413,27 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-08_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 5,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped the young stem of a Siberian Elm tree in ink, spread it around the canvas, and then completed the scene from the blot.</p>
+  `
+  },
+ {
+    id: "2022-06-06",
+    type: "art",
+    title: "June 6, 2022",
+    year: 2022,
+    date: "2022-06-06",
+    image: "images/art/2022/2022-06-06.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Bob Ross scene redone in my blues after I had a ton left over on the pallete.</p>
+  `
   },
   {
     id: "2022-06-05_2",
@@ -1005,6 +1444,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-05_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 4,
+    sideNoteTitle: "Man Fishing at Ice Melt",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p></p>
+  `
   },
   {
     id: "2022-06-05_1",
@@ -1015,7 +1460,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-05_1.webp",
     exhibit: "HZ3",
     exhibitOrder: 3,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Man Fishing at Ice Melt | Blot",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>I dipped a hand broom in blue oil paint, spread it around the canvas, and then completed the scene from the blot.</p>
+  `
   },
   {
     id: "2022-05-29",
@@ -1023,7 +1474,13 @@ const archive = normalizeArchive([
     title: "May 29, 2022",
     year: 2022,
     date: "2022-05-29",
-    image: "images/art/2022/2022-05-29.webp"
+    image: "images/art/2022/2022-05-29.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Practicing several different things. Was last in the possession of Zelph on the Shelf.</p>
+  `
   },
   {
     id: "2022-05-27_2",
@@ -1034,6 +1491,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-27_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 4,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p></p>
+  `
   },
   {
     id: "2022-05-27_1",
@@ -1044,7 +1507,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-27_1.webp",
     exhibit: "HZ2",
     exhibitOrder: 3,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped my long hair in blue ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
   },
   {
     id: "2022-05-26_2",
@@ -1055,6 +1524,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-26_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 2,
+    sideNoteTitle: "Chronic Pain",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>A visual representation of all the pain sensations associated with Chronic Pain, or what was then called, "Fibromyalgia."</p>
+  `
   },
   {
     id: "2022-05-26_1",
@@ -1065,7 +1540,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-26_1.webp",
     exhibit: "HZ2",
     exhibitOrder: 1,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped my long hair in blue ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
   },
   {
     id: "2022-05-23_5",
@@ -1076,6 +1557,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_5.webp",
     exhibit: "HZ1",
     exhibitOrder: 4,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>Self-transforming Elf Machines building the landscape. A dog emerges from the creations and begins to run.</p>
+  `
   },
   {
     id: "2022-05-23_4",
@@ -1086,7 +1573,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_4.webp",
     exhibit: "HZ1",
     exhibitOrder: 3,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped my long hair in blue and silver ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
   },
   {
     id: "2022-05-23_3",
@@ -1097,6 +1590,12 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_3.webp",
     exhibit: "HZ1",
     exhibitOrder: 2,
+    sideNoteTitle: "Private Cove",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p></p>
+  `
   },
   {
     id: "2022-05-23_2",
@@ -1107,7 +1606,13 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_2.webp",
     exhibit: "HZ1",
     exhibitOrder: 1,
-    showOnArt: false
+    showOnArt: false,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped my long hair in silver ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
   },
   {
     id: "2022-05-23_1",
@@ -1115,7 +1620,13 @@ const archive = normalizeArchive([
     title: "May 23, 2022 | #1",
     year: 2022,
     date: "2022-05-23",
-    image: "images/art/2022/2022-05-23_1.webp"
+    image: "images/art/2022/2022-05-23_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Ink on Canvas</p>
+    <p>I dipped my long hair in purple ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
   },
   {
     id: "2022-05-15",
@@ -1123,7 +1634,13 @@ const archive = normalizeArchive([
     title: "May 15, 2022",
     year: 2022,
     date: "2022-05-15",
-    image: "images/art/2022/2022-05-15.webp"
+    image: "images/art/2022/2022-05-15.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>First LSD trip in 3 years. Local park.</p>
+  `
   },
   {
     id: "2022-05-14",
@@ -1131,7 +1648,13 @@ const archive = normalizeArchive([
     title: "May 14, 2022",
     year: 2022,
     date: "2022-05-14",
-    image: "images/art/2022/2022-05-14.webp"
+    image: "images/art/2022/2022-05-14.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Nic Hankins, Bob Ross channel recreation.</p>
+  `
   },
   {
     id: "2022-04-19",
@@ -1139,7 +1662,13 @@ const archive = normalizeArchive([
     title: "April 19, 2022",
     year: 2022,
     date: "2022-04-19",
-    image: "images/art/2022/2022-04-19.webp"
+    image: "images/art/2022/2022-04-19.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>The Cabins at Bear River Lodge, 2022.</p>
+  `
   },
   {
     id: "2022-04-04",
@@ -1147,7 +1676,13 @@ const archive = normalizeArchive([
     title: "April 4, 2022",
     year: 2022,
     date: "2022-04-04",
-    image: "images/art/2022/2022-04-04.webp"
+    image: "images/art/2022/2022-04-04.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Bob Ross recreation.</p>
+  `
   },
   {
     id: "2022-04-03",
@@ -1155,7 +1690,13 @@ const archive = normalizeArchive([
     title: "April 3, 2022",
     year: 2022,
     date: "2022-04-03",
-    image: "images/art/2022/2022-04-03.webp"
+    image: "images/art/2022/2022-04-03.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Bob Ross recreation.</p>
+  `
   },
   {
     id: "2022-04-01",
@@ -1163,7 +1704,27 @@ const archive = normalizeArchive([
     title: "April 1, 2022",
     year: 2022,
     date: "2022-04-01",
-    image: "images/art/2022/2022-04-01.webp"
+    image: "images/art/2022/2022-04-01.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>Bob Ross recreation.</p>
+  `
+  },
+ {
+    id: "2022-03-29",
+    type: "art",
+    title: "March 29, 2022",
+    year: 2022,
+    date: "2022-03-29",
+    image: "images/art/2022/2022-03-29.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>Uncertain if me or Bob Ross recreation. Probs Bob. But also looks incomplete-ish.</p>
+  `
   },
   {
     id: "2022-03-25",
@@ -1171,7 +1732,13 @@ const archive = normalizeArchive([
     title: "March 25, 2022",
     year: 2022,
     date: "2022-03-25",
-    image: "images/art/2022/2022-03-25.webp"
+    image: "images/art/2022/2022-03-25.webp",
+    sideNoteTitle: "The Forest of Lee",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>The stillness watches. The watching listens.</p>
+  `
   },
   {
     id: "2022-03-23",
@@ -1179,7 +1746,13 @@ const archive = normalizeArchive([
     title: "March 23, 2022",
     year: 2022,
     date: "2022-03-23",
-    image: "images/art/2022/2022-03-23.webp"
+    image: "images/art/2022/2022-03-23.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>Small scene made from oil leftover on the pallete. A personal favorite.</p>
+  `
   },
   {
     id: "2022-03-15",
@@ -1187,7 +1760,13 @@ const archive = normalizeArchive([
     title: "March 15, 2022",
     year: 2022,
     date: "2022-03-15",
-    image: "images/art/2022/2022-03-15.webp"
+    image: "images/art/2022/2022-03-15.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>Winter Ostara, 2022. Backyard of a Twitter mutual who lives on the East Coast.</p>
+  `
   },
   {
     id: "2022-03-08_3",
@@ -1197,7 +1776,13 @@ const archive = normalizeArchive([
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_3.webp",
     exhibit: "mayuan",
-    exhibitOrder: 3
+    exhibitOrder: 3,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Ma Yuan inspired. A family favorite.</p>
+  `
   },
   {
     id: "2022-03-08_2",
@@ -1207,7 +1792,13 @@ const archive = normalizeArchive([
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_2.webp",
     exhibit: "mayuan",
-    exhibitOrder: 2
+    exhibitOrder: 2,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Ma Yuan recreation. A family favorite.</p>
+  `
   },
   {
     id: "2022-03-08_1",
@@ -1217,7 +1808,13 @@ const archive = normalizeArchive([
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_1.webp",
     exhibit: "mayuan",
-    exhibitOrder: 1
+    exhibitOrder: 1,
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas/p>
+    <p>Ma Yuan recreation. A family favorite.</p>
+  `
   },
   {
     id: "2022-03-03_2",
@@ -1225,7 +1822,13 @@ const archive = normalizeArchive([
     title: "March 3, 2022 | #2",
     year: 2022,
     date: "2022-03-03",
-    image: "images/art/2022/2022-03-03_2.webp"
+    image: "images/art/2022/2022-03-03_2.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on paper</p>
+    <p>Made from leftover paint from previous Bob Ross recreation.</p>
+  `
   },
   {
     id: "2022-03-03_1",
@@ -1233,7 +1836,13 @@ const archive = normalizeArchive([
     title: "March 3, 2022 | #1",
     year: 2022,
     date: "2022-03-03",
-    image: "images/art/2022/2022-03-03_1.webp"
+    image: "images/art/2022/2022-03-03_1.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on paper</p>
+    <p>Bob Ross recreation.</p>
+  `
   },
   {
     id: "2022-02-18",
@@ -1241,7 +1850,13 @@ const archive = normalizeArchive([
     title: "February 18, 2022",
     year: 2022,
     date: "2022-02-18",
-    image: "images/art/2022/2022-02-18.webp"
+    image: "images/art/2022/2022-02-18.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Practicing random winter scenes.</p>
+  `
   },
   {
     id: "2022-02-14",
@@ -1249,7 +1864,13 @@ const archive = normalizeArchive([
     title: "February 14, 2022",
     year: 2022,
     date: "2022-02-14",
-    image: "images/art/2022/2022-02-14.webp"
+    image: "images/art/2022/2022-02-14.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Bob Ross recreation</p>
+  `
   },
   {
     id: "2022-01-30",
@@ -1257,7 +1878,13 @@ const archive = normalizeArchive([
     title: "January 30, 2022",
     year: 2022,
     date: "2022-01-30",
-    image: "images/art/2022/2022-01-30.webp"
+    image: "images/art/2022/2022-01-30.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>One of my first attempts to oil paint a Bob Ross.</p>
+  `
   },
   {
     id: "2020-11-18",
@@ -1265,7 +1892,13 @@ const archive = normalizeArchive([
     title: "November 18, 2020",
     year: 2020,
     date: "2020-11-18",
-    image: "images/art/2020/2020-11-18.webp"
+    image: "images/art/2020/2020-11-18.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2020</p>
+    <p><strong>Medium:</strong> Pen on paper</p>
+    <p>Sketch I started after a particular OBE meditation in the Fall of 2020. Never got around to finishing this one.</p>
+  `
   },
   {
     id: "1997-03-30",
