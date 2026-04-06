@@ -1600,7 +1600,7 @@ const archive = normalizeArchive([
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
   detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
-  marginTags: ["ontology", "mormon-theology"
+  marginTags: ["ontology", "mormon-theology"]
 },
 {
   id: "2025_09_22_4",
