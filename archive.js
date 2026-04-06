@@ -1327,7 +1327,7 @@ const archive = normalizeArchive([
     date: "2025-02-16",
     file: "pdf/AcidLullabies.pdf",
     sections: ["writing"],
-    tags: ["LSD", "psychedelics", "consciousness", "science", "theory"],
+    tags: ["LSD", "psychedelics", "consciousness", "consciousness-research", "medical", "science", "theory"],
   },
   {
     id: "HL",
@@ -1585,7 +1585,7 @@ const archive = normalizeArchive([
     file: "pdf/AIW.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["visionary", "LSD", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
+    tags: ["visionary", "LSD", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory", "consciousness", "consciousness-research"]
   },
 
 /* ===================
@@ -1600,7 +1600,7 @@ const archive = normalizeArchive([
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
   detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
-  marginTags: ["ontology", "mormon-theology"]
+  marginsTags: ["harmonic-theism", "ontology", "mormon-theology"]
 },
 {
   id: "2025_09_22_4",
@@ -1609,7 +1609,8 @@ In Mormon theology, the Eternal God who governs all gods serves as an autochthon
   date: "2025-09-22",
   text: `
 The cosmos is not a product of temporal causality, it is a ceaseless unfolding. This, a hint that even the divine nature of the Eternal God is ever-progressing, and always self-surpassing; expanding His space to conduct more kingdoms, in order that more kingdoms may join in the harmony of his ever-expanding, boundless space,`,
-  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+marginsTags: ["harmonic-theism", "mormon-theology", "daoism", "ontology", "cosmogony"] 
 },
 {
   id: "2025_09_22_3",
@@ -1621,7 +1622,8 @@ This correspondence between structure and significance aligns with emerging mode
 "The Symmetry Theory of Valence," proposed by the Qualia Research Institute, 68 suggests that the quality of an experience its pleasure or suffering is not incidental, but reflects the underlying mathematical harmony of that experience's structure.
 
 Symmetry, coherence, and compressibility are not just aesthetic features; they are the felt presence of those features. The more harmonious the experiential pattern, the more radiant the felt tone. Intelligence, then, is not only the capacity to structure the world, but to feel the symmetry of that structuring. The glory of God may reside, not just in light and truth, but in the beauty of its arrangement.`,
-  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+  marginsTags: ["harmonic-theism", "consciousness", "science", "intelligence-theory", "panpsychism"]
 },
 {
   id: "2025_09_22_2",
@@ -1630,7 +1632,8 @@ Symmetry, coherence, and compressibility are not just aesthetic features; they a
   date: "2025-09-22",
   text: `
 The Mormon tradition sings a vision of God that is both expansive and intimate—being and becoming, law and light. Yet this harmonic theology is too often distorted… [Others'] flattened images, while understandable given limited exposure, tragically overlook the depth and intricacies of Mormon theology.`,
-  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+  marginsTags: ["harmonic-theism", "mormon-theology", "ontology"]
 },
 {
   id: "2025_09_22_1",
@@ -1639,7 +1642,8 @@ The Mormon tradition sings a vision of God that is both expansive and intimate�
   date: "2025-09-22",
   text: `
 The golden plates exist in the liminal space where matter becomes melody—a chord struck simultaneously in the soil of Cumorah’s hill, and the hyperdimensional lattice of the Spirit World. They are neither relic nor rumor, but resonance: a vibration echoing across the Möbius strip of eternity, accessible when perception pivots from passive sight to active grasp. The plates’ burial and exhumation are not sequential events, they are simultaneous frequencies in God’s eternal round… waiting to be unwoven by those who dare to hum harmonics into the abyss.`,
-  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds."
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+  marginsTags: ["harmonic-theism", "ontology", "metaphysics", "causal-body", "book-of-mormon"]
 },
 {
   id: "2025_02_15",
@@ -1651,7 +1655,8 @@ The Daodejing is a very complex text that has been bastardized by many, and it i
 
 Buddhism is a methodology of escape.
 Daoism is a methodology of acceptance.`,
-  detail: "Response to question on X regarding the differences between Buddhism and Daoism."
+  detail: "Response to question on X regarding the differences between Buddhism and Daoism.",
+  marginsTags: ["daoism"]
 },
 {
   id: "2025_02_20",
@@ -1660,15 +1665,18 @@ Daoism is a methodology of acceptance.`,
   date: "2025-02-20",
   text: `
 Every sense is the specialization of the sense of touch. With no light touching the occipital lobe, it has rewired itself through plasticity to conform likely to the parietal lobe; “seeing” through the primary touch sense, (i.e. braille). The negative impact is enlarged ventricles in the prefrontal cortex and other regions. This may play a role in schizophrenia. Ventricles are the network housing the medium which defracts light for perception of dreams, psychedelics, or delusions, etc, –cerebrospinal fluid. CSF has nothing to defract in the congenitally blind, and is instead overloaded with other sensory information attempting to build an alternative consensus model/framework to reality.`,
-detail: "Popular response to a video by '@idea.soup' which was reposted on X."
+detail: "Popular response to a video by '@idea.soup' which was reposted on X.",
+  marginsTags: ["consciousness", "science", "theory"]
 },
+
 {
   id: "2025_01_22",
   type: "margins",
   title: "Psychescopes of Consciousness",
   date: "2025-01-22",
   text: `The true telescope and microscope for Consciousness is called a Psychescope, which is a blend of tryptamine's refracting light through cerebrospinal fluid.`,
-detail: "Discussion of consciousness and psychedelics on X."
+detail: "Discussion of consciousness and psychedelics on X.",
+  marginsTags: ["psychescope", "consciousness", "psychedelics"]
 },
 {
   id: "2024_07_23",
@@ -1677,7 +1685,8 @@ detail: "Discussion of consciousness and psychedelics on X."
   date: "2024-07-23",
   text: `
 One of the first things I learned from these experiences was that we can classify something like DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
-detail: "Conversations had on X."
+detail: "Conversations had on X.",
+  marginsTags: ["psychescope", "consciousness", "DMT", "science", "psychedelics"]
 },
 {
   id: "2024_06_16",
@@ -1686,6 +1695,7 @@ detail: "Conversations had on X."
   date: "2024-06-16",
   text: `
 All senses are the specialization of the sense of touch. This is why psychedelics feel so real. In a sense, you finally know that you're touching light when you see it, and touching sound when you hear it. It's in the tactile experience.`,
+  marginsTags: ["psychedelics", "consciousness"]
 },
 {
  id: "2022_10-05",
@@ -1695,7 +1705,8 @@ All senses are the specialization of the sense of touch. This is why psychedelic
   text: `
 Modern-day Anti-mormonism reached full postmodern novelty on January 24, 2022. This was confirmed on October 1, 2022 by Dieter F. Uchtdorf.
 
-A new era is on the rise.`
+A new era is on the rise.`,
+  marginsTags: ["ex-mormonism", "deconstruction", "postmodernism"]
 },
 {
   id: "2022_09_22_5",
@@ -1704,7 +1715,8 @@ A new era is on the rise.`
   date: "2022-09-24",
   text: `
 DMT is not merely a Schedule I controlled substance that everyone carries around in them endogenously every moment of every day, it is a reality expander and psychescopic tool for exploring deeply personal and mutually entailed vast quantum worlds of which we cannot possibly conceive on our own.`,
-detail: "Excerpts from The Quantum Moiré, 2022."
+detail: "Excerpts from The Quantum Moiré, 2022.",
+  marginsTags: ["quantum-moiré", "DMT", "psychedelics", "consciousness", "science"]
 },
 {
   id: "2022-09-24",
@@ -1722,7 +1734,8 @@ detail: "Excerpts from The Quantum Moiré, 2022."
     <p>1. Visible only through a psychescope.</p>
     <p>2. Capable of viewing layered dimensional spectrums of transvisible light.</p>
   `,
-  detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022."
+  detail: "Term coined after many heavy DMT, LSD and DMSD experiences in summer of 2022.",
+  marginsTags: ["quantum-moiré", "psychescope", "consciousness", "psychedelics", "theory"]
 },
 {
   id: "2022_09_22_3",
@@ -1731,7 +1744,8 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   date: "2022-09-24",
   text: `
 There appears to be no distinct or significant point of reference in which to reside or from which to observe the universe because space, while out there, is actually all in your head, and time, while morphic in all places, is only a memory; thus spacetime is a peculiar mirage of insignificant individuation. This must be the same for the Earth. It is a significant liquid space marble with an individual reference point around an individual sun, but Earth, while it is out there in space, is only everything inside of its atmospheres.`,
-detail: "Excerpts from The Quantum Moiré, 2022."
+detail: "Excerpts from The Quantum Moiré, 2022.",
+  marginsTags: ["quantum-moiré", "cosmogony", "cosmology", "headless-way", "consciousness"]
 },
 {
   id: "2022_09_22_2",
@@ -1741,7 +1755,8 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   text: `Simply stated, what neurons do is what the universe does and what the universe does is what neurons do... What neurons and DNA do is what atoms and photons do, and what atoms and photons do is what neurons and DNA do...
 
 There is space, structure, taxonomy, morphology, and ecology; an entire ecosystem hidden behind this iridescently transvisible veil of contracted human perception. I believe this is the dark matter we seek to illuminate. It is out there as our mutually entangled[interwoven] spacial opposite, just as it is entirely and exactly here within us as our mutually entailed neural moiré; the Dark and Grey Matter Terrain of experience. `,
-detail: "Excerpts from The Quantum Moiré, 2022."
+detail: "Excerpts from The Quantum Moiré, 2022.",
+  marginsTags: ["quantum-moiré", "theory", "dark-matter", "DMT", "science", "consciousness"]
 },
 {
   id: "2022_09_22_1",
@@ -1755,7 +1770,8 @@ Wherefore, I am, I think...
 I think I am, therefore, 
 I am.
 Quoth the human—[n]evermore.`,
-detail: "Excerpts from The Quantum Moiré, 2022."
+detail: "Excerpts from The Quantum Moiré, 2022.",
+  marginsTags: ["quantum-moiré", "consciousness"]
 },
 {
  id: "2022_09-14",
@@ -1763,7 +1779,8 @@ detail: "Excerpts from The Quantum Moiré, 2022."
   title: "Meditation",
   date: "2022-09-14",
   text: `
-Meditation is life's day-to-day anesthetic.`
+Meditation is life's day-to-day anesthetic.`,
+  marginsTags: ["meditation", "zazen", "consciousness"]
 },
 {
   id: "2022_08_02",
@@ -1771,7 +1788,8 @@ Meditation is life's day-to-day anesthetic.`
   title: "DMSD",
   date: "2022-08-02",
   text: `Dimitri in the Sky with Diamonds (DMSD) = The combination of LSD, with 20-40mg of DMT at first peak.`,
-  detail: "DMSD journeys of summer and fall 2022."
+  detail: "DMSD journeys of summer and fall 2022.",
+  marginsTags: ["psychedelics", "LSD", "DMT", "DMSD", "consciousness", "consciousness-research"]
 },
 {
   id: "2022_06_23",
@@ -1783,7 +1801,8 @@ The steel man has no heart
 The sage has neither—
 For they make the world of straw and steel men
 One muddled mind, treating them as children.`,
-detail: "date unknown, likely 2022-ish X post." 
+detail: "date unknown, likely 2022-ish X post.",
+marginsTags: ["philosophy", "zazen", "consciousness"]
 },
 {
 id: "2022_05_11",
@@ -1797,7 +1816,8 @@ Functional Determinism
 Nonfunctional Determinism
 Functional Nondeterminism
 Nonfunctional Nondeterminism`,
-detail: "TikTok and YouTube conversations of 2022"
+detail: "TikTok and YouTube conversations of 2022.",
+marginsTags: ["philosophy", "mormon-theology", "consciousness"]
 },
 {
 id: "2022_01_17_3",
@@ -1806,7 +1826,8 @@ id: "2022_01_17_3",
   date: "2022-01-17",
   text: `
 Now, as far as deconstruction goes the first question one ought ask themselves is whether or not they have deconstructed deconstruction.`,
-detail: "Excerpt from: The Epistle of Christopher, 2022"
+detail: "Excerpt from: The Epistle of Christopher, 2022.",
+marginsTags: ["deconstruction", "philosophy", "epistle-of-christopher"]
 },
 {
  id: "2022_01_17_2",
@@ -1815,7 +1836,8 @@ detail: "Excerpt from: The Epistle of Christopher, 2022"
   date: "2022-01-17",
   text: `
 Many would say that the idea of there being nothing we can do to improve ourselves, our circumstances, or an institution such as the church is rather a depressing idea. For Latter-day Saints it’s a metaphorical homage to that foundation-less, and drifting great and spacious building; full of the sneers and jeers of those lost in a vast and misunderstood Deconstruction of their very foundation; lost for a meaning of who they are and where they stand, and why. It also harkens back to pre-existent days when Lucifer presented a plan he had envisioned where everyone would be saved and receive salvation because we would be forced to obey—nothing we could do—no gift of free agency. But you see, that plan in and of itself is a doing and a choice. Had we been sent to Earth under this plan it wouldn’t have been a plan of involuntary non-doing but rather a plan of voluntarily doing exactly what we voluntarily chose and set out to involuntarily complete.`,
-detail: "Excerpt from: The Epistle of Christopher, 2022"
+detail: "Excerpt from: The Epistle of Christopher, 2022.",
+marginsTags: ["deconstruction", "philosophy", "mormon-theology", "epistle-of-christopher"]
 },
 {
 id: "2022_01_17_1",
@@ -1828,7 +1850,8 @@ For example, (not discounting the corresponding turmoil), many individuals have 
 Deconstruction is just a step, and it’s not even a necessary step in certain regards, it’s just a step that most take and keep taking because it is most often the case that an individual needs to derive or find meaning and reason for all the seasons they spent playing and sharing the wrong instrument. Deconstruction should not be the story. Deconstruction should be a moment.
 
 Deconstruction is just Self-Epistemology and it should be noted that just as with the battle over the natural man unto receiving the grace of God, the desire to Deconstruct your Latter-day faith unto the better understanding of it and your nature as a good and happy secular human, is in the same vain. Both pursuits are paths desiring universally worthwhile insights while simultaneously pursuing Self-contentment. Because deconstruction is just a form of construction and construction is just a form of deconstruction, and in this way they are both always reconstructions.`,
-detail: "Excerpt from: The Epistle of Christopher, 2022"
+detail: "Excerpt from: The Epistle of Christopher, 2022.",
+marginsTags: ["deconstruction", "philosophy", "epistle-of-christopher"]
 },
 
 /* ===================
