@@ -71,11 +71,29 @@ const archive = normalizeArchive([
     image: "images/art/2026/2026-01-01.webp",
     showOnArt: false,
     showOnArchive: false,
- sideNoteTitle: "Details",
-  sideNote: `
+    sideNoteTitle: "Details",
+    sideNote: `
     <p><strong>Year:</strong> 2025–2026</p>
     <p><strong>Medium:</strong> Pencil</p>
     <p>Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us.</p>
+  `
+  },
+{
+  id: "2025-08-28",
+  type: "art",
+  title: "August 28, 2025",
+  year: 2025,
+  date: "2025-08-28",
+  image: "images/art/2025/2025-08-28.webp",
+  medium: "Prisma Color",
+
+  tags: ["mormonism", "prisma-color", "harmonic-theism", "dragon"],
+
+  sideNoteTitle: "With an eye single to the glory of God",
+  sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Prisma Color on Paper</p>
+    <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
   `
   },
   {
@@ -84,22 +102,15 @@ const archive = normalizeArchive([
     title: "May 7, 2025",
     year: 2025,
     date: "2025-05-07",
-    image: "images/art/2025/2025-05-07.webp"
-  },
-  {
-  id: "2025-08-28",
-  type: "art",
-  title: "August 28, 2025",
-  year: 2025,
-  date: "2025-08-28",
-  image: "images/art/2025/2025-08-28.webp",
-  medium: "Prisma Color",
-  tags: ["Symbolism", "Dragon", "Mormonism"],
-  sideNoteTitle: "With an eye single to the glory of God",
+    image: "images/art/2025/2025-05-07.webp",
+
+    tags: ["zazen", "charcoal"],
+
+  sideNoteTitle: "Zazen",
   sideNote: `
     <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Prisma Color on Paper</p>
-    <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
+    <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+    <p>A personal favorite.</p>
   `
   },
 {
@@ -109,12 +120,15 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_3.webp",
+
+    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Unfinished delusions Scorpio Waterfall</p>
   `
 },
 {
@@ -124,12 +138,15 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_2.webp",
+
+    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Unfinished delusions Full Moon Vignette</p>
   `
 },
 {
@@ -139,12 +156,15 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_1.webp",
+
+    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>Unfinished delusions</p>
   `
 },
   {
@@ -154,25 +174,48 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-09-08",
     image: "images/art/2024/2024-09-08.webp",
+
+    tags: ["charcoal", "landscape", "mushrooms", "zazen"],
+
+  sideNoteTitle: "Mushroom Mountain",
+  sideNote: `
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
+  `
+  },
+ {
+    id: "2024-08-22_2",
+    type: "art",
+    title: "August 22, 2024 | #2",
+    year: 2024,
+    date: "2024-08-22",
+    image: "images/art/2024/2024-08-22_2.webp",
+
+    tags: ["charcoal", "landscape", "psychedelics", "LSD"],
+
   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Newsaper</p>
+    <p></p>
   `
   },
   {
-    id: "2024-08-22",
+    id: "2024-08-22_1",
     type: "art",
-    title: "August 22, 2024",
+    title: "August 22, 2024 | #1",
     year: 2024,
     date: "2024-08-22",
     image: "images/art/2024/2024-08-22_1.webp",
+
+    tags: ["charcoal"],
+
   sideNoteTitle: "Details",
   sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+    <p></p>
   `
   },
  {
@@ -185,12 +228,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 7,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-    sideNoteTitle: "Details",
+    exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
+    sideNoteTitle: "The Seed and Light of Latter-day Life",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Medium:</strong> Musou Black and Glow in the Dark Acrylic on Canvas</p>
+    <p>Top center, is the seed and light of Latter-day Life</p>
   `
   },
  {
@@ -203,12 +249,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 8,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-    sideNoteTitle: "Details",
+    exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
+    sideNoteTitle: "Joseph's Silhouette",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Musou Black and Glow in the Dark Acrylic on Canvas</p>
+    <p>But it's you, and you, and you.</p>
   `
   },
  {
@@ -221,12 +270,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 9,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
-    sideNoteTitle: "Details",
+    exhibitCaptionMeta: "Glow in the Dark Acrylic and Musou Black on Canvas",
+
+     tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
+    sideNoteTitle: "To Outer Darkness",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Glow in the Dark Acrylic and Musou Black on Canvas</p>
+    <p>Where there is weeping, and wailing, and gnashing of teeth.</p>
   `
   },
  {
@@ -239,12 +291,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 6,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
      sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Glow in the Dark Acrylic on Canvas</p>
+    <p>Sierpinski's Glowing Eyes</p>
   `
   },
  {
@@ -257,12 +312,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 4,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Glow in the Dark Acrylic on Canvas</p>
+    <p>The Seal of Solomon.</p>
   `
   },
  {
@@ -275,13 +333,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 3,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
      sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Glow in the Dark Acrylic on Canvas</p>
+    <p>Those with eyes to see</p>
   `
   },
  {
@@ -293,14 +353,16 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-02_4.webp",
     exhibit: "joe",
     exhibitOrder: 5,
-    exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionTitle: "",
+    exhibitCaptionMeta: "Glow layer detail",
+
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
       sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Glow in the Dark Acrylic on Canvas</p>
+    <p>Glow layer detail</p>
   `
   },
   {
@@ -313,13 +375,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 10,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Mixed Oil & Acrylic on 4' x 4' Canvas",
 
-      sideNoteTitle: "Details",
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
+      sideNoteTitle: "Sierpinski's Eye's",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Mixed Oil & Acrylic on Canvas</p>
+    <p></p>
   `
   },
   {
@@ -332,12 +396,14 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 2,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Glow in the Dark Acrylic on 4' x 4' Canvas",
 
-     sideNoteTitle: "Details",
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
+    sideNoteTitle: "I Know the Church is True",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4' x 4' Canvas</p>
     <p>Optional note/description here.</p>
   `
   },
@@ -353,10 +419,12 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
 
+    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4x4 Canvas</p>
+      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4' x 4' Canvas</p>
       <p>229 days - 7 months & 16 days</p>
       <p>20 LSD trips, (~8,000µg)</p>
       <p>3 Mushroom trips</p>
@@ -371,11 +439,14 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-06-25",
     image: "images/art/2024/2024-06-25.webp",
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+    <p></p>
   `
   },
   {
@@ -387,11 +458,14 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-01-30.webp",
     exhibit: "woulds",
     exhibitOrder: 13,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
+    sideNoteTitle: "It's Time to Leave the Woulds",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Year:</strong> 2024</p>
     <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p>Stop dreaming. Stop prancing about the woods.</p>
   `
   },
   {
@@ -403,11 +477,14 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-01-28_2.webp",
     exhibit: "woulds",
     exhibitOrder: 12,
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>Headed home</p>
   `
   },
   {
@@ -417,11 +494,14 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-01-28",
     image: "images/art/2024/2024-01-28_1.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2024</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -433,11 +513,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-14_2.webp",
     exhibit: "woulds",
     exhibitOrder: 11,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
+    sideNoteTitle: "Give Me Two Years More",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>I Spy</p>
   `
   },
   {
@@ -449,11 +532,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-14_1.webp",
     exhibit: "woulds",
     exhibitOrder: 10,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
+    sideNoteTitle: "Geminid Meteor Meditation",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>400µg during the Geminid Meteor Shower</p>
   `
   },
   {
@@ -465,11 +551,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-10_3.webp",
     exhibit: "woulds",
     exhibitOrder: 9,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
+    sideNoteTitle: "Back to Or",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>I can see clearly now</p>
   `
   },
   {
@@ -479,11 +568,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_2.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -495,11 +587,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-10_1.webp",
     exhibit: "woulds",
     exhibitOrder: 8,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
+    sideNoteTitle: "Inheritance",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>"You are taught by the fathers you turn to the most." Something the trees once told my friend Andrew.</p>
   `
   },
   {
@@ -509,11 +604,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-06",
     image: "images/art/2023/2023-12-06_2.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>Unravelling at around 7 hours into 900µg</p>
   `
   },
   {
@@ -525,11 +623,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-06_1.webp",
     exhibit: "woulds",
     exhibitOrder: 7,
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>900µg portal</p>
   `
   },
   {
@@ -541,11 +642,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-11-13_2.webp",
     exhibit: "woulds",
     exhibitOrder: 6,
+
+  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics", "visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -557,11 +661,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-11-13_1.webp",
     exhibit: "woulds",
     exhibitOrder: 5,
-    sideNoteTitle: "Details",
+
+  tags: ["charcoal", "LSD", "psychedelics", "zazen", "visionary"],
+
+    sideNoteTitle: "The Winds of Change",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -571,11 +678,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-31",
     image: "images/art/2023/2023-10-31_1.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["oil-painting", "mushrooms", "psilocybin", "psychedelics"],
+
+    sideNoteTitle: "The Golden Teacher",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>I saw a grand Golden Teacher blossom out of the ether, and towering over me, it began to spill-out all matter of geometric pattern.</p>
   `
   },
   {
@@ -585,11 +695,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-24",
     image: "images/art/2023/2023-10-24.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p></p>
   `
   },
   {
@@ -599,11 +712,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-23",
     image: "images/art/2023/2023-10-23.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["oil-painting", "landscape"],
+
+    sideNoteTitle: "Blood Moon Harvest",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Oil on Canvas/p>
+    <p>Charcoal break for some color</p>
   `
   },
   {
@@ -613,11 +729,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-09-01",
     image: "images/art/2023/2023-09-01_2.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -627,11 +746,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-09-01",
     image: "images/art/2023/2023-09-01_1.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -641,11 +763,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_detail.webp",
+
+  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023/p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper/p>
+    <p>Zen tree. A personal favorite tree.</p>
   `
   },
   {
@@ -655,12 +780,15 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_4.webp",
-    exhibit: "detour",
+    exhibit: "anand",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>Sun Seeding</p>
   `
   },
   {
@@ -670,12 +798,15 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_3.webp",
-    exhibit: "detour",
+    exhibit: "anand",
+
+  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -685,12 +816,15 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_2.webp",
-    exhibit: "detour",
+    exhibit: "anand",
+
+  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -700,12 +834,15 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_1.webp",
-    exhibit: "detour",
+    exhibit: "anand",
+
+    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>The Soulcean</p>
   `
   },
   {
@@ -717,11 +854,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-08-13_2.webp",
     exhibit: "woulds",
     exhibitOrder: 4,
-    sideNoteTitle: "Details",
+
+    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+
+    sideNoteTitle: "Perseus Meteor Meditation 2",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>Perseids Meteor Shower</p>
   `
   },
   {
@@ -733,11 +873,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-08-13_1.webp",
     exhibit: "woulds",
     exhibitOrder: 3,
-    sideNoteTitle: "Details",
+
+    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+
+    sideNoteTitle: "Perseids Meteor Meditation",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>LSD trip during Perseids Meteor Shower</p>
   `
   },
   {
@@ -747,11 +890,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-06",
     image: "images/art/2023/2023-08-06.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["psychedelics", "mormonism"],
+
+    sideNoteTitle: "The True Hallucinations of a Former Latter-day Saint",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Marker on paper</p>
+    <p></p>
   `
   },
   {
@@ -761,11 +907,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-30",
     image: "images/art/2023/2023-07-30.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["zazen", "charcoal"],
+
+    sideNoteTitle: "What is the Sound of One Hand",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
@@ -777,11 +926,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-07-16_2.webp",
     exhibit: "woulds",
     exhibitOrder: 2,
-    sideNoteTitle: "Details",
+
+    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
+
+    sideNoteTitle: "The Winds at Dimitri's Hollow",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>The winds blowing about in Dimitri's Hollow</p>
   `
   },
   {
@@ -791,11 +943,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-16",
     image: "images/art/2023/2023-07-16_1.webp",
+
+    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>Zen mountain pass</p>
   `
   },
   {
@@ -805,11 +960,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-10",
     image: "images/art/2023/2023-07-10.webp",
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Canvas</p>
+    <p>Mountain House View</p>
   `
   },
   {
@@ -821,11 +979,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-07-05.webp",
     exhibit: "woulds",
     exhibitOrder: 1,
+
+    tags: ["charcoal", "landscape", "LSD", "DMT" "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p>The Bog</p>
   `
   },
   {
@@ -835,11 +996,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-06-27",
     image: "images/art/2023/2023-06-27.webp",
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Oil on canvas</p>
+    <p>Close up on the sun from a 18x24 canvas since lost.</p>
   `
   },
   {
@@ -849,25 +1013,31 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-06-24",
     image: "images/art/2023/2023-06-24.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["charcoal", "landscape", "LSD", "DMT" "psychedelics"],
+
+    sideNoteTitle: "Dimitri's Willow's",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
+    <p></p>
   `
   },
   {
-    id: "2023-05-28",
+    id: "2023-05-27",
     type: "art",
     title: "May 27, 2023",
     year: 2023,
-    date: "2023-05-28",
-    image: "images/art/2023/2023-05-28.webp",
-    sideNoteTitle: "Details",
+    date: "2023-05-27",
+    image: "images/art/2023/2023-05-27.webp",
+
+    tags: ["charcoal", "LSD", "psychedelics"],
+
+    sideNoteTitle: "Dog Getting Comfy",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>Spun the charcoal stick around in the same pattern as my dog as he spun in circles before laying down.</p>
   `
   },
   {
@@ -877,12 +1047,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_3.webp",
-    page: "art/2023-05-21_3.html",
+
+    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>LSD views</p>
   `
   },
   {
@@ -892,11 +1064,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_2.webp",
+
+    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>Zen emptiness 3 second painting.</p>
   `
   },
   {
@@ -906,11 +1081,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_1.webp",
+
+    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -920,11 +1098,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-18",
     image: "images/art/2023/2023-05-18_2.webp",
-    sideNoteTitle: "Details",
+
+    tags: ["charcoal", "LSD", "psychedelics", "headless-way", "zazen"],
+
+    sideNoteTitle: "Round Earth",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>Curved Nature. LSD 3-second sketch.</p>
   `
   },
   {
@@ -934,11 +1115,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-18",
     image: "images/art/2023/2023-05-18_1.webp",
+
+    tags: ["charcoal"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -950,11 +1134,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_3.webp",
     exhibit: "HZ5",
     exhibitOrder: 3,
+
+    tags: ["charcoal", "zazen"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>Zen emptiness 3 second painting.</p>
   `
   },
   {
@@ -966,11 +1153,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_2.webp",
     exhibit: "HZ5",
     exhibitOrder: 2,
+
+    tags: ["charcoal", "zazen"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p>Zen emptiness 3 second painting.</p>
   `
   },
   {
@@ -982,11 +1172,14 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_1.webp",
     exhibit: "HZ5",
     exhibitOrder: 1,
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Medium:</strong> Charcoal on Paper/p>
+    <p>Zen emptiness 3 second painting.</p>
   `
   },
   {
@@ -996,11 +1189,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_4.webp",
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -1010,11 +1206,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_3.webp",
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -1024,11 +1223,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_2.webp",
+
+    tags: ["charcoal", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -1038,11 +1240,14 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_1.webp",
+
+    tags: ["charcoal", "DMT", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
-    <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> Ink on paper</p>
-    <p>Optional note/description here.</p>
+    <p><strong>Year:</strong> 2023</p>
+    <p><strong>Medium:</strong> Charcoal on Paper</p>
+    <p></p>
   `
   },
   {
@@ -1052,6 +1257,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-09-19",
     image: "images/art/2022/2022-09-19.webp",
+
+    tags: ["oil-painting", "ink"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1066,6 +1274,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_3.webp",
+
+    tags: ["oil-painting", "zazen"],
+
     sideNoteTitle: "Release",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1080,6 +1291,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_2.webp",
+
+    tags: ["oil-painting", "psychedelics", "DMT"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1094,6 +1308,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_1.webp",
+
+    tags: ["oil-painting", "psychedelics", "DMT"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1108,6 +1325,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-14",
     image: "images/art/2022/2022-08-14_2.webp",
+
+    tags: ["oil-painting", "psychedelics", "DMT"],
+
     sideNoteTitle: "DMT Haven",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1122,6 +1342,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-14",
     image: "images/art/2022/2022-08-14_1.webp",
+
+    tags: ["oil-painting", "psychedelics", "DMT"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1137,6 +1360,9 @@ const archive = normalizeArchive([
     date: "2022-08-02",
     image: "images/art/2022/2022-08-02.webp",
     sideNoteTitle: "Sophia's Seblueision | Man Meditating in Cabin",
+
+    tags: ["oil-painting", "zazen"],
+
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
     <p><strong>Medium:</strong> Oil on Canvas</p>
@@ -1153,6 +1379,9 @@ const archive = normalizeArchive([
     exhibit: "HZ4",
     exhibitOrder: 7,
     showOnArt: false,
+
+    tags: ["oil-painting", "LSD", "psychedelics", "zazen"],
+
     sideNoteTitle: "Vivid Valley View + Section Inspirations",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1169,6 +1398,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-01_1.webp",
     exhibit: "HZ4",
     exhibitOrder: 6,
+
+    tags: ["oil-painting", "LSD", "psychedelics"],
+
     sideNoteTitle: "Vivid Valley View",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1183,6 +1415,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-07-15",
     image: "images/art/2022/2022-07-15_2.webp",
+
+    tags: ["visionary"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 1997</p>
@@ -1197,6 +1432,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-07-15",
     image: "images/art/2022/2022-07-15_1.webp",
+
+    tags: ["visionary", "zazen", "oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -1211,6 +1449,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-25.webp",
+
+    tags: ["zazen", "oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1225,6 +1466,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-24",
     image: "images/art/2022/2022-06-24.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1239,6 +1483,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-23",
     image: "images/art/2022/2022-06-23.webp",
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1253,6 +1500,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_5.webp",
+
+    tags: ["zazen", "ink"],
+
     exhibit: "HZ4",
     exhibitOrder: 1,
     sideNoteTitle: "Details",
@@ -1271,6 +1521,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-18_4.webp",
     exhibit: "HZ4",
     exhibitOrder: 5,
+
+    tags: ["zazen", "ink"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1287,6 +1540,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-18_3.webp",
     exhibit: "HZ4",
     exhibitOrder: 2,
+
+    tags: ["zazen", "ink"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1303,6 +1559,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-18_2.webp",
     exhibit: "HZ4",
     exhibitOrder: 4,
+
+    tags: ["zazen", "ink"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1319,6 +1578,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-18_1.webp",
     exhibit: "HZ4",
     exhibitOrder: 3,
+
+    tags: ["zazen", "ink"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1333,6 +1595,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_2.webp",
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Purple Palms",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1348,6 +1613,9 @@ const archive = normalizeArchive([
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_1.webp",
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1364,6 +1632,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-11_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 2,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Man Meditating Cliffside",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1381,6 +1652,9 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 1,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Man Meditating Cliffside | Blot",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1397,6 +1671,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-08_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 6,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1414,6 +1691,9 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 5,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1428,6 +1708,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-06",
     image: "images/art/2022/2022-06-06.webp",
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1444,6 +1727,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-05_2.webp",
     exhibit: "HZ3",
     exhibitOrder: 4,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Man Fishing at Ice Melt",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1461,6 +1747,9 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 3,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Man Fishing at Ice Melt | Blot",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1475,6 +1764,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-29",
     image: "images/art/2022/2022-05-29.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1491,6 +1783,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-27_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 4,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1508,6 +1803,9 @@ const archive = normalizeArchive([
     exhibit: "HZ2",
     exhibitOrder: 3,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1524,6 +1822,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-26_2.webp",
     exhibit: "HZ2",
     exhibitOrder: 2,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Chronic Pain",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1541,6 +1842,9 @@ const archive = normalizeArchive([
     exhibit: "HZ2",
     exhibitOrder: 1,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1557,6 +1861,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_5.webp",
     exhibit: "HZ1",
     exhibitOrder: 4,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1574,6 +1881,9 @@ const archive = normalizeArchive([
     exhibit: "HZ1",
     exhibitOrder: 3,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1590,6 +1900,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_3.webp",
     exhibit: "HZ1",
     exhibitOrder: 2,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Private Cove",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -1607,6 +1920,9 @@ const archive = normalizeArchive([
     exhibit: "HZ1",
     exhibitOrder: 1,
     showOnArt: false,
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1621,6 +1937,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_1.webp",
+
+    tags: ["zazen", "ink", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1635,6 +1954,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-15",
     image: "images/art/2022/2022-05-15.webp",
+
+    tags: ["oil-painting", "landscape", "LSD", "psychedelics"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -1649,6 +1971,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-14",
     image: "images/art/2022/2022-05-14.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1663,6 +1988,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-19",
     image: "images/art/2022/2022-04-19.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -1677,6 +2005,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-04",
     image: "images/art/2022/2022-04-04.webp",
+
+     tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1691,6 +2022,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-03",
     image: "images/art/2022/2022-04-03.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1705,6 +2039,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-01",
     image: "images/art/2022/2022-04-01.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1719,6 +2056,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-29",
     image: "images/art/2022/2022-03-29.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1733,6 +2073,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-25",
     image: "images/art/2022/2022-03-25.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "The Forest of Lee",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1747,6 +2090,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-23",
     image: "images/art/2022/2022-03-23.webp",
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1761,6 +2107,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-15",
     image: "images/art/2022/2022-03-15.webp",
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1777,6 +2126,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-03-08_3.webp",
     exhibit: "mayuan",
     exhibitOrder: 3,
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1793,6 +2145,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-03-08_2.webp",
     exhibit: "mayuan",
     exhibitOrder: 2,
+
+    tags: ["oil-painting"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1809,6 +2164,9 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-03-08_1.webp",
     exhibit: "mayuan",
     exhibitOrder: 1,
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1823,6 +2181,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-03",
     image: "images/art/2022/2022-03-03_2.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1837,6 +2198,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-03",
     image: "images/art/2022/2022-03-03_1.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1851,6 +2215,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-02-18",
     image: "images/art/2022/2022-02-18.webp",
+
+    tags: ["oil-painting", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1865,6 +2232,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-02-14",
     image: "images/art/2022/2022-02-14.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1879,6 +2249,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-01-30",
     image: "images/art/2022/2022-01-30.webp",
+
+    tags: ["oil-painting", "bob-ross", "landscape"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1893,6 +2266,9 @@ const archive = normalizeArchive([
     year: 2020,
     date: "2020-11-18",
     image: "images/art/2020/2020-11-18.webp",
+
+    tags: ["zazen"],
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2020</p>
@@ -1907,6 +2283,9 @@ const archive = normalizeArchive([
     year: 1997,
     date: "1997-03-30",
     image: "images/art/1997/1997-03-30.webp",
+
+    tags: [""],
+
     sideNoteTitle: "Details",
     sideNote: `
       <p><strong>Year:</strong> 1997</p>
@@ -3349,14 +3728,14 @@ const exhibits = [
   },
   {
     id: "woulds",
-    title: "Wooulds Walkabout",
+    title: "Moments in the Woulds",
     year: 2023,
     date: "2023-12-06",
     description: ""
   },
   {
-    id: "detour",
-    title: "Walkabout Detour",
+    id: "anand",
+    title: "An And",
     year: 2023,
     date: "2023-08-26",
     description: ""
