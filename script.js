@@ -1075,31 +1075,80 @@ function buildPhotoArchive() {
   const container = document.getElementById("photo-archive");
   if (!container || typeof archive === "undefined") return;
 
-  const items = sortByDateDescWithIdTiebreak(
-    archive.filter((item) => item.type === "photo" && item.showOnPhoto !== false)
-  );
+  const yearNav = document.querySelector(".year-nav");
+  const tagFilter = document.querySelector(".tag-filter-photo-tags");
 
-  container.innerHTML = "";
+  const photoItems = archive
+    .filter((item) => item.type === "photo" && item.showOnPhoto !== false)
+    .sort((a, b) => toDate(b.date) - toDate(a.date));
 
-  if (!items.length) {
-    container.innerHTML = "<p>No photographs available.</p>";
-    return;
+  let engine;
+
+  function renderPhotos() {
+    container.innerHTML = "";
+
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
+      if (!itemsForYear.length) return;
+
+      const yearBlock = document.createElement("section");
+      yearBlock.className = "gallery-year";
+      yearBlock.id = `year-${year}`;
+
+      const yearTitle = document.createElement("h2");
+      yearTitle.textContent = year;
+
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
+
+      itemsForYear.forEach((item) => {
+        const link = document.createElement("a");
+        link.href = `photography.html?id=${item.id}&from=photo`;
+        link.className = "gallery-item";
+
+        const img = document.createElement("img");
+        applyGalleryImage(
+          img,
+          item,
+          "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
+        );
+
+        const altParts = [];
+        if (item.title) altParts.push(item.title);
+        if (Array.isArray(item.tags) && item.tags.length) {
+          altParts.push(item.tags.join(", "));
+        }
+        img.alt = altParts.length ? altParts.join(" — ") : "Photograph";
+
+        link.appendChild(img);
+        grid.appendChild(link);
+      });
+
+      yearBlock.appendChild(yearTitle);
+      yearBlock.appendChild(grid);
+      container.appendChild(yearBlock);
+    });
+
+    engine.renderYearNav(yearNav);
   }
 
-  const groupedMap = {};
-
-  items.forEach((item) => {
-    const year = item.year || toDate(item.date).getFullYear();
-    if (!groupedMap[year]) groupedMap[year] = [];
-    groupedMap[year].push(item);
+  engine = createFilterEngine({
+    items: photoItems,
+    groups: [
+      {
+        name: "photoTags",
+        key: "tags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderPhotos
   });
 
-  const grouped = Object.keys(groupedMap)
-    .sort((a, b) => Number(b) - Number(a))
-    .map((year) => ({
-      year,
-      items: groupedMap[year]
-    }));
+  engine.renderFilters();
+  renderPhotos();
+}
 
   buildYearNav(grouped.map((group) => group.year));
 
