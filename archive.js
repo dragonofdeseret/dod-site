@@ -204,7 +204,7 @@ const archive = normalizeArchive([
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Charcoal on Newsaper</p>
+    <p><strong>Medium:</strong> Charcoal on Newspaper</p>
     <p></p>
   `
   },
@@ -2475,7 +2475,7 @@ const archive = normalizeArchive([
     isBook: true,
     file: "pdf/DragonPearl.pdf",
     sections: ["writing"],
-    tags: ["mormon-theology", "metaphysics", "Daoism", "cosmology", "panpsychism", "intelligence-theory"]
+    tags: ["mormon-theology", "metaphysics", "daoism", "cosmology", "panpsychism", "intelligence-theory"]
   },
  {
     id: "CtP",
@@ -2516,7 +2516,7 @@ const archive = normalizeArchive([
     date: "2024-06-24",
     file: "pdf/AIPR.pdf",
     sections: ["writing"],
-    tags: ["consciousness", "artificial-intelligence", "Daoism"]
+    tags: ["consciousness", "artificial-intelligence", "daoism"]
   },
   {
     id: "THOOGTEOOS",
@@ -2537,7 +2537,7 @@ const archive = normalizeArchive([
     file: "pdf/ND.pdf",
     sections: ["trips"],
     substance: ["Psilocybin"],
-    tags: ["visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
+    tags: ["theophany", "visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
   },
   {
     id: "FSoC",
@@ -2567,7 +2567,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/Toyn.pdf",
     sections: ["trips"],
-    tags: ["dreams", "visionary", "phenomenology", "consciousness"]
+    tags: ["dreams", "phenomenology", "consciousness"]
   },
   {
     id: "RDMain",
@@ -2587,7 +2587,7 @@ const archive = normalizeArchive([
     year: 2023,
     file: "pdf/CB.pdf",
     sections: ["trips"],
-    tags: ["meditation", "zazen", "visionary", "phenomenology", "consciousness"]
+    tags: ["meditation", "zazen", "phenomenology", "consciousness"]
   },
   {
     id: "TrampOBE",
@@ -2608,7 +2608,7 @@ const archive = normalizeArchive([
     file: "pdf/GT.pdf",
     sections: ["trips"],
     substance: ["Psilocybin"],
-    tags: ["visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
+    tags: ["psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
   },
 {
     id: "TCJ",
@@ -2678,7 +2678,7 @@ const archive = normalizeArchive([
     file: "pdf/IAMT.pdf",
     sections: ["trips"],
     substance: ["DMT"],
-    tags: ["visionary", "DMT", "consciousness", "phenomenology", "psychedelics"]
+    tags: ["theophany", "visionary", "DMT", "consciousness", "phenomenology", "psychedelics"]
   },
   {
     id: "TGCoB",
@@ -2743,7 +2743,7 @@ const archive = normalizeArchive([
     file: "pdf/SiA.pdf",
     sections: ["trips"],
     substance: ["Cannabis"],
-    tags: ["visionary", "DMT", "cannabis", "medical", "phenomenology"]
+    tags: ["DMT", "cannabis", "medical", "phenomenology"]
   },
   {
     id: "AIW",
@@ -3001,7 +3001,7 @@ marginsTags: ["deconstruction", "philosophy", "epistle-of-christopher"]
 {
  id: "2022_01_17_2",
   type: "margins",
-  title: "Nonsctruction",
+  title: "Nonstruction",
   date: "2022-01-17",
   text: `
 Many would say that the idea of there being nothing we can do to improve ourselves, our circumstances, or an institution such as the church is rather a depressing idea. For Latter-day Saints it’s a metaphorical homage to that foundation-less, and drifting great and spacious building; full of the sneers and jeers of those lost in a vast and misunderstood Deconstruction of their very foundation; lost for a meaning of who they are and where they stand, and why. It also harkens back to pre-existent days when Lucifer presented a plan he had envisioned where everyone would be saved and receive salvation because we would be forced to obey—nothing we could do—no gift of free agency. But you see, that plan in and of itself is a doing and a choice. Had we been sent to Earth under this plan it wouldn’t have been a plan of involuntary non-doing but rather a plan of voluntarily doing exactly what we voluntarily chose and set out to involuntarily complete.`,
@@ -3082,6 +3082,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-31",
     image: "images/photography/2026/2026-03-31.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p> Dejá Vù </p>
+  `
   },
 {
     id: "2026-03-30",
@@ -3090,7 +3095,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-30",
     image: "images/photography/2026/2026-03-30.webp",
-    description: "⚪️"
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>⚪️</p>
+  `
   },
 {
     id: "2026-03-26",
@@ -3099,6 +3108,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-26",
     image: "images/photography/2026/2026-03-26.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Mushrooms grown in the log of a dead cottonwood</p>
+  `
   },
  {
     id: "2026-03-15",
@@ -3107,6 +3121,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-15",
     image: "images/photography/2026/2026-03-15.webp",
+    tags: [""],
           sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> Date Unknown</p>
@@ -3121,6 +3136,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-02-22",
     image: "images/photography/2026/2026-02-22.webp",
+    tags: ["trees"],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Cottonwood Sunset</p>
+  `
   },
 {
     id: "2026-02-18",
@@ -3129,6 +3149,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-02-18",
     image: "images/photography/2026/2026-02-18.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Let's snow for a walk</p>
+  `
   },
 {
     id: "2026-02-16",
@@ -3137,6 +3162,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-02-16",
     image: "images/photography/2026/2026-02-16.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Malamute, Samsky</p>
+  `
   },
 {
     id: "2026-01-29",
@@ -3145,6 +3175,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-01-29",
     image: "images/photography/2026/2026-01-29.webp",
+    tags: ["trees"],
+      sideNoteTitle: "Crepuscular",
+      sideNote: `
+   <p>Cottonwood Dusk</p>
+  `
   },
 {
     id: "2026-01-01",
@@ -3153,6 +3188,11 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-01-01",
     image: "images/photography/2026/2026-01-01.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   }, 
  {
     id: "2025-12-30",
@@ -3161,8 +3201,8 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-12-30",
     image: "images/photography/2025/2025-12-30.webp",
-  sideNoteTitle: "Details",
-  sideNote: `
+    sideNoteTitle: "Details",
+    sideNote: `
     <p><strong>Year:</strong> 2025</p>
     <p><strong>Medium:</strong> LSD on gel</p>
     <p></p>
@@ -3175,6 +3215,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-12-10",
     image: "images/photography/2025/2025-12-10.webp",
+    tags: [""],
+    sideNoteTitle: "Details",
+    sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-12-01",
@@ -3184,6 +3229,11 @@ All in the service of — Clarity.`,
     date: "2025-12-01",
     image: "images/photography/2025/2025-12-01.webp",
     showOnArchive: false,
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-10-21",
@@ -3205,7 +3255,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-09-07",
     image: "images/photography/2025/2025-09-07.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
     id: "2025-08-15",
@@ -3214,6 +3268,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-08-15",
     image: "images/photography/2025/2025-08-15.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-08-13",
@@ -3222,6 +3281,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-08-13",
     image: "images/photography/2025/2025-08-13.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-30_5",
@@ -3230,7 +3294,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_5.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-30_4",
@@ -3239,7 +3307,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_4.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-30_1",
@@ -3248,7 +3320,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_1.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-07-20",
@@ -3257,6 +3333,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-20",
     image: "images/photography/2025/2025-07-20.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-13_3",
@@ -3265,7 +3346,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_3.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-13_2",
@@ -3274,7 +3359,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_2.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2025-07-13_1",
@@ -3283,7 +3372,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_1.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-04-23",
@@ -3292,6 +3385,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-04-23",
     image: "images/photography/2025/2025-04-23.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-02-25",
@@ -3300,6 +3398,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-02-25",
     image: "images/photography/2025/2025-02-25.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2025-02-24",
@@ -3308,6 +3411,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-02-24",
     image: "images/photography/2025/2025-02-24.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
     id: "2025-02-13",
@@ -3316,6 +3424,11 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-02-13",
     image: "images/photography/2025/2025-02-13.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2024-10-22",
@@ -3324,7 +3437,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-10-22",
     image: "images/photography/2024/2024-10-22.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-07-14",
@@ -3333,7 +3450,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-07-14",
     image: "images/photography/2024/2024-07-14.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-05-11_5",
@@ -3342,7 +3463,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_5.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-05-11_4",
@@ -3351,7 +3476,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_4.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-05-11_3",
@@ -3360,7 +3489,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_3.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-05-11_2",
@@ -3369,7 +3502,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_2.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-05-11_1",
@@ -3378,7 +3515,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_1.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2024-04-02",
@@ -3387,7 +3528,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-04-02",
     image: "images/photography/2024/2024-04-02.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2023-02-18_2",
@@ -3396,6 +3541,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-02-18",
     image: "images/photography/2024/2024-02-18_2.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2023-02-18_1",
@@ -3404,6 +3554,11 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-02-18",
     image: "images/photography/2024/2024-02-18_1.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2023-12-06_2",
@@ -3412,7 +3567,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-12-06",
     image: "images/photography/2023/2023-12-06_2.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2023-12-06_1",
@@ -3421,7 +3580,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-12-06",
     image: "images/photography/2023/2023-12-06_1.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2023-10-17",
@@ -3456,7 +3619,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-10-06",
     image: "images/photography/2023/2023-10-06.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2023-09-24",
@@ -3465,6 +3632,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-09-24",
     image: "images/photography/2023/2023-09-24.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2023-07-29",
@@ -3473,6 +3645,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-07-29",
     image: "images/photography/2023/2023-07-29.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2023-06-17",
@@ -3520,7 +3697,11 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-01-03",
     image: "images/photography/2023/2023-01-03.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2022-12-10",
@@ -3529,7 +3710,11 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-12-10",
     image: "images/photography/2022/2022-12-10.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
     id: "2022-12-03",
@@ -3538,7 +3723,11 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-12-03",
     image: "images/photography/2022/2022-12-03.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
     id: "2022-07-30",
@@ -3547,6 +3736,7 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-07-30",
     image: "images/photography/2022/2022-07-30.webp",
+    tags: [""],
     sideNoteTitle: "Details",
       sideNote: `An early morning cross-referencing the Dao.`
   },
@@ -3557,7 +3747,11 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-06-07",
     image: "images/photography/2022/2022-06-07.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2022-06-02",
@@ -3566,7 +3760,11 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-06-02",
     image: "images/photography/2022/2022-06-02.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-12-15",
@@ -3575,7 +3773,11 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-12-15",
     image: "images/photography/2021/2021-12-15.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-10-04_2",
@@ -3583,7 +3785,12 @@ All in the service of — Clarity.`,
     title: "October 4, 2021 | #2",
     year: 2021,
     date: "2021-10-04",
-    image: "images/photography/2021/2021-10-04_2.webp"
+    image: "images/photography/2021/2021-10-04_2.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-10-04_1",
@@ -3591,7 +3798,12 @@ All in the service of — Clarity.`,
     title: "October 4, 2021 | #1",
     year: 2021,
     date: "2021-10-04",
-    image: "images/photography/2021/2021-10-04_1.webp"
+    image: "images/photography/2021/2021-10-04_1.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-06-05_2",
@@ -3600,7 +3812,11 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-06-05",
     image: "images/photography/2021/2021-06-05_2.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-06-05_1",
@@ -3609,7 +3825,11 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-06-05",
     image: "images/photography/2021/2021-06-05_1.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2021-05-27",
@@ -3618,7 +3838,11 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-05-27",
     image: "images/photography/2021/2021-05-27.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2020-11-11",
@@ -3627,7 +3851,11 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-11",
     image: "images/photography/2020/2020-11-11.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2020-11-04_2",
@@ -3636,7 +3864,11 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-04",
     image: "images/photography/2020/2020-11-04_2.webp",
-    description: ""
+      tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2020-11-04_1",
@@ -3645,7 +3877,11 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-04",
     image: "images/photography/2020/2020-11-04_1.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2020-11-03",
@@ -3654,7 +3890,11 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-03",
     image: "images/photography/2020/2020-11-03.webp",
-    description: ""
+      tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2021-10-09",
@@ -3663,7 +3903,11 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-10-09",
     image: "images/photography/2021/2021-10-09.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2020-06-30",
@@ -3672,7 +3916,11 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-06-30",
     image: "images/photography/2020/2020-06-30.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2019-11-30",
@@ -3681,7 +3929,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-11-30",
     image: "images/photography/2019/2019-11-30.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2019-11-03",
@@ -3690,7 +3942,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-11-03",
     image: "images/photography/2019/2019-11-03.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2019-09-30",
@@ -3699,7 +3955,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-30",
     image: "images/photography/2019/2019-09-30.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
  {
     id: "2019-09-29_3",
@@ -3708,7 +3968,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_3.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2019-09-29_2",
@@ -3717,7 +3981,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_2.webp",
-    description: ""
+       tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
   {
     id: "2019-09-29_1",
@@ -3726,7 +3994,11 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_1.webp",
-    description: ""
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
   id: "2019-07-18",
@@ -3734,7 +4006,12 @@ All in the service of — Clarity.`,
   title: "July 18, 2019",
   year: 2019,
   date: "2019-07-18",
-  image: "images/photography/2019/2019-07-18.webp"
+  image: "images/photography/2019/2019-07-18.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
   {
     id: "2019-06-09",
@@ -3742,7 +4019,12 @@ All in the service of — Clarity.`,
     title: "June 9, 2019",
     year: 2019,
     date: "2019-06-09",
-    image: "images/photography/2019/2019-06-09.webp"
+    image: "images/photography/2019/2019-06-09.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
   id: "2019-03-03",
@@ -3750,7 +4032,12 @@ All in the service of — Clarity.`,
   title: "March 3, 2019",
   year: 2019,
   date: "2019-03-03",
-  image: "images/photography/2019/2019-03-03.webp"
+  image: "images/photography/2019/2019-03-03.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2019-02-16",
@@ -3758,7 +4045,12 @@ All in the service of — Clarity.`,
   title: "February 16, 2019",
   year: 2019,
   date: "2019-02-16",
-  image: "images/photography/2019/2019-02-16.webp"
+  image: "images/photography/2019/2019-02-16.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2018-11-29",
@@ -3766,7 +4058,12 @@ All in the service of — Clarity.`,
   title: "November 29, 2018",
   year: 2018,
   date: "2018-11-29",
-  image: "images/photography/2018/2018-11-29.webp"
+  image: "images/photography/2018/2018-11-29.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2018-08-14",
@@ -3774,7 +4071,12 @@ All in the service of — Clarity.`,
   title: "August 14, 2018",
   year: 2018,
   date: "2018-08-14",
-  image: "images/photography/2018/2018-08-14.webp"
+  image: "images/photography/2018/2018-08-14.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
   {
     id: "2017-08-25",
@@ -3782,7 +4084,12 @@ All in the service of — Clarity.`,
     title: "August 25, 2017",
     year: 2017,
     date: "2017-08-25",
-    image: "images/photography/2017/2017-08-25.webp"
+    image: "images/photography/2017/2017-08-25.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
   },
 {
   id: "2016-12-20",
@@ -3790,7 +4097,12 @@ All in the service of — Clarity.`,
   title: "December 20, 2016",
   year: 2016,
   date: "2016-12-20",
-  image: "images/photography/2016/2016-12-20.webp"
+  image: "images/photography/2016/2016-12-20.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2016-08-07",
@@ -3798,7 +4110,12 @@ All in the service of — Clarity.`,
   title: "August 7, 2016",
   year: 2016,
   date: "2016-08-07",
-  image: "images/photography/2016/2016-08-07.webp"
+  image: "images/photography/2016/2016-08-07.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2015-02-13",
@@ -3806,7 +4123,12 @@ All in the service of — Clarity.`,
   title: "February 13, 2015",
   year: 2015,
   date: "2015-02-13",
-  image: "images/photography/2015/2015-02-13.webp"
+  image: "images/photography/2015/2015-02-13.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2014-11-27",
@@ -3814,7 +4136,12 @@ All in the service of — Clarity.`,
   title: "November 27, 2014",
   year: 2014,
   date: "2014-11-27",
-  image: "images/photography/2014/2014-11-27.webp"
+  image: "images/photography/2014/2014-11-27.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
 },
 {
   id: "2014-10-25",
