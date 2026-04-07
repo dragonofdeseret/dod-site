@@ -3082,7 +3082,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-31",
     image: "images/photography/2026/2026-03-31.webp",
-    tags: [""],
+    tags: ["trees", "night", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p> Dejá Vù </p>
@@ -3095,7 +3095,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-30",
     image: "images/photography/2026/2026-03-30.webp",
-    tags: [""],
+    tags: ["nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p>⚪️</p>
@@ -3108,7 +3108,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-03-26",
     image: "images/photography/2026/2026-03-26.webp",
-    tags: [""],
+    tags: ["nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p>Mushrooms grown in the log of a dead cottonwood</p>
@@ -3136,7 +3136,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-02-22",
     image: "images/photography/2026/2026-02-22.webp",
-    tags: ["trees"],
+    tags: ["trees", "sunset", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p>Cottonwood Sunset</p>
@@ -3162,7 +3162,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-02-16",
     image: "images/photography/2026/2026-02-16.webp",
-    tags: [""],
+    tags: ["dogs", "trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p>Malamute, Samsky</p>
@@ -3175,7 +3175,7 @@ All in the service of — Clarity.`,
     year: 2026,
     date: "2026-01-29",
     image: "images/photography/2026/2026-01-29.webp",
-    tags: ["trees"],
+    tags: ["trees", "night"],
       sideNoteTitle: "Crepuscular",
       sideNote: `
    <p>Cottonwood Dusk</p>
@@ -3201,6 +3201,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-12-30",
     image: "images/photography/2025/2025-12-30.webp",
+    tags: ["lsd"],
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
@@ -3215,7 +3216,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-12-10",
     image: "images/photography/2025/2025-12-10.webp",
-    tags: [""],
+    tags: ["bees"],
     sideNoteTitle: "Details",
     sideNote: `
    <p></p>
@@ -3242,10 +3243,10 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-10-21",
     image: "images/photography/2025/2025-10-21.webp",
+    tags: ["night", "stars", "nature", "lsd"],
     sideNoteTitle: "Jovial Company",
   sideNote: `
-    <p><strong>Medium:</strong> JSH 1:28</p>
-    <p>I am sometimes associated with jovial company</p>
+    <p>I am sometimes associated with jovial company. JSH 1:28.</p>
   `
   },
   {
@@ -3255,7 +3256,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-09-07",
     image: "images/photography/2025/2025-09-07.webp",
-        tags: [""],
+        tags: ["blur", "lsd", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3294,7 +3295,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_5.webp",
-        tags: [""],
+        tags: ["bees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3307,7 +3308,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_4.webp",
-        tags: [""],
+        tags: ["bees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3320,7 +3321,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-30",
     image: "images/photography/2025/2025-07-30_1.webp",
-        tags: [""],
+        tags: ["bees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3333,7 +3334,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-20",
     image: "images/photography/2025/2025-07-20.webp",
-    tags: [""],
+    tags: ["bees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3346,7 +3347,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_3.webp",
-        tags: [""],
+    tags: ["flowers", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3359,7 +3360,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_2.webp",
-        tags: [""],
+    tags: ["flowers", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3372,7 +3373,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-07-13",
     image: "images/photography/2025/2025-07-13_1.webp",
-        tags: [""],
+    tags: ["flowers", "night", "stars"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3385,7 +3386,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-04-23",
     image: "images/photography/2025/2025-04-23.webp",
-    tags: [""],
+    tags: ["flowers", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3398,7 +3399,7 @@ All in the service of — Clarity.`,
     year: 2025,
     date: "2025-02-25",
     image: "images/photography/2025/2025-02-25.webp",
-    tags: [""],
+    tags: ["trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3437,7 +3438,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-10-22",
     image: "images/photography/2024/2024-10-22.webp",
-        tags: [""],
+        tags: ["stars", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3463,10 +3464,10 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-07-14",
     image: "images/photography/2024/2024-07-14.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
-   <p></p>
+   <p>Donut Falls</p>
   `
   },
   {
@@ -3476,7 +3477,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_5.webp",
-        tags: [""],
+        tags: ["dogs", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3489,7 +3490,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_4.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3502,7 +3503,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_3.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3515,7 +3516,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_2.webp",
-        tags: [""],
+        tags: ["nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3528,7 +3529,7 @@ All in the service of — Clarity.`,
     year: 2024,
     date: "2024-05-11",
     image: "images/photography/2024/2024-05-11_1.webp",
-       tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3548,26 +3549,26 @@ All in the service of — Clarity.`,
   `
   },
  {
-    id: "2023-02-18_2",
+    id: "2024-02-18_2",
     type: "photo",
     title: "February 18, 2024 | #2",
     year: 2024,
     date: "2024-02-18",
     image: "images/photography/2024/2024-02-18_2.webp",
-    tags: [""],
+    tags: ["trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
   `
   },
  {
-    id: "2023-02-18_1",
+    id: "2024-02-18_1",
     type: "photo",
     title: "February 18, 2024 | #1",
     year: 2024,
     date: "2024-02-18",
     image: "images/photography/2024/2024-02-18_1.webp",
-    tags: [""],
+    tags: ["trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3580,7 +3581,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-12-06",
     image: "images/photography/2023/2023-12-06_2.webp",
-        tags: [""],
+        tags: ["blur", "lsd", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3593,7 +3594,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-12-06",
     image: "images/photography/2023/2023-12-06_1.webp",
-        tags: [""],
+        tags: ["stars", "nature", "lsd"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3619,6 +3620,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-10-11",
     image: "images/photography/2023/2023-10-11.webp",
+    tags: ["mushrooms"],
         sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
@@ -3632,7 +3634,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-10-06",
     image: "images/photography/2023/2023-10-06.webp",
-        tags: [""],
+        tags: ["blur", "lsd"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3645,7 +3647,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-09-24",
     image: "images/photography/2023/2023-09-24.webp",
-    tags: [""],
+    tags: ["trees", "nature", "stars", "sunset"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3658,7 +3660,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-07-29",
     image: "images/photography/2023/2023-07-29.webp",
-    tags: [""],
+    tags: ["nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3671,6 +3673,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-06-17",
     image: "images/photography/2023/2023-06-17.webp",
+    tags: ["dmt"],
       sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
@@ -3697,6 +3700,7 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-04-20",
     image: "images/photography/2023/2023-04-20.webp",
+    tags: ["lsd"],
          sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
@@ -3710,10 +3714,10 @@ All in the service of — Clarity.`,
     year: 2023,
     date: "2023-01-03",
     image: "images/photography/2023/2023-01-03.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
-   <p></p>
+   <p>Mountain House</p>
   `
   },
   {
@@ -3723,7 +3727,7 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-12-10",
     image: "images/photography/2022/2022-12-10.webp",
-        tags: [""],
+        tags: ["lsd", "dmt", "mushrooms"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3736,7 +3740,7 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-12-03",
     image: "images/photography/2022/2022-12-03.webp",
-        tags: [""],
+        tags: ["dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3773,7 +3777,7 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-06-02",
     image: "images/photography/2022/2022-06-02.webp",
-       tags: [""],
+       tags: ["nature", "trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3786,10 +3790,23 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-12-15",
     image: "images/photography/2021/2021-12-15.webp",
-        tags: [""],
+        tags: ["trees", "nature", "dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
+  `
+  },
+ {
+    id: "2021-10-09",
+    type: "photo",
+    title: "October 9, 2021",
+    year: 2021,
+    date: "2021-10-09",
+    image: "images/photography/2021/2021-10-09.webp",
+       tags: ["cannabis", "nature"],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Central Park?</p>
   `
   },
  {
@@ -3799,7 +3816,7 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-10-04",
     image: "images/photography/2021/2021-10-04_2.webp",
-    tags: [""],
+    tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3812,7 +3829,7 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-10-04",
     image: "images/photography/2021/2021-10-04_1.webp",
-    tags: [""],
+    tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3838,7 +3855,7 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-06-05",
     image: "images/photography/2021/2021-06-05_1.webp",
-        tags: [""],
+        tags: ["flowers", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3851,7 +3868,7 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-05-27",
     image: "images/photography/2021/2021-05-27.webp",
-       tags: [""],
+       tags: ["flowers", "nature],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3864,7 +3881,7 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-11",
     image: "images/photography/2020/2020-11-11.webp",
-       tags: [""],
+       tags: ["lsd", "dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3877,7 +3894,7 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-04",
     image: "images/photography/2020/2020-11-04_2.webp",
-      tags: [""],
+      tags: ["night", "trees", "stars", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3890,7 +3907,7 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-04",
     image: "images/photography/2020/2020-11-04_1.webp",
-       tags: [""],
+      tags: ["night", "trees", "stars", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3903,20 +3920,7 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-11-03",
     image: "images/photography/2020/2020-11-03.webp",
-      tags: [""],
-      sideNoteTitle: "Details",
-      sideNote: `
-   <p></p>
-  `
-  },
-  {
-    id: "2021-10-09",
-    type: "photo",
-    title: "October 9, 2021",
-    year: 2021,
-    date: "2021-10-09",
-    image: "images/photography/2021/2021-10-09.webp",
-       tags: [""],
+      tags: ["trees", "stars", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3929,7 +3933,7 @@ All in the service of — Clarity.`,
     year: 2020,
     date: "2020-06-30",
     image: "images/photography/2020/2020-06-30.webp",
-        tags: [""],
+        tags: ["flowers", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3942,7 +3946,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-11-30",
     image: "images/photography/2019/2019-11-30.webp",
-        tags: [""],
+        tags: ["nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3955,7 +3959,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-11-03",
     image: "images/photography/2019/2019-11-03.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3968,7 +3972,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-30",
     image: "images/photography/2019/2019-09-30.webp",
-        tags: [""],
+        tags: ["dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3981,7 +3985,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_3.webp",
-        tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -3994,7 +3998,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_2.webp",
-       tags: [""],
+        tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4007,7 +4011,7 @@ All in the service of — Clarity.`,
     year: 2019,
     date: "2019-09-29",
     image: "images/photography/2019/2019-09-29_1.webp",
-        tags: [""],
+         tags: ["trees", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4020,7 +4024,7 @@ All in the service of — Clarity.`,
   year: 2019,
   date: "2019-07-18",
   image: "images/photography/2019/2019-07-18.webp",
-    tags: [""],
+    tags: ["flowers"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4046,7 +4050,7 @@ All in the service of — Clarity.`,
   year: 2019,
   date: "2019-03-03",
   image: "images/photography/2019/2019-03-03.webp",
-    tags: [""],
+    tags: ["dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4059,7 +4063,7 @@ All in the service of — Clarity.`,
   year: 2019,
   date: "2019-02-16",
   image: "images/photography/2019/2019-02-16.webp",
-    tags: [""],
+    tags: ["dogs"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4072,7 +4076,7 @@ All in the service of — Clarity.`,
   year: 2018,
   date: "2018-11-29",
   image: "images/photography/2018/2018-11-29.webp",
-    tags: [""],
+    tags: ["dogs", "night"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4085,10 +4089,10 @@ All in the service of — Clarity.`,
   year: 2018,
   date: "2018-08-14",
   image: "images/photography/2018/2018-08-14.webp",
-    tags: [""],
+    tags: ["night", stars],
       sideNoteTitle: "Details",
       sideNote: `
-   <p></p>
+   <p>Alignment witnessed on Newport Beach</p>
   `
 },
   {
@@ -4098,7 +4102,7 @@ All in the service of — Clarity.`,
     year: 2017,
     date: "2017-08-25",
     image: "images/photography/2017/2017-08-25.webp",
-    tags: [""],
+    tags: ["trees"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4111,7 +4115,7 @@ All in the service of — Clarity.`,
   year: 2016,
   date: "2016-12-20",
   image: "images/photography/2016/2016-12-20.webp",
-    tags: [""],
+    tags: ["sunset"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4124,7 +4128,7 @@ All in the service of — Clarity.`,
   year: 2016,
   date: "2016-08-07",
   image: "images/photography/2016/2016-08-07.webp",
-    tags: [""],
+    tags: ["sunset"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4137,7 +4141,7 @@ All in the service of — Clarity.`,
   year: 2015,
   date: "2015-02-13",
   image: "images/photography/2015/2015-02-13.webp",
-    tags: [""],
+    tags: ["sunset"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4150,7 +4154,7 @@ All in the service of — Clarity.`,
   year: 2014,
   date: "2014-11-27",
   image: "images/photography/2014/2014-11-27.webp",
-    tags: [""],
+    tags: ["sunset"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
@@ -4163,6 +4167,7 @@ All in the service of — Clarity.`,
   year: 2014,
   date: "2014-10-25",
   image: "images/photography/2014/2014-10-25.webp",
+  tags: ["sunset"],
   sideNoteTitle: "Details",
   sideNote: `
     <p><strong>Year:</strong> 2014</p>
