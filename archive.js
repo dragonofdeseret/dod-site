@@ -980,7 +980,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 1,
 
-    tags: ["charcoal", "landscape", "LSD", "DMT" "psychedelics"],
+    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1014,7 +1014,7 @@ const archive = normalizeArchive([
     date: "2023-06-24",
     image: "images/art/2023/2023-06-24.webp",
 
-    tags: ["charcoal", "landscape", "LSD", "DMT" "psychedelics"],
+    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
 
     sideNoteTitle: "Dimitri's Willow's",
     sideNote: `
