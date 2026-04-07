@@ -4089,7 +4089,7 @@ All in the service of — Clarity.`,
   year: 2018,
   date: "2018-08-14",
   image: "images/photography/2018/2018-08-14.webp",
-    tags: ["night", stars],
+    tags: ["night", "stars"],
       sideNoteTitle: "Details",
       sideNote: `
    <p>Alignment witnessed on Newport Beach</p>
