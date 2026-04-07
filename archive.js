@@ -3868,7 +3868,7 @@ All in the service of — Clarity.`,
     year: 2021,
     date: "2021-05-27",
     image: "images/photography/2021/2021-05-27.webp",
-       tags: ["flowers", "nature],
+       tags: ["flowers", "nature"],
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
