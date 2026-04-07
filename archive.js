@@ -3023,10 +3023,10 @@ detail: "Excerpt from: The Epistle of Christopher, 2022.",
 marginsTags: ["deconstruction", "philosophy", "epistle-of-christopher"]
 },
 {
-id: "2022_01_17_1",
+id: "2021_01_24",
   type: "margins",
   title: "Deconstruction is just a Moment",
-  date: "2022-01-17",
+  date: "2021-01-24",
   text: `
 Changing and becoming a better person or institution is not the same thing as framing a newfound sense of identity around those evolutions.`,
 detail: "Excerpt from: Anti-mormon Literature, 2021.",
