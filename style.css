@@ -440,6 +440,17 @@ h2 {
   text-underline-offset: 4px;
 }
 
+.page-intro-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.page-intro {
+  margin: 0;
+}
+
 /* ==============================
    HOME
 ================================= */

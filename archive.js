@@ -65,7 +65,7 @@ const archive = normalizeArchive([
   {
     id: "2026-01-01",
     type: "art",
-    title: "January 01, 2026",
+    title: "January 1, 2026",
     year: 2026,
     date: "2026-01-01",
     image: "images/art/2026/2026-01-01.webp",
@@ -479,7 +479,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 13,
 
-  tags: ["landscape", "lsd", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary", "dragon"],
 
     sideNoteTitle: "It's Time to Leave the Woulds",
     sideNote: `
@@ -1322,7 +1322,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-09-19.webp",
     medium: ["Oil Paint", "Ink"],
 
-    tags: ["ink"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1695,7 +1695,7 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_1.webp",
-    medium: "Ink",
+    medium: "Oil Paint",
     showOnArt: false,
 
     tags: ["zazen", "lsd", "psychedelics"],
@@ -1714,7 +1714,7 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-11",
     image: "images/art/2022/2022-06-11_2.webp",
-    medium: "Ink",
+    medium: "Oil Paint",
     exhibit: "HZ3",
     exhibitOrder: 2,
 
