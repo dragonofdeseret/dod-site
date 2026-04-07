@@ -124,7 +124,7 @@ const archive = normalizeArchive([
   image: "images/art/2024/2024-11-18_3.webp",
   medium: "Oil Paint",
 
-    tags: ["dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "dmt"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
   sideNoteTitle: "Details",
@@ -143,7 +143,7 @@ const archive = normalizeArchive([
   image: "images/art/2024/2024-11-18_2.webp",
   medium: "Oil Paint",
 
-    tags: ["dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "dmt"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
@@ -162,7 +162,7 @@ const archive = normalizeArchive([
   image: "images/art/2024/2024-11-18_1.webp",
   medium: "Oil Paint",
 
-    tags: ["dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "dmt"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
@@ -199,7 +199,7 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-08-22_2.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "psychedelics", "LSD"],
+    tags: ["landscape", "psychedelics", "lsd"],
 
   sideNoteTitle: "Details",
   sideNote: `
@@ -239,7 +239,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "The Seed and Light of Latter-day Life",
     sideNote: `
@@ -261,7 +261,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "Joseph's Silhouette",
     sideNote: `
@@ -283,7 +283,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow in the Dark Acrylic and Musou Black on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-     tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+     tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "To Outer Darkness",
     sideNote: `
@@ -305,7 +305,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
      sideNoteTitle: "Details",
     sideNote: `
@@ -327,7 +327,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -349,7 +349,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
      sideNoteTitle: "Details",
     sideNote: `
@@ -371,7 +371,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow layer detail",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
       sideNoteTitle: "Details",
     sideNote: `
@@ -393,7 +393,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Oil on 4' x 4' Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
       sideNoteTitle: "Sierpinski's Eye's",
     sideNote: `
@@ -415,7 +415,7 @@ const archive = normalizeArchive([
     exhibitCaptionMeta: "Glow in the Dark Acrylic on 4' x 4' Canvas",
     medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -437,7 +437,7 @@ const archive = normalizeArchive([
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Oil on 4' x 4' Canvas",
 
-    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "lsd", "dmt", "psilocybin"],
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
@@ -479,7 +479,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 13,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "It's Time to Leave the Woulds",
     sideNote: `
@@ -499,7 +499,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 12,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -517,7 +517,7 @@ const archive = normalizeArchive([
     image: "images/art/2024/2024-01-28_1.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -537,7 +537,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 11,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Give Me Two Years More",
     sideNote: `
@@ -557,7 +557,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 10,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Geminid Meteor Meditation",
     sideNote: `
@@ -577,7 +577,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 9,
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Back to Or",
     sideNote: `
@@ -595,7 +595,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-10_2.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -615,7 +615,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 8,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Inheritance",
     sideNote: `
@@ -633,7 +633,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-12-06_2.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -653,7 +653,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 7,
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -673,7 +673,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 6,
 
-  tags: ["landscape", "LSD", "zazen", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "zazen", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -693,7 +693,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 5,
 
-  tags: ["LSD", "psychedelics", "zazen", "visionary"],
+  tags: ["lsd", "psychedelics", "zazen", "visionary"],
 
     sideNoteTitle: "The Winds of Change",
     sideNote: `
@@ -765,7 +765,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-09-01_2.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -783,7 +783,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-09-01_1.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "lsd", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -801,7 +801,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-08-26_detail.webp",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "zazen", "psychedelics"],
+  tags: ["landscape", "lsd", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -820,7 +820,7 @@ const archive = normalizeArchive([
     medium: "Charcoal",
     exhibit: "anand",
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -839,7 +839,7 @@ const archive = normalizeArchive([
     medium: "Charcoal",
     exhibit: "anand",
 
-  tags: ["landscape", "LSD", "zazen", "psychedelics"],
+  tags: ["landscape", "lsd", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -858,7 +858,7 @@ const archive = normalizeArchive([
     exhibit: "anand",
     medium: "Charcoal",
 
-  tags: ["landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -877,7 +877,7 @@ const archive = normalizeArchive([
     medium: "Charcoal",
     exhibit: "anand",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -897,7 +897,7 @@ const archive = normalizeArchive([
     medium: "Charcoal",
     exhibitOrder: 4,
 
-    tags: ["landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "lsd", "zazen", "psychedelics"],
 
     sideNoteTitle: "Perseus Meteor Meditation 2",
     sideNote: `
@@ -917,7 +917,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 3,
 
-    tags: ["landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "lsd", "zazen", "psychedelics"],
 
     sideNoteTitle: "Perseids Meteor Meditation",
     sideNote: `
@@ -973,7 +973,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 2,
 
-    tags: ["landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "lsd", "dmt", "psychedelics"],
 
     sideNoteTitle: "The Winds at Dimitri's Hollow",
     sideNote: `
@@ -991,7 +991,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-07-16_1.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "lsd", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1029,7 +1029,7 @@ const archive = normalizeArchive([
     exhibit: "woulds",
     exhibitOrder: 1,
 
-    tags: ["landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "lsd", "dmt", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1065,7 +1065,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-06-24.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "lsd", "dmt", "psychedelics"],
 
     sideNoteTitle: "Dimitri's Willow's",
     sideNote: `
@@ -1083,7 +1083,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-27.webp",
     medium: "Charcoal",
 
-    tags: ["LSD", "psychedelics"],
+    tags: ["lsd", "psychedelics"],
 
     sideNoteTitle: "Dog Getting Comfy",
     sideNote: `
@@ -1101,7 +1101,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-21_3.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1119,7 +1119,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-21_2.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1137,7 +1137,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-21_1.webp",
     medium: "Charcoal",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1155,7 +1155,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-18_2.webp",
     medium: "Charcoal",
 
-    tags: ["LSD", "psychedelics", "headless-way", "zazen"],
+    tags: ["lsd", "psychedelics", "headless-way", "zazen"],
 
     sideNoteTitle: "Round Earth",
     sideNote: `
@@ -1304,7 +1304,7 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-07_1.webp",
     medium: "Charcoal",
 
-    tags: ["DMT", "psychedelics"],
+    tags: ["dmt", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1358,7 +1358,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-28_2.webp",
     medium: "Oil Paint",
 
-    tags: ["psychedelics", "DMT"],
+    tags: ["psychedelics", "dmt"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1376,7 +1376,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-28_1.webp",
     medium: "Oil Paint",
 
-    tags: ["psychedelics", "DMT"],
+    tags: ["psychedelics", "dmt"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1394,7 +1394,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-14_2.webp",
     medium: "Oil Paint",
 
-    tags: ["psychedelics", "DMT"],
+    tags: ["psychedelics", "dmt"],
 
     sideNoteTitle: "DMT Haven",
     sideNote: `
@@ -1412,7 +1412,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-08-14_1.webp",
     medium: "Oil Paint",
 
-    tags: ["psychedelics", "DMT"],
+    tags: ["psychedelics", "dmt"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1451,7 +1451,7 @@ const archive = normalizeArchive([
     exhibitOrder: 7,
     showOnArt: false,
 
-    tags: ["LSD", "psychedelics", "zazen"],
+    tags: ["lsd", "psychedelics", "zazen"],
 
     sideNoteTitle: "Vivid Valley View + Section Inspirations",
     sideNote: `
@@ -1471,7 +1471,7 @@ const archive = normalizeArchive([
     exhibit: "HZ4",
     exhibitOrder: 6,
 
-    tags: ["LSD", "psychedelics"],
+    tags: ["lsd", "psychedelics"],
 
     sideNoteTitle: "Vivid Valley View",
     sideNote: `
@@ -1679,7 +1679,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-06-15_2.webp",
     medium: "Ink",
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Purple Palms",
     sideNote: `
@@ -1698,7 +1698,7 @@ const archive = normalizeArchive([
     medium: "Ink",
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1718,7 +1718,7 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 2,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Man Meditating Cliffside",
     sideNote: `
@@ -1739,7 +1739,7 @@ const archive = normalizeArchive([
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Man Meditating Cliffside | Blot",
     sideNote: `
@@ -1759,7 +1759,7 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 6,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1780,7 +1780,7 @@ const archive = normalizeArchive([
     exhibitOrder: 5,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1818,7 +1818,7 @@ const archive = normalizeArchive([
     exhibit: "HZ3",
     exhibitOrder: 4,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Man Fishing at Ice Melt",
     sideNote: `
@@ -1839,7 +1839,7 @@ const archive = normalizeArchive([
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Man Fishing at Ice Melt | Blot",
     sideNote: `
@@ -1877,7 +1877,7 @@ const archive = normalizeArchive([
     exhibit: "HZ2",
     exhibitOrder: 4,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1898,7 +1898,7 @@ const archive = normalizeArchive([
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1918,7 +1918,7 @@ const archive = normalizeArchive([
     exhibit: "HZ2",
     exhibitOrder: 2,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Chronic Pain",
     sideNote: `
@@ -1939,7 +1939,7 @@ const archive = normalizeArchive([
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1959,7 +1959,7 @@ const archive = normalizeArchive([
     exhibit: "HZ1",
     exhibitOrder: 4,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1980,7 +1980,7 @@ const archive = normalizeArchive([
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2000,7 +2000,7 @@ const archive = normalizeArchive([
     exhibit: "HZ1",
     exhibitOrder: 2,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Private Cove",
     sideNote: `
@@ -2021,7 +2021,7 @@ const archive = normalizeArchive([
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2039,7 +2039,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-23_1.webp",
     medium: "Ink",
 
-    tags: ["zazen", "LSD", "psychedelics"],
+    tags: ["zazen", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2057,7 +2057,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-15_snowstorm.webp",
     medium: "Oil Paint",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2075,7 +2075,7 @@ const archive = normalizeArchive([
     image: "images/art/2022/2022-05-15.webp",
     medium: "Oil Paint",
 
-    tags: ["landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "lsd", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2496,7 +2496,7 @@ const archive = normalizeArchive([
     date: "2025-02-16",
     file: "pdf/AcidLullabies.pdf",
     sections: ["writing"],
-    tags: ["LSD", "psychedelics", "consciousness", "consciousness-research", "medical", "science", "theory"],
+    tags: ["lsd", "psychedelics", "consciousness", "consciousness-research", "medical", "science", "theory"],
   },
   {
     id: "HL",
@@ -2618,7 +2618,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/TCJ.pdf",
     sections: ["writing"],
-    tags: ["DMT", "consciousness"]
+    tags: ["dmt", "consciousness"]
   },
   {
     id: "TCAE",
@@ -2646,7 +2646,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/RoEM.pdf",
     sections: ["writing"],
-    tags: ["DMT", "consciousness", "science", "theory"]
+    tags: ["dmt", "consciousness", "science", "theory"]
   },
   {
     id: "DMTERRAIN",
@@ -2656,7 +2656,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/DMTERRAIN.pdf",
     sections: ["writing"],
-    tags: ["DMT", "consciousness", "science", "theory", "psychedelics"]
+    tags: ["dmt", "consciousness", "science", "theory", "psychedelics"]
   },
   {
     id: "HGA",
@@ -2678,7 +2678,7 @@ const archive = normalizeArchive([
     file: "pdf/IAMT.pdf",
     sections: ["trips"],
     substance: ["DMT"],
-    tags: ["theophany", "visionary", "DMT", "consciousness", "phenomenology", "psychedelics"]
+    tags: ["theophany", "visionary", "dmt", "consciousness", "phenomenology", "psychedelics"]
   },
   {
     id: "TGCoB",
@@ -2689,7 +2689,7 @@ const archive = normalizeArchive([
     file: "pdf/TGCoB.pdf",
     sections: ["trips"],
     substance: ["DMT"],
-    tags: ["visionary", "DMT", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
+    tags: ["visionary", "dmt", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory"]
   },
   {
     id: "DogBuddha",
@@ -2700,7 +2700,7 @@ const archive = normalizeArchive([
     file: "pdf/DogBuddha.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["zazen", "LSD", "psychedelics", "consciousness"]
+    tags: ["zazen", "lsd", "psychedelics", "consciousness"]
   },
   {
     id: "WMZ",
@@ -2711,7 +2711,7 @@ const archive = normalizeArchive([
     file: "pdf/WMZ.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["zazen", "LSD", "psychedelics", "consciousness"]
+    tags: ["zazen", "lsd", "psychedelics", "consciousness"]
   },
   {
     id: "ForestofLee",
@@ -2743,7 +2743,7 @@ const archive = normalizeArchive([
     file: "pdf/SiA.pdf",
     sections: ["trips"],
     substance: ["Cannabis"],
-    tags: ["DMT", "cannabis", "medical", "phenomenology"]
+    tags: ["dmt", "cannabis", "medical", "phenomenology"]
   },
   {
     id: "AIW",
@@ -2754,7 +2754,7 @@ const archive = normalizeArchive([
     file: "pdf/AIW.pdf",
     sections: ["trips"],
     substance: ["LSD"],
-    tags: ["visionary", "LSD", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory", "consciousness", "consciousness-research"]
+    tags: ["visionary", "lsd", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory", "consciousness", "consciousness-research"]
   },
 
 /* ===================
@@ -2855,7 +2855,7 @@ detail: "Discussion of consciousness and psychedelics on X.",
   text: `
 One of the first things I learned from these experiences was that we can classify something like DMT as a Psychescope, that is to say like a telescope or microscope, but a scope for viewing quantum neuronal activity in the psyche-something like that. I know for certain I have seen quantum time crystals-because they were present in childhood recurring dreams I had decades before I knew what DMT was. These time crystals are basically personal genetic memory amplituhedra...`,
 detail: "Conversations had on X.",
-  marginsTags: ["psychescope", "consciousness", "DMT", "science", "psychedelics"]
+  marginsTags: ["psychescope", "consciousness", "dmt", "science", "psychedelics"]
 },
 {
   id: "2024_06_16",
@@ -2885,7 +2885,7 @@ A new era is on the rise.`,
   text: `
 DMT is not merely a Schedule I controlled substance that everyone carries around in them endogenously every moment of every day, it is a reality expander and psychescopic tool for exploring deeply personal and mutually entailed vast quantum worlds of which we cannot possibly conceive on our own.`,
 detail: "Excerpts from The Quantum Moiré, 2022.",
-  marginsTags: ["quantum-moiré", "DMT", "psychedelics", "consciousness", "science"]
+  marginsTags: ["quantum-moiré", "dmt", "psychedelics", "consciousness", "science"]
 },
 {
   id: "2022-09-24",
@@ -2925,7 +2925,7 @@ detail: "Excerpts from The Quantum Moiré, 2022.",
 
 There is space, structure, taxonomy, morphology, and ecology; an entire ecosystem hidden behind this iridescently transvisible veil of contracted human perception. I believe this is the dark matter we seek to illuminate. It is out there as our mutually entangled[interwoven] spacial opposite, just as it is entirely and exactly here within us as our mutually entailed neural moiré; the Dark and Grey Matter Terrain of experience. `,
 detail: "Excerpts from The Quantum Moiré, 2022.",
-  marginsTags: ["quantum-moiré", "theory", "dark-matter", "DMT", "science", "consciousness"]
+  marginsTags: ["quantum-moiré", "theory", "dark-matter", "dmt", "science", "consciousness"]
 },
 {
   id: "2022_09_22_1",
@@ -2958,7 +2958,7 @@ Meditation is life's day-to-day anesthetic.`,
   date: "2022-08-02",
   text: `Dimitri in the Sky with Diamonds (DMSD) = The combination of LSD, with 20-40mg of DMT at first peak.`,
   detail: "DMSD journeys of summer and fall 2022.",
-  marginsTags: ["psychedelics", "LSD", "DMT", "DMSD", "consciousness", "consciousness-research"]
+  marginsTags: ["psychedelics", "lsd", "dmt", "dmsd", "consciousness", "consciousness-research"]
 },
 {
   id: "2022_06_23",
