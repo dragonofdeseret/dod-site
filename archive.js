@@ -71,10 +71,11 @@ const archive = normalizeArchive([
     image: "images/art/2026/2026-01-01.webp",
     showOnArt: false,
     showOnArchive: false,
+
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025–2026</p>
-    <p><strong>Medium:</strong> Pencil</p>
+    <p><strong>Medium:</strong> Pencil on Newspaper</p>
     <p>Congratulations. You found the hidden link to the concept sketch of my next 4ft x 5ft painting. Keep it between us.</p>
   `
   },
@@ -87,7 +88,7 @@ const archive = normalizeArchive([
   image: "images/art/2025/2025-08-28.webp",
   medium: "Prisma Color",
 
-  tags: ["mormonism", "prisma-color", "harmonic-theism", "dragon"],
+  tags: ["mormonism", "harmonic-theism", "dragon"],
 
   sideNoteTitle: "With an eye single to the glory of God",
   sideNote: `
@@ -103,8 +104,9 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-05-07",
     image: "images/art/2025/2025-05-07.webp",
+    medium: "Charcoal",
 
-    tags: ["zazen", "charcoal"],
+    tags: ["zazen"],
 
   sideNoteTitle: "Zazen",
   sideNote: `
@@ -120,8 +122,9 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_3.webp",
+  medium: "Oil Paint",
 
-    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "DMT"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
   sideNoteTitle: "Details",
@@ -138,8 +141,9 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_2.webp",
+  medium: "Oil Paint",
 
-    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "DMT"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
@@ -156,8 +160,9 @@ const archive = normalizeArchive([
   year: 2024,
   date: "2024-11-18",
   image: "images/art/2024/2024-11-18_1.webp",
+  medium: "Oil Paint",
 
-    tags: ["oil-paint", "dragon", "psychedelics", "DMT"],
+    tags: ["dragon", "psychedelics", "DMT"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
@@ -174,8 +179,9 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-09-08",
     image: "images/art/2024/2024-09-08.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "mushrooms", "zazen"],
+    tags: ["landscape", "mushrooms", "zazen"],
 
   sideNoteTitle: "Mushroom Mountain",
   sideNote: `
@@ -191,8 +197,9 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-22",
     image: "images/art/2024/2024-08-22_2.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "psychedelics", "LSD"],
+    tags: ["landscape", "psychedelics", "LSD"],
 
   sideNoteTitle: "Details",
   sideNote: `
@@ -208,8 +215,9 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-22",
     image: "images/art/2024/2024-08-22_1.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal"],
+    tags: [""],
 
   sideNoteTitle: "Details",
   sideNote: `
@@ -229,8 +237,9 @@ const archive = normalizeArchive([
     exhibitOrder: 7,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "The Seed and Light of Latter-day Life",
     sideNote: `
@@ -250,8 +259,9 @@ const archive = normalizeArchive([
     exhibitOrder: 8,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Musou Black and Glow in the Dark Acrylic on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "Joseph's Silhouette",
     sideNote: `
@@ -271,8 +281,9 @@ const archive = normalizeArchive([
     exhibitOrder: 9,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Glow in the Dark Acrylic and Musou Black on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-     tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+     tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "To Outer Darkness",
     sideNote: `
@@ -292,8 +303,9 @@ const archive = normalizeArchive([
     exhibitOrder: 6,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
      sideNoteTitle: "Details",
     sideNote: `
@@ -313,8 +325,9 @@ const archive = normalizeArchive([
     exhibitOrder: 4,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -334,8 +347,9 @@ const archive = normalizeArchive([
     exhibitOrder: 3,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Glow in the Dark Acrylic on Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
      sideNoteTitle: "Details",
     sideNote: `
@@ -355,8 +369,9 @@ const archive = normalizeArchive([
     exhibitOrder: 5,
     exhibitCaptionTitle: "",
     exhibitCaptionMeta: "Glow layer detail",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
       sideNoteTitle: "Details",
     sideNote: `
@@ -375,14 +390,15 @@ const archive = normalizeArchive([
     exhibit: "joe",
     exhibitOrder: 10,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Mixed Oil & Acrylic on 4' x 4' Canvas",
+    exhibitCaptionMeta: "Oil on 4' x 4' Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
       sideNoteTitle: "Sierpinski's Eye's",
     sideNote: `
     <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Mixed Oil & Acrylic on Canvas</p>
+    <p><strong>Medium:</strong> Oil on 4' x 4' Canvas</p>
     <p></p>
   `
   },
@@ -397,13 +413,14 @@ const archive = normalizeArchive([
     exhibitOrder: 2,
     exhibitCaptionTitle: "I Know the Church is True",
     exhibitCaptionMeta: "Glow in the Dark Acrylic on 4' x 4' Canvas",
+    medium: ["Oil Paint", "Glow Paint"],
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
     <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4' x 4' Canvas</p>
+    <p><strong>Medium:</strong> Oil on 4' x 4' Canvas</p>
     <p>Optional note/description here.</p>
   `
   },
@@ -414,17 +431,18 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-08-02",
     image: "images/art/2024/2024-08-02_1.webp",
+    medium: ["Oil Paint", "Glow Paint"],
     exhibit: "joe",
     exhibitOrder: 1,
     exhibitCaptionTitle: "I Know the Church is True",
-    exhibitCaptionMeta: "Oil & Acrylic on Canvas, 4'x 4'",
+    exhibitCaptionMeta: "Oil on 4' x 4' Canvas",
 
-    tags: ["oil-painting", "glow-painting", "mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
+    tags: ["mormonism", "psychedelics", "LSD", "DMT", "psilocybin"],
 
     sideNoteTitle: "I Know the Church is True",
     sideNote: `
       <p><strong>Year:</strong> 2024</p>
-      <p><strong>Medium:</strong> Mixed Oil & Acrylic on 4' x 4' Canvas</p>
+      <p><strong>Medium:</strong> Oil on 4' x 4' Canvas</p>
       <p>229 days - 7 months & 16 days</p>
       <p>20 LSD trips, (~8,000µg)</p>
       <p>3 Mushroom trips</p>
@@ -439,13 +457,14 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-06-25",
     image: "images/art/2024/2024-06-25.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2024</p>
-    <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+    <p><strong>Medium:</strong> Oil on 4' x 4' Canvas</p>
     <p></p>
   `
   },
@@ -456,10 +475,11 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-01-30",
     image: "images/art/2024/2024-01-30.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 13,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "It's Time to Leave the Woulds",
     sideNote: `
@@ -475,10 +495,11 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-01-28",
     image: "images/art/2024/2024-01-28_2.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 12,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -494,8 +515,9 @@ const archive = normalizeArchive([
     year: 2024,
     date: "2024-01-28",
     image: "images/art/2024/2024-01-28_1.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -511,10 +533,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-14",
     image: "images/art/2023/2023-12-14_2.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 11,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Give Me Two Years More",
     sideNote: `
@@ -530,10 +553,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-14",
     image: "images/art/2023/2023-12-14_1.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 10,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Geminid Meteor Meditation",
     sideNote: `
@@ -549,10 +573,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_3.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 9,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Back to Or",
     sideNote: `
@@ -568,8 +593,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_2.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -585,10 +611,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-10",
     image: "images/art/2023/2023-12-10_1.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 8,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Inheritance",
     sideNote: `
@@ -604,8 +631,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-06",
     image: "images/art/2023/2023-12-06_2.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -621,10 +649,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-06",
     image: "images/art/2023/2023-12-06_1.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 7,
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -640,10 +669,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-11-13",
     image: "images/art/2023/2023-11-13_2.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 6,
 
-  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "zazen", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -659,10 +689,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-11-13",
     image: "images/art/2023/2023-11-13_1.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 5,
 
-  tags: ["charcoal", "LSD", "psychedelics", "zazen", "visionary"],
+  tags: ["LSD", "psychedelics", "zazen", "visionary"],
 
     sideNoteTitle: "The Winds of Change",
     sideNote: `
@@ -678,8 +709,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-31",
     image: "images/art/2023/2023-10-31_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "mushrooms", "psilocybin", "psychedelics"],
+    tags: ["mushrooms", "psilocybin", "psychedelics"],
 
     sideNoteTitle: "The Golden Teacher",
     sideNote: `
@@ -695,8 +727,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-24",
     image: "images/art/2023/2023-10-24.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -712,8 +745,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-10-23",
     image: "images/art/2023/2023-10-23.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Blood Moon Harvest",
     sideNote: `
@@ -729,8 +763,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-09-01",
     image: "images/art/2023/2023-09-01_2.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -746,8 +781,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-09-01",
     image: "images/art/2023/2023-09-01_1.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics", "visionary"],
+  tags: ["landscape", "LSD", "psychedelics", "visionary"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -763,8 +799,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_detail.webp",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+  tags: ["landscape", "LSD", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -780,9 +817,10 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_4.webp",
+    medium: "Charcoal",
     exhibit: "anand",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -798,9 +836,10 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_3.webp",
+    medium: "Charcoal",
     exhibit: "anand",
 
-  tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+  tags: ["landscape", "LSD", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -817,8 +856,9 @@ const archive = normalizeArchive([
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_2.webp",
     exhibit: "anand",
+    medium: "Charcoal",
 
-  tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+  tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -834,9 +874,10 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-26",
     image: "images/art/2023/2023-08-26_1.webp",
+    medium: "Charcoal",
     exhibit: "anand",
 
-    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -853,9 +894,10 @@ const archive = normalizeArchive([
     date: "2023-08-13",
     image: "images/art/2023/2023-08-13_2.webp",
     exhibit: "woulds",
+    medium: "Charcoal",
     exhibitOrder: 4,
 
-    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "LSD", "zazen", "psychedelics"],
 
     sideNoteTitle: "Perseus Meteor Meditation 2",
     sideNote: `
@@ -871,10 +913,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-13",
     image: "images/art/2023/2023-08-13_1.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 3,
 
-    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "LSD", "zazen", "psychedelics"],
 
     sideNoteTitle: "Perseids Meteor Meditation",
     sideNote: `
@@ -890,6 +933,7 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-08-06",
     image: "images/art/2023/2023-08-06.webp",
+    medium: "Marker",
 
     tags: ["psychedelics", "mormonism"],
 
@@ -907,8 +951,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-30",
     image: "images/art/2023/2023-07-30.webp",
+    medium: "Charcoal",
 
-    tags: ["zazen", "charcoal"],
+    tags: ["zazen"],
 
     sideNoteTitle: "What is the Sound of One Hand",
     sideNote: `
@@ -924,10 +969,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-16",
     image: "images/art/2023/2023-07-16_2.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 2,
 
-    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "LSD", "DMT", "psychedelics"],
 
     sideNoteTitle: "The Winds at Dimitri's Hollow",
     sideNote: `
@@ -943,8 +989,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-16",
     image: "images/art/2023/2023-07-16_1.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "LSD", "zazen", "psychedelics"],
+    tags: ["landscape", "LSD", "zazen", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -960,8 +1007,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-10",
     image: "images/art/2023/2023-07-10.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -977,10 +1025,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-07-05",
     image: "images/art/2023/2023-07-05.webp",
+    medium: "Charcoal",
     exhibit: "woulds",
     exhibitOrder: 1,
 
-    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "LSD", "DMT", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -996,8 +1045,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-06-27",
     image: "images/art/2023/2023-06-27.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1013,8 +1063,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-06-24",
     image: "images/art/2023/2023-06-24.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "LSD", "DMT", "psychedelics"],
+    tags: ["landscape", "LSD", "DMT", "psychedelics"],
 
     sideNoteTitle: "Dimitri's Willow's",
     sideNote: `
@@ -1030,8 +1081,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-27",
     image: "images/art/2023/2023-05-27.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "LSD", "psychedelics"],
+    tags: ["LSD", "psychedelics"],
 
     sideNoteTitle: "Dog Getting Comfy",
     sideNote: `
@@ -1047,8 +1099,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_3.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1064,8 +1117,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_2.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1081,8 +1135,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-21",
     image: "images/art/2023/2023-05-21_1.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1098,8 +1153,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-18",
     image: "images/art/2023/2023-05-18_2.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "LSD", "psychedelics", "headless-way", "zazen"],
+    tags: ["LSD", "psychedelics", "headless-way", "zazen"],
 
     sideNoteTitle: "Round Earth",
     sideNote: `
@@ -1115,8 +1171,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-18",
     image: "images/art/2023/2023-05-18_1.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1134,8 +1191,9 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_3.webp",
     exhibit: "HZ5",
     exhibitOrder: 3,
+    medium: "Charcoal",
 
-    tags: ["charcoal", "zazen"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1153,8 +1211,9 @@ const archive = normalizeArchive([
     image: "images/art/2023/2023-05-13_2.webp",
     exhibit: "HZ5",
     exhibitOrder: 2,
+    medium: "Charcoal",
 
-    tags: ["charcoal", "zazen"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1170,10 +1229,11 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-13",
     image: "images/art/2023/2023-05-13_1.webp",
+    medium: "Charcoal",
     exhibit: "HZ5",
     exhibitOrder: 1,
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1189,8 +1249,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_4.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1206,8 +1267,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_3.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1224,7 +1286,7 @@ const archive = normalizeArchive([
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_2.webp",
 
-    tags: ["charcoal", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1240,8 +1302,9 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-05-07",
     image: "images/art/2023/2023-05-07_1.webp",
+    medium: "Charcoal",
 
-    tags: ["charcoal", "DMT", "psychedelics"],
+    tags: ["DMT", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1257,8 +1320,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-09-19",
     image: "images/art/2022/2022-09-19.webp",
+    medium: ["Oil Paint", "Ink"],
 
-    tags: ["oil-painting", "ink"],
+    tags: ["ink"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1274,8 +1338,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_3.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "zazen"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Release",
     sideNote: `
@@ -1291,8 +1356,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_2.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "psychedelics", "DMT"],
+    tags: ["psychedelics", "DMT"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1308,8 +1374,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-28",
     image: "images/art/2022/2022-08-28_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "psychedelics", "DMT"],
+    tags: ["psychedelics", "DMT"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1325,8 +1392,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-14",
     image: "images/art/2022/2022-08-14_2.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "psychedelics", "DMT"],
+    tags: ["psychedelics", "DMT"],
 
     sideNoteTitle: "DMT Haven",
     sideNote: `
@@ -1342,8 +1410,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-14",
     image: "images/art/2022/2022-08-14_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "psychedelics", "DMT"],
+    tags: ["psychedelics", "DMT"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1360,8 +1429,9 @@ const archive = normalizeArchive([
     date: "2022-08-02",
     image: "images/art/2022/2022-08-02.webp",
     sideNoteTitle: "Sophia's Seblueision | Man Meditating in Cabin",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "zazen"],
+    tags: ["zazen"],
 
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
@@ -1376,11 +1446,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-01",
     image: "images/art/2022/2022-08-01_2.webp",
+    medium: "Oil Paint",
     exhibit: "HZ4",
     exhibitOrder: 7,
     showOnArt: false,
 
-    tags: ["oil-painting", "LSD", "psychedelics", "zazen"],
+    tags: ["LSD", "psychedelics", "zazen"],
 
     sideNoteTitle: "Vivid Valley View + Section Inspirations",
     sideNote: `
@@ -1396,10 +1467,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-08-01",
     image: "images/art/2022/2022-08-01_1.webp",
+    medium: "Oil Paint",
     exhibit: "HZ4",
     exhibitOrder: 6,
 
-    tags: ["oil-painting", "LSD", "psychedelics"],
+    tags: ["LSD", "psychedelics"],
 
     sideNoteTitle: "Vivid Valley View",
     sideNote: `
@@ -1415,8 +1487,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-07-15",
     image: "images/art/2022/2022-07-15_2.webp",
+    medium: "Chalk",
 
-    tags: ["visionary"],
+    tags: ["visionary", "childhood"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1432,8 +1505,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-07-15",
     image: "images/art/2022/2022-07-15_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["visionary", "zazen", "oil-painting"],
+    tags: ["visionary", "zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1449,8 +1523,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-25.webp",
+    medium: "Oil Paint",
 
-    tags: ["zazen", "oil-painting"],
+    tags: ["zazen", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1466,8 +1541,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-24",
     image: "images/art/2022/2022-06-24.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1483,8 +1559,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-23",
     image: "images/art/2022/2022-06-23.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1500,8 +1577,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_5.webp",
+    medium: "Ink",
 
-    tags: ["zazen", "ink"],
+    tags: ["zazen"],
 
     exhibit: "HZ4",
     exhibitOrder: 1,
@@ -1519,10 +1597,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_4.webp",
+    medium: "Ink",
     exhibit: "HZ4",
     exhibitOrder: 5,
 
-    tags: ["zazen", "ink"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1538,10 +1617,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_3.webp",
+    medium: "Ink",
     exhibit: "HZ4",
     exhibitOrder: 2,
 
-    tags: ["zazen", "ink"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1557,10 +1637,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_2.webp",
+    medium: "Ink",
     exhibit: "HZ4",
     exhibitOrder: 4,
 
-    tags: ["zazen", "ink"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1576,10 +1657,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-18",
     image: "images/art/2022/2022-06-18_1.webp",
+    medium: "Ink",
     exhibit: "HZ4",
     exhibitOrder: 3,
 
-    tags: ["zazen", "ink"],
+    tags: ["zazen"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1595,8 +1677,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_2.webp",
+    medium: "Ink",
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Purple Palms",
     sideNote: `
@@ -1612,9 +1695,10 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-15",
     image: "images/art/2022/2022-06-15_1.webp",
+    medium: "Ink",
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1630,10 +1714,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-11",
     image: "images/art/2022/2022-06-11_2.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 2,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Man Meditating Cliffside",
     sideNote: `
@@ -1649,11 +1734,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-11",
     image: "images/art/2022/2022-06-11_1.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Man Meditating Cliffside | Blot",
     sideNote: `
@@ -1669,10 +1755,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-08",
     image: "images/art/2022/2022-06-08_2.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 6,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1688,11 +1775,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-08",
     image: "images/art/2022/2022-06-08_1.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 5,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1708,8 +1796,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-06",
     image: "images/art/2022/2022-06-06.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1725,10 +1814,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-05",
     image: "images/art/2022/2022-06-05_2.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 4,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Man Fishing at Ice Melt",
     sideNote: `
@@ -1744,11 +1834,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-05",
     image: "images/art/2022/2022-06-05_1.webp",
+    medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Man Fishing at Ice Melt | Blot",
     sideNote: `
@@ -1764,8 +1855,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-29",
     image: "images/art/2022/2022-05-29.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1781,10 +1873,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-27",
     image: "images/art/2022/2022-05-27_2.webp",
+    medium: "Ink",
     exhibit: "HZ2",
     exhibitOrder: 4,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1800,11 +1893,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-27",
     image: "images/art/2022/2022-05-27_1.webp",
+    medium: "Ink",
     exhibit: "HZ2",
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1820,10 +1914,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-26",
     image: "images/art/2022/2022-05-26_2.webp",
+    medium: "Ink",
     exhibit: "HZ2",
     exhibitOrder: 2,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Chronic Pain",
     sideNote: `
@@ -1839,11 +1934,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-26",
     image: "images/art/2022/2022-05-26_1.webp",
+    medium: "Ink",
     exhibit: "HZ2",
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1859,10 +1955,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_5.webp",
+    medium: "Ink",
     exhibit: "HZ1",
     exhibitOrder: 4,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1878,11 +1975,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_4.webp",
+    medium: "Ink",
     exhibit: "HZ1",
     exhibitOrder: 3,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1898,10 +1996,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_3.webp",
+    medium: "Ink",
     exhibit: "HZ1",
     exhibitOrder: 2,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Private Cove",
     sideNote: `
@@ -1917,11 +2016,12 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_2.webp",
+    medium: "Ink",
     exhibit: "HZ1",
     exhibitOrder: 1,
     showOnArt: false,
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1937,14 +2037,33 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-23",
     image: "images/art/2022/2022-05-23_1.webp",
+    medium: "Ink",
 
-    tags: ["zazen", "ink", "LSD", "psychedelics"],
+    tags: ["zazen", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
     <p><strong>Medium:</strong> Ink on Canvas</p>
     <p>I dipped my long hair in purple ink, slapped it on the canvas, and then completed the scene based on the blot left behind.</p>
+  `
+  },
+ {
+    id: "2022-05-15_snowstorm",
+    type: "art",
+    title: "May 15, 2022",
+    year: 2022,
+    date: "2022-05-15",
+    image: "images/art/2022/2022-05-15_snowstorm.webp",
+    medium: "Oil Paint",
+
+    tags: ["landscape", "LSD", "psychedelics"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
+    <p>First LSD trip in 3 years. Local park.</p>
   `
   },
   {
@@ -1954,8 +2073,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-15",
     image: "images/art/2022/2022-05-15.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape", "LSD", "psychedelics"],
+    tags: ["landscape", "LSD", "psychedelics"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1971,8 +2091,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-05-14",
     image: "images/art/2022/2022-05-14.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -1988,8 +2109,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-19",
     image: "images/art/2022/2022-04-19.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2005,8 +2127,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-04",
     image: "images/art/2022/2022-04-04.webp",
+    medium: "Oil Paint",
 
-     tags: ["oil-painting", "bob-ross", "landscape"],
+     tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2022,8 +2145,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-04-03",
     image: "images/art/2022/2022-04-03.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2032,15 +2156,34 @@ const archive = normalizeArchive([
     <p>Bob Ross recreation.</p>
   `
   },
+ {
+    id: "2022-04-01_2",
+    type: "art",
+    title: "April 1, 2022 | Underpainting",
+    year: 2022,
+    date: "2022-04-01",
+    image: "images/art/2022/2022-04-01_2.webp",
+    medium: "Oil Paint",
+
+    tags: ["bob-ross", "landscape"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2022</p>
+    <p><strong>Medium:</strong> Oil on Canvas<</p>
+    <p>Bob Ross recreation.</p>
+  `
+  },
   {
-    id: "2022-04-01",
+    id: "2022-04-01_1",
     type: "art",
     title: "April 1, 2022",
     year: 2022,
     date: "2022-04-01",
-    image: "images/art/2022/2022-04-01.webp",
+    image: "images/art/2022/2022-04-01_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2056,8 +2199,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-29",
     image: "images/art/2022/2022-03-29.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2073,8 +2217,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-25",
     image: "images/art/2022/2022-03-25.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "The Forest of Lee",
     sideNote: `
@@ -2090,8 +2235,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-23",
     image: "images/art/2022/2022-03-23.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2107,8 +2253,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-15",
     image: "images/art/2022/2022-03-15.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting"],
+    tags: [""],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2124,10 +2271,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_3.webp",
+    medium: "Oil Paint",
     exhibit: "mayuan",
     exhibitOrder: 3,
 
-    tags: ["oil-painting"],
+    tags: ["zazen", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2143,10 +2291,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_2.webp",
+    medium: "Oil Paint",
     exhibit: "mayuan",
     exhibitOrder: 2,
 
-    tags: ["oil-painting"],
+    tags: ["zazen", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2162,10 +2311,11 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-08",
     image: "images/art/2022/2022-03-08_1.webp",
+    medium: "Oil Paint",
     exhibit: "mayuan",
     exhibitOrder: 1,
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["zazen", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2181,8 +2331,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-03",
     image: "images/art/2022/2022-03-03_2.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2198,8 +2349,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-03-03",
     image: "images/art/2022/2022-03-03_1.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2215,8 +2367,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-02-18",
     image: "images/art/2022/2022-02-18.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "landscape"],
+    tags: ["landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2232,8 +2385,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-02-14",
     image: "images/art/2022/2022-02-14.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2249,8 +2403,9 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-01-30",
     image: "images/art/2022/2022-01-30.webp",
+    medium: "Oil Paint",
 
-    tags: ["oil-painting", "bob-ross", "landscape"],
+    tags: ["bob-ross", "landscape"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -2266,6 +2421,7 @@ const archive = normalizeArchive([
     year: 2020,
     date: "2020-11-18",
     image: "images/art/2020/2020-11-18.webp",
+    medium: "Pen",
 
     tags: ["zazen"],
 
@@ -2283,8 +2439,9 @@ const archive = normalizeArchive([
     year: 1997,
     date: "1997-03-30",
     image: "images/art/1997/1997-03-30.webp",
+    medium: "Paper",
 
-    tags: [""],
+    tags: ["childhood"],
 
     sideNoteTitle: "Details",
     sideNote: `
@@ -3400,6 +3557,15 @@ All in the service of — Clarity.`,
     year: 2022,
     date: "2022-06-07",
     image: "images/photography/2022/2022-06-07.webp",
+    description: ""
+  },
+ {
+    id: "2022-06-02",
+    type: "photo",
+    title: "June 2, 2022",
+    year: 2022,
+    date: "2022-06-02",
+    image: "images/photography/2022/2022-06-02.webp",
     description: ""
   },
  {
