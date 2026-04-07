@@ -3443,6 +3443,19 @@ All in the service of — Clarity.`,
    <p></p>
   `
   },
+ {
+    id: "2024-08-10",
+    type: "photo",
+    title: "August 10, 2024",
+    year: 2024,
+    date: "2024-08-10",
+    image: "images/photography/2024/2024-08-10.webp",
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p></p>
+  `
+  },
   {
     id: "2024-07-14",
     type: "photo",
