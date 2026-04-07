@@ -1150,41 +1150,6 @@ function buildPhotoArchive() {
   renderPhotos();
 }
 
-  buildYearNav(grouped.map((group) => group.year));
-
-  grouped.forEach((group) => {
-    const yearBlock = document.createElement("section");
-    yearBlock.className = "gallery-year";
-    yearBlock.id = `year-${group.year}`;
-
-    const yearTitle = document.createElement("h2");
-    yearTitle.textContent = group.year;
-
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
-
-    group.items.forEach((item) => {
-      const link = document.createElement("a");
-      link.href = `photography.html?id=${item.id}&from=photo`;
-      link.className = "gallery-item";
-
-      const img = document.createElement("img");
-      applyGalleryImage(
-        img,
-        item,
-        "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
-      );
-
-      link.appendChild(img);
-      grid.appendChild(link);
-    });
-
-    yearBlock.appendChild(yearTitle);
-    yearBlock.appendChild(grid);
-    container.appendChild(yearBlock);
-  });
-}
-
 function buildPhotographyPage() {
   const layout = document.getElementById("photo-layout");
   if (!layout || typeof archive === "undefined") return;
