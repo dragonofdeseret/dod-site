@@ -265,6 +265,7 @@ a {
 
 .content p,
 .page-intro,
+.buy-link,
 .writing-intro,
 .exhibit-statement,
 #writing-description,
@@ -1860,7 +1861,6 @@ blockquote.margin-text {
   padding: 40px 60px;
 }
 
-/* remove the fake bottom line entirely */
 .content::after {
   content: none !important;
   display: none !important;
