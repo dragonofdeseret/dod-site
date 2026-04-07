@@ -135,12 +135,16 @@ function applyGalleryImage(
   item,
   sizes = "(max-width: 900px) calc(100vw - 44px), 260px"
 ) {
-  img.src = getThumbSrc(item);
-
   const srcset = getThumbSrcset(item);
-  if (srcset) img.srcset = srcset;
 
-  img.sizes = sizes;
+  if (srcset) {
+    img.srcset = srcset;
+    img.sizes = sizes;
+    img.src = getThumbSrc(item); // set last
+  } else {
+    img.src = getThumbSrc(item);
+  }
+
   img.loading = "lazy";
   img.decoding = "async";
   img.alt = item.title || "";
@@ -151,12 +155,16 @@ function applyViewerImage(
   item,
   sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px"
 ) {
-  img.src = getFullSrc(item);
-
   const srcset = getFullSrcset(item);
-  if (srcset) img.srcset = srcset;
 
-  img.sizes = sizes;
+  if (srcset) {
+    img.srcset = srcset;
+    img.sizes = sizes;
+    img.src = getFullSrc(item); // set last
+  } else {
+    img.src = getFullSrc(item);
+  }
+
   img.decoding = "async";
   img.alt = item.title || "";
 }
@@ -1235,8 +1243,8 @@ function buildPhotographyPage() {
     (entry) => `photography.html?id=${entry.id}&from=${from}`
   );
 
-  preloadImage(prev && prev.image);
-  preloadImage(next && next.image);
+  preloadImage(prev && prev.thumb);
+  preloadImage(next && next.thumb);
 
   bindArrowNavigation(
     prev ? `photography.html?id=${prev.id}&from=${from}` : "",
