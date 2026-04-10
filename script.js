@@ -491,26 +491,27 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
-  const allowedTypes = new Set([
-    "art",
-    "photo",
-    "writing",
-    "margin",
-    "margins",
-  ]);
+const allowedTypes = new Set([
+  "art",
+  "photo",
+  "writing",
+  "margin",
+  "margins"
+]);
 
- archive.filter((item) => {
-  if (!item || !allowedTypes.has(item.type)) return false;
-  if (item.showOnArchive === false) return false;
+const archiveItems = sortByDateDescWithIdTiebreak(
+  archive.filter((item) => {
+    if (!item || !allowedTypes.has(item.type)) return false;
+    if (item.showOnArchive === false) return false;
 
-  if (!item.date || !String(item.date).trim()) return false;
+    if (!item.date || !String(item.date).trim()) return false;
 
-  const parsed = new Date(item.date);
-  if (Number.isNaN(parsed.getTime())) return false;
+    const parsed = new Date(item.date);
+    if (Number.isNaN(parsed.getTime())) return false;
 
-  return true;
-})
-  );
+    return true;
+  })
+);
 
   const groupedMap = {};
 
