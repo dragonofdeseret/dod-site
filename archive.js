@@ -1857,7 +1857,7 @@ const archive = normalizeArchive([
     medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 3,
-    showOnArt: fasle,
+    showOnArt: false,
 
     tags: ["zazen", "lsd", "psychedelics"],
 
