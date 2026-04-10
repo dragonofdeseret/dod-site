@@ -1436,7 +1436,7 @@ const archive = normalizeArchive([
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
-    <p><strong>Medium:</strong> Oil on Canvas/p>
+    <p><strong>Medium:</strong> Oil on Canvas</p>
     <p>Crossing DMT thresholds</p>
   `
   },
@@ -1455,7 +1455,7 @@ const archive = normalizeArchive([
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
     <p><strong>Medium:</strong> Oil on Canvas</p>
-    <p>Inspired by filbert brush zen painting completed on June 25, 2022/</p>
+    <p>Inspired by filbert brush zen painting completed on June 25, 2022</p>
   `
   },
   {
@@ -1826,24 +1826,25 @@ const archive = normalizeArchive([
     <p>Bob Ross scene redone in my blues after I had a ton left over on the pallete.</p>
   `
   },
-  {
+ {
     id: "2022-06-05_2",
     type: "art",
     title: "June 5, 2022",
     year: 2022,
     date: "2022-06-05",
     image: "images/art/2022/2022-06-05_2.webp",
-    medium: "Ink",
+    sideNoteTitle: "Sophia's Seblueision | Man Meditating in Cabin",
+    medium: "Oil Paint",
     exhibit: "HZ3",
     exhibitOrder: 4,
+    showOnArt: true,
 
-    tags: ["zazen", "lsd", "psychedelics"],
+   tags: ["zazen", "lsd", "psychedelics"],
 
-    sideNoteTitle: "Man Fishing at Ice Melt",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
     <p><strong>Medium:</strong> Oil on Canvas</p>
-    <p></p>
+    <p>I dipped a hand broom in blue oil paint, spread it around the canvas, and then completed the scene from the blot.</p>
   `
   },
   {
@@ -1856,7 +1857,7 @@ const archive = normalizeArchive([
     medium: "Ink",
     exhibit: "HZ3",
     exhibitOrder: 3,
-    showOnArt: false,
+    showOnArt: fasle,
 
     tags: ["zazen", "lsd", "psychedelics"],
 
