@@ -17,14 +17,31 @@ function mediaFromPath(path, kind = "art") {
   return {
     image: `${dir}/${stem}-2000.webp`,
     thumb: `${dir}/${stem}-800.webp`,
-    imageSrcset: `${dir}/${stem}-1200.webp 1200w, ${dir}/${stem}-2000.webp 2000w`,
-    thumbSrcset: `${dir}/${stem}-480.webp 480w, ${dir}/${stem}-800.webp 800w, ${dir}/${stem}-1200.webp 1200w`,
+    archiveThumb: `${dir}/${stem}-120.webp`,
+    archiveThumb2x: `${dir}/${stem}-240.webp`,
+
+    imageSrcset: [
+      `${dir}/${stem}-1200.webp 1200w`,
+      `${dir}/${stem}-2000.webp 2000w`
+    ].join(", "),
+
+    thumbSrcset: [
+      `${dir}/${stem}-480.webp 480w`,
+      `${dir}/${stem}-800.webp 800w`,
+      `${dir}/${stem}-1200.webp 1200w`
+    ].join(", "),
+
+    archiveThumbSrcset: [
+      `${dir}/${stem}-120.webp 1x`,
+      `${dir}/${stem}-240.webp 2x`
+    ].join(", "),
+
     mediaKind: kind
   };
 }
 
 function normalizeArchive(items) {
-  return items.map(item => {
+  return items.map((item) => {
     if (!item.image) return item;
 
     const kind = item.type === "photo" ? "photo" : "art";

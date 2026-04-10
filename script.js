@@ -142,7 +142,7 @@ function applyGalleryImage(
   if (srcset) {
     img.srcset = srcset;
     img.sizes = sizes;
-    img.src = getThumbSrc(item); // set last
+    img.src = getThumbSrc(item);
   } else {
     img.src = getThumbSrc(item);
   }
@@ -162,11 +162,47 @@ function applyViewerImage(
   if (srcset) {
     img.srcset = srcset;
     img.sizes = sizes;
+    img.src = getFullSrc(item);
+  } else {
+    img.src = getFullSrc(item);
+  }
+
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
+function applyViewerImage(
+  img,
+  item,
+  sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px"
+) {
+  const srcset = getFullSrcset(item);
+
+  if (srcset) {
+    img.srcset = srcset;
+    img.sizes = sizes;
     img.src = getFullSrc(item); // set last
   } else {
     img.src = getFullSrc(item);
   }
 
+  img.decoding = "async";
+  img.alt = item.title || "";
+}
+
+function applyArchiveThumb(img, item) {
+  const src = item.archiveThumb || item.thumb || item.image || "";
+  const srcset = item.archiveThumbSrcset || "";
+
+  if (srcset) {
+    img.srcset = srcset;
+    img.sizes = "60px";
+    img.src = src;
+  } else {
+    img.src = src;
+  }
+
+  img.loading = "lazy";
   img.decoding = "async";
   img.alt = item.title || "";
 }
@@ -579,7 +615,7 @@ const archiveItems = sortByDateDescWithIdTiebreak(
 
         const thumb = document.createElement("img");
         thumb.className = "archive-thumb";
-        applyGalleryImage(thumb, item, "60px");
+        applyArchiveThumb(thumb, item);
         thumb.alt = item.title || "";
 
         thumbLink.appendChild(thumb);
