@@ -2456,6 +2456,17 @@ const archive = normalizeArchive([
   ===================== */
 
   {
+    id: "HotEG",
+    type: "writing",
+    title: "The Heart of the Eternal God | An Interpretation of Lehi's Dream",
+    year: 2025,
+    date: "2025-11-16",
+    isBook: true,
+    file: "pdf/HotEG.pdf",
+    sections: ["writing"],
+    tags: ["mormon-theology", "metaphysics", "book-of-mormon", "headless-way", "harmonic-theism"]
+  },  
+{
     id: "NaturalisticBoM",
     type: "writing",
     title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
