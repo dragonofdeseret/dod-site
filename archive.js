@@ -27,11 +27,10 @@ function mediaFromPath(path, kind = "art") {
       `${dir}/${stem}-2000.webp 2000w`
     ].join(", "),
 
-    thumbSrcset: [
-      `${dir}/${stem}-480.webp 480w`,
-      `${dir}/${stem}-800.webp 800w`,
-      `${dir}/${stem}-1200.webp 1200w`
-    ].join(", "),
+  thumbSrcset: [
+  `${dir}/${stem}-480.webp 480w`,
+  `${dir}/${stem}-800.webp 800w`
+].join(", "),
 
     archiveThumbSrcset: [
       `${dir}/${stem}-120.webp 1x`,
