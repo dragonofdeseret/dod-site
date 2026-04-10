@@ -169,20 +169,6 @@ function applyViewerImage(
   img.alt = item.title || "";
 }
 
-  const srcset = getFullSrcset(item);
-
-  if (srcset) {
-    img.srcset = srcset;
-    img.sizes = sizes;
-    img.src = getFullSrc(item); // set last
-  } else {
-    img.src = getFullSrc(item);
-  }
-
-  img.decoding = "async";
-  img.alt = item.title || "";
-}
-
 function applyArchiveThumb(img, item) {
   const src = item.archiveThumb || item.thumb || item.image || "";
   const srcset = item.archiveThumbSrcset || "";
@@ -198,12 +184,6 @@ function applyArchiveThumb(img, item) {
   img.loading = "lazy";
   img.decoding = "async";
   img.alt = item.title || "";
-}
-
-function preloadImage(src) {
-  if (!src) return;
-  const img = new Image();
-  img.src = src;
 }
 
 function getItemUrl(item, from = "archive") {
