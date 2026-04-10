@@ -2550,6 +2550,18 @@ const archive = normalizeArchive([
     tags: ["consciousness", "science", "zazen"]
   },
   {
+    id: "CottonCandy",
+    type: "writing",
+    title: "The Phenomenal Character of an Electric Cotton Candy Dreamland",
+    year: 2023,
+    date: "2023-12-06",
+    isBook: false,
+    file: "pdf/CottonCandy.pdf",
+    sections: ["writing"],
+    substance: ["LSD"],
+    tags: ["consciousness-research", "lsd", "psychedelics", "consciousness", "metaphysics", "headless-way", "dmt"]
+  },
+  {
     id: "BSnSG",
     type: "writing",
     title: "Broken Shelves and Snow Globes",
@@ -2558,6 +2570,16 @@ const archive = normalizeArchive([
     file: "pdf/BSnSG.pdf",
     sections: ["writing"],
     tags: ["deconstruction", "ex-mormonism", "phenomenology"]
+  },
+  {
+    id: "TSoRW",
+    type: "writing",
+    title: "The Sound of Rushing Water",
+    date: "2023-09-24",
+    year: 2023,
+    file: "pdf/TSoRW.pdf",
+    sections: ["writing"],
+    tags: ["philosophy-of-mind", "consciousness", "consciousness-research", "dmt", "phenomenology", "medical", "science", "theory"]
   },
   {
     id: "Toyn",
@@ -2570,12 +2592,12 @@ const archive = normalizeArchive([
     tags: ["dreams", "phenomenology", "consciousness"]
   },
   {
-    id: "RDMain",
+    id: "RD9607",
     type: "writing",
     title: "Recurring Dreams, 1996–2007",
     date: "2023-09-24",
     year: 2023,
-    file: "pdf/RDMain.pdf",
+    file: "pdf/RD9607.pdf",
     sections: ["trips"],
     tags: ["dreams", "visionary", "phenomenology", "consciousness"]
   },
@@ -2609,6 +2631,16 @@ const archive = normalizeArchive([
     sections: ["trips"],
     substance: ["Psilocybin"],
     tags: ["psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
+  },
+{
+    id: "HagiosDrako",
+    type: "writing",
+    title: "Hagios Drakosophia",
+    date: "2022-11-22",
+    year: 2022,
+    file: "pdf/HagiosDrako.pdf",
+    sections: ["writing"],
+    tags: ["dmt", "consciousness"]
   },
 {
     id: "TCJ",
