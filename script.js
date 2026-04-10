@@ -24,8 +24,6 @@ if (typeof publicQuestions === "undefined") {
 
 function toDate(value) {
   const date = new Date(value);
- function toDate(value) {
-  const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
