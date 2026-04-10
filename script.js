@@ -743,31 +743,19 @@ function buildGallery() {
 
   let engine;
 
-  function buildYearSection(year, itemsForYear, isOpenInitially = false) {
-    const yearSection = document.createElement("section");
-    yearSection.className = "gallery-year";
-    yearSection.id = `year-${year}`;
-    yearSection.dataset.year = String(year);
-    yearSection.dataset.built = "false";
-    yearSection.dataset.open = isOpenInitially ? "true" : "false";
+  function renderGalleryItems() {
+    gallery.innerHTML = "";
 
-    const headingButton = document.createElement("button");
-    headingButton.type = "button";
-    headingButton.className = "gallery-year-toggle";
-    headingButton.setAttribute("aria-expanded", isOpenInitially ? "true" : "false");
-    headingButton.innerHTML = `
-      <span>${year}</span>
-      <span class="gallery-year-indicator">${isOpenInitially ? "−" : "+"}</span>
-    `;
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
+      if (!itemsForYear.length) return;
 
-    const body = document.createElement("div");
-    body.className = "gallery-year-body";
-    if (!isOpenInitially) {
-      body.hidden = true;
-    }
+      const yearSection = document.createElement("section");
+      yearSection.className = "gallery-year";
+      yearSection.id = `year-${year}`;
 
-    function buildGridOnce() {
-      if (yearSection.dataset.built === "true") return;
+      const heading = document.createElement("h2");
+      heading.textContent = year;
 
       const grid = document.createElement("div");
       grid.className = "gallery-grid";
@@ -789,48 +777,9 @@ function buildGallery() {
         grid.appendChild(link);
       });
 
-      body.appendChild(grid);
-      yearSection.dataset.built = "true";
-    }
-
-    if (isOpenInitially) {
-      buildGridOnce();
-    }
-
-    headingButton.addEventListener("click", () => {
-      const isOpen = yearSection.dataset.open === "true";
-      const nextOpen = !isOpen;
-
-      yearSection.dataset.open = nextOpen ? "true" : "false";
-      headingButton.setAttribute("aria-expanded", nextOpen ? "true" : "false");
-
-      const indicator = headingButton.querySelector(".gallery-year-indicator");
-      if (indicator) indicator.textContent = nextOpen ? "−" : "+";
-
-      if (nextOpen) {
-        buildGridOnce();
-        body.hidden = false;
-      } else {
-        body.hidden = true;
-      }
-    });
-
-    yearSection.appendChild(headingButton);
-    yearSection.appendChild(body);
-
-    return yearSection;
-  }
-
-  function renderGalleryItems() {
-    gallery.innerHTML = "";
-
-    const yearsWithItems = engine.years.filter((year) => engine.getItemsForYear(year).length > 0);
-    const newestYear = yearsWithItems[0] || null;
-
-    yearsWithItems.forEach((year) => {
-      const itemsForYear = engine.getItemsForYear(year);
-      const section = buildYearSection(year, itemsForYear, year === newestYear);
-      gallery.appendChild(section);
+      yearSection.appendChild(heading);
+      yearSection.appendChild(grid);
+      gallery.appendChild(yearSection);
     });
 
     engine.renderYearNav(yearNav);
