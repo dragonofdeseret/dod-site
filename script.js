@@ -24,16 +24,18 @@ if (typeof publicQuestions === "undefined") {
 
 function toDate(value) {
   const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? new Date(0) : date;
+ function toDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 function sortByDateDesc(items) {
-  return [...items].sort((a, b) => toDate(b.date) - toDate(a.date));
+  return [...items].sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 }
 
 function sortByDateDescWithIdTiebreak(items) {
   return [...items].sort((a, b) => {
-    const dateDiff = toDate(b.date) - toDate(a.date);
+    const dateDiff = (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0);
     if (dateDiff !== 0) return dateDiff;
 
     const getIndex = (value) => {
@@ -495,16 +497,19 @@ function buildArchive() {
     "writing",
     "margin",
     "margins",
-    "quote",
-    "quotes"
   ]);
 
-  const archiveItems = sortByDateDescWithIdTiebreak(
-    archive.filter((item) => {
-      if (!item || !allowedTypes.has(item.type)) return false;
-      if (item.showOnArchive === false) return false;
-      return true;
-    })
+ archive.filter((item) => {
+  if (!item || !allowedTypes.has(item.type)) return false;
+  if (item.showOnArchive === false) return false;
+
+  if (!item.date || !String(item.date).trim()) return false;
+
+  const parsed = new Date(item.date);
+  if (Number.isNaN(parsed.getTime())) return false;
+
+  return true;
+})
   );
 
   const groupedMap = {};
@@ -625,7 +630,7 @@ function buildWritingIndex() {
         item.sections.includes("writing")
       );
     })
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
   let engine;
 
@@ -724,7 +729,7 @@ function buildGallery() {
 
   const artItems = archive
     .filter((item) => item.type === "art" && item.showOnArt !== false)
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
   let engine;
 
@@ -979,7 +984,7 @@ function buildExhibitsArchive() {
     list.className = "archive-list";
 
     grouped[year]
-      .sort((a, b) => toDate(b.date) - toDate(a.date))
+      .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0))
       .forEach((exhibit) => {
         const row = document.createElement("a");
         row.className = "archive-row";
@@ -1088,7 +1093,7 @@ function buildPhotoArchive() {
 
   const photoItems = archive
     .filter((item) => item.type === "photo" && item.showOnPhoto !== false)
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
   let engine;
 
@@ -1350,7 +1355,7 @@ function buildTripReportsPage() {
         (Array.isArray(item.sections) && item.sections.includes("trips"))
       );
     })
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
   let engine;
 
@@ -1506,7 +1511,7 @@ function buildMarginsPage(items = archive) {
 
   const margins = items
     .filter((item) => item.type === "margins" || item.type === "margin")
-    .sort((a, b) => toDate(b.date) - toDate(a.date));
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
   let engine;
 
@@ -1583,7 +1588,7 @@ function buildQuotesPage(items = archive) {
 
   items
     .filter((item) => item.type === "quotes" || item.type === "quote")
-    .sort((a, b) => toDate(b.date) - toDate(a.date))
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0))
     .forEach((item) => {
       const entry = document.createElement("article");
       entry.className = "quote-entry";
@@ -1665,7 +1670,7 @@ function buildQuestionsPage() {
   if (!container) return;
 
   const merged = [...publicQuestions, ...questions].sort(
-    (a, b) => toDate(b.date) - toDate(a.date)
+    (a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0)
   );
 
   const seen = new Set();
