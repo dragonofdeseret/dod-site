@@ -1833,7 +1833,6 @@ const archive = normalizeArchive([
     year: 2022,
     date: "2022-06-05",
     image: "images/art/2022/2022-06-05_2.webp",
-    sideNoteTitle: "Sophia's Seblueision | Man Meditating in Cabin",
     medium: "Oil Paint",
     exhibit: "HZ3",
     exhibitOrder: 4,
@@ -1841,6 +1840,7 @@ const archive = normalizeArchive([
 
    tags: ["zazen", "lsd", "psychedelics"],
 
+    sideNoteTitle: "Man Fishing at Ice Melt",
     sideNote: `
     <p><strong>Year:</strong> 2022</p>
     <p><strong>Medium:</strong> Oil on Canvas</p>
