@@ -15,13 +15,15 @@ function mediaFromPath(path, kind = "art") {
   const stem = dot === -1 ? file : file.slice(0, dot);
 
   return {
-    image: `${dir}/${stem}-2000.webp`,
+    image: `${dir}/${stem}-1600.webp`,
     thumb: `${dir}/${stem}-800.webp`,
     archiveThumb: `${dir}/${stem}-120.webp`,
     archiveThumb2x: `${dir}/${stem}-240.webp`,
 
     imageSrcset: [
+      `${dir}/${stem}-900.webp 900w`,
       `${dir}/${stem}-1200.webp 1200w`,
+      `${dir}/${stem}-1600.webp 1600w`,
       `${dir}/${stem}-2000.webp 2000w`
     ].join(", "),
 

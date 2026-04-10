@@ -153,7 +153,7 @@ function applyGalleryImage(
 function applyViewerImage(
   img,
   item,
-  sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px"
+  sizes = "(max-width: 700px) calc(100vw - 44px), (max-width: 1200px) calc(100vw - 120px), 900px"
 ) {
   const srcset = getFullSrcset(item);
 
@@ -169,11 +169,6 @@ function applyViewerImage(
   img.alt = item.title || "";
 }
 
-function applyViewerImage(
-  img,
-  item,
-  sizes = "(max-width: 1200px) calc(100vw - 44px), 1100px"
-) {
   const srcset = getFullSrcset(item);
 
   if (srcset) {
