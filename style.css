@@ -1639,13 +1639,17 @@ h2 {
   max-width: var(--content-max);
 }
 
-.margins-list {
+.margins-list,
+.quotes-list {
   display: flex;
   flex-direction: column;
   gap: 22px;
 }
 
-.margin-entry {
+/* MARGINS */
+
+.margins-list .margin-entry,
+.margins-list .quote-entry {
   position: relative;
   padding: 1.2rem 1.35rem 1.1rem 1.15rem;
   margin: 0;
@@ -1657,7 +1661,8 @@ h2 {
   overflow: hidden;
 }
 
-.margin-entry::before {
+.margins-list .margin-entry::before,
+.margins-list .quote-entry::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1666,48 +1671,35 @@ h2 {
   opacity: 0.9;
 }
 
-.quote-entry {
-  position: relative;
-  padding: 0 0 28px 0;
-  margin: 0 0 28px 0;
-  border-bottom: 1px solid var(--line-soft);
-}
-
-.quote-entry::before {
-  content: "";
-  position: absolute;
-  left: -44px;
-  top: 0.7em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.quote-meta,
-.margin-meta {
-  display: block;
+.margins-list .margin-meta,
+.margins-list .quote-meta,
+.margins-list .margin-text,
+.margins-list .quote-text,
+.margins-list .margin-detail,
+.margins-list .quote-detail {
   position: relative;
   z-index: 1;
+}
+
+.margins-list .margin-meta,
+.margins-list .quote-meta {
+  display: block;
   margin-bottom: 10px;
   font-size: 0.88rem;
   letter-spacing: 0.03em;
   opacity: 0.58;
 }
 
-.quote-text,
-.margin-text {
-  position: relative;
-  z-index: 1;
+.margins-list .margin-text,
+.margins-list .quote-text {
   max-width: 840px;
   font-size: 1.08rem;
   line-height: 1.75;
+  margin: 0;
 }
 
-.quote-detail,
-.margin-detail {
-  position: relative;
-  z-index: 1;
+.margins-list .margin-detail,
+.margins-list .quote-detail {
   max-width: 760px;
   margin-top: 12px;
   font-size: 0.96rem;
@@ -1715,30 +1707,40 @@ h2 {
   opacity: 0.78;
 }
 
-blockquote.quote-text,
-blockquote.margin-text {
+.margins-list blockquote.margin-text,
+.margins-list blockquote.quote-text {
   margin: 0;
   padding-left: 18px;
   border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.quotes-list {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
+/* QUOTES */
 
 .quotes-list .quote-entry {
   position: relative;
   padding: 1rem 1.35rem 0.85rem 1.15rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.018));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.032), rgba(255,255,255,0.018));
+  border: 1px solid rgba(255,255,255,0.08);
   border-left: 1px solid rgba(124, 145, 255, 0.26);
   box-shadow: var(--shadow-1);
 }
 
-.margins-list .quote-entry {
-  padding: 1.1rem 0 1rem 0;
+.quotes-list .quote-entry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(124,145,255,0.10), transparent 28%);
+  opacity: 0.9;
+}
+
+.quotes-list .quote-text,
+.quotes-list .quote-meta,
+.quotes-list .quote-detail,
+.quotes-list .quote-attribution {
+  position: relative;
+  z-index: 1;
 }
 
 .quotes-list .quote-text {
@@ -1746,25 +1748,24 @@ blockquote.margin-text {
   font-size: 1.12rem;
   line-height: 1.58;
   letter-spacing: 0.005em;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255,255,255,0.92);
 }
 
 .quotes-list .quote-attribution {
   margin-top: 0;
   padding-top: 0.45rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.76);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.76);
   line-height: 1.38;
 }
 
 .quotes-list .quote-detail {
   margin-top: 0.4rem;
   padding-left: 0.7rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.58);
+  border-left: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.58);
   line-height: 1.42;
 }
-
 /* ==============================
    PDF / ESSAYS
 ================================= */
