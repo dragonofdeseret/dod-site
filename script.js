@@ -1090,7 +1090,7 @@ function buildExhibitPage() {
   );
 }
 
-/* =========================
+/* ======================
    PHOTOGRAPHY
 ========================= */
 
@@ -1098,90 +1098,83 @@ function buildPhotoArchive() {
   const container = document.getElementById("photo-archive");
   if (!container || typeof archive === "undefined") return;
 
-  const photos = sortByDateDesc(
-    archive.filter((item) => item.type === "photo" && item.id)
-  );
+  const yearNav = document.querySelector(".year-nav");
+  const tagFilter = document.querySelector(".tag-filter-photo-tags");
 
-  const years = [...new Set(photos.map((item) => toDate(item.date)?.getFullYear()).filter(Boolean))].sort((a, b) => b - a);
+  const photoItems = archive
+    .filter((item) => item.type === "photo" && item.showOnPhoto !== false)
+    .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0));
 
-  buildYearNavigation(years, {
-    containerSelector: "#photo-archive .gallery-year",
-    offset: 24
-  });
+  let engine;
 
-  const tagContainer = document.querySelector(".tag-filter-photo-tags");
-  const activeTags = new Set();
-
-  if (tagContainer) {
-    const tags = [...new Set(
-      photos.flatMap((item) => Array.isArray(item.tags) ? item.tags : [])
-    )].sort((a, b) => a.localeCompare(b));
-
-    createFilterButtons(
-      tagContainer,
-      tags,
-      activeTags,
-      renderPhotoArchive
-    );
-  }
-
-  function renderPhotoArchive() {
+  function renderPhotos() {
     container.innerHTML = "";
 
-    const filtered = photos.filter((item) => {
-      if (!activeTags.size) return true;
-      const itemTags = Array.isArray(item.tags) ? item.tags : [];
-      return [...activeTags].every((tag) => itemTags.includes(tag));
+    engine.years.forEach((year) => {
+      const itemsForYear = engine.getItemsForYear(year);
+      if (!itemsForYear.length) return;
+
+      const yearBlock = document.createElement("section");
+      yearBlock.className = "gallery-year";
+      yearBlock.id = `year-${year}`;
+
+      const yearTitle = document.createElement("h2");
+      yearTitle.textContent = year;
+
+      const grid = document.createElement("div");
+      grid.className = "gallery-grid";
+
+      itemsForYear.forEach((item) => {
+        const link = document.createElement("a");
+        link.href = `photography.html?id=${encodeURIComponent(item.id)}&from=photo`;
+        link.className = "gallery-item";
+
+        const img = document.createElement("img");
+        applyGalleryImage(
+          img,
+          item,
+          "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
+        );
+
+        const altParts = [];
+        if (item.title) altParts.push(item.title);
+        if (Array.isArray(item.tags) && item.tags.length) {
+          altParts.push(item.tags.join(", "));
+        }
+        img.alt = altParts.length ? altParts.join(" — ") : "Photograph";
+
+        link.appendChild(img);
+        grid.appendChild(link);
+      });
+
+      yearBlock.appendChild(yearTitle);
+      yearBlock.appendChild(grid);
+      container.appendChild(yearBlock);
     });
 
-    const grouped = groupByYear(filtered);
-
-    Object.keys(grouped)
-      .sort((a, b) => Number(b) - Number(a))
-      .forEach((year) => {
-        const section = document.createElement("section");
-        section.className = "gallery-year";
-        section.id = `year-${year}`;
-
-        const heading = document.createElement("h2");
-        heading.textContent = year;
-        section.appendChild(heading);
-
-        const grid = document.createElement("div");
-        grid.className = "gallery-grid";
-
-        grouped[year].forEach((item) => {
-          const article = document.createElement("article");
-          article.className = "gallery-item";
-
-          const link = document.createElement("a");
-          link.href = `photography.html?id=${encodeURIComponent(item.id)}&from=photo`;
-          link.className = "gallery-link";
-
-          const img = document.createElement("img");
-          img.src = item.thumb || item.image || "";
-          img.alt = item.title || "";
-          img.loading = "lazy";
-          img.decoding = "async";
-
-          link.appendChild(img);
-          article.appendChild(link);
-          grid.appendChild(article);
-        });
-
-        section.appendChild(grid);
-        container.appendChild(section);
-      });
+    engine.renderYearNav(yearNav);
   }
 
-  renderPhotoArchive();
+  engine = createFilterEngine({
+    items: photoItems,
+    groups: [
+      {
+        name: "photoTags",
+        key: "tags",
+        container: tagFilter,
+        allLabel: "All",
+        mode: "or"
+      }
+    ],
+    onUpdate: renderPhotos
+  });
+
+  engine.renderFilters();
+  renderPhotos();
 }
 
 function buildPhotographyPage() {
   const layout = document.getElementById("photo-layout");
-  const titleEl = document.getElementById("photo-title");
-  const navEl = document.getElementById("photo-nav");
-
   if (!layout || typeof archive === "undefined") return;
 
   const params = new URLSearchParams(window.location.search);
@@ -1193,100 +1186,77 @@ function buildPhotographyPage() {
     return;
   }
 
-  const photos = sortByDateDesc(
-    archive.filter((item) => item.type === "photo" && item.id)
+  const items = sortByDateDescWithIdTiebreak(
+    archive.filter((item) => item.type === "photo" && item.showOnPhoto !== false)
   );
 
-  const index = photos.findIndex((item) => String(item.id) === String(id));
+  const index = items.findIndex((item) => String(item.id) === String(id));
 
   if (index === -1) {
     window.location.href = "photo.html";
     return;
   }
 
-  const item = photos[index];
-  const prev = index > 0 ? photos[index - 1] : null;
-  const next = index < photos.length - 1 ? photos[index + 1] : null;
+  const item = items[index];
+  const prev = items[index - 1] || null;
+  const next = items[index + 1] || null;
 
-  if (titleEl) {
-    titleEl.textContent = item.title || "";
+  const titleEl = document.getElementById("photo-title");
+  if (titleEl) titleEl.textContent = item.title || "";
+
+  if (item.sideNote) {
+    layout.innerHTML = `
+      <div class="media-row">
+        <div class="media-image">
+          <img id="photo-image" alt="">
+        </div>
+        <aside class="media-note">
+          <h3>${item.sideNoteTitle || "Details"}</h3>
+          ${item.sideNote}
+        </aside>
+      </div>
+    `;
+  } else {
+    layout.innerHTML = `
+      <div class="photo-viewer">
+        <img id="photo-image" alt="">
+      </div>
+    `;
   }
+
+  const imgEl = document.getElementById("photo-image");
+  if (!imgEl) return;
+
+  applyViewerImage(
+    imgEl,
+    item,
+    "(max-width: 1200px) calc(100vw - 44px), 900px"
+  );
+
+  imgEl.addEventListener("click", () => {
+    openLightbox(item.image || item.thumb, item.title || "");
+  });
 
   let backHref = "photo.html";
   let backText = "Back to Photography";
 
-  if (from === "art") {
-    backHref = "art.html";
-    backText = "Back to Artwork";
-  } else if (from === "archive") {
+  if (from === "archive") {
     backHref = "archive.html";
     backText = "Back to Archive";
+  } else if (from === "art") {
+    backHref = "art.html";
+    backText = "Back to Artwork";
   }
 
-  if (navEl) {
-    setNavigation(
-      navEl,
-      prev,
-      next,
-      backHref,
-      backText,
-      (entry) => `photography.html?id=${encodeURIComponent(entry.id)}&from=${encodeURIComponent(from)}`
-    );
-  }
-
-  layout.innerHTML = "";
-
-  const page = document.createElement("article");
-  page.className = "art-detail-page";
-
-  const imageWrap = document.createElement("div");
-  imageWrap.className = "art-image-wrap";
-
-  const img = document.createElement("img");
-  img.className = "art-detail-image";
-  img.src = item.image || item.thumb || "";
-  img.alt = item.title || "";
-  img.decoding = "async";
-
-  imageWrap.appendChild(img);
-  page.appendChild(imageWrap);
-
-  if (item.caption || item.date || (Array.isArray(item.tags) && item.tags.length)) {
-    const meta = document.createElement("div");
-    meta.className = "art-detail-meta";
-
-    if (item.date) {
-      const dateEl = document.createElement("p");
-      dateEl.className = "art-detail-date";
-      dateEl.textContent = formatDisplayDate(item.date);
-      meta.appendChild(dateEl);
-    }
-
-    if (item.caption) {
-      const captionEl = document.createElement("p");
-      captionEl.className = "art-detail-caption";
-      captionEl.textContent = item.caption;
-      meta.appendChild(captionEl);
-    }
-
-    if (Array.isArray(item.tags) && item.tags.length) {
-      const tagsEl = document.createElement("div");
-      tagsEl.className = "art-detail-tags";
-
-      item.tags.forEach((tag) => {
-        const chip = document.createElement("span");
-        chip.className = "tag-chip";
-        chip.textContent = tag;
-        tagsEl.appendChild(chip);
-      });
-
-      meta.appendChild(tagsEl);
-    }
-
-    page.appendChild(meta);
-  }
-
-  layout.appendChild(page);
+  const navEl = document.getElementById("photo-nav");
+  setNavigation(
+    navEl,
+    prev,
+    next,
+    backHref,
+    backText,
+    (entry) => `photography.html?id=${encodeURIComponent(entry.id)}&from=${encodeURIComponent(from)}`
+  );
 
   bindArrowNavigation(
     prev ? `photography.html?id=${encodeURIComponent(prev.id)}&from=${encodeURIComponent(from)}` : "",
