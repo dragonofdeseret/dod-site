@@ -895,11 +895,17 @@ h2 {
 .gallery img,
 .gallery-item img,
 .exhibit-gallery img,
+  outline: 1px solid rgba(255, 255, 255, 0.04);
+  outline-offset: -6px;
 .archive-thumb,
 .photo-viewer img,
 .art-image img {
-  max-width: 100%;
-  height: auto;
+  background: #12060d; /* slightly warmer, not pure black */
+  padding: 12px;
+  border-radius: 3px;
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(120, 60, 90, 0.18); /* subtle purple edge */
 }
 
 .gallery-item img,
