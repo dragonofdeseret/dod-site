@@ -1753,10 +1753,14 @@ h2 {
   opacity: 0.7;
 }
 
-.archive-status .archive-key {
-  margin-right: 6px;    
-  letter-spacing: 0.08em;
-  opacity: 1;            
+.archive-status .archive-key,
+.archive-status .archive-value {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  letter-spacing: inherit;
+  opacity: inherit;
 }
 
 .archive-entry::before,
