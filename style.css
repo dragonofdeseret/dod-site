@@ -1746,6 +1746,25 @@ h2 {
   }
 }
 
+.archive-status {
+  margin-top: 12px;
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.archive-entry::before,
+.archive-entry::after,
+.archive-entry .archive-row::before,
+.archive-entry .archive-row::after {
+  content: none !important;
+  display: none !important;
+}
+
 /* ==============================
    MARGINS / QUOTES
 ================================= */
