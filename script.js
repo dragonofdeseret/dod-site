@@ -500,6 +500,7 @@ function buildYearHeader(section, heading, storageKey, container, navEl) {
   controls.appendChild(topButton);
   inner.appendChild(label);
   inner.appendChild(controls);
+
   heading.textContent = "";
   heading.appendChild(inner);
 
@@ -514,7 +515,8 @@ function buildYearHeader(section, heading, storageKey, container, navEl) {
     section.appendChild(content);
   }
 
-  toggle.addEventListener("click", () => {
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation();
     const collapsed = section.dataset.collapsed === "true";
     setYearCollapsed(section, !collapsed);
     saveCurrentYearState(container, storageKey);
@@ -523,10 +525,14 @@ function buildYearHeader(section, heading, storageKey, container, navEl) {
 
   heading.addEventListener("click", (event) => {
     if (event.target.closest("button")) return;
-    toggle.click();
+    const collapsed = section.dataset.collapsed === "true";
+    setYearCollapsed(section, !collapsed);
+    saveCurrentYearState(container, storageKey);
+    updateExpandAllButton(container, navEl);
   });
 
-  topButton.addEventListener("click", () => {
+  topButton.addEventListener("click", (event) => {
+    event.stopPropagation();
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
