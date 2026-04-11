@@ -1409,6 +1409,24 @@ h2 {
   display: none;
 }
 
+.writing-page .pdf-viewer,
+.writing-page .writing-viewer,
+.writing-page iframe,
+.writing-page embed,
+.writing-page object {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (min-width: 980px) {
+  .writing-page iframe,
+  .writing-page embed,
+  .writing-page object {
+    height: 82vh !important;
+    min-height: 900px !important;
+  }
+}
+
 /* ==============================
    NOW / BIO / QUOTES
 ================================= */
