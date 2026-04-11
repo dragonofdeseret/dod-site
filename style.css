@@ -1436,6 +1436,15 @@ h2 {
   border: 0;
 }
 
+#pdf-frame {
+  display: block;
+  width: 100%;
+  height: 82vh;
+  min-height: 900px;
+  border: 0;
+  background: rgba(255, 235, 245, 0.02);
+}
+
 @media (min-width: 980px) {
   .pdf-viewer,
   .writing-pdf,

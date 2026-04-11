@@ -1320,7 +1320,10 @@ function buildWritingPage() {
   if (titleEl) titleEl.textContent = item.title || "";
   if (descEl) descEl.textContent = item.description || "";
 
-  if (frame) frame.src = item.file || "";
+  if (frame) {
+    frame.src = item.file ? `${item.file}#zoom=page-width&view=FitH` : "";
+  }
+
   if (downloadLink) downloadLink.href = item.file || "";
   if (mobilePdfLink) mobilePdfLink.href = item.file || "";
 
