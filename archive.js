@@ -2480,7 +2480,6 @@ const archive = normalizeArchive([
     title: "The Heart of the Eternal God | An Interpretation of Lehi's Dream",
     year: 2025,
     date: "2025-11-16",
-    isBook: true,
     file: "pdf/HotEG.pdf",
     sections: ["writing"],
     tags: ["mormon-theology", "metaphysics", "book-of-mormon", "headless-way", "harmonic-theism"]
@@ -2491,7 +2490,6 @@ const archive = normalizeArchive([
     title: "Resonating through the Veil: a Harmonic Response to the Naturalistic Explanation of the Book of Mormon",
     year: 2025,
     date: "2025-11-16",
-    isBook: true,
     file: "pdf/NaturalisticBoM.pdf",
     sections: ["writing"],
     tags: ["mormon-theology", "metaphysics", "book-of-mormon", "headless-way"]
@@ -2502,7 +2500,6 @@ const archive = normalizeArchive([
     title: "A Dragon Guards the Pearl of Enlightenment",
     year: 2025,
     date: "2025-09-22",
-    isBook: true,
     file: "pdf/DragonPearl.pdf",
     sections: ["writing"],
     tags: ["mormon-theology", "metaphysics", "daoism", "cosmology", "panpsychism", "intelligence-theory"]
@@ -2513,7 +2510,6 @@ const archive = normalizeArchive([
     title: "Called to Purge",
     year: 2025,
     date: "2025-03-05",
-    isBook: true,
     file: "pdf/CtP.pdf",
     sections: ["writing"],
     tags: ["mormon-theology", "metaphysics", "dreams", "consciousness", "phenomenology", "visionary"]
@@ -2585,7 +2581,6 @@ const archive = normalizeArchive([
     title: "The Phenomenal Character of an Electric Cotton Candy Dreamland",
     year: 2023,
     date: "2023-12-06",
-    isBook: false,
     file: "pdf/CottonCandy.pdf",
     sections: ["writing"],
     substance: ["LSD"],
@@ -2822,12 +2817,32 @@ const archive = normalizeArchive([
 /* ===================
        MARGINS
 ====================== */
+
+{
+  id: "2025_11_16_2",
+  type: "margins",
+  title: "Revelation and Translation",
+  date: "2025-11-16",
+  text: `
+  The Book of Mormon is the autostereogram of theological texts.`,
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+  marginsTags: ["harmonic-theism", "book-of-mormon", "phenomenology", "mormon-theology"]
+}, 
+{
+  id: "2025_11_16_1",
+  type: "margins",
+  title: "Revelation and Translation",
+  date: "2025-11-16",
+  text: `
+Revelation is not some sterile download from AWS US-EAST-1, it is a resonant interface where the translator’s context—familial dreams, cultural susurrations, personal pains—acts as the prism refracting the revealed eternal etchings. In other words, this is to reframe the naturalistic critiques not as evidence of merely and purely human action, but as diagnostic echoes of a living document, and thus a living story.`,
+  detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
+  marginsTags: ["harmonic-theism", "ontology", "mormon-theology", "metaphysics", "phenomenology"]
+}, 
 {
   id: "2025_09_22_5",
   type: "margins",
   title: "The Divine Ecology",
   date: "2025-09-22",
-  isBook: true,
   text: `
 In Mormon theology, the Eternal God who governs all gods serves as an autochthonous frame of reference, while God the Father, though fully divine, is an ascended being within that divine ecology.`,
   detail: "Excerpt from: Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds.",
