@@ -1639,16 +1639,41 @@ h2 {
   max-width: var(--content-max);
 }
 
-.quote-entry,
+.margins-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
 .margin-entry {
+  position: relative;
+  padding: 1.2rem 1.35rem 1.1rem 1.15rem;
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.028));
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-left: 1px solid rgba(124, 145, 255, 0.26);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+
+.margin-entry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(124, 145, 255, 0.10), transparent 28%);
+  opacity: 0.9;
+}
+
+.quote-entry {
   position: relative;
   padding: 0 0 28px 0;
   margin: 0 0 28px 0;
   border-bottom: 1px solid var(--line-soft);
 }
 
-.quote-entry::before,
-.margin-entry::before {
+.quote-entry::before {
   content: "";
   position: absolute;
   left: -44px;
@@ -1662,6 +1687,8 @@ h2 {
 .quote-meta,
 .margin-meta {
   display: block;
+  position: relative;
+  z-index: 1;
   margin-bottom: 10px;
   font-size: 0.88rem;
   letter-spacing: 0.03em;
@@ -1670,6 +1697,8 @@ h2 {
 
 .quote-text,
 .margin-text {
+  position: relative;
+  z-index: 1;
   max-width: 840px;
   font-size: 1.08rem;
   line-height: 1.75;
@@ -1677,6 +1706,8 @@ h2 {
 
 .quote-detail,
 .margin-detail {
+  position: relative;
+  z-index: 1;
   max-width: 760px;
   margin-top: 12px;
   font-size: 0.96rem;
@@ -1707,9 +1738,6 @@ blockquote.margin-text {
 }
 
 .margins-list .quote-entry {
-  background: transparent;
-  border: none;
-  box-shadow: none;
   padding: 1.1rem 0 1rem 0;
 }
 
