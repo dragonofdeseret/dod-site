@@ -756,8 +756,9 @@ h2 {
 }
 
 .archive-row {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
   justify-content: space-between;
   gap: 16px;
   font-size: 1.05rem;
