@@ -1630,6 +1630,72 @@ h2 {
 }
 
 /* ==============================
+   FIXES: QUESTIONS / BIO / FOOTER
+================================= */
+
+.hidden-honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.bio-page .page-header {
+  max-width: var(--content-max);
+}
+
+.bio-shell.bio-archive-layout {
+  width: 100%;
+  max-width: var(--content-max);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  align-items: start;
+}
+
+.bio-panel {
+  min-width: 0;
+}
+
+.timeline-panel {
+  min-width: 0;
+  position: sticky;
+  top: calc(var(--anchor-offset-desktop) + 18px);
+  align-self: start;
+  padding-left: 24px;
+  border-left: 1px solid rgba(255, 235, 245, 0.12);
+}
+
+.timeline-scroll {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+@media (max-width: 980px) {
+  .bio-shell.bio-archive-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-panel {
+    position: static;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .timeline-scroll {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.site-footer {
+  margin-top: auto;
+}
+
+/* ==============================
    RESPONSIVE
 ================================= */
 
