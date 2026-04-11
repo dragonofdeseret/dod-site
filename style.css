@@ -3,19 +3,19 @@
 ================================= */
 
 :root {
-  --bg-1: #08112d;
-  --bg-2: #040c27;
-  --bg-3: #030921;
-  --ink: #e8e6e3;
-  --ink-soft: rgba(232, 230, 227, 0.78);
-  --ink-faint: rgba(232, 230, 227, 0.58);
-  --line: rgba(255, 255, 255, 0.16);
-  --line-soft: rgba(255, 255, 255, 0.09);
-  --panel: rgba(255, 255, 255, 0.035);
-  --panel-strong: rgba(255, 255, 255, 0.05);
-  --shadow-1: 0 12px 28px rgba(0, 0, 0, 0.45);
-  --shadow-2: 0 24px 60px rgba(0, 0, 0, 0.42);
-  --shadow-3: 0 30px 60px rgba(0, 0, 0, 0.75), 0 8px 20px rgba(0, 0, 0, 0.45);
+  --bg-1: #120b27;
+  --bg-2: #19081f;
+  --bg-3: #240816;
+  --ink: #efe9e6;
+  --ink-soft: rgba(239, 233, 230, 0.8);
+  --ink-faint: rgba(239, 233, 230, 0.6);
+  --line: rgba(255, 235, 245, 0.15);
+  --line-soft: rgba(255, 235, 245, 0.085);
+  --panel: rgba(255, 235, 245, 0.04);
+  --panel-strong: rgba(255, 235, 245, 0.058);
+  --shadow-1: 0 12px 28px rgba(0, 0, 0, 0.48);
+  --shadow-2: 0 24px 60px rgba(0, 0, 0, 0.46);
+  --shadow-3: 0 30px 60px rgba(0, 0, 0, 0.78), 0 8px 20px rgba(0, 0, 0, 0.5);
   --content-max: 1400px;
   --measure: 700px;
   --sidebar-w: 220px;
@@ -23,7 +23,7 @@
   --page-pad-y: 40px;
   --anchor-offset-desktop: 70px;
   --anchor-offset-mobile: 24px;
-  --year-header-bg: rgba(3, 9, 33, 0.72);
+  --year-header-bg: rgba(24, 8, 24, 0.76);
 }
 
 html {
@@ -51,8 +51,8 @@ body {
   background:
     repeating-linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.01) 0,
-      rgba(255, 255, 255, 0.01) 1px,
+      rgba(255, 235, 245, 0.012) 0,
+      rgba(255, 235, 245, 0.012) 1px,
       transparent 1px,
       transparent 96px
     ),
@@ -114,45 +114,45 @@ a {
 }
 
 .bg-motion::before {
-  opacity: 0.62;
+  opacity: 0.58;
   background:
     linear-gradient(
       118deg,
       transparent 0%,
-      rgba(72, 112, 255, 0) 24%,
-      rgba(72, 112, 255, 0.13) 34%,
-      rgba(46, 82, 220, 0.24) 46%,
-      rgba(22, 48, 140, 0.28) 55%,
-      rgba(46, 82, 220, 0.17) 64%,
-      rgba(72, 112, 255, 0.08) 73%,
-      rgba(72, 112, 255, 0) 82%,
+      rgba(124, 72, 170, 0) 24%,
+      rgba(124, 72, 170, 0.1) 34%,
+      rgba(102, 46, 128, 0.18) 46%,
+      rgba(72, 26, 82, 0.24) 55%,
+      rgba(102, 46, 128, 0.15) 64%,
+      rgba(124, 72, 170, 0.07) 73%,
+      rgba(124, 72, 170, 0) 82%,
       transparent 100%
     ),
     linear-gradient(
       236deg,
       transparent 0%,
-      rgba(78, 54, 150, 0) 22%,
-      rgba(78, 54, 150, 0.06) 34%,
-      rgba(48, 76, 198, 0.14) 47%,
-      rgba(24, 42, 120, 0.18) 58%,
-      rgba(48, 76, 198, 0.1) 69%,
-      rgba(78, 54, 150, 0) 84%,
+      rgba(132, 44, 78, 0) 22%,
+      rgba(132, 44, 78, 0.05) 34%,
+      rgba(92, 34, 92, 0.11) 47%,
+      rgba(54, 18, 68, 0.16) 58%,
+      rgba(92, 34, 92, 0.09) 69%,
+      rgba(132, 44, 78, 0) 84%,
       transparent 100%
     );
   background-size: 170% 170%;
   background-position: 0% 50%, 100% 50%;
-  filter: blur(9px);
+  filter: blur(10px);
   animation: bgDriftBand 7s ease-in-out infinite alternate;
 }
 
 .bg-motion::after {
-  opacity: 0.5;
+  opacity: 0.44;
   background:
-    radial-gradient(circle at 20% 28%, rgba(96, 132, 255, 0.22), transparent 30%),
-    radial-gradient(circle at 76% 24%, rgba(46, 88, 220, 0.18), transparent 28%),
-    radial-gradient(circle at 54% 80%, rgba(28, 58, 160, 0.19), transparent 32%),
-    radial-gradient(circle at 42% 46%, rgba(74, 50, 136, 0.10), transparent 24%);
-  filter: blur(18px);
+    radial-gradient(circle at 20% 28%, rgba(138, 88, 176, 0.18), transparent 30%),
+    radial-gradient(circle at 76% 24%, rgba(104, 42, 116, 0.16), transparent 28%),
+    radial-gradient(circle at 54% 80%, rgba(82, 24, 66, 0.16), transparent 32%),
+    radial-gradient(circle at 42% 46%, rgba(168, 58, 88, 0.08), transparent 24%);
+  filter: blur(20px);
   animation: bgDriftBloom 10s ease-in-out infinite alternate;
 }
 
@@ -252,7 +252,7 @@ a {
   content: "";
   display: block;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 235, 245, 0.9);
   margin-top: 14px;
   margin-bottom: 20px;
 }
@@ -319,7 +319,7 @@ h2 {
 
 .sidebar a {
   text-decoration: none;
-  color: white;
+  color: #f4eeeb;
   opacity: 0.72;
   position: relative;
   transition: opacity 0.2s ease;
@@ -408,7 +408,7 @@ h2 {
 }
 
 .content a {
-  color: #e5e5e5;
+  color: #efe7e4;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
@@ -495,8 +495,8 @@ h2 {
 }
 
 .explore-button {
-  background: white;
-  color: black;
+  background: #f2ece8;
+  color: #120a12;
   padding: 12px 20px;
   text-decoration: none;
   border-radius: 3px;
@@ -505,7 +505,7 @@ h2 {
 }
 
 .explore-button:hover {
-  background: #ddd;
+  background: #dfd3d6;
 }
 
 /* ==============================
@@ -535,11 +535,11 @@ h2 {
   width: 1px;
   background: linear-gradient(
     180deg,
-    rgba(140, 150, 255, 0.10) 0%,
-    rgba(255, 255, 255, 0.08) 18%,
-    rgba(110, 120, 240, 0.14) 40%,
-    rgba(255, 255, 255, 0.06) 62%,
-    rgba(90, 100, 220, 0.12) 100%
+    rgba(168, 102, 190, 0.1) 0%,
+    rgba(255, 235, 245, 0.08) 18%,
+    rgba(118, 58, 124, 0.14) 40%,
+    rgba(255, 235, 245, 0.06) 62%,
+    rgba(120, 38, 72, 0.12) 100%
   );
 }
 
@@ -634,8 +634,8 @@ h2 {
 
 .tag-pill {
   appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 235, 245, 0.18);
+  background: rgba(255, 235, 245, 0.035);
   color: var(--ink);
   font: inherit;
   font-size: 0.82rem;
@@ -643,7 +643,7 @@ h2 {
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 999px;
-  opacity: 0.78;
+  opacity: 0.8;
   transition:
     opacity 0.2s ease,
     border-color 0.2s ease,
@@ -653,14 +653,14 @@ h2 {
 
 .tag-pill:hover {
   opacity: 1;
-  border-color: rgba(255, 255, 255, 0.34);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 235, 245, 0.32);
+  background: rgba(255, 235, 245, 0.06);
 }
 
 .tag-pill.active {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 235, 245, 0.11);
+  border-color: rgba(255, 235, 245, 0.38);
 }
 
 .tag-pill.tag-pill-clear {
@@ -685,9 +685,9 @@ h2 {
   border-radius: 999px;
   font-size: 0.72rem;
   line-height: 1;
-  opacity: 0.72;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
+  opacity: 0.74;
+  border: 1px solid rgba(255, 235, 245, 0.14);
+  background: rgba(255, 235, 245, 0.03);
 }
 
 /* ==============================
@@ -716,7 +716,7 @@ h2 {
   margin-top: 42px;
   margin-bottom: 18px;
   padding: 10px 0 14px;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid rgba(255, 235, 245, 0.5);
   font-weight: normal;
   letter-spacing: 1px;
   background: var(--year-header-bg);
@@ -770,7 +770,7 @@ h2 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 235, 245, 0.6);
 }
 
 .archive-row:hover .archive-title,
@@ -824,13 +824,13 @@ h2 {
   object-fit: cover;
   display: block;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 235, 245, 0.02);
 }
 
 .archive-badge {
   width: 60px;
   height: 60px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 235, 245, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,13 +905,13 @@ h2 {
 .gallery-item img,
 .exhibit-gallery img,
 .archive-thumb {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 235, 245, 0.02);
 }
 
 .gallery img {
   width: 100%;
   display: block;
-  background: #111;
+  background: #120e14;
   padding: 12px;
   border-radius: 3px;
   box-shadow: var(--shadow-1);
@@ -930,12 +930,12 @@ h2 {
 #photo-archive .gallery-item img,
 .photo-viewer img,
 .media-row .media-image img {
-  background: #111;
+  background: #120e14;
   padding: 12px;
   border-radius: 4px;
   box-shadow:
     var(--shadow-3),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 0 0 1px rgba(255, 235, 245, 0.05);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -943,7 +943,7 @@ h2 {
   .gallery-grid .gallery-item:hover img {
     box-shadow:
       0 18px 40px rgba(0, 0, 0, 0.62),
-      0 0 20px rgba(255, 255, 255, 0.05);
+      0 0 20px rgba(255, 235, 245, 0.05);
   }
 }
 
@@ -953,8 +953,8 @@ h2 {
 
 .random-button {
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f4efeb;
+  border: 1px solid rgba(255, 235, 245, 0.2);
   padding: 10px 16px;
   margin-top: 0;
   font-size: 0.7rem;
@@ -963,8 +963,8 @@ h2 {
 }
 
 .random-button:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 235, 245, 0.05);
+  border-color: rgba(255, 235, 245, 0.35);
 }
 
 .gallery-controls {
@@ -995,7 +995,7 @@ h2 {
 .media-row .media-image img {
   width: 100%;
   display: block;
-  background: #111;
+  background: #120e14;
   padding: 12px;
   border-radius: 4px;
   box-shadow: var(--shadow-3);
@@ -1006,7 +1006,7 @@ h2 {
   font-size: 15px;
   line-height: 1.6;
   opacity: 0.85;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 235, 245, 0.15);
   padding-left: 20px;
   max-width: 420px;
 }
@@ -1081,12 +1081,12 @@ h2 {
 .art-image img {
   width: 100%;
   display: block;
-  background: #111;
+  background: #120e14;
   padding: 12px;
   border-radius: 4px;
   box-shadow:
     var(--shadow-3),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 0 0 1px rgba(255, 235, 245, 0.05);
   cursor: zoom-in;
 }
 
@@ -1101,7 +1101,7 @@ h2 {
   gap: 20px;
   margin-top: 50px;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 235, 245, 0.08);
   font-size: 14px;
   opacity: 0.85;
 }
@@ -1122,11 +1122,11 @@ h2 {
 
 .art-navigation a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 235, 245, 0.7);
 }
 
 .art-navigation a:hover {
-  color: white;
+  color: #fff7f5;
 }
 
 /* ==============================
@@ -1150,16 +1150,16 @@ h2 {
   position: relative;
   margin-top: 2.75rem;
   padding: 2rem 1.5rem 1.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 235, 245, 0.08);
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0.015) 100%
+      rgba(34, 12, 30, 0.78) 0%,
+      rgba(18, 8, 20, 0.5) 100%
     );
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 24px 60px rgba(0, 0, 0, 0.38);
+    inset 0 1px 0 rgba(255, 235, 245, 0.04),
+    0 24px 60px rgba(0, 0, 0, 0.4);
   overflow: hidden;
 }
 
@@ -1202,11 +1202,11 @@ h2 {
 }
 
 .exhibit-rail::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 235, 245, 0.05);
 }
 
 .exhibit-rail::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 235, 245, 0.16);
   border-radius: 999px;
 }
 
@@ -1215,16 +1215,16 @@ h2 {
   width: 100%;
   min-height: 100%;
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 235, 245, 0.08);
   background:
     linear-gradient(
       180deg,
-      rgba(10, 14, 28, 0.92) 0%,
-      rgba(6, 10, 22, 0.96) 100%
+      rgba(28, 10, 24, 0.94) 0%,
+      rgba(14, 8, 18, 0.97) 100%
     );
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 18px 40px rgba(0, 0, 0, 0.34);
+    inset 0 1px 0 rgba(255, 235, 245, 0.035),
+    0 18px 40px rgba(0, 0, 0, 0.36);
 }
 
 .exhibit-lightbox {
@@ -1253,12 +1253,12 @@ h2 {
   height: auto;
   object-fit: contain;
   margin: 0 auto;
-  background: #0b0d14;
+  background: #0f0a12;
   padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 235, 245, 0.06);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.03);
+    0 0 0 1px rgba(255, 235, 245, 0.025);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   cursor: zoom-in;
 }
@@ -1267,14 +1267,14 @@ h2 {
   transform: translateY(-2px);
   box-shadow:
     0 28px 54px rgba(0, 0, 0, 0.58),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.12);
+    0 0 0 1px rgba(255, 235, 245, 0.06);
+  border-color: rgba(255, 235, 245, 0.12);
 }
 
 .exhibit-caption {
   margin-top: 0.9rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 235, 245, 0.08);
   font-size: 0.9rem;
   line-height: 1.5;
   opacity: 0.78;
@@ -1332,7 +1332,7 @@ h2 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 235, 245, 0.6);
 }
 
 .writing-entry:hover .writing-title a {
@@ -1394,8 +1394,8 @@ h2 {
   position: relative;
   padding: 22px 22px 20px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.028));
-  border: 1px solid rgba(255, 255, 255, 0.11);
+    linear-gradient(180deg, rgba(255, 235, 245, 0.05), rgba(255, 235, 245, 0.028));
+  border: 1px solid rgba(255, 235, 245, 0.11);
   box-shadow: var(--shadow-1);
   min-height: 220px;
 }
@@ -1408,7 +1408,7 @@ h2 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(124, 145, 255, 0.10), transparent 28%);
+  background: linear-gradient(135deg, rgba(156, 110, 190, 0.1), transparent 28%);
   opacity: 0.9;
 }
 
@@ -1451,7 +1451,7 @@ h2 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 235, 245, 0.55);
 }
 
 /* BIO */
@@ -1466,8 +1466,8 @@ h2 {
 .archive-entry,
 .timeline-panel {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 235, 245, 0.12);
+  background: rgba(255, 235, 245, 0.03);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
@@ -1480,7 +1480,7 @@ h2 {
 .archive-entry-head {
   margin-bottom: 22px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 235, 245, 0.1);
 }
 
 .archive-label {
@@ -1521,7 +1521,7 @@ h2 {
   gap: 18px;
   align-items: start;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 235, 245, 0.06);
   position: static;
   width: auto;
   font-size: inherit;
@@ -1574,7 +1574,7 @@ h2 {
 .timeline-panel .bio-kicker {
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 235, 245, 0.1);
   font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -1591,7 +1591,7 @@ h2 {
   position: relative;
   padding: 0 0 18px 18px;
   margin-left: 8px;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 1px solid rgba(255, 235, 245, 0.14);
 }
 
 .timeline-item::before {
@@ -1602,8 +1602,8 @@ h2 {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+  background: rgba(255, 235, 245, 0.72);
+  box-shadow: 0 0 0 4px rgba(255, 235, 245, 0.05);
 }
 
 .timeline-year {
@@ -1624,7 +1624,7 @@ h2 {
 }
 
 .timeline-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 235, 245, 0.16);
   border-radius: 999px;
 }
 
@@ -1655,10 +1655,10 @@ h2 {
   margin: 0;
   margin-top: 2px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.028));
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  border-left: 1px solid rgba(124, 145, 255, 0.26);
-  border-color: rgba(255, 255, 255, 0.08);
+    linear-gradient(180deg, rgba(255, 235, 245, 0.05), rgba(255, 235, 245, 0.028));
+  border: 1px solid rgba(255, 235, 245, 0.11);
+  border-left: 1px solid rgba(156, 110, 190, 0.26);
+  border-color: rgba(255, 235, 245, 0.08);
   box-shadow: var(--shadow-1);
   overflow: hidden;
 }
@@ -1669,7 +1669,7 @@ h2 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(124, 145, 255, 0.10), transparent 28%);
+  background: linear-gradient(135deg, rgba(156, 110, 190, 0.1), transparent 28%);
   opacity: 0.9;
 }
 
@@ -1713,7 +1713,7 @@ h2 {
 .margins-list blockquote.quote-text {
   margin: 0;
   padding-left: 18px;
-  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: 1px solid rgba(255, 235, 245, 0.18);
 }
 
 /* QUOTES */
@@ -1722,9 +1722,9 @@ h2 {
   position: relative;
   padding: 1rem 1.35rem 0.85rem 1.15rem;
   margin: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.032), rgba(255,255,255,0.018));
-  border: 1px solid rgba(255,255,255,0.08);
-  border-left: 1px solid rgba(124, 145, 255, 0.26);
+  background: linear-gradient(180deg, rgba(255, 235, 245, 0.032), rgba(255, 235, 245, 0.018));
+  border: 1px solid rgba(255, 235, 245, 0.08);
+  border-left: 1px solid rgba(156, 110, 190, 0.26);
   box-shadow: var(--shadow-1);
 }
 
@@ -1733,7 +1733,7 @@ h2 {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(124,145,255,0.10), transparent 28%);
+  background: linear-gradient(135deg, rgba(156, 110, 190, 0.1), transparent 28%);
   opacity: 0.9;
 }
 
@@ -1750,24 +1750,25 @@ h2 {
   font-size: 1.12rem;
   line-height: 1.58;
   letter-spacing: 0.005em;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 245, 248, 0.92);
 }
 
 .quotes-list .quote-attribution {
   margin-top: 0;
   padding-top: 0.45rem;
-  border-top: 1px solid rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.76);
+  border-top: 1px solid rgba(255, 235, 245, 0.07);
+  color: rgba(255, 235, 245, 0.76);
   line-height: 1.38;
 }
 
 .quotes-list .quote-detail {
   margin-top: 0.4rem;
   padding-left: 0.7rem;
-  border-left: 1px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.58);
+  border-left: 1px solid rgba(255, 235, 245, 0.08);
+  color: rgba(255, 235, 245, 0.58);
   line-height: 1.42;
 }
+
 /* ==============================
    PDF / ESSAYS
 ================================= */
@@ -1823,7 +1824,7 @@ h2 {
 
 .essay-pdf {
   margin-top: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 235, 245, 0.1);
 }
 
 .pdf-container {
@@ -1851,7 +1852,7 @@ h2 {
 .pdf-mobile-link a {
   display: inline-block;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 235, 245, 0.25);
   padding: 10px 14px;
   opacity: 0.85;
 }
@@ -1882,9 +1883,9 @@ h2 {
   display: block;
   width: 100%;
   min-height: 80px;
-  background: #000;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #120d14;
+  color: #fff7f5;
+  border: 1px solid rgba(255, 235, 245, 0.2);
   padding: 10px;
   font-family: inherit;
   font-size: 1rem;
@@ -1896,14 +1897,14 @@ h2 {
 .question-form button {
   align-self: flex-start;
   background: none;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff7f5;
+  border: 1px solid rgba(255, 235, 245, 0.4);
   padding: 6px 12px;
   cursor: pointer;
 }
 
 .question-form button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 235, 245, 0.1);
 }
 
 .hidden-honeypot {
@@ -1923,7 +1924,7 @@ h2 {
   margin-top: auto;
   padding-top: 18px;
   padding-bottom: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1px solid rgba(255, 235, 245, 0.18);
   font-size: 12px;
   line-height: 1.45;
   letter-spacing: 0.15px;
