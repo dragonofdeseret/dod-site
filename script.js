@@ -194,7 +194,7 @@ function getItemUrl(item, from = "archive") {
   }
 
   if (item.type === "photo") {
-    return `photography.html?id=${item.id}${from ? `&from=${from}` : ""}`;
+    return `photo.html?id=${item.id}${from ? `&from=${from}` : ""}`;
   }
 
   if (item.type === "exhibit") {
@@ -1126,7 +1126,7 @@ function buildPhotoArchive() {
 
       itemsForYear.forEach((item) => {
         const link = document.createElement("a");
-        link.href = `photography.html?id=${item.id}&from=photo`;
+       link.href = `photo.html?id=${item.id}&from=photo`;
         link.className = "gallery-item";
 
         const img = document.createElement("img");
@@ -1182,7 +1182,7 @@ function buildPhotographyPage() {
   const from = params.get("from") || "photo";
 
   if (!id) {
-    window.location.href = "photography.html";
+    window.location.href = "photo.html";
     return;
   }
 
@@ -1193,7 +1193,7 @@ function buildPhotographyPage() {
   const index = items.findIndex((item) => item.id === id);
 
   if (index === -1) {
-    window.location.href = "photography.html";
+    window.location.href = "photo.html";
     return;
   }
 
@@ -1237,7 +1237,7 @@ function buildPhotographyPage() {
     openLightbox(item.image, item.title || "");
   });
 
-  let backHref = "photography.html";
+  let backHref = "photo.html";
   let backText = "Back to Photography";
 
   if (from === "archive") {
@@ -1255,15 +1255,12 @@ function buildPhotographyPage() {
     next,
     backHref,
     backText,
-    (entry) => `photography.html?id=${entry.id}&from=${from}`
+    (entry) => `photo.html?id=${entry.id}&from=${from}`
   );
 
-  preloadImage(prev && prev.thumb);
-  preloadImage(next && next.thumb);
-
   bindArrowNavigation(
-    prev ? `photography.html?id=${prev.id}&from=${from}` : "",
-    next ? `photography.html?id=${next.id}&from=${from}` : ""
+   prev ? `photo.html?id=${prev.id}&from=${from}` : "",
+   next ? `photo.html?id=${next.id}&from=${from}` : ""
   );
 }
 
