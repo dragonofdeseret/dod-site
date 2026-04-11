@@ -722,8 +722,45 @@ h2 {
 }
 
 /* ==============================
-   SHARED YEAR SECTIONS
+   COLLAPSIBLE YEARS
 ================================= */
+
+.year-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  align-items: center;
+  margin: 4px 0 18px;
+  width: 100%;
+  max-width: var(--content-max);
+  font-size: 15px;
+  opacity: 0.82;
+}
+
+.expand-all-button {
+  appearance: none;
+  border: 1px solid rgba(255, 235, 245, 0.2);
+  background: rgba(255, 235, 245, 0.04);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0.84;
+  margin-right: 12px;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.expand-all-button:hover {
+  opacity: 1;
+  border-color: rgba(255, 235, 245, 0.34);
+  background: rgba(255, 235, 245, 0.08);
+}
 
 .gallery-year,
 .archive-year,
@@ -731,9 +768,10 @@ h2 {
 .margins-year,
 .quotes-year {
   position: relative;
-  width: 100%;
   display: block;
-  margin-bottom: 34px;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 0 44px;
   scroll-margin-top: var(--anchor-offset-mobile);
 }
 
@@ -745,17 +783,16 @@ h2 {
   position: sticky;
   top: 0;
   z-index: 20;
-  width: 100%;
   display: block;
-  font-size: 1.6rem;
-  margin-top: 42px;
-  margin-bottom: 0;
+  width: 100%;
+  margin: 32px 0 0;
   padding: 0;
-  border-bottom: 1px solid rgba(255, 235, 245, 0.5);
-  font-weight: normal;
+  font-size: 1.55rem;
+  font-weight: 400;
   letter-spacing: 1px;
   background: var(--year-header-bg);
   backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 235, 245, 0.5);
 }
 
 .year-heading {
@@ -764,9 +801,9 @@ h2 {
 }
 
 .year-heading-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
   width: 100%;
   min-width: 0;
@@ -774,18 +811,15 @@ h2 {
 }
 
 .year-heading-label {
-  display: inline-flex;
-  align-items: center;
-  flex: 1 1 auto;
+  display: block;
   min-width: 0;
 }
 
 .year-heading-controls {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
-  flex: 0 0 auto;
   flex-wrap: wrap;
 }
 
@@ -816,6 +850,7 @@ h2 {
 }
 
 .year-content {
+  display: block;
   width: 100%;
   padding-top: 18px;
 }
@@ -843,6 +878,41 @@ h2 {
   .margins-year,
   .quotes-year {
     scroll-margin-top: var(--anchor-offset-desktop);
+  }
+}
+
+@media (max-width: 700px) {
+  .gallery-year,
+  .archive-year,
+  .writing-year,
+  .margins-year,
+  .quotes-year {
+    margin-bottom: 28px;
+  }
+
+  .gallery-year h2,
+  .archive-year h2,
+  .writing-year h2,
+  .margins-year h2,
+  .quotes-year h2 {
+    margin-top: 24px;
+    font-size: 1.3rem;
+  }
+
+  .year-heading-inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .year-heading-controls {
+    justify-content: flex-start;
+  }
+
+  .year-toggle,
+  .year-scroll-top,
+  .expand-all-button {
+    font-size: 0.74rem;
   }
 }
 

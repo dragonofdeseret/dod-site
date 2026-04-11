@@ -542,6 +542,7 @@ function setupCollapsibleYearSections(container, navEl, storageKey) {
 
   const state = loadYearCollapseState(storageKey);
   const sections = getYearSections(container);
+  const collapseByDefault = window.matchMedia("(max-width: 700px)").matches;
 
   sections.forEach((section) => {
     const heading = section.querySelector(":scope > h2");
@@ -550,7 +551,7 @@ function setupCollapsibleYearSections(container, navEl, storageKey) {
     buildYearHeader(section, heading, storageKey, container, navEl);
 
     const year = getYearSectionYear(section);
-    const collapsed = year in state ? Boolean(state[year]) : true;
+    const collapsed = year in state ? Boolean(state[year]) : collapseByDefault;
     setYearCollapsed(section, collapsed);
   });
 
