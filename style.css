@@ -1753,14 +1753,15 @@ h2 {
   opacity: 0.7;
 }
 
-.archive-status .archive-key,
-.archive-status .archive-value {
-  display: inline;
+.archive-list,
+.timeline-list {
   margin: 0;
-  padding: 0;
-  font-size: inherit;
-  letter-spacing: inherit;
-  opacity: inherit;
+  padding-left: 1.1rem;
+}
+
+.archive-list li,
+.timeline-list li {
+  margin: 0 0 0.35rem;
 }
 
 .archive-entry::before,
