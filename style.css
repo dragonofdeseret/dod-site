@@ -1643,7 +1643,7 @@ h2 {
 .quotes-list {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 28px;
 }
 
 /* MARGINS */
@@ -1653,10 +1653,12 @@ h2 {
   position: relative;
   padding: 1.2rem 1.35rem 1.1rem 1.15rem;
   margin: 0;
+  margin-top: 2px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.028));
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-left: 1px solid rgba(124, 145, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-1);
   overflow: hidden;
 }
