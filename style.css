@@ -1503,55 +1503,171 @@ h2 {
 
 /* BIO */
 
-.bio-shell {
-  width: 100%;
-  max-width: 1100px;
+.bio-archive-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.8fr);
-  gap: 26px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 32px;
   align-items: start;
 }
 
-.bio-panel,
-.bio-aside {
+.archive-entry,
+.timeline-panel {
   position: relative;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.022));
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: var(--shadow-1);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
-.bio-panel {
-  padding: 28px 30px 24px;
+.archive-entry {
+  padding: 28px 28px 24px;
 }
 
-.bio-panel p {
-  max-width: none;
-  margin: 0 0 1.25rem;
+.archive-entry-head {
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-.bio-panel p:last-child {
-  margin-bottom: 0;
+.archive-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 10px;
 }
 
-.bio-aside {
-  padding: 20px 20px 18px;
+.archive-entry-head h2 {
+  margin: 0 0 8px;
+  font-size: 1.55rem;
+  line-height: 1.2;
 }
 
-.dictum {
-  margin-top: 0.35rem;
-  padding-left: 1rem;
-  border-left: 1px solid rgba(255,255,255,0.22);
+.archive-id {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  letter-spacing: 0.08em;
 }
 
-.dictum p {
-  margin: 0.4rem 0;
-  font-style: italic;
-  letter-spacing: 0.02em;
-  opacity: 0.88;
+.archive-grid {
+  display: grid;
+  gap: 14px;
 }
 
-/* QUOTES — make them feel closer to margins, but still distinct */
+.archive-row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.archive-row:last-child {
+  border-bottom: none;
+}
+
+.archive-key {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.62;
+  padding-top: 2px;
+}
+
+.archive-value {
+  line-height: 1.7;
+}
+
+.timeline-panel {
+  padding: 20px 18px 18px;
+  max-height: 78vh;
+  overflow: hidden;
+}
+
+.timeline-panel .bio-kicker {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.72;
+}
+
+.timeline-scroll {
+  overflow-y: auto;
+  max-height: calc(78vh - 60px);
+  padding-right: 8px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 18px 18px;
+  margin-left: 8px;
+  border-left: 1px solid rgba(255,255,255,0.14);
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.72);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.05);
+}
+
+.timeline-year {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.timeline-text {
+  line-height: 1.6;
+  opacity: 0.94;
+}
+
+.timeline-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.timeline-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.16);
+  border-radius: 999px;
+}
+
+.timeline-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (max-width: 980px) {
+  .bio-archive-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-panel,
+  .timeline-scroll {
+    max-height: none;
+  }
+
+  .archive-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .archive-key {
+    padding-top: 0;
+  }
+}
+
+/* QUOTES */
 
 .quotes-list {
   display: flex;
