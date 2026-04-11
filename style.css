@@ -598,6 +598,141 @@ h2 {
   text-decoration-thickness: 1.5px;
 }
 
+.year-nav {
+  row-gap: 10px;
+}
+
+.expand-all-button {
+  appearance: none;
+  border: 1px solid rgba(255, 235, 245, 0.24);
+  background: rgba(255, 235, 245, 0.045);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0.84;
+  margin-right: 10px;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.expand-all-button:hover {
+  opacity: 1;
+  border-color: rgba(255, 235, 245, 0.38);
+  background: rgba(255, 235, 245, 0.075);
+}
+
+.gallery-year,
+.archive-year,
+.writing-year,
+.margins-year,
+.quotes-year {
+  margin-bottom: 34px;
+}
+
+.gallery-year h2,
+.archive-year h2,
+.writing-year h2,
+.margins-year h2,
+.quotes-year h2 {
+  margin-bottom: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.year-heading-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 0 14px;
+}
+
+.year-heading-label {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.year-heading-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.year-toggle,
+.year-scroll-top {
+  appearance: none;
+  border: 1px solid rgba(255, 235, 245, 0.18);
+  background: rgba(255, 235, 245, 0.04);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1;
+  padding: 8px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0.82;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.year-toggle:hover,
+.year-scroll-top:hover {
+  opacity: 1;
+  border-color: rgba(255, 235, 245, 0.34);
+  background: rgba(255, 235, 245, 0.08);
+}
+
+.year-content {
+  padding-top: 18px;
+}
+
+.gallery-year.is-collapsed,
+.archive-year.is-collapsed,
+.writing-year.is-collapsed,
+.margins-year.is-collapsed,
+.quotes-year.is-collapsed {
+  margin-bottom: 20px;
+}
+
+.gallery-year.is-collapsed .year-content,
+.archive-year.is-collapsed .year-content,
+.writing-year.is-collapsed .year-content,
+.margins-year.is-collapsed .year-content,
+.quotes-year.is-collapsed .year-content {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .year-heading-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .year-heading-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .year-toggle,
+  .year-scroll-top,
+  .expand-all-button {
+    font-size: 0.74rem;
+  }
+}
+
 /* ==============================
    TAG NAV
 ================================= */

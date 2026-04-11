@@ -67,31 +67,10 @@ function buildYearNav(years, navEl = document.querySelector(".year-nav")) {
 
   navEl.innerHTML = "";
 
-  const isMobile = window.matchMedia("(max-width: 700px)").matches;
-  const topOffset = isMobile ? 24 : 70;
-
   years.forEach((year, index) => {
     const link = document.createElement("a");
     link.href = `#year-${year}`;
     link.textContent = year;
-
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      const target = document.getElementById(`year-${year}`);
-      if (!target) return;
-
-      const targetTop =
-        target.getBoundingClientRect().top + window.pageYOffset - topOffset;
-
-      window.scrollTo({
-        top: Math.max(0, targetTop),
-        behavior: isMobile ? "auto" : "smooth"
-      });
-
-      history.replaceState(null, "", `#year-${year}`);
-    });
-
     navEl.appendChild(link);
 
     if (index < years.length - 1) {
@@ -319,6 +298,254 @@ function appendInlineTags(parent, values) {
 }
 
 /* ======================
+   COLLAPSIBLE YEARS
+========================= */
+
+function getYearStorageKey(key) {
+  return `year-collapse:${key || window.location.pathname}`;
+}
+
+function loadYearCollapseState(storageKey) {
+  try {
+    const raw = window.localStorage.getItem(getYearStorageKey(storageKey));
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveYearCollapseState(storageKey, state) {
+  try {
+    window.localStorage.setItem(
+      getYearStorageKey(storageKey),
+      JSON.stringify(state || {})
+    );
+  } catch (error) {
+    /* ignore storage errors */
+  }
+}
+
+function getYearSectionYear(section) {
+  if (!section) return "";
+  return (
+    section.dataset.year ||
+    section.id.replace(/^year-/, "") ||
+    section.querySelector("h2, .year-heading-label")?.textContent?.trim() ||
+    ""
+  );
+}
+
+function getYearSections(container) {
+  if (!container) return [];
+  return [...container.querySelectorAll(".gallery-year, .archive-year")];
+}
+
+function getScrollOffset() {
+  return window.matchMedia("(max-width: 700px)").matches ? 24 : 70;
+}
+
+function scrollToElementTop(element) {
+  if (!element) return;
+
+  const targetTop =
+    element.getBoundingClientRect().top + window.pageYOffset - getScrollOffset();
+
+  window.scrollTo({
+    top: Math.max(0, targetTop),
+    behavior: window.matchMedia("(max-width: 700px)").matches ? "auto" : "smooth"
+  });
+}
+
+function setYearCollapsed(section, collapsed) {
+  if (!section) return;
+
+  const toggle = section.querySelector(".year-toggle");
+  const content = section.querySelector(".year-content");
+
+  section.dataset.collapsed = collapsed ? "true" : "false";
+  section.classList.toggle("is-collapsed", collapsed);
+  section.classList.toggle("is-expanded", !collapsed);
+
+  if (toggle) {
+    toggle.textContent = collapsed ? "Expand" : "Collapse";
+    toggle.setAttribute("aria-expanded", String(!collapsed));
+  }
+
+  if (content) {
+    content.hidden = collapsed;
+  }
+}
+
+function saveCurrentYearState(container, storageKey) {
+  const state = {};
+
+  getYearSections(container).forEach((section) => {
+    state[getYearSectionYear(section)] = section.dataset.collapsed === "true";
+  });
+
+  saveYearCollapseState(storageKey, state);
+}
+
+function updateExpandAllButton(container, navEl) {
+  if (!container || !navEl) return;
+
+  const button = navEl.querySelector(".expand-all-button");
+  if (!button) return;
+
+  const sections = getYearSections(container);
+  const hasCollapsed = sections.some(
+    (section) => section.dataset.collapsed === "true"
+  );
+
+  button.textContent = hasCollapsed ? "Expand All" : "Collapse All";
+  button.setAttribute("aria-expanded", String(!hasCollapsed));
+}
+
+function expandYearFromHash(hash) {
+  if (!hash || !hash.startsWith("#year-")) return;
+
+  const target = document.querySelector(hash);
+  if (!target) return;
+
+  setYearCollapsed(target, false);
+}
+
+function bindYearNavLinks(navEl, container, storageKey) {
+  if (!navEl) return;
+
+  [...navEl.querySelectorAll('a[href^="#year-"]')].forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      const target = href ? document.querySelector(href) : null;
+      if (!target) return;
+
+      event.preventDefault();
+      setYearCollapsed(target, false);
+      saveCurrentYearState(container, storageKey);
+      updateExpandAllButton(container, navEl);
+      scrollToElementTop(target);
+      history.replaceState(null, "", href);
+    });
+  });
+}
+
+function ensureExpandAllButton(navEl, container, storageKey) {
+  if (!navEl || !container) return;
+
+  let button = navEl.querySelector(".expand-all-button");
+
+  if (!button) {
+    button = document.createElement("button");
+    button.type = "button";
+    button.className = "expand-all-button";
+    navEl.prepend(button);
+  }
+
+  button.onclick = () => {
+    const sections = getYearSections(container);
+    const shouldExpand = sections.some(
+      (section) => section.dataset.collapsed === "true"
+    );
+
+    sections.forEach((section) => {
+      setYearCollapsed(section, shouldExpand ? false : true);
+    });
+
+    saveCurrentYearState(container, storageKey);
+    updateExpandAllButton(container, navEl);
+  };
+
+  updateExpandAllButton(container, navEl);
+}
+
+function buildYearHeader(section, heading, storageKey, container, navEl) {
+  if (!section || !heading) return;
+
+  section.dataset.year = getYearSectionYear(section);
+
+  const labelText = section.dataset.year || heading.textContent.trim();
+  heading.classList.add("year-heading");
+
+  const inner = document.createElement("div");
+  inner.className = "year-heading-inner";
+
+  const label = document.createElement("span");
+  label.className = "year-heading-label";
+  label.textContent = labelText;
+
+  const controls = document.createElement("div");
+  controls.className = "year-heading-controls";
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "year-toggle";
+
+  const topButton = document.createElement("button");
+  topButton.type = "button";
+  topButton.className = "year-scroll-top";
+  topButton.textContent = "Scroll to Top";
+
+  controls.appendChild(toggle);
+  controls.appendChild(topButton);
+  inner.appendChild(label);
+  inner.appendChild(controls);
+  heading.textContent = "";
+  heading.appendChild(inner);
+
+  let content = section.querySelector(":scope > .year-content");
+
+  if (!content) {
+    content = document.createElement("div");
+    content.className = "year-content";
+
+    const nodesToMove = [...section.children].filter((node) => node !== heading);
+    nodesToMove.forEach((node) => content.appendChild(node));
+    section.appendChild(content);
+  }
+
+  toggle.addEventListener("click", () => {
+    const collapsed = section.dataset.collapsed === "true";
+    setYearCollapsed(section, !collapsed);
+    saveCurrentYearState(container, storageKey);
+    updateExpandAllButton(container, navEl);
+  });
+
+  heading.addEventListener("click", (event) => {
+    if (event.target.closest("button")) return;
+    toggle.click();
+  });
+
+  topButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+function setupCollapsibleYearSections(container, navEl, storageKey) {
+  if (!container) return;
+
+  const state = loadYearCollapseState(storageKey);
+  const sections = getYearSections(container);
+
+  sections.forEach((section) => {
+    const heading = section.querySelector(":scope > h2");
+    if (!heading) return;
+
+    buildYearHeader(section, heading, storageKey, container, navEl);
+
+    const year = getYearSectionYear(section);
+    const collapsed = year in state ? Boolean(state[year]) : true;
+    setYearCollapsed(section, collapsed);
+  });
+
+  ensureExpandAllButton(navEl, container, storageKey);
+  bindYearNavLinks(navEl, container, storageKey);
+  expandYearFromHash(window.location.hash);
+  saveCurrentYearState(container, storageKey);
+  updateExpandAllButton(container, navEl);
+}
+
+/* ======================
    FILTER ENGINE
 ======================== */
 
@@ -500,27 +727,27 @@ function buildArchive() {
   const container = document.getElementById("archive");
   if (!container || typeof archive === "undefined") return;
 
-const allowedTypes = new Set([
-  "art",
-  "photo",
-  "writing",
-  "margin",
-  "margins"
-]);
+  const allowedTypes = new Set([
+    "art",
+    "photo",
+    "writing",
+    "margin",
+    "margins"
+  ]);
 
-const archiveItems = sortByDateDescWithIdTiebreak(
-  archive.filter((item) => {
-    if (!item || !allowedTypes.has(item.type)) return false;
-    if (item.showOnArchive === false) return false;
+  const archiveItems = sortByDateDescWithIdTiebreak(
+    archive.filter((item) => {
+      if (!item || !allowedTypes.has(item.type)) return false;
+      if (item.showOnArchive === false) return false;
 
-    if (!item.date || !String(item.date).trim()) return false;
+      if (!item.date || !String(item.date).trim()) return false;
 
-    const parsed = new Date(item.date);
-    if (Number.isNaN(parsed.getTime())) return false;
+      const parsed = new Date(item.date);
+      if (Number.isNaN(parsed.getTime())) return false;
 
-    return true;
-  })
-);
+      return true;
+    })
+  );
 
   const groupedMap = {};
 
@@ -537,8 +764,10 @@ const archiveItems = sortByDateDescWithIdTiebreak(
       items: groupedMap[year]
     }));
 
+  const yearNav = document.querySelector(".year-nav");
+
   container.innerHTML = "";
-  buildYearNav(grouped.map((group) => group.year));
+  buildYearNav(grouped.map((group) => group.year), yearNav);
 
   grouped.forEach((group) => {
     const yearBlock = document.createElement("div");
@@ -610,6 +839,8 @@ const archiveItems = sortByDateDescWithIdTiebreak(
     yearBlock.appendChild(list);
     container.appendChild(yearBlock);
   });
+
+  setupCollapsibleYearSections(container, yearNav, "archive");
 }
 
 /* ==============================
@@ -644,67 +875,50 @@ function buildWritingIndex() {
 
   let engine;
 
-  function renderWriting() {
-    container.innerHTML = "";
+ function renderWriting() {
+  container.innerHTML = "";
 
-    engine.years.forEach((year) => {
-      const itemsForYear = engine.getItemsForYear(year);
-      if (!itemsForYear.length) return;
+  engine.years.forEach((year) => {
+    const itemsForYear = engine.getItemsForYear(year);
+    if (!itemsForYear.length) return;
 
-      const yearBlock = document.createElement("div");
-      yearBlock.className = "archive-year";
-      yearBlock.id = `year-${year}`;
+    const yearBlock = document.createElement("div");
+    yearBlock.className = "archive-year";
+    yearBlock.id = `year-${year}`;
 
-      const yearTitle = document.createElement("h2");
-      yearTitle.textContent = year;
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = year;
 
-      const list = document.createElement("div");
-      list.className = "archive-list";
+    const list = document.createElement("div");
+    list.className = "archive-list";
 
-      itemsForYear.forEach((item) => {
-        const row = document.createElement("a");
-        row.className = "archive-row";
-        row.href = `writings.html?id=${item.id}`;
+    itemsForYear.forEach((item) => {
+      const row = document.createElement("a");
+      row.className = "archive-row";
+      row.href = `writings.html?id=${item.id}`;
 
-        const title = document.createElement("div");
-        title.className = "archive-title";
-        title.textContent = item.title || "";
+      const title = document.createElement("div");
+      title.className = "archive-title";
+      title.textContent = item.title || "";
 
-        appendInlineTags(title, item.tags);
+      appendInlineTags(title, item.tags);
 
-        const meta = document.createElement("div");
-        meta.className = "archive-meta";
-        meta.textContent = item.date || item.year || "";
+      const meta = document.createElement("div");
+      meta.className = "archive-meta";
+      meta.textContent = item.date || item.year || "";
 
-        row.appendChild(title);
-        row.appendChild(meta);
-        list.appendChild(row);
-      });
-
-      yearBlock.appendChild(yearTitle);
-      yearBlock.appendChild(list);
-      container.appendChild(yearBlock);
+      row.appendChild(title);
+      row.appendChild(meta);
+      list.appendChild(row);
     });
 
-    engine.renderYearNav(yearNav);
-  }
-
-  engine = createFilterEngine({
-    items: writingItems,
-    groups: [
-      {
-        name: "writingTags",
-        key: "tags",
-        container: tagFilter,
-        allLabel: "All",
-        mode: "or"
-      }
-    ],
-    onUpdate: renderWriting
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(list);
+    container.appendChild(yearBlock);
   });
 
-  engine.renderFilters();
-  renderWriting();
+  engine.renderYearNav(yearNav);
+  setupCollapsibleYearSections(container, yearNav, "writing");
 }
 
 /* ======================
@@ -744,71 +958,46 @@ function buildGallery() {
   let engine;
 
   function renderGalleryItems() {
-    gallery.innerHTML = "";
+  gallery.innerHTML = "";
 
-    engine.years.forEach((year) => {
-      const itemsForYear = engine.getItemsForYear(year);
-      if (!itemsForYear.length) return;
+  engine.years.forEach((year) => {
+    const itemsForYear = engine.getItemsForYear(year);
+    if (!itemsForYear.length) return;
 
-      const yearSection = document.createElement("section");
-      yearSection.className = "gallery-year";
-      yearSection.id = `year-${year}`;
+    const yearSection = document.createElement("section");
+    yearSection.className = "gallery-year";
+    yearSection.id = `year-${year}`;
 
-      const heading = document.createElement("h2");
-      heading.textContent = year;
+    const heading = document.createElement("h2");
+    heading.textContent = year;
 
-      const grid = document.createElement("div");
-      grid.className = "gallery-grid";
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
 
-      itemsForYear.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = `artwork.html?id=${item.id}`;
+    itemsForYear.forEach((item) => {
+      const link = document.createElement("a");
+      link.href = `artwork.html?id=${item.id}`;
 
-        const img = document.createElement("img");
-        applyGalleryImage(img, item);
+      const img = document.createElement("img");
+      applyGalleryImage(img, item);
 
-        const meta = [];
-        if (item.title) meta.push(item.title);
-        if (item.medium) meta.push(item.medium);
+      const meta = [];
+      if (item.title) meta.push(item.title);
+      if (item.medium) meta.push(item.medium);
 
-        img.alt = meta.length ? meta.join(" — ") : "Artwork";
+      img.alt = meta.length ? meta.join(" — ") : "Artwork";
 
-        link.appendChild(img);
-        grid.appendChild(link);
-      });
-
-      yearSection.appendChild(heading);
-      yearSection.appendChild(grid);
-      gallery.appendChild(yearSection);
+      link.appendChild(img);
+      grid.appendChild(link);
     });
 
-    engine.renderYearNav(yearNav);
-  }
-
-  engine = createFilterEngine({
-    items: artItems,
-    groups: [
-      {
-        name: "artMedia",
-        key: "medium",
-        container: mediaFilter,
-        allLabel: "All",
-        mode: "or"
-      },
-      {
-        name: "artTags",
-        key: "tags",
-        container: tagFilter,
-        allLabel: "All",
-        mode: "or"
-      }
-    ],
-    onUpdate: renderGalleryItems
+    yearSection.appendChild(heading);
+    yearSection.appendChild(grid);
+    gallery.appendChild(yearSection);
   });
 
-  engine.renderFilters();
-  renderGalleryItems();
-  buildRandomButton(artItems);
+  engine.renderYearNav(yearNav);
+  setupCollapsibleYearSections(gallery, yearNav, "art");
 }
 
 /* ========================
@@ -978,9 +1167,10 @@ function buildExhibitsArchive() {
   });
 
   const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
+  const yearNav = document.querySelector(".year-nav");
 
   container.innerHTML = "";
-  buildYearNav(years);
+  buildYearNav(years, yearNav);
 
   years.forEach((year) => {
     const yearBlock = document.createElement("div");
@@ -994,7 +1184,10 @@ function buildExhibitsArchive() {
     list.className = "archive-list";
 
     grouped[year]
-      .sort((a, b) => (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0))
+      .sort(
+        (a, b) =>
+          (toDate(b.date)?.getTime() || 0) - (toDate(a.date)?.getTime() || 0)
+      )
       .forEach((exhibit) => {
         const row = document.createElement("a");
         row.className = "archive-row";
@@ -1017,6 +1210,8 @@ function buildExhibitsArchive() {
     yearBlock.appendChild(list);
     container.appendChild(yearBlock);
   });
+
+  setupCollapsibleYearSections(container, yearNav, "exhibits");
 }
 
 function buildExhibitPage() {
@@ -1108,69 +1303,52 @@ function buildPhotoArchive() {
   let engine;
 
   function renderPhotos() {
-    container.innerHTML = "";
+  container.innerHTML = "";
 
-    engine.years.forEach((year) => {
-      const itemsForYear = engine.getItemsForYear(year);
-      if (!itemsForYear.length) return;
+  engine.years.forEach((year) => {
+    const itemsForYear = engine.getItemsForYear(year);
+    if (!itemsForYear.length) return;
 
-      const yearBlock = document.createElement("section");
-      yearBlock.className = "gallery-year";
-      yearBlock.id = `year-${year}`;
+    const yearBlock = document.createElement("section");
+    yearBlock.className = "gallery-year";
+    yearBlock.id = `year-${year}`;
 
-      const yearTitle = document.createElement("h2");
-      yearTitle.textContent = year;
+    const yearTitle = document.createElement("h2");
+    yearTitle.textContent = year;
 
-      const grid = document.createElement("div");
-      grid.className = "gallery-grid";
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
 
-      itemsForYear.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = `photography.html?id=${item.id}&from=photo`;
-        link.className = "gallery-item";
+    itemsForYear.forEach((item) => {
+      const link = document.createElement("a");
+      link.href = `photography.html?id=${item.id}&from=photo`;
+      link.className = "gallery-item";
 
-        const img = document.createElement("img");
-        applyGalleryImage(
-          img,
-          item,
-          "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
-        );
+      const img = document.createElement("img");
+      applyGalleryImage(
+        img,
+        item,
+        "(max-width: 900px) calc(100vw - 44px), (max-width: 1400px) 33vw, 320px"
+      );
 
-        const altParts = [];
-        if (item.title) altParts.push(item.title);
-        if (Array.isArray(item.tags) && item.tags.length) {
-          altParts.push(item.tags.join(", "));
-        }
-        img.alt = altParts.length ? altParts.join(" — ") : "Photograph";
+      const altParts = [];
+      if (item.title) altParts.push(item.title);
+      if (Array.isArray(item.tags) && item.tags.length) {
+        altParts.push(item.tags.join(", "));
+      }
+      img.alt = altParts.length ? altParts.join(" — ") : "Photograph";
 
-        link.appendChild(img);
-        grid.appendChild(link);
-      });
-
-      yearBlock.appendChild(yearTitle);
-      yearBlock.appendChild(grid);
-      container.appendChild(yearBlock);
+      link.appendChild(img);
+      grid.appendChild(link);
     });
 
-    engine.renderYearNav(yearNav);
-  }
-
-  engine = createFilterEngine({
-    items: photoItems,
-    groups: [
-      {
-        name: "photoTags",
-        key: "tags",
-        container: tagFilter,
-        allLabel: "All",
-        mode: "or"
-      }
-    ],
-    onUpdate: renderPhotos
+    yearBlock.appendChild(yearTitle);
+    yearBlock.appendChild(grid);
+    container.appendChild(yearBlock);
   });
 
-  engine.renderFilters();
-  renderPhotos();
+  engine.renderYearNav(yearNav);
+  setupCollapsibleYearSections(container, yearNav, "photo");
 }
 
 function buildPhotographyPage() {
