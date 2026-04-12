@@ -2665,7 +2665,7 @@ const archive = normalizeArchive([
     year: 2022,
     file: "pdf/HDatBoB.pdf",
     sections: ["trips"],
-    substance: ["DMT],
+    substance: ["DMT"],
     tags: ["dmt", "visionary", "consciousness", "phenomenology", "mormon-theology", "metaphysics"]
   },
 {
