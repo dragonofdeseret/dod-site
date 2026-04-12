@@ -118,7 +118,7 @@ const archive = normalizeArchive([
 {
     id: "2025-03-06",
     type: "art",
-    title: March 6, 2025",
+    title: "March 6, 2025",
     year: 2025,
     date: "2025-03-06",
     image: "images/art/2025/2025-03-06.webp",
