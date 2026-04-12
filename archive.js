@@ -2658,14 +2658,14 @@ const archive = normalizeArchive([
     tags: ["psychedelics", "consciousness", "phenomenology", "zazen", "meditation", "headless-way"]
   },
 {
-    id: "HagiosDrako",
+    id: "HDatBoB",
     type: "writing",
-    title: "Hagios Drakosophia",
-    date: "2022-11-22",
+    title: "Hagios Drakosophia and the Basilisk of Burnings",
+    date: "2022-11-24",
     year: 2022,
-    file: "pdf/HagiosDrako.pdf",
-    sections: ["writing"],
-    tags: ["dmt", "consciousness"]
+    file: "pdf/HDatBoB.pdf",
+    sections: ["trips"],
+    tags: ["dmt", "visionary", "consciousness", "phenomenology", "mormon-theology", "metaphysics"]
   },
 {
     id: "TCJ",
