@@ -1333,11 +1333,11 @@ function buildWritingPage() {
       backLink.textContent = "← Back to Archive";
     } else if (from === "trips") {
       backLink.href = "trips.html";
-      backLink.textContent = "← Back to Trip Reports";
+      backLink.textContent = "← Back to Altered States";
     } else {
       backLink.href = isTripViewer ? "trips.html" : "writing.html";
       backLink.textContent = isTripViewer
-        ? "← Back to Trip Reports"
+        ? "← Back to Altered States"
         : "← Back to Writing";
     }
   }
