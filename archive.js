@@ -489,7 +489,7 @@ const archive = normalizeArchive([
 {
     id: "2024-07-01_2",
     type: "art",
-    title: July 1, 2024 | #2",
+    title: "July 1, 2024 | #2",
     year: 2024,
     date: "2024-07-01",
     image: "images/art/2024/2024-07-01_2.webp",
@@ -507,7 +507,7 @@ const archive = normalizeArchive([
 {
     id: "2024-07-01_1",
     type: "art",
-    title: July 1, 2024 | #1",
+    title: "July 1, 2024 | #1",
     year: 2024,
     date: "2024-07-01",
     image: "images/art/2024/2024-07-01_1.webp",
