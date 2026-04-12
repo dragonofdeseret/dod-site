@@ -115,16 +115,34 @@ const archive = normalizeArchive([
     <p>This is the famous Kirtland Temple spiral staircase. Drawn to be the cover of my book, "Harmonic Theism, Symphony No. I: Creatio ex Concordia and the Divine Arrangement of Worlds"</p>
   `
   },
-  {
-    id: "2025-05-07",
+{
+    id: "2025-03-06",
     type: "art",
-    title: "May 7, 2025",
+    title: March 6, 2025",
     year: 2025,
-    date: "2025-05-07",
-    image: "images/art/2025/2025-05-07.webp",
+    date: "2025-03-06",
+    image: "images/art/2025/2025-03-06.webp",
+    medium: ["Charcoal"],
+
+    tags: ["landscape", "zazen"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+      <p><strong>Year:</strong> 2025</p>
+      <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+      <p></p>
+  `
+  },
+  {
+    id: "2024-06-30",
+    type: "art",
+    title: "June 30, 2024",
+    year: 2024,
+    date: "2024-06-30",
+    image: "images/art/2024/2024-06-30.webp",
     medium: "Charcoal",
 
-    tags: ["zazen"],
+    tags: ["zazen", "lsd", "consciousness-research", "visionary"],
 
   sideNoteTitle: "Zazen",
   sideNote: `
@@ -142,7 +160,7 @@ const archive = normalizeArchive([
   image: "images/art/2024/2024-11-18_3.webp",
   medium: "Oil Paint",
 
-    tags: ["dragon", "psychedelics", "dmt"],
+    tags: ["psychedelics", "dmt"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
   sideNoteTitle: "Details",
@@ -161,7 +179,7 @@ const archive = normalizeArchive([
   image: "images/art/2024/2024-11-18_2.webp",
   medium: "Oil Paint",
 
-    tags: ["dragon", "psychedelics", "dmt"],
+    tags: ["psychedelics", "dmt"],
 
   sideNoteTitle: "The Pearl of Potentiality | Unfinished",
    sideNoteTitle: "Details",
@@ -466,6 +484,42 @@ const archive = normalizeArchive([
       <p>3 Mushroom trips</p>
       <p>3 DMT trips</>
       <p>Restoration of Belief</p>
+  `
+  },
+{
+    id: "2024-07-01_2",
+    type: "art",
+    title: July 1, 2024 | #2",
+    year: 2024,
+    date: "2024-07-01",
+    image: "images/art/2024/2024-07-01_2.webp",
+    medium: ["Charcoal"],
+
+    tags: ["landscape", "zazen"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+      <p></p>
+  `
+  },
+{
+    id: "2024-07-01_1",
+    type: "art",
+    title: July 1, 2024 | #1",
+    year: 2024,
+    date: "2024-07-01",
+    image: "images/art/2024/2024-07-01_1.webp",
+    medium: ["Charcoal"],
+
+    tags: ["landscape", "zazen"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+      <p><strong>Year:</strong> 2024</p>
+      <p><strong>Medium:</strong> Charcoal on Parchment Paper</p>
+      <p></p>
   `
   },
   {
@@ -1258,6 +1312,24 @@ const archive = normalizeArchive([
     <p><strong>Year:</strong> 2025</p>
     <p><strong>Medium:</strong> Charcoal on Paper/p>
     <p>Zen emptiness 3 second painting.</p>
+  `
+  },
+  {
+    id: "2023-05-11",
+    type: "art",
+    title: "May 11, 2023",
+    year: 2023,
+    date: "2023-05-11",
+    image: "images/art/2023/2023-05-11.webp",
+    medium: "Charcoal",
+    
+    tags: ["landscape"],
+
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2025</p>
+    <p><strong>Medium:</strong> Charcoal on Paper/p>
+    <p></p>
   `
   },
   {
@@ -2534,6 +2606,17 @@ const archive = normalizeArchive([
     sections: ["writing"],
     tags: ["mormon-theology", "metaphysics", "theory", "phenomenology", "panpsychism", "intelligence-theory", "book-of-mormon"]
   },
+ {
+    id: "FnHnSL",
+    type: "writing",
+    title: "Fear and Hoping in Salt Lake",
+    year: 2024,
+    date: "2024-06-30",
+    file: "pdf/FnHnSL.pdf",
+    sections: ["trips"],
+    substance: ["LSD"],
+    tags: ["lsd", "visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation"]
+  },
   {
     id: "AIPR",
     type: "writing",
@@ -3164,6 +3247,19 @@ All in the service of — Clarity.`,
   ===================== */
  
 {
+    id: "2026-04-05",
+    type: "photo",
+    title: "April 5, 2026",
+    year: 2026,
+    date: "2026-04-05",
+    image: "images/photography/2026/2026-04-05.webp",
+    tags: ["trees", "night", "nature"],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p> Grand Mother </p>
+  `
+  },
+{
     id: "2026-03-31",
     type: "photo",
     title: "March 31, 2026",
@@ -3556,6 +3652,19 @@ All in the service of — Clarity.`,
       sideNoteTitle: "Details",
       sideNote: `
    <p>Donut Falls</p>
+  `
+  },
+  {
+    id: "2024-06-02",
+    type: "photo",
+    title: "June 2, 2024",
+    year: 2024,
+    date: "2024-06-02",
+    image: "images/photography/2024/2024-06-02.webp",
+        tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Painting and Palette at end of months of work, but before completing the Jospeh Smith portrait at center hiding behind palette in this picture.</p>
   `
   },
   {
