@@ -2676,7 +2676,7 @@ const archive = normalizeArchive([
     year: 2023,
     date: "2023-12-06",
     file: "pdf/CottonCandy.pdf",
-    sections: ["writing"],
+    sections: ["trips"],
     substance: ["LSD"],
     tags: ["consciousness-research", "lsd", "psychedelics", "consciousness", "metaphysics", "headless-way", "dmt"]
   },
