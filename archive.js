@@ -3043,7 +3043,7 @@ All senses are the specialization of the sense of touch. This is why psychedelic
   type: "margins",
   title: "",
   date: "2023-05-16",
- String text = """
+  text = """
 In these and other experiences with DMT I had the impression of a welcoming-intent from everything around me, and that it didn't really matter if it was entity big or small, grand or modest, it was all intelligent, and I could communicate with all of it. I wanted to know if they were the intelligences of which Joseph Smith spoke and taught, but more so I wanted to know if they were synonymous, to any linguistically definable degree, with Terence McKenna’s Self-Transforming Elf-Machines. I entered the dark terrain of luminous spirituality once more and I asked my question on the matter to the matter made of mad hatters, for after this, I took a ride with some DMT Jesters as I remembered that “Jesters do oft prove prophets.” The response I received when I asked if they were the same beings the others talked about was,
 
 “We are they, they are you.”
