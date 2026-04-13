@@ -2583,7 +2583,7 @@ const archive = normalizeArchive([
     year: 2025,
     date: "2025-03-05",
     file: "pdf/CtP.pdf",
-    sections: ["writing"],
+    sections: ["trips"],
     tags: ["mormon-theology", "metaphysics", "dreams", "consciousness", "phenomenology", "visionary"]
   },
   {
@@ -3348,7 +3348,7 @@ All in the service of — Clarity.`,
           sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> Date Unknown</p>
-    <p><strong>Medium:</strong> Greece</p>
+    <p><strong>Medium:</strong> Wool on Canvas</p>
    <p> Stitched on canvas with wool by my great-aunt in the mountains of Trikala, Greece. </p>
   `
   },
@@ -3428,7 +3428,7 @@ All in the service of — Clarity.`,
     sideNoteTitle: "Details",
     sideNote: `
     <p><strong>Year:</strong> 2025</p>
-    <p><strong>Medium:</strong> LSD on gel</p>
+    <p><strong>Substance:</strong> LSD on gel</p>
     <p></p>
   `
   },
@@ -3507,7 +3507,7 @@ All in the service of — Clarity.`,
     image: "images/photography/2025/2025-08-13.webp",
     tags: [""],
       sideNoteTitle: "Details",
-      sideNote: `
+      sideNote: I grew these. `
    <p></p>
   `
   },
@@ -3846,7 +3846,7 @@ All in the service of — Clarity.`,
           sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
-    <p><strong>Medium:</strong> MDMA</p>
+    <p><strong>Substance:</strong> MDMA</p>
   `
   },
 {
@@ -3860,7 +3860,7 @@ All in the service of — Clarity.`,
         sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
-    <p><strong>Medium:</strong> Golden Teachers</p>
+    <p><strong>Strain:</strong> Golden Teachers</p>
   `
   },
   {
@@ -3913,7 +3913,7 @@ All in the service of — Clarity.`,
       sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
-    <p><strong>Medium:</strong> N,N-DMT</p>
+    <p><strong>Substance:</strong> N,N-DMT</p>
   `
   },
   {
@@ -3926,7 +3926,7 @@ All in the service of — Clarity.`,
       sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
-    <p><strong>Medium:</strong> S-MDA</p>
+    <p><strong>Substance:</strong> S-MDA</p>
   `
   },
   {
@@ -3940,7 +3940,7 @@ All in the service of — Clarity.`,
          sideNoteTitle: "Details",
       sideNote: `
     <p><strong>Year:</strong> 2023</p>
-    <p><strong>Medium:</strong> LSD paper sheet</p>
+    <p><strong>Substance:</strong> LSD paper sheet</p>
   `
   },
   {
@@ -3965,7 +3965,7 @@ All in the service of — Clarity.`,
     image: "images/photography/2022/2022-12-10.webp",
         tags: ["lsd", "dmt", "mushrooms"],
       sideNoteTitle: "Details",
-      sideNote: `
+      sideNote: Opium & Poppies, Menace Cubensis, S-MDA, LSD, N,N-DMT, Cannabis`
    <p></p>
   `
   },
