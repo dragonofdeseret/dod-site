@@ -3233,7 +3233,7 @@ marginsTags: ["deconstruction", "philosophy", "ex-mormonism"]
 {
   id: "Erigena",
   type: "quotes",
-  text: "“Every visible and invisible creature is a theophany, or appearance of God.”",
+  text: "Every visible and invisible creature is a theophany, or appearance of God.",
   author: "Johannes Erigena",
   source: "‘Theophanies.,’ 1916"
 },

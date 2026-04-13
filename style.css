@@ -1849,14 +1849,14 @@ h2 {
 
 @media (max-width: 900px) {
   .layout {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .sidebar {
-    width: 100%;
-    flex: none;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+    width: var(--sidebar-w);
+    flex: 0 0 var(--sidebar-w);
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
     padding: 24px 22px;
     gap: 12px;
   }
@@ -1868,6 +1868,7 @@ h2 {
   .content {
     padding: 28px 22px 36px;
     font-size: 18px;
+    min-width: 0;
   }
 
   .timeline::before,
