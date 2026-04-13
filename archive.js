@@ -3507,8 +3507,8 @@ All in the service of — Clarity.`,
     image: "images/photography/2025/2025-08-13.webp",
     tags: [""],
       sideNoteTitle: "Details",
-      sideNote: I grew these. `
-   <p></p>
+      sideNote: `
+   <p>I grew these.</p>
   `
   },
   {
