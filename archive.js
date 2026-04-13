@@ -2617,17 +2617,6 @@ const archive = normalizeArchive([
     substance: ["LSD"],
     tags: ["lsd", "meditation", "zazen", "psychedelics", "visionary"]
   },
- {
-    id: "FnHnSL",
-    type: "writing",
-    title: "Fear and Hoping in Salt Lake",
-    year: 2024,
-    date: "2024-06-30",
-    file: "pdf/FnHnSL.pdf",
-    sections: ["trips"],
-    substance: ["LSD"],
-    tags: ["lsd", "visionary", "psychedelics", "consciousness", "phenomenology", "zazen", "meditation"]
-  },
   {
     id: "AIPR",
     type: "writing",
