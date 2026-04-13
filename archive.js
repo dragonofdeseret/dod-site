@@ -2607,6 +2607,17 @@ const archive = normalizeArchive([
     tags: ["mormon-theology", "metaphysics", "theory", "phenomenology", "panpsychism", "intelligence-theory", "book-of-mormon"]
   },
  {
+    id: "Mahadrakkhu",
+    type: "writing",
+    title: "Mahadrakkhu, Mahadrakkhu, Mahadrakkhu",
+    year: 2024,
+    date: "2024-07-15",
+    file: "pdf/Mahadrakkhu.pdf",
+    sections: ["trips"],
+    substance: ["LSD"],
+    tags: ["lsd", "meditation", "zazen", "psychedelics", "visionary"]
+  },
+ {
     id: "FnHnSL",
     type: "writing",
     title: "Fear and Hoping in Salt Lake",
