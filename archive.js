@@ -3965,8 +3965,8 @@ All in the service of — Clarity.`,
     image: "images/photography/2022/2022-12-10.webp",
         tags: ["lsd", "dmt", "mushrooms"],
       sideNoteTitle: "Details",
-      sideNote: Opium & Poppies, Menace Cubensis, S-MDA, LSD, N,N-DMT, Cannabis`
-   <p></p>
+      sideNote: `
+   <p>Opium & Poppies, Menace Cubensis, S-MDA, LSD, N,N-DMT, Cannabis</p>
   `
   },
 {
