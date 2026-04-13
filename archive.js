@@ -3043,19 +3043,20 @@ All senses are the specialization of the sense of touch. This is why psychedelic
   type: "margins",
   title: "",
   date: "2023-05-16",
-  text: `
-In these and other experiences with DMT I had the impression of a welcoming-intent from everything around me, and that it didn't really matter if it was entity big or small, grand or modest, it was all intelligent, and I could communicate with all of it. I wanted to know if they were the intelligences of which Joseph Smith spoke and taught, but more so I wanted to know if they were synonymous, to any linguistically definable degree, with Terence McKenna’s Self-Transforming Elf-Machines. I entered the dark terrain of luminous spirituality once more and I asked my question on the matter to the matter made of mad hatters, for after this, I took a ride with some DMT Jesters as I remembered that “Jesters do oft prove prophets.” The response I received when I asked if they were the same beings the others talked about was, 
+ String text = """
+In these and other experiences with DMT I had the impression of a welcoming-intent from everything around me, and that it didn't really matter if it was entity big or small, grand or modest, it was all intelligent, and I could communicate with all of it. I wanted to know if they were the intelligences of which Joseph Smith spoke and taught, but more so I wanted to know if they were synonymous, to any linguistically definable degree, with Terence McKenna’s Self-Transforming Elf-Machines. I entered the dark terrain of luminous spirituality once more and I asked my question on the matter to the matter made of mad hatters, for after this, I took a ride with some DMT Jesters as I remembered that “Jesters do oft prove prophets.” The response I received when I asked if they were the same beings the others talked about was,
 
 “We are they, they are you.”
 
 This I would later find reflected in an experience shared by Alexander Beiner. In his book, The Bigger Picture: How Psychedelics Can Help Us Make Sense of the World, he stated that the “Teaching Presence”—or as we may perhaps say, the “Pure Intelligence”—of the DMT experience answered his question regarding what exactly it Is, by responding,
 
- “You but not you, we but not we.”
+“You but not you, we but not we.”
 
-At core we share the same light of truth, for it is said to have been stated by God, 
+At core we share the same light of truth, for it is said to have been stated by God,
 
- “I dwell in the midst of them all. . .” `,
-detail: "Excerpt from: I Know the <s>[Church]</s> is True: the True Hallucinations of a Former Latter-day Saint",
+“I dwell in the midst of them all. . .”
+""";
+detail: "Excerpt from: I Know the [Church] is True: the True Hallucinations of a Former Latter-day Saint",
   marginsTags: ["dmt", "consciousness-research", "mormon-theology"]
 },
 {
