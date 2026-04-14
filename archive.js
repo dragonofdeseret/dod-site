@@ -2710,16 +2710,6 @@ const archive = normalizeArchive([
     tags: ["dreams", "visionary", "phenomenology", "consciousness"]
   },
   {
-    id: "CB",
-    type: "writing",
-    title: "Communication Breakdown",
-    date: "2023-09-24",
-    year: 2023,
-    file: "pdf/CB.pdf",
-    sections: ["trips"],
-    tags: ["meditation", "zazen", "phenomenology", "consciousness"]
-  },
-  {
     id: "TrampOBE",
     type: "writing",
     title: "Trampoline OBE Derealization, 1996",
