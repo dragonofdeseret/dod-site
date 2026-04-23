@@ -4288,6 +4288,19 @@ All in the service of — Clarity.`,
   `
   },
 {
+  id: "2019-04-15",
+  type: "photo",
+  title: "April 4, 2019",
+  year: 2019,
+  date: "2019-04-15",
+  image: "images/photography/2019/2019-04-15.webp",
+    tags: ["dogs"],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Wolfie the Malamute. RIP, buddy.</p>
+  `
+},
+{
   id: "2019-03-03",
   type: "photo",
   title: "March 3, 2019",
@@ -4353,6 +4366,19 @@ All in the service of — Clarity.`,
   `
   },
 {
+  id: "2017-03-15",
+  type: "photo",
+  title: "March 15, 2017",
+  year: 2017,
+  date: "2017-03-15",
+  image: "images/photography/2017/2017-03-15.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Walking in downtown SLC one night to get a treat my daughter. We were commenting on the Moon. A woman behind us took a picture and then found me before we walked into the shop to AirDrop me the photo, saying it was very cute hearing us discuss the Moon together.</p>
+  `
+},
+{
   id: "2016-12-20",
   type: "photo",
   title: "December 20, 2016",
@@ -4376,6 +4402,32 @@ All in the service of — Clarity.`,
       sideNoteTitle: "Details",
       sideNote: `
    <p></p>
+  `
+},
+{
+  id: "2016-05-19",
+  type: "photo",
+  title: "May 19, 2016",
+  year: 2016,
+  date: "2016-01-15",
+  image: "images/photography/2016/2016-05-19.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Blackout in downtown SLC.</p>
+  `
+},
+{
+  id: "2016-01-15",
+  type: "photo",
+  title: "January 15, 2016",
+  year: 2016,
+  date: "2016-01-15",
+  image: "images/photography/2016/2016-01-15.webp",
+    tags: [""],
+      sideNoteTitle: "Details",
+      sideNote: `
+   <p>Maine Coon mix Monsieur André enjoying the Downtown SLC view.</p>
   `
 },
 {
