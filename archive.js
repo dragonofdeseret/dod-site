@@ -2578,7 +2578,7 @@ const archive = normalizeArchive([
   {
     id: "HotEG",
     type: "writing",
-    title: "The Heart of the Eternal God | An Interpretation of Lehi's Dream",
+    title: "The Golden Heart of the Eternal God | An Interpretation of Lehi's Dream",
     year: 2025,
     date: "2025-11-16",
     file: "pdf/HotEG.pdf",
