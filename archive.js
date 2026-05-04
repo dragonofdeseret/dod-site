@@ -80,6 +80,34 @@ function normalizeArchive(items) {
 
 const archive = normalizeArchive([
 
+{
+    id: "2026-05-03",
+    type: "art",
+    title: "May 3, 2026",
+    year: 2026,
+    date: "2026-05-03",
+    image: "images/art/2026/2026-05-03.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2026</p>
+    <p><strong>Medium:</strong> Fire Pit Charcoal on Cement</p>
+    <p></p>
+  `
+  },
+ {
+    id: "2026-05-02",
+    type: "art",
+    title: "May 2, 2026",
+    year: 2026,
+    date: "2026-05-02",
+    image: "images/art/2026/2026-05-02.webp",
+    sideNoteTitle: "Details",
+    sideNote: `
+    <p><strong>Year:</strong> 2026</p>
+    <p><strong>Medium:</strong> Fire Pit Charcoal on Cement</p>
+    <p></p>
+  `
+  },
   {
     id: "2026-04-20_2",
     type: "art",
