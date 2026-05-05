@@ -2747,36 +2747,6 @@ const archive = normalizeArchive([
     tags: ["philosophy-of-mind", "consciousness", "consciousness-research", "dmt", "phenomenology", "medical", "science", "theory"]
   },
   {
-    id: "Toyn",
-    type: "writing",
-    title: "Recurring Toyn Dream | ~2000–2005",
-    date: "2023-09-24",
-    year: 2023,
-    file: "pdf/Toyn.pdf",
-    sections: ["trips"],
-    tags: ["dreams", "phenomenology", "consciousness"]
-  },
-  {
-    id: "RD9607",
-    type: "writing",
-    title: "Recurring Dreams, 1996–2007",
-    date: "2023-09-24",
-    year: 2023,
-    file: "pdf/RD9607.pdf",
-    sections: ["trips"],
-    tags: ["dreams", "visionary", "phenomenology", "consciousness"]
-  },
-  {
-    id: "TrampOBE",
-    type: "writing",
-    title: "Trampoline OBE Derealization, 1996",
-    date: "2023-09-24",
-    year: 2023,
-    file: "pdf/TrampOBE.pdf",
-    sections: ["trips"],
-    tags: ["phenomenology", "consciousness"]
-  },
-  {
     id: "GT",
     type: "writing",
     title: "Golden Teachers",
@@ -2943,6 +2913,36 @@ const archive = normalizeArchive([
     sections: ["trips"],
     substance: ["LSD"],
     tags: ["visionary", "lsd", "phenomenology", "mormon-theology", "metaphysics", "ontology", "cosmology", "panpsychism", "intelligence-theory", "consciousness", "consciousness-research"]
+  },
+ {
+    id: "Toyn",
+    type: "writing",
+    title: "Recurring Toyn Dream | ~2000–2005",
+    date: "2023-09-24",
+    year: 2000,
+    file: "pdf/Toyn.pdf",
+    sections: ["trips"],
+    tags: ["dreams", "phenomenology", "consciousness"]
+  },
+  {
+    id: "RD9607",
+    type: "writing",
+    title: "Recurring Dreams, 1996–2007",
+    date: "2023-09-24",
+    year: 1996,
+    file: "pdf/RD9607.pdf",
+    sections: ["trips"],
+    tags: ["dreams", "visionary", "phenomenology", "consciousness"]
+  },
+  {
+    id: "TrampOBE",
+    type: "writing",
+    title: "Trampoline OBE+Depersonalization, 1996",
+    date: "2023-09-24",
+    year: 1996,
+    file: "pdf/TrampOBE.pdf",
+    sections: ["trips"],
+    tags: ["phenomenology", "consciousness"]
   },
 
 /* ===================
