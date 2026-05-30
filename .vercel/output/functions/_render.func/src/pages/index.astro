@@ -1,0 +1,620 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// / — homepage. Library design system, "real entry point" structure:
+//   • Typographic identity (masthead)
+//   • Voice statement (who/what/why — 2-4 sentences)
+//   • Featured (latest essay surfaced prominently)
+//   • Sections-as-invitations (each major area with a one-line description
+//     of what's there)
+//   • Latest activity (5 most recent items across types)
+//   • Colophon footer (RSS, second domain note, etc.)
+//
+// Drops the sidebar entirely on this page — the visitor needs an
+// invitation, not a navigation panel. Sidebar reappears on every
+// inner route.
+// ──────────────────────────────────────────────────────────────────────────────
+
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+import { getCollection } from 'astro:content'
+import HomeLayout from '../layouts/HomeLayout.astro'
+
+// Pull every collection so we can surface a curated featured + latest.
+const [art, photo, writing, margins, quotes] = await Promise.all([
+  getCollection('art'),
+  getCollection('photo'),
+  getCollection('writing'),
+  getCollection('margins'),
+  getCollection('quotes'),
+])
+
+// Featured = most recent non-trip-report essay. If none, fall back to
+// most recent margin. The point is to lead the visitor into the
+// thinking, not the gallery.
+const writingSorted = [...writing]
+  .filter((w) => !(Array.isArray(w.data.sections) && w.data.sections.includes('trips')))
+  .sort((a, b) => Date.parse(b.data.date) - Date.parse(a.data.date))
+const featured = writingSorted[0] ?? null
+
+// Latest = 5 most recent items across writing/art/photo/margins.
+type Dated = { collection: string; data: { id?: string; title?: string; date?: string } }
+const latestAll: Dated[] = [
+  ...writing.map((w) => ({ collection: 'writing', data: w.data })),
+  ...art.map((a) => ({ collection: 'art', data: a.data })),
+  ...photo.map((p) => ({ collection: 'photo', data: p.data })),
+  ...margins.map((m) => ({ collection: 'margins', data: m.data })),
+]
+const latest = latestAll
+  .filter((it) => it.data.date)
+  .sort((a, b) => Date.parse(b.data.date!) - Date.parse(a.data.date!))
+  .slice(0, 5)
+
+// Section descriptors — these read like a magazine's table of contents,
+// not just nav. Each one tells the visitor what kind of material lives
+// there.
+const sections = [
+  {
+    href: '/writing',
+    eyebrow: 'Essays',
+    title: 'Writing',
+    body: 'Long-form pieces on harmonic theism, Mormon metaphysics, phenomenology of altered states, and the texture of belief.',
+    count: writing.length,
+  },
+  {
+    href: '/art',
+    eyebrow: 'Studio',
+    title: 'Artwork',
+    body: 'Artpocrypha.',
+    count: art.length,
+  },
+  {
+    href: '/photography',
+    eyebrow: 'Lens',
+    title: 'Photography',
+    body: 'Field notes from the eye.',
+    count: photo.length,
+  },
+  {
+    href: '/margins',
+    eyebrow: 'Notes',
+    title: 'Margins & Excerpts',
+    body: 'Marginalia from the books, the dreams, the long conversations. Short forms.',
+    count: margins.length,
+  },
+  {
+    href: '/altered-states',
+    eyebrow: 'Reports',
+    title: 'Altered States',
+    body: 'Field notes and phenomenology from Altered States: Vision, Sleep Paralysis, Meditation, Cannabis, LSD, DMT, Psilocybin.',
+    count: writing.filter((w) => Array.isArray(w.data.sections) && w.data.sections.includes('trips')).length,
+  },
+  {
+    href: '/now',
+    eyebrow: 'Current',
+    title: 'Now',
+    body: 'What I am painting, writing, and reading at this moment.',
+    count: null,
+  },
+]
+
+// A featured quote rotates daily based on the date — picks one of the
+// quotes collection entries deterministically. No JS required.
+const today = new Date()
+const dayIndex =
+  today.getUTCFullYear() * 1000 + today.getUTCMonth() * 50 + today.getUTCDate()
+const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
+---
+
+<HomeLayout title="Home">
+  <div class="home">
+    {/* ── Masthead ───────────────────────────────────────────────── */}
+    <header class="home__masthead">
+      <h1 class="home__name">Christopher Shenefelt</h1>
+      <p class="home__monicker">The Dragon of Deseret</p>
+      <p class="home__tagline">Essays, art, light.</p>
+      <div class="home__rule" />
+    </header>
+
+    {/* ── Voice / opening invocation ──────────────────────────────── */}
+    <section class="home__voice">
+      <p class="home__voice-text">
+        A working archive. I write about Mormon theology and Daoist
+        metaphysics, about consciousness and the phenomenology of
+        altered states. I make charcoal drawings, take photographs,
+        keep margin notes. What you find here is what I'm reading,
+        thinking, and trying to say clearly — in the order it arrived.
+      </p>
+    </section>
+
+    {/* ── Featured ───────────────────────────────────────────────── */}
+    {featured && (
+      <section class="home__featured">
+        <div class="home__featured-eyebrow eyebrow">Featured · Latest essay</div>
+        <h2 class="home__featured-title">
+          <a href={`/writing/${featured.data.id}`}>{featured.data.title}</a>
+        </h2>
+        {featured.data.tags && featured.data.tags.length > 0 && (
+          <div class="home__featured-tags">
+            {featured.data.tags.slice(0, 5).map((t) => (
+              <span class="home__tag">{t}</span>
+            ))}
+          </div>
+        )}
+        <a class="home__featured-read" href={`/writing/${featured.data.id}`}>
+          Read the essay →
+        </a>
+      </section>
+    )}
+
+    {/* ── Sections (the table of contents, as invitation) ─────────── */}
+    <section class="home__sections">
+      <div class="home__section-header eyebrow">Sections</div>
+      <ul class="home__section-list">
+        {sections.map((s) => (
+          <li class="home__section-row">
+            <a href={s.href} class="home__section-link">
+              <div class="home__section-eyebrow">{s.eyebrow}</div>
+              <h3 class="home__section-title">{s.title}</h3>
+              <p class="home__section-body">{s.body}</p>
+              {s.count !== null && (
+                <span class="home__section-count">
+                  {s.count} {s.count === 1 ? 'entry' : 'entries'}
+                </span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {/* ── Latest activity ────────────────────────────────────────── */}
+    <section class="home__latest">
+      <div class="home__section-header eyebrow">Recently added</div>
+      <ul class="home__latest-list">
+        {latest.map((it) => {
+          const url =
+            it.collection === 'writing'
+              ? `/writing/${it.data.id}`
+              : it.collection === 'art'
+                ? `/art/${it.data.id}`
+                : it.collection === 'photo'
+                  ? `/photography/${it.data.id}`
+                  : `/margins#${it.data.id}`
+          return (
+            <li class="home__latest-row">
+              <span class="home__latest-kind">{it.collection}</span>
+              <a class="home__latest-title" href={url}>
+                {it.data.title}
+              </a>
+              <span class="home__latest-date mono">{it.data.date}</span>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
+
+    {/* ── Quote of the day ───────────────────────────────────────── */}
+    {quoteOfDay && (
+      <>
+        <hr class="asterism" />
+        <section class="home__quote">
+          <blockquote class="home__quote-text">
+            {(quoteOfDay.body ?? '').trim()}
+            <cite>
+              {quoteOfDay.data.author}
+              {quoteOfDay.data.source && (
+                <span class="home__quote-source"> · {quoteOfDay.data.source}</span>
+              )}
+            </cite>
+          </blockquote>
+        </section>
+      </>
+    )}
+
+    {/* ── Colophon footer ────────────────────────────────────────── */}
+    <footer class="home__colophon">
+      <div class="home__colophon-rule" />
+      <div class="home__colophon-grid">
+        <div>
+          <div class="eyebrow">About</div>
+          <p>
+            <a href="/bio">Biography</a> · <a href="/questions">Questions</a>
+          </p>
+        </div>
+        <div>
+          <div class="eyebrow">Works</div>
+          <p>
+            <a
+              href="https://a.co/d/04zcw8xP"
+              target="_blank"
+              rel="noopener"
+            >
+              Harmonic Theism ↗
+            </a>{' '}
+            ·{' '}
+            <a
+              href="https://daodezion.com"
+              target="_blank"
+              rel="noopener"
+            >
+              Dao De Zion ↗
+            </a>{' '}
+            ·{' '}
+            <a
+              href="https://valencejournal.com"
+              target="_blank"
+              rel="noopener"
+            >
+              Valence Journal ↗
+            </a>{' '}
+            ·{' '}
+            <a
+              href="https://contextualology.com"
+              target="_blank"
+              rel="noopener"
+            >
+              Contextualology ↗
+            </a>
+          </p>
+        </div>
+        <div>
+          <div class="eyebrow">Elsewhere</div>
+          <p>
+            <a
+              href="https://www.instagram.com/dragonofdeseret/"
+              target="_blank"
+              rel="noopener"
+            >
+              Instagram ↗
+            </a>
+          </p>
+        </div>
+      </div>
+      <p class="home__colophon-mark mono">
+        © {new Date().getFullYear()} Christopher Shenefelt · the Dragon of Deseret
+        · artwork and writing © their respective years
+      </p>
+    </footer>
+  </div>
+</HomeLayout>
+
+<style>
+  /* ──────────────────────────────────────────────────────────────────────
+     Homepage-specific layout. Uses the same tokens as global.css.
+     Structure: centered single column, generous vertical rhythm, no
+     sidebar. Reads as a magazine cover.
+     ────────────────────────────────────────────────────────────────────── */
+
+  .home {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+
+  /* ── Masthead ──────────────────────────────────────────────────────── */
+  .home__masthead {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .home__name {
+    font-family: 'Marcellus', serif;
+    font-size: var(--fs-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+  }
+  /* Monicker — identifying epithet under the name. Small caps in
+     oxblood, generous letter-spacing. Reads like a printed-book
+     subtitle line ("known as", "or"). */
+  .home__monicker {
+    /* Sit a little further off the main name so the small caps don't
+       feel crammed against the descenders. */
+    margin: 1.1em 0 0 0;
+    font-family: 'Source Serif 4', serif;
+    font-variant: small-caps;
+    font-feature-settings: 'smcp', 'c2sc';
+    letter-spacing: 0.18em;
+    font-size: 13px;
+    color: var(--accent-2);
+    line-height: 1;
+  }
+  .home__tagline {
+    margin: 1em 0 0 0;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: var(--fs-lg);
+  }
+  .home__rule {
+    width: 80px;
+    height: 1px;
+    background: var(--rule);
+    margin: 28px auto 0;
+  }
+
+  /* ── Voice ─────────────────────────────────────────────────────────── */
+  .home__voice {
+    margin: 0 0 64px 0;
+  }
+  .home__voice-text {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0;
+    /* First-letter drop cap, restrained — same color as body, just larger. */
+  }
+  .home__voice-text::first-letter {
+    font-family: 'Marcellus', serif;
+    font-size: 3.4em;
+    line-height: 0.85;
+    float: left;
+    padding: 0.05em 0.14em 0 0;
+    color: var(--accent-2);  /* oxblood drop cap */
+  }
+
+  /* ── Featured ──────────────────────────────────────────────────────────
+     No box — pure typography. The eyebrow + Marcellus title + tags +
+     "Read the essay" link carry their own weight. A hairline above and
+     below sets it apart from the surrounding rhythm without containing it.
+     ───────────────────────────────────────────────────────────────────── */
+  .home__featured {
+    margin: 0 0 64px 0;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+  .home__featured-eyebrow {
+    margin: 0 0 14px 0;
+  }
+  .home__featured-title {
+    font-family: 'Marcellus', serif;
+    font-size: 36px;
+    margin: 0 0 14px 0;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .home__featured-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .home__featured-title a:hover { color: var(--accent-2); }
+  .home__featured-tags {
+    margin-bottom: 18px;
+  }
+  .home__tag {
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+    margin: 0 0.5em;
+  }
+  .home__featured-read {
+    display: inline-block;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: var(--fs-sm);
+    color: var(--accent-2);
+    text-decoration: none;
+  }
+  .home__featured-read:hover {
+    color: var(--accent);
+  }
+
+  /* ── Sections ──────────────────────────────────────────────────────── */
+  .home__sections {
+    margin: 0 0 64px 0;
+  }
+  .home__section-header {
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .home__section-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 36px;
+  }
+  .home__section-row {
+    /* placeholder for future per-row tweaks */
+  }
+  .home__section-link {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    padding-bottom: 14px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms ease;
+  }
+  .home__section-link:hover {
+    border-bottom-color: var(--rule);
+  }
+  .home__section-eyebrow {
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 2px;
+  }
+  .home__section-title {
+    font-family: 'Marcellus', serif;
+    font-size: 22px;
+    margin: 0 0 6px 0;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .home__section-link:hover .home__section-title {
+    color: var(--accent);
+  }
+  .home__section-body {
+    margin: 0 0 8px 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .home__section-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Latest ────────────────────────────────────────────────────────── */
+  .home__latest {
+    margin: 0 0 64px 0;
+  }
+  .home__latest-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .home__latest-row {
+    display: grid;
+    grid-template-columns: 84px 1fr auto;
+    align-items: baseline;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--paper-edge);
+  }
+  .home__latest-row:last-child {
+    border-bottom: none;
+  }
+  .home__latest-kind {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+  .home__latest-title {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+  .home__latest-title:hover {
+    color: var(--accent);
+    text-decoration-color: var(--rule);
+  }
+  .home__latest-date {
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  /* ── Quote ─────────────────────────────────────────────────────────── */
+  .home__quote {
+    margin: 0 0 64px 0;
+  }
+  .home__quote-text {
+    font-style: italic;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  .home__quote-text cite {
+    display: block;
+    margin-top: 14px;
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    font-style: normal;
+    color: var(--ink-faint);
+  }
+  .home__quote-source {
+    color: var(--ink-faint);
+  }
+
+  /* ── Colophon ──────────────────────────────────────────────────────── */
+  .home__colophon {
+    margin-top: 80px;
+  }
+  .home__colophon-rule {
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 28px;
+  }
+  .home__colophon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .home__colophon-grid .eyebrow {
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+  .home__colophon-grid p {
+    margin: 0;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .home__colophon-grid a {
+    color: var(--ink-soft);
+    text-decoration-color: transparent;
+  }
+  .home__colophon-grid a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--rule);
+  }
+  .home__colophon-mark {
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .home {
+      padding: 48px 24px 80px;
+    }
+    .home__name {
+      font-size: 40px;
+    }
+    .home__voice-text {
+      font-size: 17px;
+    }
+    .home__voice-text::first-letter {
+      font-size: 2.6em;
+    }
+    .home__featured {
+      padding: 24px 22px;
+    }
+    .home__featured-title {
+      font-size: 24px;
+    }
+    .home__section-list {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+    .home__latest-row {
+      grid-template-columns: 70px 1fr;
+      grid-template-rows: auto auto;
+    }
+    .home__latest-date {
+      grid-column: 2;
+      grid-row: 2;
+      margin-top: 2px;
+    }
+    .home__colophon-grid {
+      grid-template-columns: 1fr 1fr;
+      /* 3-col → 2-col → third row stacks naturally */
+    }
+    .home__quote-text {
+      font-size: 18px;
+    }
+  }
+</style>

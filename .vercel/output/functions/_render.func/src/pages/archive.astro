@@ -1,0 +1,119 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /archive — chronological index of every art / photo / writing / margins
+// entry. Markup mirrors the legacy buildArchive() output so style.css
+// applies cleanly:
+//
+//   #archive
+//     .archive-year#year-2026
+//       <h2>2026</h2>
+//       .archive-list
+//         .archive-row
+//           .archive-title
+//             <a>title</a>
+//           .archive-meta-wrap
+//             .archive-meta (date)
+//             <a><img.archive-thumb> | .archive-badge </a>
+//
+// Quotes excluded (no date in legacy schema, would all bucket as "undated").
+// ──────────────────────────────────────────────────────────────────────────────
+
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { groupByYear } from '../lib/sort-group'
+import { itemUrl } from '../lib/item-url'
+import { archiveThumbSrc, archiveThumbSrcset, ARCHIVE_THUMB_SIZES } from '../lib/images'
+
+const [art, photo, writing, margins] = await Promise.all([
+  getCollection('art'),
+  getCollection('photo'),
+  getCollection('writing'),
+  getCollection('margins'),
+])
+
+const dated = [...art, ...photo, ...writing, ...margins]
+const grouped = groupByYear(dated)
+
+// Legacy createArchiveBadge() produced these labels per type. Photo/art
+// items get a thumbnail INSTEAD of a badge (handled in the template).
+function badgeLabelFor(type: string): string | null {
+  if (type === 'writing') return 'PDF'
+  if (type === 'margins') return 'Margins'
+  if (type === 'quotes') return 'Quotes'
+  return null
+}
+function badgeIsWide(type: string): boolean {
+  return type === 'writing' || type === 'margins' || type === 'quotes'
+}
+---
+
+<BaseLayout title="Archive" active="archive" description="Bleached silks, carved blocks.">
+  <header class="page-header">
+    <h1>Archive</h1>
+    <p class="page-intro">bleached silks, carved blocks</p>
+  </header>
+
+  <nav class="year-nav">
+    {grouped.map((g) => <a href={`#year-${g.year}`}>{g.year}</a>)}
+  </nav>
+
+  <div id="archive">
+    {grouped.map((g) => (
+      <div class="archive-year" id={`year-${g.year}`}>
+        <h2>{g.year}</h2>
+        <div class="archive-list">
+          {g.items.map((it) => {
+            const url = itemUrl(it, 'archive')
+            const hasImage =
+              (it.data.type === 'art' || it.data.type === 'photo') &&
+              'image' in it.data &&
+              !!it.data.image
+            const badge = badgeLabelFor(it.data.type)
+            return (
+              <div class="archive-row">
+                <div class="archive-title">
+                  <a href={url}>{it.data.title || it.data.date}</a>
+                </div>
+                <div class="archive-meta-wrap">
+                  <div class="archive-meta">{it.data.date || g.year}</div>
+                  {hasImage ? (
+                    <a href={url}>
+                      <img
+                        class="archive-thumb"
+                        src={archiveThumbSrc((it.data as { image: string }).image)}
+                        srcset={archiveThumbSrcset(
+                          (it.data as { image: string }).image,
+                        )}
+                        sizes={ARCHIVE_THUMB_SIZES}
+                        loading="lazy"
+                        decoding="async"
+                        alt={it.data.title}
+                      />
+                    </a>
+                  ) : (
+                    badge && (
+                      <a href={url}>
+                        <div
+                          class:list={[
+                            'archive-badge',
+                            badgeIsWide(it.data.type) && 'archive-badge--wide',
+                          ]}
+                        >
+                          {badge}
+                        </div>
+                      </a>
+                    )
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

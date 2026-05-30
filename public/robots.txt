@@ -1,0 +1,6 @@
+# Crawlers welcome everywhere except the admin route.
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://christophershenefelt.com/sitemap-index.xml

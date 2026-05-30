@@ -1,0 +1,86 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// Sidebar — single nav definition, replaces the 18 copy-pasted sidebars in
+// the legacy site. Pass `active` to highlight the current top-level link.
+//
+//   <Sidebar active="archive" />
+//
+// `subActive` highlights a sub-nav link (e.g. "altered-states" under Writing).
+// ──────────────────────────────────────────────────────────────────────────────
+
+interface Props {
+  active?:
+    | 'home'
+    | 'archive'
+    | 'art'
+    | 'writing'
+    | 'questions'
+    | 'bio'
+  subActive?:
+    // Art sub-nav
+    | 'exhibits'
+    | 'photo'
+    // Writing sub-nav
+    | 'altered-states'
+    | 'margins'
+    | 'quotes'
+}
+
+const { active, subActive } = Astro.props
+
+// Helper to flag the active class without polluting template-side logic.
+const cls = (key: NonNullable<Props['active']>) =>
+  active === key ? 'active' : undefined
+const subCls = (key: NonNullable<Props['subActive']>) =>
+  subActive === key ? 'nav-sub active' : 'nav-sub'
+---
+
+<nav class="sidebar">
+  <h1>Christopher Shenefelt</h1>
+
+  <a href="/" class={cls('home')}>Home</a>
+  <a href="/archive" class={cls('archive')}>Archive</a>
+
+  <a href="/art" class={cls('art')}>Artwork</a>
+  {active === 'art' && (
+    <>
+      <a href="/exhibits" class={subCls('exhibits')}>Exhibits</a>
+      <a href="/photography" class={subCls('photo')}>Photography</a>
+    </>
+  )}
+
+  <a href="/writing" class={cls('writing')}>Writing</a>
+  {active === 'writing' && (
+    <>
+      <a href="/altered-states" class={subCls('altered-states')}>Altered States</a>
+      <a href="/margins" class={subCls('margins')}>Margins &amp; Excerpts</a>
+      <a href="/quotes" class={subCls('quotes')}>Quotes from Others</a>
+    </>
+  )}
+
+  <a href="/now" class={cls('now')}>Now</a>
+  <a href="/questions" class={cls('questions')}>Questions</a>
+  <a href="/bio" class={cls('bio')}>Biography</a>
+
+  <div class="sidebar-social">
+    <a href="https://a.co/d/04zcw8xP" target="_blank" rel="noopener" class="sidebar-external">
+      Harmonic Theism ↗
+    </a>
+    <a
+      href="https://daodezion.com"
+      target="_blank"
+      rel="noopener"
+      class="sidebar-external external-link"
+    >
+      Dao De Zion ↗
+    </a>
+    <a
+      href="https://www.instagram.com/dragonofdeseret/"
+      target="_blank"
+      rel="noopener"
+      class="sidebar-external external-link"
+    >
+      Instagram ↗
+    </a>
+  </div>
+</nav>

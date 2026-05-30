@@ -1,0 +1,270 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// /admin/[collection]/[id] — single-entry editor. Handles both "new"
+// (id="new") and edit-existing (id=actual). Renders a form whose
+// fields match the collection's schema.
+//
+// All five collections share this route. The form fields vary per
+// collection but the submit + media-upload flow is uniform (driven
+// by data-attributes the client script reads).
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const prerender = false
+
+import { getEntry } from 'astro:content'
+import AdminLayout from '../../../layouts/AdminLayout.astro'
+
+const { collection, id } = Astro.params
+
+const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'site'] as const
+type Known = (typeof KNOWN)[number]
+if (!collection || !KNOWN.includes(collection as Known)) {
+  return Astro.redirect('/admin')
+}
+const col = collection as Known
+const isNew = id === 'new'
+
+// Existing entry (when editing). getEntry resolves the slug as
+// `<year>/<id>` for year-bucketed collections; we don't have the year
+// here, so use the loader output instead.
+type RawEntry = {
+  id: string
+  body?: string
+  data: Record<string, unknown>
+}
+let entry: RawEntry | null = null
+if (!isNew && id) {
+  // Try direct id; if not found, search via getCollection. getEntry
+  // wants the full slug (year/id) so we walk the collection instead.
+  const { getCollection } = await import('astro:content')
+  const all = (await getCollection(col as never)) as unknown as RawEntry[]
+  entry = all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
+  if (!entry) {
+    return Astro.redirect(`/admin/${col}`)
+  }
+}
+
+// Field defaults from the existing entry (when editing) or sensible
+// blanks (when new).
+const d = (entry?.data ?? {}) as Record<string, unknown>
+const f = {
+  id: String(d.id ?? ''),
+  title: String(d.title ?? ''),
+  date: String(d.date ?? ''),
+  year: d.year ? Number(d.year) : new Date().getFullYear(),
+  image: String(d.image ?? ''),
+  file: String(d.file ?? ''),
+  sideNoteTitle: String(d.sideNoteTitle ?? 'Details'),
+  sideNote: String(d.sideNote ?? ''),
+  detail: String(d.detail ?? ''),
+  author: String(d.author ?? ''),
+  source: String(d.source ?? ''),
+  tags: Array.isArray(d.tags) ? (d.tags as string[]).join(', ') : '',
+  marginsTags: Array.isArray(d.marginsTags) ? (d.marginsTags as string[]).join(', ') : '',
+  sections: Array.isArray(d.sections) ? (d.sections as string[]) : ['writing'],
+  body: entry?.body ?? '',
+}
+
+// Storage bucket per collection (drives the client uploader).
+const BUCKETS: Record<Known, string | undefined> = {
+  art: 'art-images',
+  photo: 'photo-images',
+  writing: 'pdf-files',
+  margins: undefined,
+  quotes: undefined,
+  site: undefined,
+}
+const bucket = BUCKETS[col]
+
+const title = isNew ? `New ${col}` : (f.title || f.id || id)
+---
+
+<AdminLayout title={title} active={col}>
+  <h1 class="admin-h1">{isNew ? `New ${col}` : title}</h1>
+  <p class="admin-subtitle">
+    <a href={`/admin/${col}`}>← Back to {col}</a>
+  </p>
+
+  <div id="save-status" class="admin-flash" style="display: none;"></div>
+
+  <form
+    id="admin-editor-form"
+    data-collection={col}
+    data-is-new={String(isNew)}
+    data-media-bucket={bucket ?? ''}
+  >
+    {/* ── Common fields ─────────────────────────────────────────── */}
+    {col !== 'quotes' && (
+      <div class="admin-field">
+        <label class="admin-label" for="title">Title</label>
+        <input class="admin-input" type="text" id="title" name="title" value={f.title} required />
+      </div>
+    )}
+    {col !== 'quotes' && col !== 'site' && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label" for="date">Date</label>
+          <input class="admin-input" type="date" id="date" name="date" value={f.date} required />
+        </div>
+        <div class="admin-field">
+          <label class="admin-label" for="year">Year</label>
+          <input class="admin-input" type="number" id="year" name="year" value={String(f.year)} min="1900" max="2100" required />
+          <span class="admin-hint">Auto-fills from Date.</span>
+        </div>
+      </>
+    )}
+
+    {/* Site entries have a fixed id and a single page — no need to
+        surface the slug field to the editor. */}
+    {col !== 'site' && (
+      <div class="admin-field">
+        <label class="admin-label" for="id">ID (also the filename)</label>
+        <input class="admin-input" type="text" id="id" name="id" value={f.id} required readonly={!isNew} />
+        <span class="admin-hint">{isNew ? 'Auto-filled from date or title. Edit if you want a custom slug.' : 'Renaming requires a delete + recreate; readonly when editing.'}</span>
+      </div>
+    )}
+    {col === 'site' && (
+      <input type="hidden" name="id" value={f.id || 'now'} />
+    )}
+
+    {/* ── Per-collection fields ─────────────────────────────────── */}
+
+    {(col === 'art' || col === 'photo') && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label">Image</label>
+          {bucket && (
+            <input type="file" name="media-file" accept="image/*" class="admin-input" />
+          )}
+          <input type="hidden" name="image" value={f.image} />
+          {f.image && (
+            <img
+              id="media-preview"
+              src={f.image.startsWith('http') ? f.image : `/${f.image}`}
+              alt="preview"
+              class="admin-upload__preview"
+              style="display: block;"
+            />
+          )}
+          {!f.image && (
+            <img id="media-preview" alt="preview" class="admin-upload__preview" style="display: none;" />
+          )}
+          <span class="admin-hint">Upload an image; the URL is filled in automatically.</span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="sideNoteTitle">Side note title</label>
+          <input class="admin-input" type="text" id="sideNoteTitle" name="sideNoteTitle" value={f.sideNoteTitle} />
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="sideNote">Side note (HTML body)</label>
+          <textarea class="admin-textarea" id="sideNote" name="sideNote" rows="6">{f.sideNote}</textarea>
+          <span class="admin-hint">Free-form HTML. Renders on the right side of the entry page.</span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="tags">Tags</label>
+          <input class="admin-input" type="text" id="tags" name="tags" value={f.tags} />
+          <span class="admin-hint">Comma-separated.</span>
+        </div>
+      </>
+    )}
+
+    {col === 'writing' && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label">PDF</label>
+          {bucket && (
+            <input type="file" name="media-file" accept="application/pdf" class="admin-input" />
+          )}
+          <input type="hidden" name="file" value={f.file} />
+          {f.file && <p class="admin-hint">Current: <code>{f.file}</code></p>}
+          <span class="admin-hint">Upload a PDF; the URL is filled in automatically.</span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label">Sections (controls which page lists this essay)</label>
+          <label style="display:block; margin: 4px 0;">
+            <input type="checkbox" name="sections" value="writing" checked={f.sections.includes('writing')} />
+            Writing (main essays list)
+          </label>
+          <label style="display:block; margin: 4px 0;">
+            <input type="checkbox" name="sections" value="trips" checked={f.sections.includes('trips')} />
+            Altered States (trip reports)
+          </label>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="tags">Tags</label>
+          <input class="admin-input" type="text" id="tags" name="tags" value={f.tags} />
+          <span class="admin-hint">Comma-separated.</span>
+        </div>
+      </>
+    )}
+
+    {col === 'margins' && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label" for="body">Excerpt text</label>
+          <textarea class="admin-textarea" id="body" name="body" rows="8" required>{f.body}</textarea>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="detail">Source / attribution</label>
+          <input class="admin-input" type="text" id="detail" name="detail" value={f.detail} />
+          <span class="admin-hint">e.g. "Excerpt from: Harmonic Theism, Symphony No. I."</span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="marginsTags">Tags</label>
+          <input class="admin-input" type="text" id="marginsTags" name="marginsTags" value={f.marginsTags} />
+          <span class="admin-hint">Comma-separated.</span>
+        </div>
+      </>
+    )}
+
+    {col === 'quotes' && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label" for="body">Quote text</label>
+          <textarea class="admin-textarea" id="body" name="body" rows="6" required>{f.body}</textarea>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="author">Author</label>
+          <input class="admin-input" type="text" id="author" name="author" value={f.author} />
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="source">Source / citation</label>
+          <input class="admin-input" type="text" id="source" name="source" value={f.source} />
+        </div>
+      </>
+    )}
+
+    {col === 'site' && (
+      <div class="admin-field">
+        <label class="admin-label" for="body">Body</label>
+        <textarea class="admin-textarea" id="body" name="body" rows="20" required>{f.body}</textarea>
+        <span class="admin-hint">
+          Markdown. For the Now page, use <code>## Section</code> headings — each one
+          becomes a card. List items under each section start with <code>- </code>.
+          See src/content/site/now.md for the shape.
+        </span>
+      </div>
+    )}
+
+    <div class="admin-actions" style="margin-top: 24px;">
+      <button type="submit" class="admin-button">{isNew ? 'Publish' : 'Save changes'}</button>
+      <a class="admin-button admin-button--ghost" href={`/admin/${col}`}>Cancel</a>
+      {!isNew && (
+        <button type="button" id="admin-delete-btn" class="admin-button admin-button--danger" style="margin-left: auto;">Delete</button>
+      )}
+    </div>
+  </form>
+
+  <script>
+    import '@/scripts/admin-editor.ts'
+  </script>
+</AdminLayout>

@@ -1,0 +1,90 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /writing — essays + excerpts, grouped by year. Markup mirrors legacy
+// buildWritingIndex(): each row is itself an <a> (whole-row clickable),
+// title + inline tag pills on top, date on the right.
+//
+// Trip reports are filtered OUT here (they live on /altered-states), per
+// legacy behavior.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { groupByYear } from '../lib/sort-group'
+
+const writing = await getCollection('writing')
+
+// Trip reports (sections: ['trips']) belong on /altered-states, not here.
+const indexItems = writing.filter(
+  (it) => !(Array.isArray(it.data.sections) && it.data.sections.includes('trips')),
+)
+const grouped = groupByYear(indexItems)
+---
+
+<BaseLayout title="Writing" active="writing">
+  <header class="page-header">
+    <h1>Writings</h1>
+    <p class="page-intro">
+      Essays, Excerpts, and Musings |{' '}
+      <a
+        href="https://a.co/d/04zcw8xP"
+        target="_blank"
+        rel="noopener"
+        class="buy-link"
+      >
+        Purchase Harmonic Theism ↗
+      </a>
+    </p>
+    <nav class="year-nav">
+      {grouped.map((g) => <a href={`#year-${g.year}`}>{g.year}</a>)}
+    </nav>
+    <div class="filter-block">
+      <div class="filter-row">
+        <div
+          class="tag-filter tag-filter-writing"
+          data-filter-name="writingTags"
+          data-filter-target=".archive-list > .archive-row"
+          data-filter-key="writing-tags"
+          data-filter-mode="or"
+        />
+      </div>
+    </div>
+  </header>
+
+  <div id="writing">
+    {grouped.map((g) => (
+      <div class="archive-year" id={`year-${g.year}`}>
+        <h2>{g.year}</h2>
+        <div class="archive-list">
+          {g.items.map((it) => (
+            <a
+              class="archive-row"
+              href={`/writing/${it.data.id}`}
+              data-writing-tags={(it.data.tags ?? []).join(',')}
+            >
+              <div class="archive-title">
+                {it.data.title}
+                {it.data.tags && it.data.tags.length > 0 && (
+                  <div class="item-tags-inline">
+                    {it.data.tags.map((t) => (
+                      <span class="item-tag-inline">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div class="archive-meta">{it.data.date || g.year}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <script>
+    import '../scripts/filter-engine.ts'
+  </script>
+</BaseLayout>

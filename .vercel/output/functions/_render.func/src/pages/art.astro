@@ -1,0 +1,100 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /art — gallery of every art piece, grouped by year.
+//
+// Markup matches the legacy `buildGallery()` output exactly so style.css
+// applies without changes:
+//
+//   <section class="gallery">
+//     <section class="gallery-year" id="year-2026">
+//       <h2>2026</h2>
+//       <div class="gallery-grid">
+//         <a href="/art/<id>">
+//           <img src=... srcset=... sizes=... loading="lazy" decoding="async" alt=...>
+//         </a>
+//         ...
+//       </div>
+//     </section>
+//   </section>
+//
+// Year nav + filter slots match the legacy template. Filter wiring +
+// random-shuffle button come from the client script.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { groupByYear } from '../lib/sort-group'
+import {
+  thumbSrc,
+  thumbSrcset,
+  GALLERY_SIZES,
+} from '../lib/images'
+
+const art = await getCollection('art')
+const grouped = groupByYear(art)
+---
+
+<BaseLayout title="Artwork" active="art" description="Patterns in jade.">
+  <header class="page-header">
+    <h1>Artwork</h1>
+
+    <div class="page-intro-row">
+      <p class="page-intro">patterns in jade |</p>
+      <div class="gallery-controls">
+        <div id="random-container"></div>
+      </div>
+    </div>
+
+    <nav class="year-nav">
+      {grouped.map((g) => <a href={`#year-${g.year}`}>{g.year}</a>)}
+    </nav>
+
+    <div class="filter-block">
+      <div class="filter-row">
+        <div
+          class="tag-filter tag-filter-art-tags"
+          data-filter-name="artTags"
+          data-filter-target=".gallery-grid > a"
+          data-filter-key="art-tags"
+          data-filter-mode="or"
+        />
+      </div>
+    </div>
+  </header>
+
+  <section class="gallery">
+    {grouped.map((g) => (
+      <section class="gallery-year" id={`year-${g.year}`}>
+        <h2>{g.year}</h2>
+        <div class="gallery-grid">
+          {g.items.map((it) => (
+            <a
+              href={`/art/${it.data.id}`}
+              data-art-tags={(it.data.tags ?? []).join(',')}
+              data-year={String(it.data.year)}
+            >
+              <img
+                src={thumbSrc(it.data.image)}
+                srcset={thumbSrcset(it.data.image)}
+                sizes={GALLERY_SIZES}
+                loading="lazy"
+                decoding="async"
+                alt={it.data.title}
+              />
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </section>
+
+  {/* Random-shuffle button + filter engine + lightbox for the inline links. */}
+  <script>
+    import '../scripts/filter-engine.ts'
+    import '../scripts/random-button.ts'
+  </script>
+</BaseLayout>

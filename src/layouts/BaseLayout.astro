@@ -1,0 +1,72 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// BaseLayout — page chrome shared by every route. Sidebar nav + main content
+// slot + global CSS + per-page <head> metadata (title, OG, sitemap-friendly
+// canonical).
+//
+// Use:
+//
+//   <BaseLayout title="Archive" active="archive">
+//     <header class="page-header">...</header>
+//     <div id="archive"></div>
+//   </BaseLayout>
+// ──────────────────────────────────────────────────────────────────────────────
+
+import Sidebar from '../components/Sidebar.astro'
+import '../styles/global.css'
+
+interface Props {
+  /** Browser tab title. The site name is appended automatically. */
+  title: string
+  /** Optional description for <meta name="description"> + OG. Falls back
+   *  to the site-wide tagline. */
+  description?: string
+  /** Open-Graph image URL (absolute or root-relative). Defaults to the
+   *  site favicon — replace with a hero image per page when one fits. */
+  ogImage?: string
+  /** Drives the sidebar's active-link highlight. See Sidebar.astro. */
+  active?: Parameters<typeof Sidebar>[0]['active']
+  subActive?: Parameters<typeof Sidebar>[0]['subActive']
+}
+
+const {
+  title,
+  description = 'Essays, art, and photography by Christopher Shenefelt.',
+  ogImage,
+  active,
+  subActive,
+} = Astro.props
+
+const fullTitle = `${title} — Christopher Shenefelt`
+const canonical = new URL(Astro.url.pathname, Astro.site).toString()
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* OpenGraph + Twitter card — the legacy site had none of this, so
+        social-shared links rendered as URL strings with no preview. */}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="layout">
+      <Sidebar active={active} subActive={subActive} />
+      <main class="content">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

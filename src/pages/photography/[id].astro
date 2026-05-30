@@ -1,0 +1,104 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /photography/[id] — single-photo viewer. Same shape as /art/[id]; the
+// only differences are the active-sidebar key and the back-link copy.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { sortByDateDescWithIdTiebreak } from '../../lib/sort-group'
+import { viewerSrc, viewerSrcset, originalSrc, VIEWER_SIZES } from '../../lib/images'
+
+export const getStaticPaths = (async () => {
+  const items = sortByDateDescWithIdTiebreak(await getCollection('photo'))
+  return items.map((item, i) => {
+    const prev = items[i - 1] ?? null
+    const next = items[i + 1] ?? null
+    return {
+      params: { id: item.data.id },
+      props: { item, prev, next },
+    }
+  })
+}) satisfies GetStaticPaths
+
+const { item, prev, next } = Astro.props
+const fromParam = Astro.url.searchParams.get('from') ?? 'photography'
+
+const back =
+  fromParam === 'archive'
+    ? { href: '/archive', text: 'Back to Archive' }
+    : { href: '/photography', text: 'Back to Photography' }
+
+const prevUrl = prev ? `/photography/${prev.data.id}?from=${fromParam}` : ''
+const nextUrl = next ? `/photography/${next.data.id}?from=${fromParam}` : ''
+---
+
+<BaseLayout title={item.data.title} active="art" subActive="photo">
+  <div class="art-page">
+    <h1 id="title">{item.data.title}</h1>
+
+    <div class="art-navigation" id="nav">
+      <div class="nav-left">
+        {prev && <a href={prevUrl}>← Previous</a>}
+      </div>
+      <div class="nav-center">
+        <a href={back.href}>{back.text}</a>
+      </div>
+      <div class="nav-right">
+        {next && <a href={nextUrl}>Next →</a>}
+      </div>
+    </div>
+
+    <div id="art-layout">
+      {item.data.sideNote ? (
+        <div class="media-row">
+          <div class="media-image">
+            <img
+              id="art-image"
+              src={viewerSrc(item.data.image)}
+              srcset={viewerSrcset(item.data.image)}
+              sizes={VIEWER_SIZES}
+              decoding="async"
+              alt={item.data.title}
+              data-lightbox={originalSrc(item.data.image)}
+              style="cursor: zoom-in"
+            />
+          </div>
+          <aside class="media-note">
+            <h3>{item.data.sideNoteTitle ?? 'Details'}</h3>
+            <Fragment set:html={item.data.sideNote} />
+          </aside>
+        </div>
+      ) : (
+        <div class="art-image">
+          <img
+            id="art-image"
+            src={viewerSrc(item.data.image)}
+            srcset={viewerSrcset(item.data.image)}
+            sizes={VIEWER_SIZES}
+            decoding="async"
+            alt={item.data.title}
+            data-lightbox={originalSrc(item.data.image)}
+            style="cursor: zoom-in"
+          />
+        </div>
+      )}
+    </div>
+  </div>
+
+  <script>
+    import '../../scripts/lightbox.ts'
+  </script>
+  <script define:vars={{ prevUrl, nextUrl }}>
+    document.addEventListener('keydown', (e) => {
+      if (document.querySelector('.image-viewer')) return
+      if (e.key === 'ArrowLeft' && prevUrl) window.location.href = prevUrl
+      if (e.key === 'ArrowRight' && nextUrl) window.location.href = nextUrl
+    })
+  </script>
+</BaseLayout>

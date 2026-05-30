@@ -1,0 +1,68 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// /admin — dashboard. Lists collections + per-collection entry counts +
+// the five most recently edited entries across the site.
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const prerender = false
+
+import { getCollection } from 'astro:content'
+import AdminLayout from '../../layouts/AdminLayout.astro'
+
+const [art, photo, writing, margins, quotes] = await Promise.all([
+  getCollection('art'),
+  getCollection('photo'),
+  getCollection('writing'),
+  getCollection('margins'),
+  getCollection('quotes'),
+])
+
+const totals = [
+  { name: 'Artwork',     count: art.length,     href: '/admin/art' },
+  { name: 'Photography', count: photo.length,   href: '/admin/photo' },
+  { name: 'Writing',     count: writing.length, href: '/admin/writing' },
+  { name: 'Margins',     count: margins.length, href: '/admin/margins' },
+  { name: 'Quotes',      count: quotes.length,  href: '/admin/quotes' },
+]
+
+// Five most-recent across everything that has a date.
+const allDated = [...art, ...photo, ...writing, ...margins]
+  .map((it) => ({ ...it, ts: Date.parse(it.data.date ?? '') || 0 }))
+  .sort((a, b) => b.ts - a.ts)
+  .slice(0, 5)
+---
+
+<AdminLayout title="Dashboard" active="dashboard">
+  <h1 class="admin-h1">Dashboard</h1>
+  <p class="admin-subtitle">{`Signed in as ${Astro.locals.user?.email ?? 'admin'}`}</p>
+
+  <div class="admin-card">
+    <h2 class="admin-card__title">Collections</h2>
+    <ul class="admin-list">
+      {totals.map((t) => (
+        <li class="admin-list__row">
+          <a href={t.href}>{t.name}</a>
+          <span class="admin-list__meta">{t.count} entries</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="admin-card">
+    <h2 class="admin-card__title">Recent</h2>
+    {allDated.length === 0 ? (
+      <p class="admin-list__meta">No dated entries yet.</p>
+    ) : (
+      <ul class="admin-list">
+        {allDated.map((it) => (
+          <li class="admin-list__row">
+            <a href={`/admin/${it.collection}/${it.data.id}`}>
+              {it.data.title} <span class="admin-list__meta">· {it.collection}</span>
+            </a>
+            <span class="admin-list__meta">{it.data.date}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</AdminLayout>

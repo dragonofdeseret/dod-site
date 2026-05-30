@@ -1,0 +1,332 @@
+/* ────────────────────────────────────────────────────────────────────────────
+   Admin styles. Layered on top of global.css; reuses the same palette
+   so the admin feels like the same site. Two-column shell (left rail
+   + main) with a sticky topbar.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.admin-body {
+  font-family: Baskerville, 'Libre Baskerville', 'Times New Roman', serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  min-height: 100vh;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Topbar */
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(24, 8, 24, 0.92);
+  backdrop-filter: blur(8px);
+  font-size: 14px;
+}
+
+.admin-topbar__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink-soft);
+}
+.admin-topbar__title a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.admin-topbar__title a:hover {
+  text-decoration: underline;
+}
+.admin-topbar__sep {
+  color: var(--ink-faint);
+}
+
+.admin-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.admin-topbar__actions a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 13px;
+}
+.admin-topbar__actions a:hover {
+  color: var(--ink);
+}
+.admin-topbar__user {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* Layout */
+.admin-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 56px);
+}
+
+.admin-nav {
+  border-right: 1px solid var(--line);
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.12);
+}
+.admin-nav__heading {
+  margin-top: 22px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+.admin-nav__link {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.15s, color 0.15s;
+}
+.admin-nav__link:hover {
+  background: rgba(255, 235, 245, 0.04);
+  color: var(--ink);
+}
+.admin-nav__link.active {
+  background: rgba(255, 235, 245, 0.07);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.admin-main {
+  padding: 32px 40px;
+  max-width: 900px;
+}
+
+/* Components */
+.admin-h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: var(--ink);
+}
+.admin-subtitle {
+  color: var(--ink-faint);
+  font-size: 14px;
+  margin: 0 0 28px 0;
+}
+
+.admin-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.admin-card__title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.admin-card__meta {
+  color: var(--ink-faint);
+  font-size: 12px;
+}
+
+/* Form fields */
+.admin-field {
+  margin-bottom: 18px;
+}
+.admin-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.admin-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+.admin-input,
+.admin-textarea,
+.admin-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--ink);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.admin-textarea {
+  resize: vertical;
+  min-height: 96px;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.admin-input:focus,
+.admin-textarea:focus,
+.admin-select:focus {
+  outline: 2px solid rgba(239, 233, 230, 0.4);
+  outline-offset: -1px;
+}
+
+.admin-button {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #19081f;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+.admin-button:hover {
+  background: #fff;
+}
+.admin-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.admin-button--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+  font-weight: 400;
+}
+.admin-button--ghost:hover {
+  background: rgba(255, 235, 245, 0.04);
+}
+.admin-button--danger {
+  background: transparent;
+  color: #f4a8a8;
+  border-color: rgba(244, 168, 168, 0.4);
+}
+.admin-button--danger:hover {
+  background: rgba(244, 168, 168, 0.08);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.admin-list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.admin-list__row:last-child {
+  border-bottom: none;
+}
+.admin-list__row a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+}
+.admin-list__row a:hover {
+  text-decoration: underline;
+}
+.admin-list__meta {
+  color: var(--ink-faint);
+  font-size: 12px;
+}
+
+/* Login form */
+.admin-login-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+.admin-login-card {
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 32px;
+}
+.admin-login-card h1 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+.admin-login-card p {
+  color: var(--ink-faint);
+  font-size: 13px;
+  margin: 0 0 24px 0;
+}
+
+/* Status messages */
+.admin-flash {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+.admin-flash--error {
+  background: rgba(244, 168, 168, 0.08);
+  color: #f4a8a8;
+  border: 1px solid rgba(244, 168, 168, 0.3);
+}
+.admin-flash--success {
+  background: rgba(168, 244, 200, 0.06);
+  color: #a8f4c8;
+  border: 1px solid rgba(168, 244, 200, 0.25);
+}
+.admin-flash--info {
+  background: rgba(168, 200, 244, 0.06);
+  color: #a8c8f4;
+  border: 1px solid rgba(168, 200, 244, 0.25);
+}
+
+/* Upload widget */
+.admin-upload {
+  border: 1px dashed var(--line);
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.admin-upload:hover {
+  border-color: var(--ink-soft);
+  background: rgba(0, 0, 0, 0.28);
+}
+.admin-upload__preview {
+  margin-top: 12px;
+  max-height: 220px;
+  border-radius: 6px;
+}

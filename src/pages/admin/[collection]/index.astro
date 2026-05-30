@@ -1,0 +1,77 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// /admin/[collection] — browse view for one collection. Lists every entry
+// newest-first with edit + delete affordances. Works for all five
+// collections via the dynamic param.
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const prerender = false
+
+import { getCollection } from 'astro:content'
+import AdminLayout from '../../../layouts/AdminLayout.astro'
+
+const { collection } = Astro.params
+
+const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'site'] as const
+type Known = (typeof KNOWN)[number]
+
+if (!collection || !KNOWN.includes(collection as Known)) {
+  return Astro.redirect('/admin')
+}
+const col = collection as Known
+
+const LABELS: Record<Known, string> = {
+  art: 'Artwork',
+  photo: 'Photography',
+  writing: 'Writing',
+  margins: 'Margins',
+  quotes: 'Quotes',
+  site: 'Site pages',
+}
+
+// `getCollection` is typed per-collection literal. Cast to a permissive
+// shape so we can iterate without a switch.
+type Row = {
+  id: string
+  data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string }
+}
+const raw = (await getCollection(col as never)) as unknown as Row[]
+const items = [...raw].sort((a, b) => {
+  const ad = Date.parse(a.data.date ?? '') || 0
+  const bd = Date.parse(b.data.date ?? '') || 0
+  return bd - ad
+})
+---
+
+<AdminLayout title={LABELS[col]} active={col}>
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+    <div>
+      <h1 class="admin-h1">{LABELS[col]}</h1>
+      <p class="admin-subtitle">{items.length} {items.length === 1 ? 'entry' : 'entries'}</p>
+    </div>
+    <a class="admin-button" href={`/admin/${col}/new`}>+ New {col === 'quotes' ? 'quote' : col === 'margins' ? 'note' : col === 'writing' ? 'essay' : col}</a>
+  </div>
+
+  <div class="admin-card">
+    {items.length === 0 ? (
+      <p class="admin-list__meta">No entries yet. Click "+ New" above to add the first one.</p>
+    ) : (
+      <ul class="admin-list">
+        {items.map((it) => {
+          const id = it.data.id ?? it.id
+          const title =
+            it.data.title ??
+            (it.data.author && it.data.source
+              ? `${it.data.author} — ${it.data.source}`
+              : it.data.author || it.data.source || id)
+          return (
+            <li class="admin-list__row">
+              <a href={`/admin/${col}/${id}`}>{title}</a>
+              <span class="admin-list__meta">{it.data.date ?? '—'}</span>
+            </li>
+          )
+        })}
+      </ul>
+    )}
+  </div>
+</AdminLayout>

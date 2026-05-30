@@ -1,0 +1,54 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /questions — visitor-submitted questions, answered as time permits.
+// Form posts to a Google Apps Script endpoint; approved questions
+// appear in the list after a moderator pass.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Questions" active="questions">
+  <header class="page-header">
+    <h1>Questions</h1>
+    <p class="page-intro"></p>
+  </header>
+
+  <section class="questions-intro">
+    <form id="question-form" class="question-form">
+      <textarea
+        id="question-input"
+        name="question"
+        placeholder="ask a question..."
+        required
+      />
+
+      {/* Honeypot field — invisible to humans, bots fill it in.
+          The submit handler rejects any payload where this is non-empty. */}
+      <input
+        type="text"
+        id="website-field"
+        name="website"
+        class="hidden-honeypot"
+        tabindex="-1"
+        autocomplete="off"
+      />
+
+      <button type="submit">submit</button>
+    </form>
+
+    <p id="question-status" class="questions-note">
+      questions appear here upon system approval. this can take some time.
+    </p>
+  </section>
+
+  <section id="questions-list" class="questions-list"></section>
+
+  <script>
+    import '../scripts/questions.ts'
+  </script>
+</BaseLayout>

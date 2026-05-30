@@ -1,0 +1,77 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// AdminLayout — shell for /admin/** pages. Same palette + serif as the
+// public site, but a dedicated admin chrome:
+//
+//   • Top bar with the page title + a "View site" link + "Sign out"
+//   • Left rail listing the five collections
+//   • Main content slot
+//
+// Auth assumed; the middleware already gated access. Pages can read
+// the user via Astro.locals.user.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import '../styles/global.css'
+import '../styles/admin.css'
+
+interface Props {
+  title: string
+  /** Sidebar key to highlight, matches the collection name. */
+  active?: 'dashboard' | 'art' | 'photo' | 'writing' | 'margins' | 'quotes' | 'site'
+}
+
+const { title, active } = Astro.props
+const user = Astro.locals.user
+const fullTitle = `${title} — Admin`
+
+function cls(key: NonNullable<Props['active']>) {
+  return active === key ? 'admin-nav__link active' : 'admin-nav__link'
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{fullTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="admin-body">
+    <header class="admin-topbar">
+      <div class="admin-topbar__title">
+        <a href="/admin">Archive</a>
+        <span class="admin-topbar__sep">/</span>
+        <span>{title}</span>
+      </div>
+      <div class="admin-topbar__actions">
+        <a href="/" target="_blank" rel="noopener">View site ↗</a>
+        <span class="admin-topbar__user">{user?.email}</span>
+        <form method="POST" action="/admin/sign-out">
+          <button type="submit" class="admin-button admin-button--ghost">
+            Sign out
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <nav class="admin-nav">
+        <a href="/admin" class={cls('dashboard')}>Dashboard</a>
+        <div class="admin-nav__heading">Collections</div>
+        <a href="/admin/art" class={cls('art')}>Artwork</a>
+        <a href="/admin/photo" class={cls('photo')}>Photography</a>
+        <a href="/admin/writing" class={cls('writing')}>Writing</a>
+        <a href="/admin/margins" class={cls('margins')}>Margins</a>
+        <a href="/admin/quotes" class={cls('quotes')}>Quotes</a>
+        <div class="admin-nav__heading">Site pages</div>
+        <a href="/admin/site/now" class={cls('site')}>Now</a>
+      </nav>
+
+      <main class="admin-main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

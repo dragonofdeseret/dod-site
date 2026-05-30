@@ -1,0 +1,260 @@
+---
+// Static prerender — built at deploy time. Astro emits HTML; no
+// serverless function. Admin routes opt OUT with prerender = false.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /bio — biography + life timeline. All static, hand-curated. Legacy
+// `tripreports.html?id=X` deep-links have been rewritten to clean
+// `/altered-states/X` paths.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Biography" active="bio">
+  <div class="bio-page-wrap">
+    <header class="page-header">
+      <h1>Biography</h1>
+      <p class="page-intro"></p>
+    </header>
+
+    <section class="bio-shell bio-archive-layout">
+      <article class="bio-panel archive-entry">
+        <div class="archive-entry-head">
+          <h2>Christopher Shenefelt</h2>
+          <div class="archive-id">ID: HUMAN-1989-UT-USA</div>
+          <div class="archive-status">STATUS: ACTIVE</div>
+        </div>
+
+        <div class="archive-grid">
+          <div class="archive-row">
+            <div class="archive-key">Type</div>
+            <div class="archive-value">Writer | Artist | Phenomenologist</div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Region</div>
+            <div class="archive-value">Salt Lake Valley, Utah, United States</div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Traditions</div>
+            <div class="archive-value">Mormonism, Daoism, Zen</div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Methods</div>
+            <div class="archive-value">
+              zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
+            </div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Conditions</div>
+            <div class="archive-value">
+              Celiac disease, PMBC dysfunction, chronic pain, clinical insomnia,
+              clinical endocannabinoid deficiency, visual snow syndrome,
+              high-functioning major depressive disorder, transient Musicophilia
+            </div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Background</div>
+            <div class="archive-value">
+              <ul class="archive-list">
+                <li>
+                  <strong>Previous:</strong> Professional stage management;
+                  technical support for NFLX, AAPL, TSLA.
+                </li>
+                <li><strong>Current:</strong> Contractor consultant, Chief of Staff.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Philosophical Interests</div>
+            <div class="archive-value">
+              Consciousness, perception, comparative theology, symbolic order,
+              metaphysics, identity, altered states, embodiment, limits of language
+            </div>
+          </div>
+          <div class="archive-row">
+            <div class="archive-key">Notes</div>
+            <div class="archive-value"></div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="bio-aside timeline-panel">
+        <div class="bio-kicker">Life Index</div>
+        <div class="timeline-scroll">
+          <div class="timeline-item">
+            <div class="timeline-year">February 24, 1989</div>
+            <div class="timeline-text">
+              <li>Born in Ogden, Utah. 9:54 AM</li>
+              <li>Born with Pyloric Stenosis</li>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">April 4, 1989</div>
+            <div class="timeline-text">Pyloric Stenosis surgery</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">1990</div>
+            <div class="timeline-text">First out-of-body experience</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Spring 1996</div>
+            <div class="timeline-text">First Derealization</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Spring or Fall of 1996</div>
+            <div class="timeline-text">
+              <li>Recurring dreams begin</li>
+              <li>Transient insomnia meanders</li>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Oct or Nov 1996</div>
+            <div class="timeline-text">
+              <li><a href="/altered-states/TrampOBE">Second Out-of-Body experience</a></li>
+              <li><a href="/altered-states/TrampOBE">First Depersonalization</a></li>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">March 29, 1997</div>
+            <div class="timeline-text">Baptized and confirmed a Latter-day Saint</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">December 1999</div>
+            <div class="timeline-text">
+              <a href="/altered-states/Toyn">Third recurring dream begins</a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">April 2003</div>
+            <div class="timeline-text">
+              <li>Chronic pain begins</li>
+              <li>Clinical Insomnia patterns begin</li>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2007</div>
+            <div class="timeline-text">Recurring dreams come to an end</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">August 2008</div>
+            <div class="timeline-text">Temple Endowment</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">September 25, 2008</div>
+            <div class="timeline-text">
+              <ul class="timeline-list">
+                <li>Mission to Cape Verde, Praia, Africa.</li>
+                <li>
+                  Sleep paralysis vision:
+                  <a href="/altered-states/CtP">Called to Purge.</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">January 2009 – January 2014</div>
+            <div class="timeline-text">
+              Stage Manager for Val A. Browning Center for the Performing Arts
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Summer, 2013</div>
+            <div class="timeline-text">
+              "And it came to pass…": Primary recurring dream from{' '}
+              <a href="/altered-states/RD9607">1996 - 2007</a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2013 - 2015</div>
+            <div class="timeline-text">
+              Stage Manager for Odyssey Dance Theatre's, "Thriller"; Kingsbury Hall
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2014–2015</div>
+            <div class="timeline-text">Netflix employment</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2015–2017</div>
+            <div class="timeline-text">Apple employment</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Winter 2015</div>
+            <div class="timeline-text">
+              Stage Technician for "Savior of the World"
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">Fall 2017</div>
+            <div class="timeline-text">Loss of faith/belief</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">2018–2020</div>
+            <div class="timeline-text">Tesla employment</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">May 11, 2019</div>
+            <div class="timeline-text">
+              <a href="/altered-states/AIW">First LSD Trip</a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">August 8, 2020</div>
+            <div class="timeline-text">
+              <a href="/altered-states/SiA">First Medical Cannabis Experience</a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">June 19, 2022</div>
+            <div class="timeline-text">First DMT trip</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">July 12, 2022</div>
+            <div class="timeline-text">
+              <a href="/altered-states/IAMT">Second DMT Trip</a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-year">June 30, 2024</div>
+            <div class="timeline-text">
+              <a href="/altered-states/FnHnSL">Reconversion</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* The legacy bio page applied .bio-page to <main> directly; in Astro
+     we wrap inside .bio-page-wrap so existing styles still target the
+     same descendants without modifying the global .content rules. */
+  .bio-page-wrap { /* sentinel for any future bio-specific overrides */ }
+</style>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!--
+    Minimal favicon — a single serif "C" in the site's pink-on-deep-purple
+    palette. Stand-in until a designed mark replaces it.
+  -->
+  <rect width="64" height="64" rx="10" fill="#19081f" />
+  <text
+    x="50%" y="50%"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Baskerville, 'Libre Baskerville', 'Times New Roman', serif"
+    font-size="42"
+    fill="#efe9e6"
+  >C</text>
+</svg>

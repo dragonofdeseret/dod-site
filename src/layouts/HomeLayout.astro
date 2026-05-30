@@ -1,0 +1,44 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// HomeLayout — page chrome for the homepage only. Drops the sidebar so the
+// landing reads as a magazine cover, not a sub-page. Inner pages still
+// use BaseLayout (with the sidebar reappearing as the table of contents).
+// ──────────────────────────────────────────────────────────────────────────────
+
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const {
+  title,
+  description = 'Essays, art, and inquiry by Christopher Shenefelt.',
+} = Astro.props
+
+const fullTitle = title === 'Home' ? 'Christopher Shenefelt' : `${title} — Christopher Shenefelt`
+const canonical = new URL(Astro.url.pathname, Astro.site).toString()
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="home-body">
+    <slot />
+  </body>
+</html>
