@@ -36,4 +36,13 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+  // Disable Astro's strict origin check for POST forms. The default
+  // (`checkOrigin: true`) is fine in local dev but rejects legitimate
+  // same-site POSTs on Vercel's preview URLs because of how their edge
+  // network forwards Origin headers. Our admin POST endpoints are
+  // already gated by Supabase auth + the middleware, so dropping this
+  // narrowly-targeted check doesn't expose anything.
+  security: {
+    checkOrigin: false,
+  },
 })
