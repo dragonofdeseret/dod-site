@@ -189,20 +189,23 @@
 
 .admin-button {
   display: inline-block;
-  padding: 9px 18px;
+  padding: 9px 22px;
   border: 1px solid var(--ink);
   background: var(--ink);
-  color: #19081f;
-  border-radius: 6px;
+  color: var(--paper);            /* light text on dark button */
+  border-radius: 999px;
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.15s, color 0.15s;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 .admin-button:hover {
-  background: #fff;
+  background: var(--accent-2);    /* oxblood on hover */
+  border-color: var(--accent-2);
+  color: var(--paper);
 }
 .admin-button:disabled {
   opacity: 0.5;
@@ -211,19 +214,22 @@
 .admin-button--ghost {
   background: transparent;
   color: var(--ink);
-  border-color: var(--line);
-  font-weight: 400;
+  border-color: var(--paper-edge);
+  font-weight: 500;
 }
 .admin-button--ghost:hover {
-  background: rgba(255, 235, 245, 0.04);
+  background: var(--paper-fill);
+  color: var(--ink);
+  border-color: var(--accent-2);
 }
 .admin-button--danger {
   background: transparent;
-  color: #f4a8a8;
-  border-color: rgba(244, 168, 168, 0.4);
+  color: var(--accent-2);
+  border-color: var(--accent-2);
 }
 .admin-button--danger:hover {
-  background: rgba(244, 168, 168, 0.08);
+  background: var(--accent-2);
+  color: var(--paper);
 }
 
 .admin-actions {

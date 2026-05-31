@@ -23,37 +23,48 @@ let sent = false
 let formError: string | null = null
 
 if (Astro.request.method === 'POST') {
-  const form = await Astro.request.formData()
-  const email = String(form.get('email') ?? '').trim().toLowerCase()
-  const allowedEmail = getAdminEmail().toLowerCase()
-  // Reject right at the form if the email doesn't match — saves a
-  // round-trip and a wasted magic-link send.
-  if (!email) {
-    formError = 'Email required.'
-  } else if (email !== allowedEmail) {
-    formError = 'This email is not authorized for admin access.'
-  } else {
-    const supabase = getServerSupabase(Astro.cookies)
-    const callback = new URL('/admin/auth-callback', Astro.url.origin)
-    callback.searchParams.set('next', nextParam)
-    // shouldCreateUser: true so first-time sign-in auto-creates the
-    // admin user in Supabase Auth. Safe because the email allowlist
-    // check above already rejected anyone other than ADMIN_EMAIL —
-    // the only account that can ever be created here is the operator's
-    // own. With this set to false, Supabase silently no-ops on first
-    // login and no email is sent.
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: callback.toString(),
-        shouldCreateUser: true,
-      },
-    })
-    if (error) {
-      formError = error.message
+  try {
+    const form = await Astro.request.formData()
+    const email = String(form.get('email') ?? '').trim().toLowerCase()
+    const allowedEmail = getAdminEmail().toLowerCase()
+    // Reject right at the form if the email doesn't match — saves a
+    // round-trip and a wasted magic-link send.
+    if (!email) {
+      formError = 'Email required.'
+    } else if (email !== allowedEmail) {
+      formError = 'This email is not authorized for admin access.'
     } else {
-      sent = true
+      const supabase = getServerSupabase(Astro.cookies)
+      const callback = new URL('/admin/auth-callback', Astro.url.origin)
+      callback.searchParams.set('next', nextParam)
+      // shouldCreateUser: true so first-time sign-in auto-creates the
+      // admin user in Supabase Auth. Safe because the email allowlist
+      // check above already rejected anyone other than ADMIN_EMAIL.
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: callback.toString(),
+          shouldCreateUser: true,
+        },
+      })
+      if (error) {
+        // Surface the Supabase-side error message verbatim — the
+        // common ones (rate-limit, redirect-url-not-allowed,
+        // smtp-misconfigured) are all useful to read.
+        formError = `Supabase: ${error.message}`
+        console.error('[admin/login] signInWithOtp error', error)
+      } else {
+        sent = true
+      }
     }
+  } catch (err) {
+    // Catch any thrown error so we always render the page (instead
+    // of bubbling to a 500 with an empty body). Previously this would
+    // make the page appear "blank" if anything crashed during the
+    // sign-in attempt.
+    const msg = err instanceof Error ? err.message : String(err)
+    formError = `Unexpected error: ${msg}`
+    console.error('[admin/login] threw', err)
   }
 }
 ---
@@ -66,23 +77,40 @@ if (Astro.request.method === 'POST') {
     <meta name="robots" content="noindex, nofollow" />
     <title>Sign in — Admin</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* Inline fallback styling so the page is always legible even
+        if the external CSS bundle fails to load on this specific
+        SSR response (which caused the "blank white page" symptom
+        on POST). The real Library design system still applies on
+        top once the external CSS loads — this just guarantees the
+        floor. */}
+    <style>
+      body { background: #ece2c5; color: #1f1a10; font-family: Baskerville, Georgia, serif; margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; }
+      .login-card-fallback { max-width: 420px; width: 100%; background: rgba(224, 212, 177, 0.5); border: 1px solid #c9b88f; border-radius: 10px; padding: 32px; }
+      .login-card-fallback h1 { font-size: 22px; margin: 0 0 6px 0; font-family: 'Marcellus', Georgia, serif; }
+      .login-card-fallback p { color: #4a3f2a; font-size: 13px; margin: 0 0 24px 0; }
+      .login-card-fallback input { width: 100%; padding: 10px 14px; border: 1px solid #c9b88f; border-radius: 6px; font-family: inherit; font-size: 14px; background: #ece2c5; color: #1f1a10; box-sizing: border-box; }
+      .login-card-fallback button { background: #1f1a10; color: #ece2c5; border: 0; border-radius: 999px; padding: 10px 22px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 14px; }
+      .login-card-fallback .msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 13px; }
+      .login-card-fallback .msg--ok { background: rgba(168, 244, 200, 0.15); border: 1px solid #6b8e6e; color: #2a4a32; }
+      .login-card-fallback .msg--err { background: rgba(244, 168, 168, 0.15); border: 1px solid #8e6b6b; color: #6b2820; }
+    </style>
   </head>
   <body class="admin-body">
     <div class="admin-login-wrap">
-      <div class="admin-login-card">
+      <div class="admin-login-card login-card-fallback">
         <h1>Christopher Shenefelt</h1>
         <p>Sign in to manage the archive.</p>
 
         {errorParam === 'not_authorized' && (
-          <div class="admin-flash admin-flash--error">
+          <div class="admin-flash admin-flash--error msg msg--err">
             That account isn't authorized for admin access.
           </div>
         )}
         {formError && (
-          <div class="admin-flash admin-flash--error">{formError}</div>
+          <div class="admin-flash admin-flash--error msg msg--err">{formError}</div>
         )}
         {sent ? (
-          <div class="admin-flash admin-flash--success">
+          <div class="admin-flash admin-flash--success msg msg--ok">
             Check your email — a sign-in link is on its way. Click it to
             return here and finish signing in.
           </div>
