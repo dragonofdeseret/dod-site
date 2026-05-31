@@ -131,7 +131,20 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
       <section class="home__featured">
         <div class="home__featured-eyebrow eyebrow">Featured · Latest essay</div>
         <h2 class="home__featured-title">
-          <a href={`/writing/${featured.data.id}`}>{featured.data.title}</a>
+          <a href={`/writing/${featured.data.id}`}>
+            {featured.data.title.includes(' | ') ? (
+              <>
+                <span class="home__featured-title-main">
+                  {featured.data.title.split(' | ')[0]}
+                </span>
+                <span class="home__featured-title-sub">
+                  | {featured.data.title.split(' | ').slice(1).join(' | ')}
+                </span>
+              </>
+            ) : (
+              featured.data.title
+            )}
+          </a>
         </h2>
         {featured.data.tags && featured.data.tags.length > 0 && (
           <div class="home__featured-tags">
@@ -389,8 +402,24 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
   .home__featured-title a {
     color: var(--ink);
     text-decoration: none;
+    display: inline-block;
   }
   .home__featured-title a:hover { color: var(--accent-2); }
+  /* When the title carries a " | subtitle" tail, stack it: main title
+     stays one (visually unbroken) line, the subtitle drops to a softer
+     second line headed by the pipe — title-and-subtitle composition,
+     independent of the card's width. */
+  .home__featured-title-main {
+    display: block;
+  }
+  .home__featured-title-sub {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.7em;
+    font-style: italic;
+    color: var(--ink-soft, #5a4d33);
+    letter-spacing: 0.01em;
+  }
   .home__featured-tags {
     margin-bottom: 18px;
   }

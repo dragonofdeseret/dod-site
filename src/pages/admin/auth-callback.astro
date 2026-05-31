@@ -12,7 +12,7 @@ export const prerender = false
 
 import { getServerSupabase } from '../../lib/supabase'
 
-const supabase = getServerSupabase(Astro.cookies)
+const supabase = getServerSupabase(Astro.cookies, Astro.request)
 const url = Astro.url
 const code = url.searchParams.get('code')
 const next = url.searchParams.get('next') ?? '/admin'

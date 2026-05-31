@@ -23,7 +23,7 @@ const LOGIN_PATH = '/admin/login'
 const AUTH_CALLBACK_PATH = '/admin/auth-callback'
 
 export const onRequest = defineMiddleware(async (context, next) => {
-  const { url, cookies, redirect, locals } = context
+  const { url, cookies, redirect, locals, request } = context
   const pathname = url.pathname
 
   // Non-admin paths: pass through untouched.
@@ -34,7 +34,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next()
   }
 
-  const supabase = getServerSupabase(cookies)
+  const supabase = getServerSupabase(cookies, request)
   const {
     data: { user },
     error,

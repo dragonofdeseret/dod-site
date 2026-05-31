@@ -7,8 +7,8 @@ export const prerender = false
 import type { APIRoute } from 'astro'
 import { getServerSupabase } from '../../lib/supabase'
 
-export const POST: APIRoute = async ({ cookies, redirect }) => {
-  const supabase = getServerSupabase(cookies)
+export const POST: APIRoute = async ({ cookies, redirect, request }) => {
+  const supabase = getServerSupabase(cookies, request)
   await supabase.auth.signOut()
   return redirect('/admin/login')
 }

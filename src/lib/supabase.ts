@@ -48,13 +48,44 @@ const COOKIE_OPTIONS: CookieOptionsWithName = {
  * Server-side Supabase client bound to the current request's cookies.
  * Read sessions, sign in, sign out — all session state flows through
  * the cookie jar this client mutates.
+ *
+ * NOTE on cookies: @supabase/ssr's `getAll` contract expects an array
+ * of `{ name, value }` for every incoming cookie. Astro's AstroCookies
+ * API does NOT expose a `getAll()` method — only `.get(name)`,
+ * `.has(name)`, `.set()`, `.delete()`, `.merge()`, and `.headers()`
+ * (which returns Set-Cookie headers for the RESPONSE, not the request).
+ *
+ * Therefore we parse the raw `Cookie:` header off the incoming Request
+ * ourselves, and use AstroCookies.set() for outgoing cookies (refresh
+ * tokens etc.). Calling `cookies.getAll()` here previously threw
+ * "cookies.getAll is not a function" and bricked sign-in.
  */
-export function getServerSupabase(cookies: AstroCookies): SupabaseClient {
+export function getServerSupabase(
+  cookies: AstroCookies,
+  request: Request,
+): SupabaseClient {
   return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     cookieOptions: COOKIE_OPTIONS,
     cookies: {
       getAll() {
-        return cookies.getAll().map((c) => ({ name: c.name, value: c.value }))
+        const header = request.headers.get('cookie') ?? ''
+        if (!header) return []
+        return header
+          .split(';')
+          .map((pair) => {
+            const eq = pair.indexOf('=')
+            if (eq === -1) return { name: pair.trim(), value: '' }
+            const name = pair.slice(0, eq).trim()
+            const rawValue = pair.slice(eq + 1).trim()
+            let value = rawValue
+            try {
+              value = decodeURIComponent(rawValue)
+            } catch {
+              // Malformed escape sequence — fall back to raw value.
+            }
+            return { name, value }
+          })
+          .filter((c) => c.name.length > 0)
       },
       setAll(toSet) {
         for (const { name, value, options } of toSet) {
