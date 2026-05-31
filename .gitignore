@@ -16,3 +16,6 @@ Thumbs.db
 .env
 .env.local
 .env.production
+
+# Vercel adapter output — built fresh by Vercel on every deploy
+.vercel/
