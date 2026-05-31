@@ -36,11 +36,17 @@ if (Astro.request.method === 'POST') {
     const supabase = getServerSupabase(Astro.cookies)
     const callback = new URL('/admin/auth-callback', Astro.url.origin)
     callback.searchParams.set('next', nextParam)
+    // shouldCreateUser: true so first-time sign-in auto-creates the
+    // admin user in Supabase Auth. Safe because the email allowlist
+    // check above already rejected anyone other than ADMIN_EMAIL —
+    // the only account that can ever be created here is the operator's
+    // own. With this set to false, Supabase silently no-ops on first
+    // login and no email is sent.
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         emailRedirectTo: callback.toString(),
-        shouldCreateUser: false,
+        shouldCreateUser: true,
       },
     })
     if (error) {

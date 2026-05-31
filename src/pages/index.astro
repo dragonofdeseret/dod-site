@@ -119,12 +119,10 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
 
     {/* ── Voice / opening invocation ──────────────────────────────── */}
     <section class="home__voice">
+      <p class="home__voice-lead">A Living Archive.</p>
       <p class="home__voice-text">
-        A working archive. I write about Mormon theology and Daoist
-        metaphysics, about consciousness and the phenomenology of
-        altered states. I make charcoal drawings, take photographs,
-        keep margin notes. What you find here is what I'm reading,
-        thinking, and trying to say clearly — in the order it arrived.
+        Art. Photography. Thoughts on Mormonism, Daoism, Zen,
+        Consciousness, and Phenomenology.
       </p>
     </section>
 
@@ -346,33 +344,36 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
   /* ── Voice ─────────────────────────────────────────────────────────── */
   .home__voice {
     margin: 0 0 64px 0;
+    text-align: center;
+  }
+  .home__voice-lead {
+    font-family: 'Marcellus', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--accent-2);
+    margin: 0 0 0.5em 0;
+    line-height: 1.2;
   }
   .home__voice-text {
-    font-size: 19px;
-    line-height: 1.65;
-    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
     margin: 0;
-    /* First-letter drop cap, restrained — same color as body, just larger. */
-  }
-  .home__voice-text::first-letter {
-    font-family: 'Marcellus', serif;
-    font-size: 3.4em;
-    line-height: 0.85;
-    float: left;
-    padding: 0.05em 0.14em 0 0;
-    color: var(--accent-2);  /* oxblood drop cap */
+    font-style: italic;
   }
 
   /* ── Featured ──────────────────────────────────────────────────────────
-     No box — pure typography. The eyebrow + Marcellus title + tags +
-     "Read the essay" link carry their own weight. A hairline above and
-     below sets it apart from the surrounding rhythm without containing it.
+     Semi-transparent pill fill — separates the featured essay from the
+     page rhythm visually, but lets the dragon-scale watermark show
+     through. The fill is `paper-warm` at ~55% alpha; the hairline border
+     keeps the shape definite. Rounded corners give the pill feel.
      ───────────────────────────────────────────────────────────────────── */
   .home__featured {
     margin: 0 0 64px 0;
-    padding: 36px 0;
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
+    padding: 36px 44px;
+    background: rgba(224, 212, 177, 0.5);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
     text-align: center;
   }
   .home__featured-eyebrow {
