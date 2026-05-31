@@ -18,10 +18,11 @@ export default defineConfig({
   adapter: vercel({
     // Web Analytics ships with Vercel — disable if you don't want it.
     webAnalytics: { enabled: false },
-    // Image optimization via Vercel's edge service. Cheaper than
-    // running Sharp on every cold-start, and keeps the legacy
-    // responsive variants un-touched.
-    imageService: true,
+    // Image service intentionally OFF: in some Vercel x Astro setups
+    // it confuses the function bundler and produces an unloadable
+    // serverless function. Legacy responsive variants are pre-baked
+    // as static files anyway; we don't need Vercel-side optimization.
+    imageService: false,
   }),
   integrations: [
     sitemap({
