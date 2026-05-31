@@ -438,12 +438,19 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
     display: block;
     text-decoration: none;
     color: var(--ink);
-    padding-bottom: 14px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 150ms ease;
+    /* Pill-fill card so each section invitation reads as its own object.
+       Same semi-transparent paper fill as the featured essay so the
+       dragon-scale watermark bleeds through quietly. */
+    background: var(--paper-fill);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    height: 100%;
+    transition: border-color 150ms ease, transform 150ms ease;
   }
   .home__section-link:hover {
-    border-bottom-color: var(--rule);
+    border-color: var(--accent-2);
+    transform: translateY(-1px);
   }
   .home__section-eyebrow {
     font-variant: small-caps;
@@ -484,17 +491,25 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   .home__latest-row {
     display: grid;
     grid-template-columns: 84px 1fr auto;
     align-items: baseline;
     gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--paper-edge);
+    /* Same semi-transparent pill treatment as everywhere else on the
+       homepage. */
+    padding: 14px 20px;
+    background: var(--paper-fill);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius);
+    transition: border-color 150ms ease;
   }
-  .home__latest-row:last-child {
-    border-bottom: none;
+  .home__latest-row:hover {
+    border-color: var(--accent-2);
   }
   .home__latest-kind {
     font-variant: small-caps;
@@ -520,6 +535,12 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
   /* ── Quote ─────────────────────────────────────────────────────────── */
   .home__quote {
     margin: 0 0 64px 0;
+    /* Same pill treatment so the rotating quote feels like a curated
+       fragment in its own card, not floating prose. */
+    background: var(--paper-fill);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    padding: 36px 44px;
   }
   .home__quote-text {
     font-style: italic;
@@ -612,6 +633,7 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
     .home__latest-row {
       grid-template-columns: 70px 1fr;
       grid-template-rows: auto auto;
+      padding: 12px 16px;
     }
     .home__latest-date {
       grid-column: 2;
