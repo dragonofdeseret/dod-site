@@ -83,5 +83,26 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     >
       Instagram ↗
     </a>
+    {/* Always-visible escape hatch into the admin. /admin is gated by
+        the auth middleware, so public visitors who click it just see
+        the login screen — no harm done. Bookmark this in case the
+        cookie-driven Edit pill ever fails to appear. */}
+    <a href="/admin" class="sidebar-external sidebar-admin">
+      Admin
+    </a>
   </div>
 </nav>
+
+<style>
+  .sidebar-admin {
+    margin-top: 18px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .sidebar-admin:hover {
+    opacity: 1;
+    color: var(--accent-2);
+  }
+</style>

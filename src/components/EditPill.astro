@@ -14,7 +14,14 @@
 
 <script is:inline>
   ;(function () {
-    if (!document.cookie.split('; ').some((c) => c === 'cs-admin-present=1')) return
+    // Lenient detection: any cookie pair beginning `cs-admin-present=`
+    // with a truthy value. Handles trailing whitespace, URL-encoding,
+    // or future value bumps.
+    var has = document.cookie
+      .split(';')
+      .map(function (c) { return c.trim() })
+      .some(function (c) { return /^cs-admin-present=[^0\s][^;]*/.test(c) })
+    if (!has) return
 
     // Map the current URL path → the admin route that edits it.
     // Returns null when there's no direct edit target for the path
