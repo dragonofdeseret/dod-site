@@ -23,6 +23,17 @@ if (code) {
   if (exchangeErr) {
     error = exchangeErr.message
   } else {
+    // Set a parallel non-httpOnly "presence" cookie so the public-site
+    // JS can detect admin presence and surface an inline Edit pill.
+    // The real auth cookie stays httpOnly; this one carries no auth
+    // info — it's just a "show edit affordances" flag.
+    Astro.cookies.set('cs-admin-present', '1', {
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: 'lax',
+      secure: import.meta.env.PROD,
+      httpOnly: false,
+      path: '/',
+    })
     return Astro.redirect(next)
   }
 } else {

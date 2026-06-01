@@ -5,6 +5,7 @@
 // use BaseLayout (with the sidebar reappearing as the table of contents).
 // ──────────────────────────────────────────────────────────────────────────────
 
+import EditPill from '../components/EditPill.astro'
 import '../styles/global.css'
 
 interface Props {
@@ -40,5 +41,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString()
   </head>
   <body class="home-body">
     <slot />
+    <EditPill />
   </body>
 </html>

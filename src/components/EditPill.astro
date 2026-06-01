@@ -1,0 +1,91 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// EditPill — floating "Edit ↗" button shown only when the admin is signed in.
+//
+// How it knows: the magic-link callback sets a non-httpOnly companion cookie
+// `cs-admin-present=1` alongside the real httpOnly auth cookies. This script
+// checks document.cookie for that flag; if present, it injects the pill and
+// maps the current path to the matching admin route.
+//
+// Public visitors never see anything — no cookie, no pill, no JS work beyond
+// a single `document.cookie.includes` check.
+// ──────────────────────────────────────────────────────────────────────────────
+---
+
+<script is:inline>
+  ;(function () {
+    if (!document.cookie.split('; ').some((c) => c === 'cs-admin-present=1')) return
+
+    // Map the current URL path → the admin route that edits it.
+    // Returns null when there's no direct edit target for the path
+    // (e.g. /archive — a generated list, not an editable entry).
+    function adminUrlFor(path) {
+      // Normalize trailing slash.
+      const p = path.replace(/\/$/, '') || '/'
+
+      if (p === '/' || p === '/index') return '/admin'
+      if (p === '/now') return '/admin/site/now'
+
+      // Collection list views → admin list.
+      const lists = {
+        '/art': '/admin/art',
+        '/photography': '/admin/photo',
+        '/exhibits': '/admin/art',
+        '/writing': '/admin/writing',
+        '/altered-states': '/admin/writing',
+        '/margins': '/admin/margins',
+        '/quotes': '/admin/quotes',
+        '/archive': '/admin',
+      }
+      if (lists[p]) return lists[p]
+
+      // Detail pages: /art/<id>, /photography/<id>, /writing/<id>.
+      const detail = p.match(/^\/(art|photography|writing|margins|quotes)\/([^/]+)$/)
+      if (detail) {
+        const col = detail[1] === 'photography' ? 'photo' : detail[1]
+        const id = detail[2]
+        return `/admin/${col}/${id}`
+      }
+
+      // Fall-through: link to the dashboard.
+      return '/admin'
+    }
+
+    const href = adminUrlFor(location.pathname)
+    if (!href) return
+
+    const pill = document.createElement('a')
+    pill.href = href
+    pill.textContent = 'Edit ↗'
+    pill.setAttribute('aria-label', 'Open this page in the admin editor')
+    pill.style.cssText = [
+      'position: fixed',
+      'right: 18px',
+      'bottom: 18px',
+      'z-index: 9999',
+      'background: var(--ink, #1f1a10)',
+      'color: var(--paper, #ece2c5)',
+      'padding: 8px 16px',
+      'border-radius: 999px',
+      'font-family: Baskerville, Georgia, serif',
+      'font-size: 13px',
+      'font-weight: 600',
+      'letter-spacing: 0.02em',
+      'text-decoration: none',
+      'box-shadow: 0 4px 14px rgba(31, 26, 16, 0.18)',
+      'transition: background-color 0.15s, transform 0.15s',
+      'opacity: 0.92',
+    ].join(';')
+    pill.addEventListener('mouseenter', () => {
+      pill.style.background = 'var(--accent-2, #6b2820)'
+      pill.style.transform = 'translateY(-1px)'
+      pill.style.opacity = '1'
+    })
+    pill.addEventListener('mouseleave', () => {
+      pill.style.background = 'var(--ink, #1f1a10)'
+      pill.style.transform = 'translateY(0)'
+      pill.style.opacity = '0.92'
+    })
+    document.body.appendChild(pill)
+  })()
+</script>

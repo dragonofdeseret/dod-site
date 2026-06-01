@@ -13,6 +13,7 @@
 // ──────────────────────────────────────────────────────────────────────────────
 
 import Sidebar from '../components/Sidebar.astro'
+import EditPill from '../components/EditPill.astro'
 import '../styles/global.css'
 
 interface Props {
@@ -68,5 +69,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString()
         <slot />
       </main>
     </div>
+    <EditPill />
   </body>
 </html>
