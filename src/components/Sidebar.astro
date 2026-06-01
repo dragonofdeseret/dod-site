@@ -94,15 +94,21 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
 </nav>
 
 <style>
+  /* Buried deep — visually a footnote, not a nav item. Visitors who
+     aren't looking for it slide right past; the admin knows it's
+     there. Hover restores legibility. */
   .sidebar-admin {
-    margin-top: 18px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
+    display: block;
+    margin-top: 32px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.55;
+    opacity: 0.28;
+    color: var(--ink-soft, #5a4d33);
+    transition: opacity 0.2s, color 0.2s;
   }
   .sidebar-admin:hover {
-    opacity: 1;
+    opacity: 0.85;
     color: var(--accent-2);
   }
 </style>

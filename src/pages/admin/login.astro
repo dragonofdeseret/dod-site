@@ -35,8 +35,23 @@ if (Astro.request.method === 'POST') {
       formError = 'This email is not authorized for admin access.'
     } else {
       const supabase = getServerSupabase(Astro.cookies, Astro.request)
+      // IMPORTANT: emailRedirectTo must EXACTLY match an entry in
+      // Supabase's Redirect URL allowlist. Adding `?next=…` here used
+      // to make Supabase fall back to Site URL (the homepage) because
+      // its matcher rejected the URL-with-query-string. So we keep the
+      // redirect URL clean; the callback defaults to /admin and we
+      // stash any deeper destination in a short-lived cookie that the
+      // callback reads after the session exchange.
       const callback = new URL('/admin/auth-callback', Astro.url.origin)
-      callback.searchParams.set('next', nextParam)
+      if (nextParam && nextParam !== '/admin') {
+        Astro.cookies.set('cs-auth-next', nextParam, {
+          maxAge: 60 * 10, // 10 minutes — magic link lifetime
+          sameSite: 'lax',
+          secure: import.meta.env.PROD,
+          httpOnly: true,
+          path: '/',
+        })
+      }
       // shouldCreateUser: true so first-time sign-in auto-creates the
       // admin user in Supabase Auth. Safe because the email allowlist
       // check above already rejected anyone other than ADMIN_EMAIL.

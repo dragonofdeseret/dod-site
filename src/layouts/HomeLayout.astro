@@ -1,10 +1,11 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
-// HomeLayout — page chrome for the homepage only. Drops the sidebar so the
-// landing reads as a magazine cover, not a sub-page. Inner pages still
-// use BaseLayout (with the sidebar reappearing as the table of contents).
+// HomeLayout — page chrome for the homepage. Includes the same Sidebar nav
+// as inner pages, so navigation is reachable from every entry point. The
+// homepage content (slot) lives inside .content alongside the sidebar.
 // ──────────────────────────────────────────────────────────────────────────────
 
+import Sidebar from '../components/Sidebar.astro'
 import EditPill from '../components/EditPill.astro'
 import '../styles/global.css'
 
@@ -40,7 +41,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString()
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="home-body">
-    <slot />
+    <div class="layout">
+      <Sidebar active="home" />
+      <main class="content">
+        <slot />
+      </main>
+    </div>
     <EditPill />
   </body>
 </html>

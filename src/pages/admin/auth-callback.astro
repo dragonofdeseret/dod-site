@@ -15,7 +15,11 @@ import { getServerSupabase } from '../../lib/supabase'
 const supabase = getServerSupabase(Astro.cookies, Astro.request)
 const url = Astro.url
 const code = url.searchParams.get('code')
-const next = url.searchParams.get('next') ?? '/admin'
+// `next` used to come in via query string, but that broke Supabase's
+// allowlist matching. Now it comes from a short-lived cookie set by
+// the login form. Defaults to /admin if not present.
+const nextCookie = Astro.cookies.get('cs-auth-next')?.value
+const next = nextCookie || url.searchParams.get('next') || '/admin'
 
 let error: string | null = null
 if (code) {
@@ -34,6 +38,8 @@ if (code) {
       httpOnly: false,
       path: '/',
     })
+    // Clean up the short-lived next-cookie so it doesn't linger.
+    Astro.cookies.delete('cs-auth-next', { path: '/' })
     return Astro.redirect(next)
   }
 } else {
