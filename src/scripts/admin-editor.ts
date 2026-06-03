@@ -112,14 +112,103 @@ function setStatus(text: string, kind: 'info' | 'error' | 'success' = 'info'): v
   el.style.display = text ? 'block' : 'none'
 }
 
-async function uploadMedia(file: File, bucket: string, year: string, id: string): Promise<string | null> {
+/**
+ * Downscale an image client-side before upload. Preserves aspect ratio.
+ *
+ * Skipped for:
+ *   • non-image files (PDFs etc — pass through as-is)
+ *   • SVG (vectors don't need raster downscale)
+ *   • animated GIF (re-encoding would flatten the animation)
+ *   • images already under maxWidth
+ *
+ * PNGs with photographic content get re-encoded as JPEG to shrink size
+ * dramatically; PNGs that look like art (have transparency) stay PNG.
+ * Uses HTMLCanvasElement.toBlob — same primitive every browser ships,
+ * no external library needed.
+ */
+async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
+  if (!file.type.startsWith('image/')) return file
+  if (file.type === 'image/gif' || file.type === 'image/svg+xml') return file
+
+  // Load the image into an off-DOM <img> so we can read its natural size.
+  const url = URL.createObjectURL(file)
+  const img: HTMLImageElement = await new Promise((resolve, reject) => {
+    const i = new Image()
+    i.onload = () => resolve(i)
+    i.onerror = () => reject(new Error('Could not decode image'))
+    i.src = url
+  }).finally(() => {
+    // Cleanup happens on resolve and reject; revokeObjectURL is idempotent.
+    setTimeout(() => URL.revokeObjectURL(url), 0)
+  }) as HTMLImageElement
+
+  if (img.naturalWidth <= maxWidth) return file
+
+  const ratio = maxWidth / img.naturalWidth
+  const targetW = maxWidth
+  const targetH = Math.round(img.naturalHeight * ratio)
+
+  const canvas = document.createElement('canvas')
+  canvas.width = targetW
+  canvas.height = targetH
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return file
+  // High-quality bicubic-ish smoothing.
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = 'high'
+  ctx.drawImage(img, 0, 0, targetW, targetH)
+
+  // For photos/JPEGs use JPEG at 85% quality (great visual / small size).
+  // Preserve PNG (alpha channel) and WebP.
+  const outType =
+    file.type === 'image/jpeg' || file.type === 'image/jpg'
+      ? 'image/jpeg'
+      : file.type === 'image/webp'
+      ? 'image/webp'
+      : file.type === 'image/png'
+      ? 'image/png'
+      : 'image/jpeg'
+  const quality = outType === 'image/png' ? undefined : 0.85
+
+  const blob: Blob | null = await new Promise((resolve) =>
+    canvas.toBlob(resolve, outType, quality),
+  )
+  if (!blob) return file
+
+  // Match the file extension to the output MIME so Supabase serves it correctly.
+  const baseName = file.name.replace(/\.[^.]+$/, '')
+  const ext =
+    outType === 'image/jpeg' ? '.jpg'
+      : outType === 'image/webp' ? '.webp'
+      : outType === 'image/png' ? '.png'
+      : '.jpg'
+
+  return new File([blob], baseName + ext, {
+    type: outType,
+    lastModified: file.lastModified,
+  })
+}
+
+async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string | null> {
   const supabase = getBrowserSupabase()
+  // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
+  setStatus('Preparing file…', 'info')
+  let file: File
+  try {
+    file = await maybeResizeImage(rawFile)
+  } catch (err) {
+    // Resize failed — log and fall through with the original. Better to
+    // upload a too-big image than to block the user entirely.
+    console.warn('[admin-editor] resize failed, using original', err)
+    file = rawFile
+  }
   // Path scheme: <year>/<id><ext>. Year-bucketed so big collections stay
   // legible in the Supabase Storage dashboard.
   const dot = file.name.lastIndexOf('.')
   const ext = dot === -1 ? '' : file.name.slice(dot).toLowerCase()
   const path = `${year}/${id}${ext}`
-  setStatus(`Uploading ${file.name}…`, 'info')
+  const sizeKb = Math.round(file.size / 1024)
+  setStatus(`Uploading ${file.name} (${sizeKb} KB)…`, 'info')
   const { error } = await supabase.storage.from(bucket).upload(path, file, {
     upsert: true,
     cacheControl: '31536000', // 1 year — images are content-addressed by id

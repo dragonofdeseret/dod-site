@@ -85,21 +85,22 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 48px);
-    /* Wine-red wash, matching the admin topbar's chromatic family.
-       Oxblood (#6b2820) was reading too warm/brown over parchment;
-       rgb(120,24,28) is the same depth but cooler — more cherry, less
-       umber — so it mixes with the cream paper into a true red rather
-       than a dusty rose. Gradient deepens toward the bottom for
-       weight without obscuring the dragon scales. */
+    /* Wine-red wash matching the admin topbar exactly — same hex
+       (rgb(48,12,14)) but at gradient alphas so the column reads as
+       "topbar diluted with parchment." Pinkness came from the warm
+       parchment leaking green+blue back into the red at low alpha;
+       cutting the base's G and B channels and pushing alpha up
+       suppresses the rose tint and lets the chromatic red dominate.
+       Dragon scales still readable at the top of the gradient. */
     background-image: linear-gradient(
       180deg,
-      rgba(120, 24, 28, 0.20) 0%,
-      rgba(120, 24, 28, 0.34) 40%,
-      rgba(120, 24, 28, 0.48) 100%
+      rgba(48, 12, 14, 0.35) 0%,
+      rgba(48, 12, 14, 0.55) 40%,
+      rgba(48, 12, 14, 0.75) 100%
     );
     padding-right: 18px;
-    border-right: 1px solid rgba(120, 24, 28, 0.55);
-    box-shadow: inset -1px 0 0 rgba(120, 24, 28, 0.18);
+    border-right: 1px solid rgba(48, 12, 14, 0.85);
+    box-shadow: inset -1px 0 0 rgba(48, 12, 14, 0.25);
   }
   .sidebar-admin {
     display: block;
