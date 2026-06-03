@@ -20,7 +20,8 @@ title: "Now"
 - the Taoist canon
 – Ayahtkuuhyaht Nemenhah: The Sacred Records of the Ancient Nemenhah
 – The Xenotext, Book I
-– The Chronicle's of the Children of Araneck; Restored Branch of Jesus Chris
+– The Chronicle's of the Children of Araneck; Restored Branch of Jesus Christ
+– 1491: New Revelations of the America's Before Columbus
 
 ## Always Returning
 
