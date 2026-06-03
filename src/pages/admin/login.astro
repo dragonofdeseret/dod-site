@@ -1,10 +1,24 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
-// /admin/login — magic-link email login.
+// /admin/login — email + 6-digit OTP code sign-in.
 //
-// User enters their email → server sends a one-tap link via Supabase Auth
-// → user clicks → lands at /admin/auth-callback with a code → callback
-// exchanges the code for a session cookie → redirect to dashboard.
+// Two-step server-side form (no redirects, no allowlist):
+//
+//   Step 1: User submits email → server sends a one-time code via
+//           Supabase Auth (signInWithOtp). Same email Supabase already
+//           sent for magic-link contains a code at the top.
+//   Step 2: User pastes the 6-digit code → server calls
+//           verifyOtp({ type: 'email' }) → session cookies are written
+//           inside the same POST handler → redirect to /admin.
+//
+// Why this instead of the magic-link redirect: the magic-link flow
+// depends on Supabase's Redirect URL allowlist matching our callback
+// URL exactly. When it doesn't match (which is easy to misconfigure),
+// Supabase silently falls back to Site URL — the user lands on the
+// homepage with no session, looks logged-in but isn't, and ends up in
+// a sign-in loop. The OTP-code flow has no redirect — auth happens
+// entirely inside this page's POST handler, so cookies can't fail to
+// propagate.
 //
 // Server output (no prerender). The form POSTs back to itself.
 // ──────────────────────────────────────────────────────────────────────────────
@@ -19,64 +33,71 @@ import '../../styles/admin.css'
 const errorParam = Astro.url.searchParams.get('error')
 const nextParam = Astro.url.searchParams.get('next') ?? '/admin'
 
-let sent = false
+let codeSent = false
 let formError: string | null = null
+// Pre-fill email on step 2 from the previous submission so the user
+// doesn't have to retype it after pasting the code.
+let prefillEmail = ''
 
 if (Astro.request.method === 'POST') {
   try {
     const form = await Astro.request.formData()
     const email = String(form.get('email') ?? '').trim().toLowerCase()
+    const code = String(form.get('code') ?? '').trim()
     const allowedEmail = getAdminEmail().toLowerCase()
-    // Reject right at the form if the email doesn't match — saves a
-    // round-trip and a wasted magic-link send.
+    prefillEmail = email
+
     if (!email) {
       formError = 'Email required.'
     } else if (email !== allowedEmail) {
       formError = 'This email is not authorized for admin access.'
-    } else {
+    } else if (!code) {
+      // ── Step 1: request a code ───────────────────────────────────
       const supabase = getServerSupabase(Astro.cookies, Astro.request)
-      // IMPORTANT: emailRedirectTo must EXACTLY match an entry in
-      // Supabase's Redirect URL allowlist. Adding `?next=…` here used
-      // to make Supabase fall back to Site URL (the homepage) because
-      // its matcher rejected the URL-with-query-string. So we keep the
-      // redirect URL clean; the callback defaults to /admin and we
-      // stash any deeper destination in a short-lived cookie that the
-      // callback reads after the session exchange.
-      const callback = new URL('/admin/auth-callback', Astro.url.origin)
-      if (nextParam && nextParam !== '/admin') {
-        Astro.cookies.set('cs-auth-next', nextParam, {
-          maxAge: 60 * 10, // 10 minutes — magic link lifetime
-          sameSite: 'lax',
-          secure: import.meta.env.PROD,
-          httpOnly: true,
-          path: '/',
-        })
-      }
-      // shouldCreateUser: true so first-time sign-in auto-creates the
-      // admin user in Supabase Auth. Safe because the email allowlist
-      // check above already rejected anyone other than ADMIN_EMAIL.
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: callback.toString(),
+          // No emailRedirectTo — we don't want the user clicking the
+          // link in the email. They paste the code instead. Supabase
+          // still includes both in the email by default.
           shouldCreateUser: true,
         },
       })
       if (error) {
-        // Surface the Supabase-side error message verbatim — the
-        // common ones (rate-limit, redirect-url-not-allowed,
-        // smtp-misconfigured) are all useful to read.
         formError = `Supabase: ${error.message}`
         console.error('[admin/login] signInWithOtp error', error)
       } else {
-        sent = true
+        codeSent = true
+      }
+    } else {
+      // ── Step 2: verify the code ──────────────────────────────────
+      const supabase = getServerSupabase(Astro.cookies, Astro.request)
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token: code,
+        type: 'email',
+      })
+      if (error) {
+        formError = `Sign-in failed: ${error.message}`
+        // Keep step 2 visible so the user can retry the code without
+        // re-requesting one.
+        codeSent = true
+        console.error('[admin/login] verifyOtp error', error)
+      } else {
+        // Success — Supabase wrote the session cookies via @supabase/ssr's
+        // setAll handler in getServerSupabase. Set the presence cookie
+        // for the public-site Edit pill, then redirect.
+        Astro.cookies.set('cs-admin-present', '1', {
+          maxAge: 60 * 60 * 24 * 7,
+          sameSite: 'lax',
+          secure: import.meta.env.PROD,
+          httpOnly: false,
+          path: '/',
+        })
+        return Astro.redirect(nextParam)
       }
     }
   } catch (err) {
-    // Catch any thrown error so we always render the page (instead
-    // of bubbling to a 500 with an empty body). Previously this would
-    // make the page appear "blank" if anything crashed during the
-    // sign-in attempt.
     const msg = err instanceof Error ? err.message : String(err)
     formError = `Unexpected error: ${msg}`
     console.error('[admin/login] threw', err)
@@ -92,29 +113,26 @@ if (Astro.request.method === 'POST') {
     <meta name="robots" content="noindex, nofollow" />
     <title>Sign in — Admin</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    {/* Inline fallback styling so the page is always legible even
-        if the external CSS bundle fails to load on this specific
-        SSR response (which caused the "blank white page" symptom
-        on POST). The real Library design system still applies on
-        top once the external CSS loads — this just guarantees the
-        floor. */}
     <style>
       body { background: #ece2c5; color: #1f1a10; font-family: Baskerville, Georgia, serif; margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; }
       .login-card-fallback { max-width: 420px; width: 100%; background: rgba(224, 212, 177, 0.5); border: 1px solid #c9b88f; border-radius: 10px; padding: 32px; }
       .login-card-fallback h1 { font-size: 22px; margin: 0 0 6px 0; font-family: 'Marcellus', Georgia, serif; }
       .login-card-fallback p { color: #4a3f2a; font-size: 13px; margin: 0 0 24px 0; }
       .login-card-fallback input { width: 100%; padding: 10px 14px; border: 1px solid #c9b88f; border-radius: 6px; font-family: inherit; font-size: 14px; background: #ece2c5; color: #1f1a10; box-sizing: border-box; }
+      .login-card-fallback input.code-input { font-family: 'IBM Plex Mono', Menlo, monospace; font-size: 22px; letter-spacing: 0.4em; text-align: center; padding: 14px; }
       .login-card-fallback button { background: #1f1a10; color: #ece2c5; border: 0; border-radius: 999px; padding: 10px 22px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 14px; }
       .login-card-fallback .msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 13px; }
       .login-card-fallback .msg--ok { background: rgba(168, 244, 200, 0.15); border: 1px solid #6b8e6e; color: #2a4a32; }
       .login-card-fallback .msg--err { background: rgba(244, 168, 168, 0.15); border: 1px solid #8e6b6b; color: #6b2820; }
+      .login-card-fallback .field-spacer { height: 14px; }
+      .login-card-fallback .restart-link { display: inline-block; margin-top: 12px; font-size: 12px; color: #6b2820; text-decoration: underline; }
     </style>
   </head>
   <body class="admin-body">
     <div class="admin-login-wrap">
       <div class="admin-login-card login-card-fallback">
         <h1>Christopher Shenefelt</h1>
-        <p>Sign in to manage the archive.</p>
+        <p>{codeSent ? 'Enter the 6-digit code from your email.' : 'Sign in to manage the archive.'}</p>
 
         {errorParam === 'not_authorized' && (
           <div class="admin-flash admin-flash--error msg msg--err">
@@ -124,30 +142,57 @@ if (Astro.request.method === 'POST') {
         {formError && (
           <div class="admin-flash admin-flash--error msg msg--err">{formError}</div>
         )}
-        {sent ? (
+        {codeSent && !formError && (
           <div class="admin-flash admin-flash--success msg msg--ok">
-            Check your email — a sign-in link is on its way. Click it to
-            return here and finish signing in.
+            Check your email — a 6-digit code is on its way. Paste it below.
           </div>
-        ) : (
-          <form method="POST">
+        )}
+
+        <form method="POST" autocomplete="off">
+          <div class="admin-field">
+            <label class="admin-label" for="email">Email</label>
+            <input
+              class="admin-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+              value={prefillEmail}
+              readonly={codeSent}
+            />
+          </div>
+
+          {codeSent && (
             <div class="admin-field">
-              <label class="admin-label" for="email">Email</label>
+              <label class="admin-label" for="code">6-digit code</label>
               <input
-                class="admin-input"
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
+                class="admin-input code-input"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]{6}"
+                maxlength="6"
+                id="code"
+                name="code"
+                autocomplete="one-time-code"
                 required
-                placeholder="you@example.com"
+                placeholder="••••••"
+                autofocus
               />
               <span class="admin-hint">
-                A one-tap sign-in link will be emailed to you.
+                It expires in 5 minutes. Paste the code from the top of the email.
               </span>
             </div>
-            <button class="admin-button" type="submit">Email me a link</button>
-          </form>
+          )}
+
+          <button class="admin-button" type="submit">
+            {codeSent ? 'Sign in' : 'Email me a code'}
+          </button>
+        </form>
+
+        {codeSent && (
+          <a class="restart-link" href="/admin/login">Start over with a different email</a>
         )}
       </div>
     </div>

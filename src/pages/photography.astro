@@ -5,6 +5,7 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import AdminAdd from '../components/AdminAdd.astro'
 import { groupByYear } from '../lib/sort-group'
 import { thumbSrc, thumbSrcset, GALLERY_SIZES } from '../lib/images'
 
@@ -13,6 +14,7 @@ const grouped = groupByYear(photo)
 ---
 
 <BaseLayout title="Photography" active="art" subActive="photo">
+  <AdminAdd collection="photo" label="Upload photo" />
   <header class="page-header">
     <h1>Photography</h1>
     <p class="page-intro">light through grain</p>

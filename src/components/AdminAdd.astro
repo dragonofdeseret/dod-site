@@ -1,0 +1,79 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// AdminAdd — section-page "+ Add X" button, only visible when signed in.
+//
+// Renders a prominent pill button at the top of a section page that takes the
+// admin straight into the editor for a new entry. Hidden by default; revealed
+// client-side when the `cs-admin-present` cookie is detected.
+//
+// Usage:
+//   <AdminAdd collection="writing" label="Add essay" />
+//   <AdminAdd collection="photo"   label="Upload photo" />
+//   <AdminAdd collection="art"     label="Add artwork" />
+//   <AdminAdd collection="margins" label="Add excerpt" />
+//   <AdminAdd collection="quotes"  label="Add quote" />
+// ──────────────────────────────────────────────────────────────────────────────
+
+interface Props {
+  collection: 'writing' | 'photo' | 'art' | 'margins' | 'quotes'
+  label: string
+}
+
+const { collection, label } = Astro.props
+const href = `/admin/${collection}/new`
+---
+
+<a
+  href={href}
+  class="admin-add"
+  data-admin-add
+  aria-label={label}
+>
+  <span class="admin-add__plus">+</span>
+  <span class="admin-add__label">{label}</span>
+</a>
+
+<style>
+  .admin-add {
+    /* Hidden until the cookie check reveals it. Visitors never see it. */
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin: 0 0 32px 0;
+    background: var(--ink, #1f1a10);
+    color: var(--paper, #ece2c5);
+    border: 0;
+    border-radius: 999px;
+    font-family: 'Marcellus', Georgia, serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+    width: fit-content;
+  }
+  .admin-add:hover {
+    background: var(--accent-2, #6b2820);
+    color: var(--paper, #ece2c5);
+  }
+  .admin-add__plus {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 600;
+  }
+</style>
+
+<script is:inline>
+  ;(function () {
+    var has = document.cookie
+      .split(';')
+      .map(function (c) { return c.trim() })
+      .some(function (c) { return /^cs-admin-present=[^0\s][^;]*/.test(c) })
+    if (!has) return
+    var nodes = document.querySelectorAll('[data-admin-add]')
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].style.display = 'inline-flex'
+    }
+  })()
+</script>

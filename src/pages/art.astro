@@ -27,6 +27,7 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import AdminAdd from '../components/AdminAdd.astro'
 import { groupByYear } from '../lib/sort-group'
 import {
   thumbSrc,
@@ -39,6 +40,7 @@ const grouped = groupByYear(art)
 ---
 
 <BaseLayout title="Artwork" active="art" description="Patterns in jade.">
+  <AdminAdd collection="art" label="Add artwork" />
   <header class="page-header">
     <h1>Artwork</h1>
 

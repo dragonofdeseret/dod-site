@@ -14,6 +14,7 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import AdminAdd from '../components/AdminAdd.astro'
 import { groupByYear } from '../lib/sort-group'
 
 const writing = await getCollection('writing')
@@ -26,6 +27,7 @@ const grouped = groupByYear(indexItems)
 ---
 
 <BaseLayout title="Writing" active="writing">
+  <AdminAdd collection="writing" label="Add essay" />
   <header class="page-header">
     <h1>Writings</h1>
     <p class="page-intro">
