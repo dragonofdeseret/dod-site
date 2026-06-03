@@ -161,6 +161,27 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
           <label class="admin-label" for="sideNote">Side note (HTML body)</label>
           <textarea class="admin-textarea" id="sideNote" name="sideNote" rows="6">{f.sideNote}</textarea>
           <span class="admin-hint">Free-form HTML. Renders on the right side of the entry page.</span>
+          <details class="html-key">
+            <summary>HTML cheatsheet</summary>
+            <table class="html-key__table">
+              <tr><th>What you want</th><th>How to write it</th></tr>
+              <tr><td>Paragraph</td><td><code>&lt;p&gt;your text&lt;/p&gt;</code></td></tr>
+              <tr><td>Line break (no blank line)</td><td><code>&lt;br /&gt;</code></td></tr>
+              <tr><td>Italic</td><td><code>&lt;em&gt;italic&lt;/em&gt;</code></td></tr>
+              <tr><td>Bold</td><td><code>&lt;strong&gt;bold&lt;/strong&gt;</code></td></tr>
+              <tr><td>Link</td><td><code>&lt;a href="https://…"&gt;text&lt;/a&gt;</code></td></tr>
+              <tr><td>Bullet list</td><td><code>&lt;ul&gt;&lt;li&gt;item&lt;/li&gt;&lt;li&gt;item&lt;/li&gt;&lt;/ul&gt;</code></td></tr>
+              <tr><td>Numbered list</td><td><code>&lt;ol&gt;&lt;li&gt;item&lt;/li&gt;&lt;/ol&gt;</code></td></tr>
+              <tr><td>Block quote</td><td><code>&lt;blockquote&gt;quoted text&lt;/blockquote&gt;</code></td></tr>
+              <tr><td>Subheading</td><td><code>&lt;h3&gt;heading&lt;/h3&gt;</code></td></tr>
+              <tr><td>Horizontal rule</td><td><code>&lt;hr /&gt;</code></td></tr>
+            </table>
+            <p class="html-key__note">
+              Tip: every opening tag like <code>&lt;p&gt;</code> needs a matching close
+              <code>&lt;/p&gt;</code>. Self-closing tags (<code>&lt;br /&gt;</code>, <code>&lt;hr /&gt;</code>)
+              don't.
+            </p>
+          </details>
         </div>
 
         <div class="admin-field">
