@@ -61,22 +61,6 @@ function parseSections(md: string): Section[] {
 }
 
 const sections = parseSections(body)
-
-// Cosmetic kicker per section. Falls back to the title in small caps
-// when a known mapping isn't found.
-const KICKERS: Record<string, string> = {
-  Studio: 'Studio',
-  Writing: 'Writing',
-  Reading: 'Reading',
-  'Always reading': 'Return',
-}
-function kickerFor(title: string): string {
-  return KICKERS[title] ?? title
-}
-function headingFor(title: string): string {
-  if (title === 'Always reading') return 'Always reading'
-  return `Currently ${title.toLowerCase()}`
-}
 ---
 
 <BaseLayout title="Now" active="now">
@@ -89,8 +73,10 @@ function headingFor(title: string): string {
     <section class="now-grid">
       {sections.map((s) => (
         <article class="now-card">
-          <div class="now-kicker">{kickerFor(s.title)}</div>
-          <h2>{headingFor(s.title)}</h2>
+          {/* Single label per card — the section heading from your
+              markdown drives this directly. No "Currently" prefix is
+              prepended; write it (or don't) in the markdown itself. */}
+          <div class="now-kicker">{s.title}</div>
           {s.items.length > 0 && (
             <ul class="now-list">
               {s.items.map((it) => <li>{it}</li>)}

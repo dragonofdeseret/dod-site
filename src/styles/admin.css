@@ -15,9 +15,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* Topbar — semi-transparent parchment over the dragon scales with a
-   hairline bottom border. Matches the library palette of the public
-   site so the admin doesn't feel like a separate app. */
+/* Topbar — deep oxblood-plum at high alpha, paper-colored text. That
+   rich color is the project's "house red" and reads as a gallery
+   wall above the parchment workspace. Backdrop blur softens the
+   dragon scales behind so the bar still feels weighted. */
 .admin-topbar {
   position: sticky;
   top: 0;
@@ -26,9 +27,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 28px;
-  border-bottom: 1px solid var(--paper-edge, #c9b88f);
-  background: rgba(236, 226, 197, 0.92);
-  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  background: rgba(48, 12, 14, 0.94);
+  backdrop-filter: blur(10px);
   font-size: 14px;
 }
 
@@ -36,19 +37,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--ink-soft, #5a4d33);
+  color: rgba(236, 226, 197, 0.78);
   font-family: 'Marcellus', Georgia, serif;
 }
 .admin-topbar__title a {
-  color: var(--ink, #1f1a10);
+  color: var(--paper, #ece2c5);
   text-decoration: none;
   font-weight: 600;
 }
 .admin-topbar__title a:hover {
-  color: var(--accent-2, #6b2820);
+  color: #ffffff;
 }
 .admin-topbar__sep {
-  color: var(--ink-faint, #8a7d5d);
+  color: rgba(236, 226, 197, 0.38);
 }
 
 .admin-topbar__actions {
@@ -57,17 +58,31 @@
   gap: 18px;
 }
 .admin-topbar__actions a {
-  color: var(--ink-soft, #5a4d33);
+  color: rgba(236, 226, 197, 0.82);
   text-decoration: none;
   font-size: 13px;
 }
 .admin-topbar__actions a:hover {
-  color: var(--accent-2, #6b2820);
+  color: var(--paper, #ece2c5);
 }
 .admin-topbar__user {
   font-size: 12px;
-  color: var(--ink-faint, #8a7d5d);
+  color: rgba(236, 226, 197, 0.6);
   font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* Sign-out button living inside the oxblood bar needs to read as
+   paper-on-oxblood, not the default ink-on-paper from .admin-button.
+   Same shape, palette-flipped. */
+.admin-topbar .admin-button--ghost {
+  background: transparent;
+  color: rgba(236, 226, 197, 0.85);
+  border-color: rgba(236, 226, 197, 0.45);
+}
+.admin-topbar .admin-button--ghost:hover {
+  background: rgba(236, 226, 197, 0.12);
+  color: var(--paper, #ece2c5);
+  border-color: var(--paper, #ece2c5);
 }
 
 /* Layout */
@@ -404,6 +419,51 @@
   font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
   font-style: normal;
   color: var(--accent, #1c3550);
+}
+
+/* Tag suggestions — appear below tag inputs. Each pill is a button
+   that toggles the tag in the comma-separated input. The "--on" class
+   means the tag is currently in the field. */
+.tag-suggest {
+  margin-top: 10px;
+}
+.tag-suggest__label {
+  font-size: 11px;
+  color: var(--ink-faint, #8a7d5d);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-family: 'Marcellus', Georgia, serif;
+}
+.tag-suggest__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tag-suggest__pill {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-family: inherit;
+  background: rgba(236, 226, 197, 0.5);
+  color: var(--ink-soft, #5a4d33);
+  border: 1px solid var(--paper-edge, #c9b88f);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.tag-suggest__pill:hover {
+  border-color: var(--accent-2, #6b2820);
+  color: var(--ink, #1f1a10);
+}
+.tag-suggest__pill--on {
+  background: var(--accent-2, #6b2820);
+  color: var(--paper, #ece2c5);
+  border-color: var(--accent-2, #6b2820);
+}
+.tag-suggest__pill--on:hover {
+  background: #4f1d18;
+  color: var(--paper, #ece2c5);
 }
 
 /* Upload widget */

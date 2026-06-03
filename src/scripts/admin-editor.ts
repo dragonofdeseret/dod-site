@@ -218,6 +218,45 @@ function init(): void {
     }
   })
 
+  // ── Tag-suggestion pills ───────────────────────────────────────────
+  // Click a pill to append its tag to the comma-separated input.
+  // Skips duplicates so re-clicking has no effect. Re-clicking a
+  // pill that's already in the field removes it instead.
+  const pills = form.querySelectorAll<HTMLButtonElement>('[data-tag-pill]')
+  pills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const tag = pill.dataset.tagPill ?? ''
+      const targetName = pill.dataset.targetInput ?? 'tags'
+      const input = form.querySelector<HTMLInputElement>(`input[name="${targetName}"]`)
+      if (!tag || !input) return
+      const current = input.value
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+      const idx = current.indexOf(tag)
+      if (idx === -1) {
+        current.push(tag)
+        pill.classList.add('tag-suggest__pill--on')
+      } else {
+        current.splice(idx, 1)
+        pill.classList.remove('tag-suggest__pill--on')
+      }
+      input.value = current.join(', ')
+    })
+    // Reflect initial state — if the input already contains the pill's
+    // tag (because this is an edit, not new), mark the pill as on.
+    const targetName = pill.dataset.targetInput ?? 'tags'
+    const input = form.querySelector<HTMLInputElement>(`input[name="${targetName}"]`)
+    const tag = pill.dataset.tagPill ?? ''
+    if (input && tag) {
+      const present = input.value
+        .split(',')
+        .map((s) => s.trim())
+        .includes(tag)
+      if (present) pill.classList.add('tag-suggest__pill--on')
+    }
+  })
+
   // ── Delete button ──────────────────────────────────────────────────
   const deleteBtn = document.getElementById('admin-delete-btn')
   if (deleteBtn && !isNew && idEl) {

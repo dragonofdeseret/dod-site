@@ -76,6 +76,30 @@ const BUCKETS: Record<Known, string | undefined> = {
 }
 const bucket = BUCKETS[col]
 
+// Most-used tags across this collection — surfaced below the tag
+// input so you can click a pill to add it rather than retyping. Top
+// 18 keeps the row compact; rest you can still type by hand.
+async function topTags(collection: Known, field: 'tags' | 'marginsTags'): Promise<string[]> {
+  if (collection === 'quotes' || collection === 'site') return []
+  const { getCollection } = await import('astro:content')
+  const all = (await getCollection(collection as never)) as unknown as RawEntry[]
+  const counts = new Map<string, number>()
+  for (const e of all) {
+    const raw = (e.data as Record<string, unknown>)[field]
+    if (!Array.isArray(raw)) continue
+    for (const t of raw) {
+      const v = String(t).trim()
+      if (!v) continue
+      counts.set(v, (counts.get(v) ?? 0) + 1)
+    }
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 18)
+    .map(([t]) => t)
+}
+const tagSuggestions = await topTags(col, col === 'margins' ? 'marginsTags' : 'tags')
+
 const title = isNew ? `New ${col}` : (f.title || f.id || id)
 ---
 
@@ -186,8 +210,18 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
 
         <div class="admin-field">
           <label class="admin-label" for="tags">Tags</label>
-          <input class="admin-input" type="text" id="tags" name="tags" value={f.tags} />
+          <input class="admin-input tag-input" type="text" id="tags" name="tags" value={f.tags} />
           <span class="admin-hint">Comma-separated.</span>
+          {tagSuggestions.length > 0 && (
+            <div class="tag-suggest">
+              <div class="tag-suggest__label">Click to add:</div>
+              <div class="tag-suggest__row">
+                {tagSuggestions.map((t) => (
+                  <button type="button" class="tag-suggest__pill" data-tag-pill={t} data-target-input="tags">{t}</button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </>
     )}
@@ -218,8 +252,18 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
 
         <div class="admin-field">
           <label class="admin-label" for="tags">Tags</label>
-          <input class="admin-input" type="text" id="tags" name="tags" value={f.tags} />
+          <input class="admin-input tag-input" type="text" id="tags" name="tags" value={f.tags} />
           <span class="admin-hint">Comma-separated.</span>
+          {tagSuggestions.length > 0 && (
+            <div class="tag-suggest">
+              <div class="tag-suggest__label">Click to add:</div>
+              <div class="tag-suggest__row">
+                {tagSuggestions.map((t) => (
+                  <button type="button" class="tag-suggest__pill" data-tag-pill={t} data-target-input="tags">{t}</button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </>
     )}
@@ -239,8 +283,18 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
 
         <div class="admin-field">
           <label class="admin-label" for="marginsTags">Tags</label>
-          <input class="admin-input" type="text" id="marginsTags" name="marginsTags" value={f.marginsTags} />
+          <input class="admin-input tag-input" type="text" id="marginsTags" name="marginsTags" value={f.marginsTags} />
           <span class="admin-hint">Comma-separated.</span>
+          {tagSuggestions.length > 0 && (
+            <div class="tag-suggest">
+              <div class="tag-suggest__label">Click to add:</div>
+              <div class="tag-suggest__row">
+                {tagSuggestions.map((t) => (
+                  <button type="button" class="tag-suggest__pill" data-tag-pill={t} data-target-input="marginsTags">{t}</button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </>
     )}

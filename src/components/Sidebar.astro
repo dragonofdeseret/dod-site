@@ -63,27 +63,9 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   <a href="/questions" class={cls('questions')}>Questions</a>
   <a href="/bio" class={cls('bio')}>Biography</a>
 
-  <div class="sidebar-social">
-    <a href="https://a.co/d/04zcw8xP" target="_blank" rel="noopener" class="sidebar-external">
-      Harmonic Theism ↗
-    </a>
-    <a
-      href="https://daodezion.com"
-      target="_blank"
-      rel="noopener"
-      class="sidebar-external external-link"
-    >
-      Dao De Zion ↗
-    </a>
-    <a
-      href="https://www.instagram.com/dragonofdeseret/"
-      target="_blank"
-      rel="noopener"
-      class="sidebar-external external-link"
-    >
-      Instagram ↗
-    </a>
-  </div>
+  {/* External links (Harmonic Theism, Dao De Zion, Instagram, X) all
+      live in the footer now — duplicating them in the sidebar muddied
+      the navigation. Sidebar is purely first-party site sections. */}
 
   {/* Pinned to the absolute bottom of the sidebar column via the
       flex/margin-top:auto trick below. /admin is gated by the auth
@@ -94,11 +76,22 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
 
 <style>
   /* Make the sidebar a flex column with full available height so
-     `margin-top: auto` on the admin link pushes it to the bottom. */
+     `margin-top: auto` on the admin link pushes it to the bottom.
+     Add a soft oxblood wash so the sidebar feels like the same warm
+     accent family as the admin topbar, without obscuring the dragon-
+     scale watermark or hurting text contrast. The gradient deepens
+     toward the bottom for a faint chiaroscuro. */
   .sidebar {
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 48px);
+    background-image: linear-gradient(
+      180deg,
+      rgba(108, 40, 32, 0.06) 0%,
+      rgba(108, 40, 32, 0.14) 100%
+    );
+    padding-right: 18px;
+    border-right: 1px solid rgba(108, 40, 32, 0.18);
   }
   .sidebar-admin {
     display: block;
