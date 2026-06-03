@@ -6,6 +6,7 @@ title: "Now"
 ## In the Studio
 
 - 4ft x 5ft canvas — concept phase
+Test
 
 ## Writing Projects Ahead
 
