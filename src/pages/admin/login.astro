@@ -166,22 +166,23 @@ if (Astro.request.method === 'POST') {
 
           {codeSent && (
             <div class="admin-field">
-              <label class="admin-label" for="code">6-digit code</label>
+              <label class="admin-label" for="code">Sign-in code</label>
               <input
                 class="admin-input code-input"
                 type="text"
                 inputmode="numeric"
-                pattern="[0-9]{6}"
-                maxlength="6"
+                pattern="[0-9]{4,12}"
+                maxlength="12"
                 id="code"
                 name="code"
                 autocomplete="one-time-code"
                 required
-                placeholder="••••••"
+                placeholder="••••••••"
                 autofocus
               />
               <span class="admin-hint">
-                It expires in 5 minutes. Paste the code from the top of the email.
+                Paste the numeric code from the top of the email. Expires in the
+                window your Supabase project defines (default 1 hour).
               </span>
             </div>
           )}
