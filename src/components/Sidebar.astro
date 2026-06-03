@@ -85,22 +85,52 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 48px);
-    /* Wine-red wash matching the admin topbar exactly — same hex
-       (rgb(48,12,14)) but at gradient alphas so the column reads as
-       "topbar diluted with parchment." Pinkness came from the warm
-       parchment leaking green+blue back into the red at low alpha;
-       cutting the base's G and B channels and pushing alpha up
-       suppresses the rose tint and lets the chromatic red dominate.
-       Dragon scales still readable at the top of the gradient. */
+    /* Wine-plum wash. Shifted from the topbar's red-leaning
+       rgb(48,12,14) toward purple by lifting the B channel —
+       rgb(58,14,42) is a deep mulberry that reads as "wine with a
+       violet undertone" instead of pure red. Pushed deeper still at
+       the bottom so the column has gallery-wall weight. */
     background-image: linear-gradient(
       180deg,
-      rgba(48, 12, 14, 0.35) 0%,
-      rgba(48, 12, 14, 0.55) 40%,
-      rgba(48, 12, 14, 0.75) 100%
+      rgba(58, 14, 42, 0.45) 0%,
+      rgba(58, 14, 42, 0.68) 40%,
+      rgba(58, 14, 42, 0.88) 100%
     );
     padding-right: 18px;
-    border-right: 1px solid rgba(48, 12, 14, 0.85);
-    box-shadow: inset -1px 0 0 rgba(48, 12, 14, 0.25);
+    border-right: 1px solid rgba(58, 14, 42, 0.92);
+    box-shadow: inset -1px 0 0 rgba(58, 14, 42, 0.35);
+  }
+  /* Sidebar text legibility on the dark wine-plum wash. Default text
+     colors (var(--ink), var(--ink-soft), var(--ink-faint)) are too
+     dark to read at the deeper gradient stops; switching to paper-
+     leaning shades so every line is legible from top to bottom.
+     Hover and active states stay distinctly brighter than rest. */
+  .sidebar :global(h1 a) {
+    color: rgba(236, 226, 197, 0.95);
+  }
+  .sidebar :global(h1 a:hover) {
+    color: #ffffff;
+  }
+  .sidebar :global(> a) {
+    color: rgba(236, 226, 197, 0.78);
+  }
+  .sidebar :global(> a:hover) {
+    color: #ffffff;
+  }
+  .sidebar :global(> a.active) {
+    color: var(--paper, #ece2c5);
+    font-weight: 600;
+  }
+  .sidebar :global(.nav-sub) {
+    color: rgba(236, 226, 197, 0.7);
+    font-size: 13px;
+  }
+  .sidebar :global(.nav-sub:hover) {
+    color: #ffffff;
+  }
+  .sidebar :global(.nav-sub.active) {
+    color: var(--paper, #ece2c5);
+    font-weight: 600;
   }
   .sidebar-admin {
     display: block;
@@ -109,13 +139,14 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.22;
-    color: var(--ink-soft, #5a4d33);
+    /* Paper-cream at low alpha so it reads as a quiet footnote on
+       the dark wine-plum gradient. Visible to anyone looking but
+       slides right past casual visitors. Hover lifts to full paper. */
+    color: rgba(236, 226, 197, 0.35);
     text-decoration: none;
-    transition: opacity 0.2s, color 0.2s;
+    transition: color 0.2s;
   }
   .sidebar-admin:hover {
-    opacity: 0.85;
-    color: var(--accent-2);
+    color: var(--paper, #ece2c5);
   }
 </style>
