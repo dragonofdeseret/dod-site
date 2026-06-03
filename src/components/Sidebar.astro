@@ -83,28 +83,33 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     >
       Instagram ↗
     </a>
-    {/* Always-visible escape hatch into the admin. /admin is gated by
-        the auth middleware, so public visitors who click it just see
-        the login screen — no harm done. Bookmark this in case the
-        cookie-driven Edit pill ever fails to appear. */}
-    <a href="/admin" class="sidebar-external sidebar-admin">
-      Admin
-    </a>
   </div>
+
+  {/* Pinned to the absolute bottom of the sidebar column via the
+      flex/margin-top:auto trick below. /admin is gated by the auth
+      middleware, so public visitors who click it just see the login
+      screen — no harm. Visually a footnote, not a nav item. */}
+  <a href="/admin" class="sidebar-admin">Admin</a>
 </nav>
 
 <style>
-  /* Buried deep — visually a footnote, not a nav item. Visitors who
-     aren't looking for it slide right past; the admin knows it's
-     there. Hover restores legibility. */
+  /* Make the sidebar a flex column with full available height so
+     `margin-top: auto` on the admin link pushes it to the bottom. */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 48px);
+  }
   .sidebar-admin {
     display: block;
-    margin-top: 32px;
+    margin-top: auto;          /* push to bottom of the sidebar column */
+    padding-top: 80px;          /* extra cushion above */
     font-size: 9px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.28;
+    opacity: 0.22;
     color: var(--ink-soft, #5a4d33);
+    text-decoration: none;
     transition: opacity 0.2s, color 0.2s;
   }
   .sidebar-admin:hover {
