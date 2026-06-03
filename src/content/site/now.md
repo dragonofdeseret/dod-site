@@ -3,26 +3,28 @@ id: "now"
 title: "Now"
 ---
 
-## Studio
+## In the Studio
 
 - 4ft x 5ft canvas — concept phase
 
-## Writing
+## Writing Projects Ahead
 
 - Harmonic Theism: Symphony No. II
+– Book of Mormon Commentary
 - Siren Song
 - Screenplay for movie about LDS mission and visionary experiences
 
-## Reading
+## Currently Reading
 
 - The Secret of the Golden Flower — All Translations
-- Taoist Texts; Ethical, Political, and Speculative, by Frederic Henry Balfour
-- The Complete Zhuangzi
-- Shobo Genzo — Dogen
-- The Chronicles of the Children of Araneck — Restored Branch of Jesus Christ
+- the Taoist canon
+– Ayahtkuuhyaht Nemenhah: The Sacred Records of the Ancient Nemenhah
+– The Xenotext, Book I
+– The Chronicle's of the Children of Araneck; Restored Branch of Jesus Chris
 
-## Always reading
+## Always Returning
 
 - The Book of Mormon
 - Dao De Jing
 - The Science of the First Person
+– The Secret of the Golden Flower
