@@ -725,11 +725,16 @@ code, kbd, samp, .mono {
   padding: 24px 26px;
 }
 .now-kicker {
+  /* Now that the duplicate <h2> is gone, the kicker IS the headline.
+     Promote to heading scale: Marcellus, large, oxblood, small-caps
+     for the gallery-tag feel. */
+  font-family: 'Marcellus', serif;
   font-variant: small-caps;
-  letter-spacing: 0.1em;
-  font-size: var(--fs-xs);
-  color: var(--ink-faint);
-  margin-bottom: 0.4em;
+  letter-spacing: 0.08em;
+  font-size: var(--fs-h3);
+  color: var(--accent-2);
+  margin-bottom: 0.6em;
+  line-height: 1.15;
 }
 .now-card h2 {
   font-family: 'Marcellus', serif;
