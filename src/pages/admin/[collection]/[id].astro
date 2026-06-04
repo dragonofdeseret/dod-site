@@ -63,7 +63,12 @@ const f = {
   marginsTags: Array.isArray(d.marginsTags) ? (d.marginsTags as string[]).join(', ') : '',
   sections: Array.isArray(d.sections) ? (d.sections as string[]) : ['writing'],
   body: entry?.body ?? '',
+  forSale: d.forSale === true,
+  prints: Array.isArray(d.prints)
+    ? (d.prints as Array<{ size: string; priceCents: number }>)
+    : [],
 }
+const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
 
 // Storage bucket per collection (drives the client uploader).
 const BUCKETS: Record<Known, string | undefined> = {
@@ -222,6 +227,59 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
               </div>
             </div>
           )}
+        </div>
+
+        {/* ── Prints (commerce) ─────────────────────────────────────
+           For-sale toggle gates the public "Buy a print" UI. The
+           prints rows below it let you set per-size prices for THIS
+           artwork — add a row per size you want to offer, leave
+           sizes you don't want OUT. */}
+        <div class="admin-field prints-block">
+          <label class="admin-label">
+            <input
+              type="checkbox"
+              name="forSale"
+              value="true"
+              checked={f.forSale}
+              data-prints-toggle
+            />
+            For sale (offer prints of this artwork)
+          </label>
+          <div class="prints-editor" data-prints-editor hidden={!f.forSale}>
+            <div class="prints-editor__head">
+              <span class="prints-editor__col">Size</span>
+              <span class="prints-editor__col">Price (USD)</span>
+              <span></span>
+            </div>
+            <div class="prints-editor__rows" data-prints-rows>
+              {f.prints.map((p) => (
+                <div class="prints-editor__row" data-prints-row>
+                  <select class="admin-input prints-editor__size" data-prints-size>
+                    {PRINT_SIZES.map((s) => (
+                      <option value={s} selected={s === p.size}>{s}</option>
+                    ))}
+                  </select>
+                  <input
+                    type="number"
+                    class="admin-input prints-editor__price"
+                    data-prints-price
+                    min="1"
+                    step="1"
+                    value={(p.priceCents / 100).toString()}
+                    placeholder="40"
+                  />
+                  <button type="button" class="prints-editor__remove" data-prints-remove aria-label="Remove">×</button>
+                </div>
+              ))}
+            </div>
+            <button type="button" class="admin-button admin-button--ghost prints-editor__add" data-prints-add>+ Add a size</button>
+            <span class="admin-hint">
+              Add one row per size you want to offer for this piece. Skip sizes
+              you don't want offered. Prices are in whole dollars; tax is
+              handled by Stripe at checkout.
+            </span>
+            <input type="hidden" name="prints" data-prints-hidden value={JSON.stringify(f.prints)} />
+          </div>
         </div>
       </>
     )}

@@ -50,9 +50,25 @@ function readForm(ctx: FormContext): Record<string, unknown> {
     return fd.getAll(k).map((v) => String(v))
   }
 
+  // Walk the prints-editor rows in DOM order. Each row contributes one
+  // { size, priceCents } object. Skip rows with blank/zero prices so
+  // empty rows don't end up in frontmatter.
+  const readPrints = (): Array<{ size: string; priceCents: number }> => {
+    const rows = ctx.form.querySelectorAll<HTMLElement>('[data-prints-row]')
+    const out: Array<{ size: string; priceCents: number }> = []
+    rows.forEach((row) => {
+      const size = (row.querySelector<HTMLSelectElement>('[data-prints-size]')?.value ?? '').trim()
+      const dollars = Number(row.querySelector<HTMLInputElement>('[data-prints-price]')?.value ?? '0')
+      if (!size || !Number.isFinite(dollars) || dollars <= 0) return
+      out.push({ size, priceCents: Math.round(dollars * 100) })
+    })
+    return out
+  }
+
   switch (ctx.collection) {
     case 'art':
-    case 'photo':
+    case 'photo': {
+      const forSale = !!ctx.form.querySelector<HTMLInputElement>('[data-prints-toggle]')?.checked
       return {
         id: get('id'),
         type: ctx.collection,
@@ -63,7 +79,10 @@ function readForm(ctx: FormContext): Record<string, unknown> {
         sideNoteTitle: getOptional('sideNoteTitle'),
         sideNote: getOptional('sideNote'),
         tags: getArray('tags'),
+        forSale,
+        prints: forSale ? readPrints() : undefined,
       }
+    }
     case 'writing':
       return {
         id: get('id'),
@@ -305,6 +324,48 @@ function init(): void {
       const msg = err instanceof Error ? err.message : String(err)
       setStatus(`Save failed: ${msg}`, 'error')
     }
+  })
+
+  // ── Prints editor (commerce) ───────────────────────────────────────
+  // Toggle reveals the rows. + Add a size appends a fresh row. The
+  // remove × on each row deletes it. No payload manipulation here —
+  // readPrints() in readForm walks the live DOM at submit time.
+  const printsToggle = form.querySelector<HTMLInputElement>('[data-prints-toggle]')
+  const printsEditor = form.querySelector<HTMLElement>('[data-prints-editor]')
+  const printsRows = form.querySelector<HTMLElement>('[data-prints-rows]')
+  const printsAdd = form.querySelector<HTMLButtonElement>('[data-prints-add]')
+
+  if (printsToggle && printsEditor) {
+    printsToggle.addEventListener('change', () => {
+      printsEditor.hidden = !printsToggle.checked
+    })
+  }
+
+  function addPrintRow(size = '8x10', dollars = ''): void {
+    if (!printsRows) return
+    const row = document.createElement('div')
+    row.className = 'prints-editor__row'
+    row.setAttribute('data-prints-row', '')
+    row.innerHTML = `
+      <select class="admin-input prints-editor__size" data-prints-size>
+        ${['8x10', '11x14', '16x20', '24x30']
+          .map((s) => `<option value="${s}"${s === size ? ' selected' : ''}>${s}</option>`)
+          .join('')}
+      </select>
+      <input type="number" class="admin-input prints-editor__price" data-prints-price min="1" step="1" value="${dollars}" placeholder="40" />
+      <button type="button" class="prints-editor__remove" data-prints-remove aria-label="Remove">×</button>
+    `
+    printsRows.appendChild(row)
+  }
+
+  printsAdd?.addEventListener('click', () => addPrintRow())
+
+  // Delegate the remove click — handles both existing rows and any
+  // rows added dynamically.
+  printsRows?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    if (!target.matches('[data-prints-remove]')) return
+    target.closest('[data-prints-row]')?.remove()
   })
 
   // ── Tag-suggestion pills ───────────────────────────────────────────

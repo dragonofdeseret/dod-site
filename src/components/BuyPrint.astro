@@ -1,0 +1,208 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// BuyPrint — the public-facing "Buy a print" widget on art / photo entry pages.
+//
+// Only renders when the artwork is flagged `forSale` AND has at least one
+// `prints` entry in frontmatter. Single-size offerings show a single price
+// inline; multi-size offerings show a dropdown.
+//
+// The Buy button is a small piece of inline JS: POSTs to /api/checkout
+// with the artworkId + chosen size, receives a Stripe Checkout URL, then
+// window.location-redirects the buyer there. No Stripe.js needed in the
+// browser; everything sensitive lives on the server.
+// ──────────────────────────────────────────────────────────────────────────────
+
+interface Print {
+  size: '8x10' | '11x14' | '16x20' | '24x30'
+  priceCents: number
+}
+
+interface Props {
+  artworkId: string
+  prints: Print[]
+}
+
+const { artworkId, prints } = Astro.props
+
+function dollars(cents: number): string {
+  return `$${(cents / 100).toFixed(0)}`
+}
+
+// Sort by display order, not by price — predictable layout for the dropdown.
+const SIZE_ORDER = ['8x10', '11x14', '16x20', '24x30'] as const
+const sortedPrints = [...prints].sort(
+  (a, b) => SIZE_ORDER.indexOf(a.size) - SIZE_ORDER.indexOf(b.size),
+)
+
+const single = sortedPrints.length === 1 ? sortedPrints[0] : null
+---
+
+<aside class="buy-print" data-artwork-id={artworkId}>
+  <div class="buy-print__kicker">Prints</div>
+  <h3 class="buy-print__title">Take this home</h3>
+
+  {single ? (
+    <p class="buy-print__price">
+      <strong>{single.size}</strong>
+      <span class="buy-print__sep">·</span>
+      {dollars(single.priceCents)}
+    </p>
+  ) : (
+    <div class="buy-print__sizes">
+      <label class="buy-print__label" for={`size-${artworkId}`}>Size</label>
+      <select id={`size-${artworkId}`} class="buy-print__select" data-buy-size>
+        {sortedPrints.map((p) => (
+          <option value={p.size} data-price={p.priceCents}>
+            {p.size} — {dollars(p.priceCents)}
+          </option>
+        ))}
+      </select>
+    </div>
+  )}
+
+  <button
+    type="button"
+    class="buy-print__btn"
+    data-buy-btn
+    data-default-size={single?.size ?? sortedPrints[0]?.size ?? ''}
+  >
+    Buy a print →
+  </button>
+
+  <p class="buy-print__note">
+    Signed archival print, shipped flat or in a tube. Shipping calculated at
+    checkout. Apple Pay supported.
+  </p>
+  <p class="buy-print__error" data-buy-error hidden></p>
+</aside>
+
+<style>
+  .buy-print {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: rgba(58, 14, 42, 0.05);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    max-width: 460px;
+  }
+  .buy-print__kicker {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--accent-2);
+    margin-bottom: 4px;
+  }
+  .buy-print__title {
+    font-family: 'Marcellus', serif;
+    font-size: 22px;
+    margin: 0 0 14px 0;
+    color: var(--ink);
+  }
+  .buy-print__price {
+    margin: 0 0 16px 0;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .buy-print__price strong {
+    font-family: 'Marcellus', serif;
+    font-weight: 500;
+  }
+  .buy-print__sep {
+    margin: 0 8px;
+    color: var(--ink-faint);
+  }
+  .buy-print__sizes {
+    margin-bottom: 16px;
+  }
+  .buy-print__label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+    font-family: 'Marcellus', serif;
+  }
+  .buy-print__select {
+    width: 100%;
+    max-width: 320px;
+    padding: 10px 14px;
+    border: 1px solid var(--paper-edge);
+    background: rgba(236, 226, 197, 0.6);
+    color: var(--ink);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+  }
+  .buy-print__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 24px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 0;
+    border-radius: 999px;
+    font-family: 'Marcellus', serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+  .buy-print__btn:hover { background: var(--accent-2); }
+  .buy-print__btn:disabled { opacity: 0.6; cursor: wait; }
+  .buy-print__note {
+    margin: 14px 0 0 0;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .buy-print__error {
+    margin: 12px 0 0 0;
+    padding: 8px 12px;
+    background: rgba(108, 40, 32, 0.1);
+    border: 1px solid var(--accent-2);
+    border-radius: 6px;
+    color: var(--accent-2);
+    font-size: 13px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.buy-print').forEach((root) => {
+    const artworkId = root.dataset.artworkId
+    const btn = root.querySelector<HTMLButtonElement>('[data-buy-btn]')
+    const select = root.querySelector<HTMLSelectElement>('[data-buy-size]')
+    const error = root.querySelector<HTMLElement>('[data-buy-error]')
+    if (!artworkId || !btn) return
+
+    btn.addEventListener('click', async () => {
+      const size = select?.value ?? btn.dataset.defaultSize ?? ''
+      if (!size) return
+      btn.disabled = true
+      btn.textContent = 'Loading checkout…'
+      if (error) error.hidden = true
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ artworkId, size }),
+        })
+        const data = await res.json() as { url?: string; error?: string }
+        if (!res.ok || !data.url) {
+          throw new Error(data.error || `HTTP ${res.status}`)
+        }
+        window.location.href = data.url
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err)
+        if (error) {
+          error.textContent = `Could not start checkout: ${msg}`
+          error.hidden = false
+        }
+        btn.disabled = false
+        btn.textContent = 'Buy a print →'
+      }
+    })
+  })
+</script>

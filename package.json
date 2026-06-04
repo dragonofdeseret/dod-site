@@ -11,14 +11,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.1.0",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vercel": "^8.0.0",
+    "@octokit/rest": "^21.0.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.0",
-    "@octokit/rest": "^21.0.2",
-    "sharp": "^0.33.5"
+    "astro": "^5.1.0",
+    "resend": "^6.12.4",
+    "sharp": "^0.33.5",
+    "stripe": "^22.2.0"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

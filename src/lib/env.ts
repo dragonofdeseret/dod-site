@@ -62,3 +62,31 @@ export function getGithubRepo(): { owner: string; repo: string; branch: string }
 export function getAdminEmail(): string {
   return required('ADMIN_EMAIL')
 }
+
+// ── Stripe (commerce) ─────────────────────────────────────────────────────
+// STRIPE_SECRET_KEY is sk_test_… or sk_live_… — used by both the checkout
+// route and the webhook handler. STRIPE_WEBHOOK_SECRET (whsec_…) is the
+// signing secret for the configured webhook endpoint and verifies that
+// incoming events actually came from Stripe.
+
+export function getStripeSecret(): string {
+  return required('STRIPE_SECRET_KEY')
+}
+
+export function getStripeWebhookSecret(): string {
+  return required('STRIPE_WEBHOOK_SECRET')
+}
+
+// ── Resend (transactional email) ───────────────────────────────────────────
+// Used for order-confirmation emails after a successful purchase. Same
+// account already used as the Supabase auth SMTP relay; the API key here
+// is a Resend-side key (re_…), not the SMTP password.
+
+export function getResendKey(): string {
+  return required('RESEND_API_KEY')
+}
+
+export function getResendFrom(): string {
+  // Optional override; default to the auth sender domain.
+  return optional('RESEND_FROM') ?? 'orders@dragonofdeseret.com'
+}

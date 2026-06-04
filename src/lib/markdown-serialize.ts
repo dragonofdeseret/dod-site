@@ -33,8 +33,10 @@ export interface SerializeInput {
   fields: Array<
     | { key: string; kind: 'string'; value?: string | null }
     | { key: string; kind: 'number'; value?: number | null }
+    | { key: string; kind: 'bool';   value?: boolean | null }
     | { key: string; kind: 'array';  value?: string[] }
     | { key: string; kind: 'block';  value?: string | null } // multiline string (HTML body, etc.)
+    | { key: string; kind: 'json';   value?: unknown }       // inline JSON (flow-style YAML)
   >
   /** Optional markdown body (renders after the closing `---`). */
   body?: string
@@ -59,6 +61,25 @@ export function serializeMarkdown(input: SerializeInput): string {
     if (field.kind === 'number') {
       if (field.value !== null && field.value !== undefined) {
         lines.push(`${field.key}: ${field.value}`)
+      }
+      continue
+    }
+    if (field.kind === 'bool') {
+      // Only emit when explicitly true. Frontmatter stays minimal —
+      // missing == false, exactly what the Zod .optional() expects.
+      if (field.value === true) {
+        lines.push(`${field.key}: true`)
+      }
+      continue
+    }
+    if (field.kind === 'json') {
+      // Inline JSON is valid YAML (flow style). Cleaner for nested
+      // arrays of small objects (e.g. prints) than the block style.
+      if (
+        field.value !== null && field.value !== undefined &&
+        !(Array.isArray(field.value) && field.value.length === 0)
+      ) {
+        lines.push(`${field.key}: ${JSON.stringify(field.value)}`)
       }
       continue
     }

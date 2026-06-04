@@ -22,6 +22,11 @@ import { glob } from 'astro/loaders'
 // types differ on which fields are required and on body vs frontmatter for
 // the body-bearing content.
 
+// Print sizes offered for sale. The dropdown / admin editor restricts
+// to this whitelist so we never end up with stray sizes the shipping
+// table doesn't know about.
+const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
+
 const artOrPhoto = z.object({
   id: z.string(),
   type: z.enum(['art', 'photo']),
@@ -37,6 +42,22 @@ const artOrPhoto = z.object({
   sideNote: z.string().optional(), // HTML string; rendered with set:html
   tags: z.array(z.string()).optional(),
   sections: z.array(z.string()).optional(),
+  // ── Print sales (opt-in per piece) ──────────────────────────────
+  // forSale controls whether the public art page shows the "Buy a
+  // print" UI. Defaults to false so existing entries don't suddenly
+  // sprout a buy button.
+  forSale: z.boolean().optional(),
+  // Each entry in `prints` is one size offered for THIS artwork. You
+  // can offer one size or several; the public page surfaces them in
+  // a dropdown. Price is in CENTS (integer) — Stripe's canonical unit.
+  prints: z
+    .array(
+      z.object({
+        size: z.enum(PRINT_SIZES),
+        priceCents: z.number().int().positive(),
+      }),
+    )
+    .optional(),
 })
 
 const writing = z.object({

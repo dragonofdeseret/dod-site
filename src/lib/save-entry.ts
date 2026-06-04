@@ -23,6 +23,11 @@ export interface ArtOrPhotoPayload {
   sideNoteTitle?: string
   sideNote?: string
   tags?: string[]
+  // Commerce — opt-in per piece. forSale=true + at least one print entry
+  // gates the public "Buy a print" UI. priceCents is the integer Stripe
+  // amount; the admin form takes dollars and converts.
+  forSale?: boolean
+  prints?: Array<{ size: '8x10' | '11x14' | '16x20' | '24x30'; priceCents: number }>
 }
 
 export interface WritingPayload {
@@ -92,6 +97,8 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'sideNoteTitle', kind: 'string', value: p.sideNoteTitle },
           { key: 'sideNote',      kind: 'block',  value: p.sideNote },
           { key: 'tags',          kind: 'array',  value: p.tags },
+          { key: 'forSale',       kind: 'bool',   value: p.forSale },
+          { key: 'prints',        kind: 'json',   value: p.prints },
         ],
       }
     case 'writing':

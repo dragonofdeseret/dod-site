@@ -1,0 +1,64 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// /checkout/success — landing page after a Stripe Checkout Session completes.
+//
+// We don't need to verify anything client-side; the webhook is the canonical
+// "order is done" event. This page exists purely as a thank-you to the buyer
+// and to give them a clear path back into the site.
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const prerender = false
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const sid = Astro.url.searchParams.get('sid')
+---
+
+<BaseLayout title="Thank you" active="home">
+  <div class="checkout-thanks">
+    <h1>Thank you.</h1>
+    <p class="lead">Your print order is confirmed.</p>
+    <p>
+      A receipt is on its way to your email. The print will be packed and
+      shipped within a few business days; you'll get a tracking number once
+      it's on the way.
+    </p>
+    <p class="back">
+      <a href="/art">← Return to the gallery</a>
+    </p>
+    {sid && <p class="ref">Order reference: <code>{sid}</code></p>}
+  </div>
+</BaseLayout>
+
+<style>
+  .checkout-thanks {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(224, 212, 177, 0.55);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+  .checkout-thanks h1 {
+    font-family: 'Marcellus', serif;
+    color: var(--accent-2);
+    margin: 0 0 12px 0;
+  }
+  .checkout-thanks .lead {
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 0 0 20px 0;
+  }
+  .checkout-thanks .back {
+    margin-top: 28px;
+  }
+  .checkout-thanks .ref {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .checkout-thanks .ref code {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+</style>

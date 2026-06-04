@@ -466,6 +466,66 @@
   color: var(--paper, #ece2c5);
 }
 
+/* Prints editor — per-size price rows under the for-sale toggle.
+   Three-column grid (size dropdown / dollar input / remove ×). + Add
+   appends a new row; rows with blank or zero price are skipped on
+   submit so empty rows never reach frontmatter. */
+.prints-block {
+  padding: 16px 18px;
+  background: rgba(58, 14, 42, 0.04);
+  border: 1px solid var(--paper-edge, #c9b88f);
+  border-radius: 6px;
+}
+.prints-editor {
+  margin-top: 14px;
+}
+.prints-editor[hidden] {
+  display: none;
+}
+.prints-editor__head {
+  display: grid;
+  grid-template-columns: 1fr 1fr 36px;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint, #8a7d5d);
+  font-family: 'Marcellus', Georgia, serif;
+}
+.prints-editor__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.prints-editor__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 36px;
+  gap: 10px;
+  align-items: center;
+}
+.prints-editor__remove {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--paper-edge, #c9b88f);
+  background: transparent;
+  color: var(--accent-2, #6b2820);
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.prints-editor__remove:hover {
+  background: var(--accent-2, #6b2820);
+  color: var(--paper, #ece2c5);
+}
+.prints-editor__add {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
 /* Upload widget */
 .admin-upload {
   border: 1px dashed var(--paper-edge, #c9b88f);

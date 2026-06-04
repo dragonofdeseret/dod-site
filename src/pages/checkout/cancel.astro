@@ -1,0 +1,43 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// /checkout/cancel — buyer clicked "back" or closed the Stripe Checkout page
+// before paying. We just acknowledge it and bounce them back to the artwork.
+// ──────────────────────────────────────────────────────────────────────────────
+
+export const prerender = false
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const artwork = Astro.url.searchParams.get('artwork')
+const back = artwork ? `/art/${artwork}` : '/art'
+---
+
+<BaseLayout title="Order not completed" active="home">
+  <div class="checkout-cancel">
+    <h1>Order not completed.</h1>
+    <p>You closed the checkout before finishing — no charge was made.</p>
+    <p class="back">
+      <a href={back}>← Return to the artwork</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .checkout-cancel {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(224, 212, 177, 0.55);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+  .checkout-cancel h1 {
+    font-family: 'Marcellus', serif;
+    color: var(--ink);
+    margin: 0 0 12px 0;
+  }
+  .checkout-cancel .back {
+    margin-top: 28px;
+  }
+</style>

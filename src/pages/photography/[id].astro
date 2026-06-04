@@ -11,6 +11,7 @@ export const prerender = true
 import type { GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import BuyPrint from '../../components/BuyPrint.astro'
 import { sortByDateDescWithIdTiebreak } from '../../lib/sort-group'
 import { viewerSrc, viewerSrcset, originalSrc, VIEWER_SIZES } from '../../lib/images'
 
@@ -53,6 +54,10 @@ const nextUrl = next ? `/photography/${next.data.id}?from=${fromParam}` : ''
         {next && <a href={nextUrl}>Next →</a>}
       </div>
     </div>
+
+    {item.data.forSale && item.data.prints && item.data.prints.length > 0 && (
+      <BuyPrint artworkId={item.data.id} prints={item.data.prints} />
+    )}
 
     <div id="art-layout">
       {item.data.sideNote ? (
