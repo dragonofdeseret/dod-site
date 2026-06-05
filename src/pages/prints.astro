@@ -1,0 +1,188 @@
+---
+// Static prerender — built at deploy time.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /prints — discoverable shop view. Lists every artwork and photograph
+// flagged `forSale: true` with at least one print configured. Visitors land
+// here from the sidebar, scan the grid, click into the artwork to buy.
+//
+// Cheapest available size sets the "from $X" price shown on each card. The
+// individual artwork page is still where the size dropdown + Buy button live.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { thumbSrc, thumbSrcset, GALLERY_SIZES } from '../lib/images'
+
+// Pull both art + photo collections; commerce is identical across both.
+const [art, photo] = await Promise.all([
+  getCollection('art'),
+  getCollection('photo'),
+])
+type Entry = (typeof art)[number] | (typeof photo)[number]
+const everything = [...art, ...photo] as Entry[]
+
+interface ForSaleItem {
+  id: string
+  title: string
+  image: string
+  type: 'art' | 'photo'
+  date: string
+  smallestPriceCents: number
+  sizesOffered: string[]
+}
+
+// Filter + reshape. Cheapest size sets the "from $X" headline; full size
+// list goes underneath in small text.
+const forSale: ForSaleItem[] = everything
+  .filter((e) => {
+    const d = e.data as { forSale?: boolean; prints?: Array<{ priceCents: number }> }
+    return d.forSale === true && Array.isArray(d.prints) && d.prints.length > 0
+  })
+  .map((e) => {
+    const d = e.data as {
+      id: string
+      title: string
+      image: string
+      type: 'art' | 'photo'
+      date: string
+      prints: Array<{ size: string; priceCents: number }>
+    }
+    const cheapest = d.prints.reduce((m, p) => (p.priceCents < m ? p.priceCents : m), Infinity)
+    return {
+      id: d.id,
+      title: d.title,
+      image: d.image,
+      type: d.type,
+      date: d.date,
+      smallestPriceCents: cheapest,
+      sizesOffered: d.prints.map((p) => p.size),
+    }
+  })
+  // Newest first.
+  .sort((a, b) => (Date.parse(b.date) || 0) - (Date.parse(a.date) || 0))
+
+function dollars(cents: number): string {
+  return `$${(cents / 100).toFixed(0)}`
+}
+
+function urlFor(item: ForSaleItem): string {
+  return `/${item.type === 'photo' ? 'photography' : 'art'}/${item.id}?from=prints`
+}
+---
+
+<BaseLayout title="Prints" active="prints">
+  <header class="page-header">
+    <h1>Prints</h1>
+    <p class="page-intro">
+      Signed archival prints, shipped flat or in a tube. Apple Pay supported
+      at checkout.
+    </p>
+  </header>
+
+  {forSale.length === 0 ? (
+    <p class="prints-empty">
+      No prints are currently available. Check back soon — new pieces are
+      added as they're released for sale.
+    </p>
+  ) : (
+    <section class="prints-grid">
+      {forSale.map((item) => (
+        <a href={urlFor(item)} class="prints-card">
+          <div class="prints-card__image">
+            <img
+              src={thumbSrc(item.image)}
+              srcset={thumbSrcset(item.image)}
+              sizes={GALLERY_SIZES}
+              decoding="async"
+              loading="lazy"
+              alt={item.title}
+            />
+          </div>
+          <div class="prints-card__meta">
+            <h2 class="prints-card__title">{item.title}</h2>
+            <div class="prints-card__row">
+              <span class="prints-card__price">from {dollars(item.smallestPriceCents)}</span>
+              <span class="prints-card__sizes">{item.sizesOffered.join(' · ')}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .prints-empty {
+    margin: 40px auto;
+    max-width: 480px;
+    text-align: center;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .prints-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+    margin-top: 28px;
+  }
+  .prints-card {
+    display: block;
+    background: rgba(224, 212, 177, 0.45);
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .prints-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+    box-shadow: 0 4px 14px rgba(108, 40, 32, 0.12);
+  }
+  .prints-card__image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: rgba(58, 14, 42, 0.08);
+  }
+  .prints-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .prints-card:hover .prints-card__image img {
+    transform: scale(1.03);
+  }
+  .prints-card__meta {
+    padding: 16px 20px 18px;
+  }
+  .prints-card__title {
+    font-family: 'Marcellus', serif;
+    font-size: 18px;
+    margin: 0 0 8px 0;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .prints-card__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .prints-card__price {
+    font-family: 'Marcellus', serif;
+    font-size: 14px;
+    color: var(--accent-2);
+    letter-spacing: 0.02em;
+  }
+  .prints-card__sizes {
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+</style>

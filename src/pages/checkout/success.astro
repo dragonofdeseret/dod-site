@@ -2,9 +2,10 @@
 // ──────────────────────────────────────────────────────────────────────────────
 // /checkout/success — landing page after a Stripe Checkout Session completes.
 //
-// We don't need to verify anything client-side; the webhook is the canonical
-// "order is done" event. This page exists purely as a thank-you to the buyer
-// and to give them a clear path back into the site.
+// We don't verify anything client-side; the webhook is the canonical "order
+// is done" event. This page exists purely as a confirmation to the buyer
+// and a clear path back into the site. Library-aesthetic so it reads as
+// part of the gallery, not a generic SaaS thank-you screen.
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const prerender = false
@@ -15,50 +16,157 @@ const sid = Astro.url.searchParams.get('sid')
 ---
 
 <BaseLayout title="Thank you" active="home">
-  <div class="checkout-thanks">
-    <h1>Thank you.</h1>
-    <p class="lead">Your print order is confirmed.</p>
-    <p>
-      A receipt is on its way to your email. The print will be packed and
-      shipped within a few business days; you'll get a tracking number once
-      it's on the way.
+  <div class="thanks">
+    <div class="thanks__kicker">Confirmed</div>
+    <h1 class="thanks__title">Thank you.</h1>
+    <p class="thanks__lead">Your print is on its way.</p>
+
+    <div class="thanks__rule"></div>
+
+    <p class="thanks__body">
+      A receipt from Stripe is on its way to your email. Your print will be
+      packed and shipped within a few business days; once it's on the way
+      you'll get a tracking number directly from the courier.
     </p>
-    <p class="back">
-      <a href="/art">← Return to the gallery</a>
+    <p class="thanks__body">
+      Thank you for supporting the work. Pieces like yours are slow to make
+      and slow to ship — every print represents real hours.
     </p>
-    {sid && <p class="ref">Order reference: <code>{sid}</code></p>}
+
+    <div class="thanks__signoff">
+      <span>— Christopher</span>
+      <span class="thanks__monicker">The Dragon of Deseret</span>
+    </div>
+
+    <div class="thanks__actions">
+      <a class="thanks__btn" href="/prints">Browse more prints</a>
+      <a class="thanks__btn thanks__btn--ghost" href="/">Return home</a>
+    </div>
+
+    {sid && (
+      <p class="thanks__ref">
+        Order reference · <code>{sid}</code>
+      </p>
+    )}
   </div>
 </BaseLayout>
 
 <style>
-  .checkout-thanks {
-    max-width: 600px;
+  .thanks {
+    max-width: 640px;
     margin: 60px auto;
-    padding: 40px;
-    background: rgba(224, 212, 177, 0.55);
+    padding: 56px 56px 48px;
+    background-color: rgba(236, 226, 197, 0.6);
+    background-image:
+      linear-gradient(180deg, rgba(58, 14, 42, 0.04) 0%, rgba(58, 14, 42, 0.09) 100%),
+      url('/dragon-scales.svg');
     border: 1px solid var(--paper-edge);
     border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 4px 20px rgba(58, 14, 42, 0.06);
     text-align: center;
   }
-  .checkout-thanks h1 {
+  .thanks__kicker {
     font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.2em;
+    font-size: 12px;
     color: var(--accent-2);
-    margin: 0 0 12px 0;
+    margin-bottom: 8px;
   }
-  .checkout-thanks .lead {
+  .thanks__title {
+    font-family: 'Marcellus', serif;
+    font-size: 46px;
+    margin: 0 0 8px 0;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .thanks__lead {
     font-style: italic;
     color: var(--ink-soft);
-    margin: 0 0 20px 0;
+    font-size: 18px;
+    margin: 0 0 28px 0;
   }
-  .checkout-thanks .back {
-    margin-top: 28px;
+  .thanks__rule {
+    width: 56px;
+    height: 1px;
+    background: var(--rule);
+    margin: 0 auto 28px;
   }
-  .checkout-thanks .ref {
-    margin-top: 28px;
-    font-size: 12px;
+  .thanks__body {
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.65;
+    margin: 0 0 14px 0;
+    text-align: left;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .thanks__signoff {
+    margin: 32px 0 36px 0;
+    font-family: 'Marcellus', serif;
+    font-style: italic;
+    color: var(--ink);
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .thanks__monicker {
+    font-variant: small-caps;
+    letter-spacing: 0.18em;
+    font-style: normal;
+    font-size: 11px;
+    color: var(--accent-2);
+  }
+  .thanks__actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .thanks__btn {
+    display: inline-block;
+    padding: 11px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 999px;
+    font-family: 'Marcellus', serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    transition: background-color 0.15s, transform 0.08s;
+  }
+  .thanks__btn:hover {
+    background: var(--accent-2);
+    transform: translateY(-1px);
+  }
+  .thanks__btn--ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--paper-edge);
+  }
+  .thanks__btn--ghost:hover {
+    background: rgba(108, 40, 32, 0.08);
+    color: var(--accent-2);
+    border-color: var(--accent-2);
+  }
+  .thanks__ref {
+    margin: 24px 0 0 0;
+    font-size: 11px;
     color: var(--ink-faint);
-  }
-  .checkout-thanks .ref code {
     font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+  .thanks__ref code {
+    font-family: inherit;
+    background: transparent;
+    padding: 0;
+  }
+  @media (max-width: 600px) {
+    .thanks { padding: 36px 24px 32px; margin: 30px 16px; }
+    .thanks__title { font-size: 36px; }
   }
 </style>
