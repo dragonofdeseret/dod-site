@@ -79,8 +79,16 @@ export const POST: APIRoute = async ({ request, url }) => {
     return json({ error: `Size "${printSize}" not offered for this artwork.` }, 400)
   }
 
-  // Public artwork URL — both for the email and for Stripe's product display.
-  const origin = url.origin
+  // IMPORTANT: in Vercel's serverless runtime, `url.origin` resolves
+  // to the internal `https://localhost` host the function was invoked
+  // with — Stripe would then redirect the buyer to that unreachable
+  // URL post-checkout. Vercel preserves the public host on
+  // `x-forwarded-host`; fall back to the canonical domain if missing.
+  const forwardedHost = request.headers.get('x-forwarded-host') ?? request.headers.get('host')
+  const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
+  const origin = forwardedHost && !forwardedHost.startsWith('localhost')
+    ? `${forwardedProto}://${forwardedHost}`
+    : 'https://dragonofdeseret.com'
   const artworkUrl = `${origin}/${data.type === 'photo' ? 'photography' : 'art'}/${artworkId}`
 
   const stripe = stripeServer()
