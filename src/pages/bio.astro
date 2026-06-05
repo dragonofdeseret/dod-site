@@ -68,11 +68,13 @@ function splitSections(md: string): Record<string, string[]> {
 }
 
 // `- Key: Value` rows. Returns array preserving order so the page can
-// render fields in the sequence the admin wrote them.
+// render fields in the sequence the admin wrote them. Accepts -, –, —,
+// •, * as the bullet marker (iOS Smart Punctuation auto-converts `- `
+// to `– ` on phone keyboards, which would otherwise drop the row).
 function parseKeyValue(lines: string[]): Array<{ key: string; value: string }> {
   const rows: Array<{ key: string; value: string }> = []
   for (const line of lines) {
-    const m = /^\s*-\s+([^:]+):\s*(.*)$/.exec(line)
+    const m = /^\s*[-–—•*]\s+([^:]+):\s*(.*)$/.exec(line)
     if (!m) continue
     rows.push({ key: m[1].trim(), value: m[2].trim() })
   }
@@ -103,8 +105,11 @@ function parseTimeline(lines: string[]): TimelineEntry[] {
       cur = { date: line, bullets: [], paragraphs: [] }
       continue
     }
-    if (line.startsWith('- ')) {
-      cur.bullets.push(line.slice(2).trim())
+    // Accept any common bullet marker — iOS Smart Punctuation
+    // auto-converts `- ` to `– ` on phone keyboards.
+    const bulletMatch = /^[-–—•*]\s+(.*)$/.exec(line)
+    if (bulletMatch) {
+      cur.bullets.push(bulletMatch[1].trim())
     } else {
       cur.paragraphs.push(line)
     }

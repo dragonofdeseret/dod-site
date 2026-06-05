@@ -43,10 +43,15 @@ function parseSections(md: string): Section[] {
       continue
     }
     if (!current) continue
-    if (/^-\s+/.test(line)) {
+    // Accept any common bullet/dash marker, including the en-dash (–)
+    // and em-dash (—) that iOS Smart Punctuation likes to substitute
+    // for `- ` automatically. Without this, those lines render as
+    // paragraphs in the heavier body style instead of light list
+    // items, looking visually "bolder" than their siblings.
+    if (/^[-–—•*]\s+/.test(line)) {
       flushBuffer(para)
       para = []
-      current.items.push(line.replace(/^-\s+/, '').trim())
+      current.items.push(line.replace(/^[-–—•*]\s+/, '').trim())
       continue
     }
     if (line.trim() === '') {
