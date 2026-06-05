@@ -65,13 +65,12 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
 
   {/* External links (Harmonic Theism, Dao De Zion, Instagram, X) all
       live in the footer now — duplicating them in the sidebar muddied
-      the navigation. Sidebar is purely first-party site sections. */}
+      the navigation. Sidebar is purely first-party site sections.
 
-  {/* Pinned to the absolute bottom of the sidebar column via the
-      flex/margin-top:auto trick below. /admin is gated by the auth
-      middleware, so public visitors who click it just see the login
-      screen — no harm. Visually a footnote, not a nav item. */}
-  <a href="/admin" class="sidebar-admin">Admin</a>
+      No visible Admin link — keeps the public surface clean. The
+      admin is reachable by typing /admin/login directly. The middleware
+      gates everything underneath, so even if a visitor stumbles on
+      the URL they just see the login screen and can't get further. */}
 </nav>
 
 <style>
@@ -131,22 +130,5 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   .sidebar :global(.nav-sub.active) {
     color: var(--paper, #ece2c5);
     font-weight: 600;
-  }
-  .sidebar-admin {
-    display: block;
-    margin-top: auto;          /* push to bottom of the sidebar column */
-    padding-top: 80px;          /* extra cushion above */
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    /* Paper-cream at low alpha so it reads as a quiet footnote on
-       the dark wine-plum gradient. Visible to anyone looking but
-       slides right past casual visitors. Hover lifts to full paper. */
-    color: rgba(236, 226, 197, 0.35);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .sidebar-admin:hover {
-    color: var(--paper, #ece2c5);
   }
 </style>
