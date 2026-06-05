@@ -5,11 +5,13 @@ import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
-  // Canonical domain is dragonofdeseret.com — christophershenefelt.com
-  // becomes the redirect alias at the DNS layer (GoDaddy forwarding +
-  // Vercel custom-domain config). Affects every absolute URL emitted
-  // by the build: sitemap, RSS, OG tags, canonical link tags.
-  site: 'https://dragonofdeseret.com',
+  // Canonical domain is www.dragonofdeseret.com — that's the one set as
+  // Production in Vercel; everything else (apex, christophershenefelt
+  // both forms) 30x's to it. Affects every absolute URL emitted by the
+  // build: sitemap, RSS, OG tags, canonical link tags. Matching Vercel's
+  // canonical exactly prevents search engines from indexing the
+  // redirected variants and keeps social cards on one URL family.
+  site: 'https://www.dragonofdeseret.com',
   // Server output → Astro emits a Vercel serverless function for
   // dynamic routes, but every page still defaults to prerendered
   // (HTML built at deploy time). Routes opt INTO SSR via

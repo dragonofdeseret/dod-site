@@ -88,7 +88,7 @@ export const POST: APIRoute = async ({ request, url }) => {
   const forwardedProto = request.headers.get('x-forwarded-proto') ?? 'https'
   const origin = forwardedHost && !forwardedHost.startsWith('localhost')
     ? `${forwardedProto}://${forwardedHost}`
-    : 'https://dragonofdeseret.com'
+    : 'https://www.dragonofdeseret.com'
   const artworkUrl = `${origin}/${data.type === 'photo' ? 'photography' : 'art'}/${artworkId}`
 
   const stripe = stripeServer()
