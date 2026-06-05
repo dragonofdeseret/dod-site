@@ -380,11 +380,28 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
       <div class="admin-field">
         <label class="admin-label" for="body">Body</label>
         <textarea class="admin-textarea" id="body" name="body" rows="20" required>{f.body}</textarea>
-        <span class="admin-hint">
-          Markdown. For the Now page, use <code>## Section</code> headings — each one
-          becomes a card. List items under each section start with <code>- </code>.
-          See src/content/site/now.md for the shape.
-        </span>
+        {(f.id === 'bio') ? (
+          <details class="html-key" open>
+            <summary>Biography page format</summary>
+            <p class="html-key__note">
+              Three sections, each headed by <code>##</code>:
+            </p>
+            <ul class="html-key__list">
+              <li><strong><code>## profile</code></strong> — key/value rows for the archive panel. Each row starts with <code>- </code>, then the key, then <code>: </code>, then the value. Example: <code>- Type: Writer | Artist | Phenomenologist</code></li>
+              <li><strong><code>## background</code></strong> — same key/value format. Renders as the bulleted "Background" cell. Two rows expected: <code>Previous</code> and <code>Current</code>.</li>
+              <li><strong><code>## timeline</code></strong> — date-blocks separated by blank lines. First line of each block is the date label; remaining lines are the description. Lines starting with <code>- </code> become bullets.</li>
+            </ul>
+            <p class="html-key__note">
+              In any line, you can use <code>[link text](/path)</code> for internal links or <code>[text](https://…)</code> for external. <code>**bold**</code> and <code>_italic_</code> also work inline.
+            </p>
+          </details>
+        ) : (
+          <span class="admin-hint">
+            Markdown. Use <code>## Section</code> headings — each one becomes
+            a card. List items under each section start with <code>- </code>.
+            See <code>src/content/site/now.md</code> for the shape.
+          </span>
+        )}
       </div>
     )}
 

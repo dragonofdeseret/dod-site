@@ -415,6 +415,20 @@
   color: var(--ink-faint, #8a7d5d);
   font-style: italic;
 }
+.html-key__list {
+  margin: 8px 0 8px 18px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-soft, #5a4d33);
+}
+.html-key__list li { margin-bottom: 6px; }
+.html-key__list strong { color: var(--ink, #1f1a10); }
+.html-key__list code {
+  font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--accent, #1c3550);
+}
 .html-key__note code {
   font-family: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
   font-style: normal;

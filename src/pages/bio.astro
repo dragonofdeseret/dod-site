@@ -1,15 +1,122 @@
 ---
-// Static prerender — built at deploy time. Astro emits HTML; no
-// serverless function. Admin routes opt OUT with prerender = false.
+// Static prerender — built at deploy time.
 export const prerender = true
 
 // ──────────────────────────────────────────────────────────────────────────────
-// /bio — biography + life timeline. All static, hand-curated. Legacy
-// `tripreports.html?id=X` deep-links have been rewritten to clean
-// `/altered-states/X` paths.
+// /bio — biography page. Content is admin-editable; all data lives in
+// src/content/site/bio.md and is parsed into three sections:
+//
+//   ## profile     — key/value rows for the archive-entry panel
+//                    (Type, Region, Traditions, Methods, etc.)
+//   ## background  — key/value rows rendered as the "Background" cell's
+//                    bulleted list (Previous, Current)
+//   ## timeline    — date-blocks separated by blank lines.
+//                    First line = date label, remaining lines = description.
+//                    Lines starting with `- ` become bullets.
+//                    Markdown links [text](url) become anchors.
+//
+// Edit at /admin/site/bio (same flow as the Now page).
 // ──────────────────────────────────────────────────────────────────────────────
 
+import { getEntry } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+
+const entry = await getEntry('site', 'bio')
+const body = entry?.body ?? ''
+
+// ── Markdown helpers ──────────────────────────────────────────────────────
+// Inline `[text](url)`, `**bold**`, `_italic_` → HTML. Everything else
+// is escaped. Keeps the surface area small and predictable for the admin.
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+function inlineMd(s: string): string {
+  // Escape first, then do the markdown substitutions on the escaped text
+  // so any user-typed angle brackets stay literal.
+  let out = escapeHtml(s)
+  // [text](url) — only the basic http(s) and root-relative URLs
+  out = out.replace(
+    /\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g,
+    (_m, text, url) => `<a href="${url}">${text}</a>`,
+  )
+  // **bold**
+  out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  // _italic_
+  out = out.replace(/(^|\s)_([^_]+)_(?=\s|$)/g, '$1<em>$2</em>')
+  return out
+}
+
+// ── Parse the body into sections ──────────────────────────────────────────
+function splitSections(md: string): Record<string, string[]> {
+  const sections: Record<string, string[]> = {}
+  let current: string | null = null
+  for (const rawLine of md.split('\n')) {
+    const line = rawLine.replace(/\r$/, '')
+    const m = /^##\s+(.+)$/.exec(line)
+    if (m) {
+      current = m[1].trim().toLowerCase()
+      sections[current] = []
+      continue
+    }
+    if (current) sections[current].push(line)
+  }
+  return sections
+}
+
+// `- Key: Value` rows. Returns array preserving order so the page can
+// render fields in the sequence the admin wrote them.
+function parseKeyValue(lines: string[]): Array<{ key: string; value: string }> {
+  const rows: Array<{ key: string; value: string }> = []
+  for (const line of lines) {
+    const m = /^\s*-\s+([^:]+):\s*(.*)$/.exec(line)
+    if (!m) continue
+    rows.push({ key: m[1].trim(), value: m[2].trim() })
+  }
+  return rows
+}
+
+// Timeline: blocks separated by blank lines. First non-blank line is the
+// date; remaining lines are body. Body lines beginning with `- ` become
+// bullets; everything else is rendered as plain text (with inline md).
+interface TimelineEntry {
+  date: string
+  bullets: string[]
+  paragraphs: string[]
+}
+function parseTimeline(lines: string[]): TimelineEntry[] {
+  const out: TimelineEntry[] = []
+  let cur: TimelineEntry | null = null
+  for (const rawLine of lines) {
+    const line = rawLine.trim()
+    if (!line) {
+      if (cur) {
+        out.push(cur)
+        cur = null
+      }
+      continue
+    }
+    if (!cur) {
+      cur = { date: line, bullets: [], paragraphs: [] }
+      continue
+    }
+    if (line.startsWith('- ')) {
+      cur.bullets.push(line.slice(2).trim())
+    } else {
+      cur.paragraphs.push(line)
+    }
+  }
+  if (cur) out.push(cur)
+  return out
+}
+
+const sections = splitSections(body)
+const profile = parseKeyValue(sections['profile'] ?? [])
+const background = parseKeyValue(sections['background'] ?? [])
+const timeline = parseTimeline(sections['timeline'] ?? [])
 ---
 
 <BaseLayout title="Biography" active="bio">
@@ -28,220 +135,53 @@ import BaseLayout from '../layouts/BaseLayout.astro'
         </div>
 
         <div class="archive-grid">
-          <div class="archive-row">
-            <div class="archive-key">Type</div>
-            <div class="archive-value">Writer | Artist | Phenomenologist</div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Region</div>
-            <div class="archive-value">Salt Lake Valley, Utah, United States</div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Traditions</div>
-            <div class="archive-value">Mormonism, Daoism, Zen</div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Methods</div>
-            <div class="archive-value">
-              zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
+          {profile.map((row) => (
+            row.key.toLowerCase() === 'background' ? null : (
+              <div class="archive-row">
+                <div class="archive-key">{row.key}</div>
+                <div class="archive-value" set:html={inlineMd(row.value)} />
+              </div>
+            )
+          ))}
+          {background.length > 0 && (
+            <div class="archive-row">
+              <div class="archive-key">Background</div>
+              <div class="archive-value">
+                <ul class="archive-list">
+                  {background.map((b) => (
+                    <li>
+                      <strong>{b.key}:</strong>
+                      <Fragment set:html={' ' + inlineMd(b.value)} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Conditions</div>
-            <div class="archive-value">
-              Celiac disease, PMBC dysfunction, chronic pain, clinical insomnia,
-              clinical endocannabinoid deficiency, visual snow syndrome,
-              high-functioning major depressive disorder, transient Musicophilia
-            </div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Background</div>
-            <div class="archive-value">
-              <ul class="archive-list">
-                <li>
-                  <strong>Previous:</strong> Professional stage management;
-                  technical support for NFLX, AAPL, TSLA.
-                </li>
-                <li><strong>Current:</strong> Contractor consultant, Chief of Staff.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Philosophical Interests</div>
-            <div class="archive-value">
-              Consciousness, perception, comparative theology, symbolic order,
-              metaphysics, identity, altered states, embodiment, limits of language
-            </div>
-          </div>
-          <div class="archive-row">
-            <div class="archive-key">Notes</div>
-            <div class="archive-value"></div>
-          </div>
+          )}
         </div>
       </article>
 
       <aside class="bio-aside timeline-panel">
         <div class="bio-kicker">Life Index</div>
         <div class="timeline-scroll">
-          <div class="timeline-item">
-            <div class="timeline-year">February 24, 1989</div>
-            <div class="timeline-text">
-              <li>Born in Ogden, Utah. 9:54 AM</li>
-              <li>Born with Pyloric Stenosis</li>
+          {timeline.map((t) => (
+            <div class="timeline-item">
+              <div class="timeline-year">{t.date}</div>
+              <div class="timeline-text">
+                {t.bullets.length > 0 ? (
+                  <ul class="timeline-bullets">
+                    {t.bullets.map((b) => (
+                      <li set:html={inlineMd(b)} />
+                    ))}
+                  </ul>
+                ) : (
+                  t.paragraphs.map((p) => (
+                    <div set:html={inlineMd(p)} />
+                  ))
+                )}
+              </div>
             </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">April 4, 1989</div>
-            <div class="timeline-text">Pyloric Stenosis surgery</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1990</div>
-            <div class="timeline-text">First out-of-body experience</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Spring 1996</div>
-            <div class="timeline-text">First Derealization</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Spring or Fall of 1996</div>
-            <div class="timeline-text">
-              <li>Recurring dreams begin</li>
-              <li>Transient insomnia meanders</li>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Oct or Nov 1996</div>
-            <div class="timeline-text">
-              <li><a href="/altered-states/TrampOBE">Second Out-of-Body experience</a></li>
-              <li><a href="/altered-states/TrampOBE">First Depersonalization</a></li>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">March 29, 1997</div>
-            <div class="timeline-text">Baptized and confirmed a Latter-day Saint</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">December 1999</div>
-            <div class="timeline-text">
-              <a href="/altered-states/Toyn">Third recurring dream begins</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">April 2003</div>
-            <div class="timeline-text">
-              <li>Chronic pain begins</li>
-              <li>Clinical Insomnia patterns begin</li>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">2007</div>
-            <div class="timeline-text">Recurring dreams come to an end</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">August 2008</div>
-            <div class="timeline-text">Temple Endowment</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">September 25, 2008</div>
-            <div class="timeline-text">
-              Mission to Cape Verde, Praia, Africa.<br />
-              Sleep paralysis vision:{' '}
-              <a href="/altered-states/CtP">Called to Purge.</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">January 2009 – January 2014</div>
-            <div class="timeline-text">
-              Stage Manager for Val A. Browning Center for the Performing Arts
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Summer, 2013</div>
-            <div class="timeline-text">
-              "And it came to pass…": Primary recurring dream from{' '}
-              <a href="/altered-states/RD9607">1996 - 2007</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">2013 - 2015</div>
-            <div class="timeline-text">
-              Stage Manager for Odyssey Dance Theatre's, "Thriller"; Kingsbury Hall
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">2014–2015</div>
-            <div class="timeline-text">Netflix employment</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">2015–2017</div>
-            <div class="timeline-text">Apple employment</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Winter 2015</div>
-            <div class="timeline-text">
-              Stage Technician for "Savior of the World"
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">Fall 2017</div>
-            <div class="timeline-text">Loss of faith/belief</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">2018–2020</div>
-            <div class="timeline-text">Tesla employment</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">May 11, 2019</div>
-            <div class="timeline-text">
-              <a href="/altered-states/AIW">First LSD Trip</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">August 8, 2020</div>
-            <div class="timeline-text">
-              <a href="/altered-states/SiA">First Medical Cannabis Experience</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">June 19, 2022</div>
-            <div class="timeline-text">First DMT trip</div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">July 12, 2022</div>
-            <div class="timeline-text">
-              <a href="/altered-states/IAMT">Second DMT Trip</a>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">June 30, 2024</div>
-            <div class="timeline-text">
-              <a href="/altered-states/FnHnSL">Reconversion</a>
-            </div>
-          </div>
+          ))}
         </div>
       </aside>
     </section>
@@ -249,8 +189,22 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 </BaseLayout>
 
 <style>
-  /* The legacy bio page applied .bio-page to <main> directly; in Astro
-     we wrap inside .bio-page-wrap so existing styles still target the
-     same descendants without modifying the global .content rules. */
   .bio-page-wrap { /* sentinel for any future bio-specific overrides */ }
+  /* Reset the bullet list inside timeline entries so it doesn't inherit
+     the default browser ~40px indent. Tighter spacing + small dot
+     markers that match the rest of the library palette. */
+  .timeline-bullets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .timeline-bullets li {
+    padding: 2px 0;
+  }
+  .timeline-bullets li::before {
+    content: '·';
+    color: var(--accent-2);
+    margin-right: 8px;
+    font-weight: 700;
+  }
 </style>
