@@ -28,19 +28,44 @@ const grouped = groupByYear(indexItems)
 
 <BaseLayout title="Writing" active="writing">
   <AdminAdd collection="writing" label="Add essay" />
+
+  {/* ── Harmonic Theism banner ─────────────────────────────────────
+     Pinned at the top of /writing so the book is the first thing a
+     reader encounters before diving into the essays grid. Cover on
+     the left, blurb + Amazon CTA on the right. */}
+  <aside class="writing__book">
+    <a class="writing__book-link" href="https://www.amazon.com/Harmonic-Theism-Symphony-No-Arrangement/dp/B0G2G8R523/" target="_blank" rel="noopener">
+      <div class="writing__book-cover">
+        <img
+          src="/images/book/ht-cover.png"
+          alt="Harmonic Theism: Symphony No. I — book cover"
+          width="180"
+          height="270"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="writing__book-body">
+        <div class="writing__book-eyebrow">Now in print · Symphony No. I</div>
+        <h2 class="writing__book-title">Harmonic Theism</h2>
+        <p class="writing__book-subtitle">
+          <em>Creatio ex Concordia and the Divine Arrangement of Worlds</em>
+        </p>
+        <p class="writing__book-blurb">
+          Eight movements that recast classical theology in the language of
+          music — where omniscience becomes shared knowing, omnipresence
+          becomes manifest resonance, omnipotence becomes collaboration, and
+          eternity becomes cadence. A symphony for those who would hear God
+          not as a static absolute but as a living harmonic.
+        </p>
+        <span class="writing__book-cta">Purchase on Amazon ↗</span>
+      </div>
+    </a>
+  </aside>
+
   <header class="page-header">
     <h1>Writings</h1>
-    <p class="page-intro">
-      Essays, Excerpts, and Musings |{' '}
-      <a
-        href="https://a.co/d/04zcw8xP"
-        target="_blank"
-        rel="noopener"
-        class="buy-link"
-      >
-        Purchase Harmonic Theism ↗
-      </a>
-    </p>
+    <p class="page-intro">Essays, Excerpts, and Musings.</p>
     <nav class="year-nav">
       {grouped.map((g) => <a href={`#year-${g.year}`}>{g.year}</a>)}
     </nav>
@@ -90,3 +115,115 @@ const grouped = groupByYear(indexItems)
     import '../scripts/filter-engine.ts'
   </script>
 </BaseLayout>
+
+<style>
+  /* ── Writing-page Harmonic Theism banner ────────────────────────
+     Same palette family as the homepage book card; a slightly more
+     horizontal layout because /writing is wider than the home, and
+     the cover sits modestly at 180px so it doesn't drown the essays
+     list beneath it. */
+  .writing__book {
+    margin: 0 0 32px 0;
+  }
+  .writing__book-link {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 28px;
+    align-items: start;
+    padding: 26px 30px;
+    background-color: rgba(236, 226, 197, 0.6);
+    background-image:
+      linear-gradient(180deg, rgba(58, 14, 42, 0.05) 0%, rgba(58, 14, 42, 0.09) 100%),
+      url('/dragon-scales.svg');
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 2px 12px rgba(58, 14, 42, 0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .writing__book-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 6px 22px rgba(58, 14, 42, 0.14);
+  }
+  .writing__book-cover {
+    aspect-ratio: 2 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(31, 26, 16, 0.28),
+                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  .writing__book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .writing__book-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .writing__book-eyebrow {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    color: var(--accent-2);
+    margin-bottom: 4px;
+  }
+  .writing__book-title {
+    font-family: 'Marcellus', serif;
+    font-size: 30px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .writing__book-subtitle {
+    font-family: 'Marcellus', serif;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 4px 0 12px 0;
+  }
+  .writing__book-blurb {
+    margin: 0 0 16px 0;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .writing__book-cta {
+    display: inline-block;
+    align-self: start;
+    padding: 9px 20px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    font-family: 'Marcellus', serif;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    transition: background-color 0.15s;
+  }
+  .writing__book-link:hover .writing__book-cta {
+    background: var(--accent-2);
+  }
+  @media (max-width: 620px) {
+    .writing__book-link {
+      grid-template-columns: 1fr;
+      padding: 22px;
+      gap: 18px;
+    }
+    .writing__book-cover {
+      max-width: 170px;
+      margin: 0 auto;
+    }
+    .writing__book-title,
+    .writing__book-subtitle,
+    .writing__book-eyebrow {
+      text-align: center;
+    }
+  }
+</style>

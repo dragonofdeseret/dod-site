@@ -125,7 +125,44 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
       </p>
     </section>
 
-    {/* ── Featured ───────────────────────────────────────────────── */}
+    {/* ── Featured book: Harmonic Theism ─────────────────────────────
+       Sits above the latest essay because it's the centerpiece work.
+       Two-column on desktop (cover left, copy right), stacked on
+       mobile. Direct link to Amazon. */}
+    <section class="home__book">
+      <a class="home__book-link" href="https://www.amazon.com/Harmonic-Theism-Symphony-No-Arrangement/dp/B0G2G8R523/" target="_blank" rel="noopener">
+        <div class="home__book-cover">
+          <img
+            src="/images/book/ht-cover.png"
+            alt="Harmonic Theism: Symphony No. I — book cover"
+            width="220"
+            height="330"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+        <div class="home__book-body">
+          <div class="home__book-eyebrow eyebrow">New Release · Symphony No. I</div>
+          <h2 class="home__book-title">Harmonic Theism</h2>
+          <p class="home__book-subtitle">
+            <em>Creatio ex Concordia and the Divine Arrangement of Worlds</em>
+          </p>
+          <p class="home__book-blurb">
+            A symphonic theology in eight movements. The first volume reframes
+            the central attributes of God not as static absolutes but as living
+            harmonics — omniscience as <em>shared knowing</em>, omnipresence as
+            <em>manifest resonance</em>, omnipotence as <em>collaboration</em>,
+            eternity as <em>cadence</em>. Weaving Mormon scripture with Daoism,
+            Zen, T.S. Eliot, and contemporary consciousness research, it
+            proposes <em>creatio ex concordia</em> — creation from harmony — as
+            the most coherent way to read both the cosmos and the soul.
+          </p>
+          <span class="home__book-cta">Purchase on Amazon ↗</span>
+        </div>
+      </a>
+    </section>
+
+    {/* ── Featured essay ───────────────────────────────────────────── */}
     {featured && (
       <section class="home__featured">
         <div class="home__featured-eyebrow eyebrow">Featured · Latest essay</div>
@@ -372,6 +409,120 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
     color: var(--ink-soft);
     margin: 0;
     font-style: italic;
+  }
+
+  /* ── Featured book (Harmonic Theism) ───────────────────────────────────
+     Two-column on desktop: cover on the left, copy on the right. Same
+     palette as the featured-essay card so they read as a pair, but with
+     a slightly deeper paper fill + warmer hairline + a faint oxblood
+     glow so the book reads as the headline piece. Hover lifts the whole
+     card subtly. Stacks vertically on narrow viewports. */
+  .home__book {
+    margin: 0 0 36px 0;
+  }
+  .home__book-link {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 32px 36px;
+    background-color: rgba(236, 226, 197, 0.6);
+    background-image:
+      linear-gradient(180deg, rgba(58, 14, 42, 0.05) 0%, rgba(58, 14, 42, 0.09) 100%),
+      url('/dragon-scales.svg');
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 2px 12px rgba(58, 14, 42, 0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .home__book-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-2);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 6px 22px rgba(58, 14, 42, 0.14);
+  }
+  .home__book-cover {
+    aspect-ratio: 2 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(31, 26, 16, 0.28),
+                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  .home__book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .home__book-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .home__book-eyebrow {
+    color: var(--accent-2);
+  }
+  .home__book-title {
+    font-family: 'Marcellus', serif;
+    font-size: 38px;
+    line-height: 1.1;
+    margin: 4px 0 0 0;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+  .home__book-subtitle {
+    font-family: 'Marcellus', serif;
+    color: var(--ink-soft);
+    font-size: 16px;
+    margin: 4px 0 16px 0;
+    line-height: 1.35;
+  }
+  .home__book-blurb {
+    margin: 0 0 18px 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .home__book-blurb em {
+    color: var(--ink);
+    font-style: italic;
+  }
+  .home__book-cta {
+    display: inline-block;
+    align-self: start;
+    padding: 10px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    font-family: 'Marcellus', serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    transition: background-color 0.15s;
+  }
+  .home__book-link:hover .home__book-cta {
+    background: var(--accent-2);
+  }
+  @media (max-width: 640px) {
+    .home__book-link {
+      grid-template-columns: 1fr;
+      padding: 24px;
+      gap: 20px;
+    }
+    .home__book-cover {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    .home__book-title {
+      font-size: 30px;
+      text-align: center;
+    }
+    .home__book-subtitle,
+    .home__book-eyebrow {
+      text-align: center;
+    }
   }
 
   /* ── Featured ──────────────────────────────────────────────────────────
