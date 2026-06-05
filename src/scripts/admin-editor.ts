@@ -65,6 +65,9 @@ function readForm(ctx: FormContext): Record<string, unknown> {
     return out
   }
 
+  const readHidden = () =>
+    !!ctx.form.querySelector<HTMLInputElement>('input[name="hidden"]')?.checked
+
   switch (ctx.collection) {
     case 'art':
     case 'photo': {
@@ -81,6 +84,7 @@ function readForm(ctx: FormContext): Record<string, unknown> {
         tags: getArray('tags'),
         forSale,
         prints: forSale ? readPrints() : undefined,
+        hidden: readHidden(),
       }
     }
     case 'writing':
@@ -93,6 +97,7 @@ function readForm(ctx: FormContext): Record<string, unknown> {
         file: get('file'),
         sections: getCheckboxes('sections'),
         tags: getArray('tags'),
+        hidden: readHidden(),
       }
     case 'margins':
       return {

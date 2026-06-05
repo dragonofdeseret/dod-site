@@ -12,11 +12,11 @@ import type { GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import BuyPrint from '../../components/BuyPrint.astro'
-import { sortByDateDescWithIdTiebreak } from '../../lib/sort-group'
+import { publicOnly, sortByDateDescWithIdTiebreak } from '../../lib/sort-group'
 import { viewerSrc, viewerSrcset, originalSrc, VIEWER_SIZES } from '../../lib/images'
 
 export const getStaticPaths = (async () => {
-  const items = sortByDateDescWithIdTiebreak(await getCollection('photo'))
+  const items = sortByDateDescWithIdTiebreak(publicOnly(await getCollection('photo')))
   return items.map((item, i) => {
     const prev = items[i - 1] ?? null
     const next = items[i + 1] ?? null

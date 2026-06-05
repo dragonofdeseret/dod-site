@@ -15,9 +15,10 @@ export const prerender = true
 import type { GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
+import { publicOnly } from '../../lib/sort-group'
 
 export const getStaticPaths = (async () => {
-  const writing = await getCollection('writing')
+  const writing = publicOnly(await getCollection('writing'))
   // Only non-trip writing — trip reports live on /altered-states/[id].
   const items = writing.filter(
     (it) => !(Array.isArray(it.data.sections) && it.data.sections.includes('trips')),

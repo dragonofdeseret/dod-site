@@ -6,10 +6,10 @@ export const prerender = true
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import AdminAdd from '../components/AdminAdd.astro'
-import { groupByYear } from '../lib/sort-group'
+import { groupByYear, publicOnly } from '../lib/sort-group'
 import { thumbSrc, thumbSrcset, GALLERY_SIZES } from '../lib/images'
 
-const photo = await getCollection('photo')
+const photo = publicOnly(await getCollection('photo'))
 const grouped = groupByYear(photo)
 ---
 

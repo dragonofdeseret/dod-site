@@ -480,6 +480,30 @@
   color: var(--paper, #ece2c5);
 }
 
+/* Hidden-from-public badge — small pill next to entry titles in
+   admin list views, signalling at a glance which entries the public
+   site can't see. Same shape as a tag pill but oxblood-tinted. */
+.admin-hidden-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 9px;
+  font-size: 10px;
+  font-family: 'Marcellus', Georgia, serif;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  background: rgba(108, 40, 32, 0.12);
+  color: var(--accent-2, #6b2820);
+  border: 1px solid rgba(108, 40, 32, 0.45);
+  border-radius: 999px;
+  vertical-align: middle;
+}
+.admin-visibility {
+  padding: 14px 16px;
+  background: rgba(58, 14, 42, 0.04);
+  border: 1px solid var(--paper-edge, #c9b88f);
+  border-radius: 6px;
+}
+
 /* Prints editor — per-size price rows under the for-sale toggle.
    Three-column grid (size dropdown / dollar input / remove ×). + Add
    appends a new row; rows with blank or zero price are skipped on

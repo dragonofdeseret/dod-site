@@ -28,6 +28,7 @@ export interface ArtOrPhotoPayload {
   // amount; the admin form takes dollars and converts.
   forSale?: boolean
   prints?: Array<{ size: '8x10' | '11x14' | '16x20' | '24x30'; priceCents: number }>
+  hidden?: boolean
 }
 
 export interface WritingPayload {
@@ -39,6 +40,7 @@ export interface WritingPayload {
   file: string
   sections?: string[]
   tags?: string[]
+  hidden?: boolean
 }
 
 export interface MarginsPayload {
@@ -99,6 +101,7 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'tags',          kind: 'array',  value: p.tags },
           { key: 'forSale',       kind: 'bool',   value: p.forSale },
           { key: 'prints',        kind: 'json',   value: p.prints },
+          { key: 'hidden',        kind: 'bool',   value: p.hidden },
         ],
       }
     case 'writing':
@@ -112,6 +115,7 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'file',     kind: 'string', value: p.file },
           { key: 'sections', kind: 'array',  value: p.sections },
           { key: 'tags',     kind: 'array',  value: p.tags },
+          { key: 'hidden',   kind: 'bool',   value: p.hidden },
         ],
       }
     case 'margins':

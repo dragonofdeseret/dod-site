@@ -15,9 +15,9 @@ export const prerender = true
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import AdminAdd from '../../components/AdminAdd.astro'
-import { groupByYear } from '../../lib/sort-group'
+import { groupByYear, publicOnly } from '../../lib/sort-group'
 
-const writing = await getCollection('writing')
+const writing = publicOnly(await getCollection('writing'))
 const trips = writing.filter(
   (it) => Array.isArray(it.data.sections) && it.data.sections.includes('trips'),
 )

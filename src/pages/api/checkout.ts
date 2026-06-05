@@ -21,6 +21,7 @@ export const prerender = false
 
 import type { APIRoute } from 'astro'
 import { getCollection } from 'astro:content'
+import { publicOnly } from '../../lib/sort-group'
 import {
   PRINT_SIZES,
   shippingOptionFor,
@@ -51,8 +52,8 @@ export const POST: APIRoute = async ({ request, url }) => {
   // Locate the artwork. Look across both art + photo collections — the
   // commerce schema is identical and the URL slug doesn't tell us which.
   const candidates = await Promise.all([
-    getCollection('art'),
-    getCollection('photo'),
+    getCollection('art').then(publicOnly),
+    getCollection('photo').then(publicOnly),
   ])
   const all = candidates.flat()
   type Entry = (typeof all)[number]

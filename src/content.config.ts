@@ -58,6 +58,11 @@ const artOrPhoto = z.object({
       }),
     )
     .optional(),
+  // Hide-from-public flag. Hidden entries still exist in the repo
+  // and still appear in the admin (with a badge), but are filtered
+  // out of every public-facing list, the homepage featured slot,
+  // and the static-path generator for detail pages.
+  hidden: z.boolean().optional(),
 })
 
 const writing = z.object({
@@ -70,6 +75,7 @@ const writing = z.object({
   file: z.string(),
   sections: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
+  hidden: z.boolean().optional(),
 })
 
 const margins = z.object({

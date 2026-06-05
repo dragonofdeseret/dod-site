@@ -42,7 +42,10 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   <h1>Christopher Shenefelt</h1>
 
   <a href="/" class={cls('home')}>Home</a>
-  <a href="/archive" class={cls('archive')}>Archive</a>
+  {/* Archive intentionally hidden from the sidebar for now — the page
+      itself still exists at /archive, just not linked. Restore by
+      uncommenting this line:
+      <a href="/archive" class={cls('archive')}>Archive</a> */}
 
   <a href="/art" class={cls('art')}>Artwork</a>
   {active === 'art' && (

@@ -33,7 +33,7 @@ const LABELS: Record<Known, string> = {
 // shape so we can iterate without a switch.
 type Row = {
   id: string
-  data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string }
+  data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string; hidden?: boolean }
 }
 const raw = (await getCollection(col as never)) as unknown as Row[]
 const items = [...raw].sort((a, b) => {
@@ -66,7 +66,10 @@ const items = [...raw].sort((a, b) => {
               : it.data.author || it.data.source || id)
           return (
             <li class="admin-list__row">
-              <a href={`/admin/${col}/${id}`}>{title}</a>
+              <a href={`/admin/${col}/${id}`}>
+                {title}
+                {it.data.hidden && <span class="admin-hidden-badge">Hidden</span>}
+              </a>
               <span class="admin-list__meta">{it.data.date ?? '—'}</span>
             </li>
           )

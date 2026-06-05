@@ -13,12 +13,13 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import { publicOnly } from '../lib/sort-group'
 import { thumbSrc, thumbSrcset, GALLERY_SIZES } from '../lib/images'
 
 // Pull both art + photo collections; commerce is identical across both.
 const [art, photo] = await Promise.all([
-  getCollection('art'),
-  getCollection('photo'),
+  getCollection('art').then(publicOnly),
+  getCollection('photo').then(publicOnly),
 ])
 type Entry = (typeof art)[number] | (typeof photo)[number]
 const everything = [...art, ...photo] as Entry[]

@@ -67,6 +67,7 @@ const f = {
   prints: Array.isArray(d.prints)
     ? (d.prints as Array<{ size: string; priceCents: number }>)
     : [],
+  hidden: d.hidden === true,
 }
 const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
 
@@ -154,6 +155,27 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     )}
     {col === 'site' && (
       <input type="hidden" name="id" value={f.id || 'now'} />
+    )}
+
+    {/* ── Visibility toggle ─────────────────────────────────────── */}
+    {(col === 'art' || col === 'photo' || col === 'writing') && (
+      <div class="admin-field admin-visibility">
+        <label class="admin-label">
+          <input
+            type="checkbox"
+            name="hidden"
+            value="true"
+            checked={f.hidden}
+          />
+          Hide from public site
+        </label>
+        <span class="admin-hint">
+          Hidden entries stay in the repo and remain editable here, but
+          don't show up on any public list, on the homepage, or as a
+          direct URL. Useful for drafts or pieces you don't want to
+          surface yet.
+        </span>
+      </div>
     )}
 
     {/* ── Per-collection fields ─────────────────────────────────── */}

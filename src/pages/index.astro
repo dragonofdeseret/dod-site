@@ -20,12 +20,13 @@ export const prerender = true
 
 import { getCollection } from 'astro:content'
 import HomeLayout from '../layouts/HomeLayout.astro'
+import { publicOnly } from '../lib/sort-group'
 
 // Pull every collection so we can surface a curated featured + latest.
 const [art, photo, writing, margins, quotes] = await Promise.all([
-  getCollection('art'),
-  getCollection('photo'),
-  getCollection('writing'),
+  getCollection('art').then(publicOnly),
+  getCollection('photo').then(publicOnly),
+  getCollection('writing').then(publicOnly),
   getCollection('margins'),
   getCollection('quotes'),
 ])

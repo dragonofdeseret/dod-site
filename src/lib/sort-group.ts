@@ -10,6 +10,16 @@
 
 type WithDate = { data: { date?: string; year?: number; id?: string } }
 
+/**
+ * Drop any entries whose frontmatter is `hidden: true`. Used by every
+ * public list, the homepage featured slot, the prints index, and the
+ * static-paths generators for /art/[id] and /photography/[id]. The admin
+ * keeps showing hidden entries (with a badge) so they can be unhidden.
+ */
+export function publicOnly<T extends { data: { hidden?: boolean } }>(items: T[]): T[] {
+  return items.filter((e) => e.data.hidden !== true)
+}
+
 function toMs(v: string | undefined): number {
   if (!v) return 0
   const t = new Date(v).getTime()
