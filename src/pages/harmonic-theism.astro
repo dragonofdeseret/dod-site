@@ -357,9 +357,10 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
   /* ── Excerpts ───────────────────────────────────────────────── */
   .ht-excerpt {
     margin: 0 0 28px 0;
-    /* Generous left padding so the italic text breathes away from the
-       oxblood border instead of leaning into it. */
-    padding: 24px 32px 22px 44px;
+    /* Left padding only — pushes the italic text well clear of the
+       oxblood border so the bar reads as a quiet accent, not a wall
+       crowding the words. Right/top/bottom unchanged from original. */
+    padding: 24px 28px 22px 64px;
     border-left: 3px solid var(--accent-2);
     background: rgba(224, 212, 177, 0.35);
     border-radius: 0 6px 6px 0;
