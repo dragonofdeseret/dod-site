@@ -1,6 +1,6 @@
 ---
-id: bio
-title: Biography
+id: "bio"
+title: "Biography"
 ---
 
 ## profile
@@ -8,15 +8,15 @@ title: Biography
 - Type: Writer | Artist | Phenomenologist
 - Region: Salt Lake Valley, Utah, United States
 - Traditions: Mormonism, Daoism, Zen
-- Methods: zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
-- Conditions: Celiac disease, PMBC dysfunction, chronic pain, clinical insomnia, clinical endocannabinoid deficiency, visual snow syndrome, high-functioning major depressive disorder, transient Musicophilia
-- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, altered states, embodiment, limits of language
+- Methods: The method of returning the light through the celestial heart, zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
+- Conditions: Celiac's disease, PMBC dysfunction, chronic pain, clinical insomnia, clinical endocannabinoid deficiency, visual snow syndrome, transient Musicophilia.
+- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, altered states, embodiment, limits of language.
 - Notes:
 
 ## background
 
-- Previous: Professional stage management; technical support for NFLX, AAPL, TSLA.
-- Current: Contractor consultant, Chief of Staff.
+- Previous: Professional stage management; technical and analytical support for NFLX, AAPL, TSLA.
+- Current: Artist. Writer. Contractor consultant, Chief of Staff.
 
 ## timeline
 
