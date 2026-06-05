@@ -14,7 +14,6 @@ interface Props {
     | 'archive'
     | 'art'
     | 'writing'
-    | 'harmonic-theism'
     | 'now'
     | 'prints'
     | 'questions'
@@ -27,6 +26,7 @@ interface Props {
     | 'altered-states'
     | 'margins'
     | 'quotes'
+    | 'harmonic-theism'
 }
 
 const { active, subActive } = Astro.props
@@ -55,13 +55,13 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   <a href="/writing" class={cls('writing')}>Writing</a>
   {active === 'writing' && (
     <>
+      <a href="/harmonic-theism" class={subCls('harmonic-theism')}>Harmonic Theism</a>
       <a href="/altered-states" class={subCls('altered-states')}>Altered States</a>
       <a href="/margins" class={subCls('margins')}>Margins &amp; Excerpts</a>
       <a href="/quotes" class={subCls('quotes')}>Quotes from Others</a>
     </>
   )}
 
-  <a href="/harmonic-theism" class={cls('harmonic-theism')}>Harmonic Theism</a>
   <a href="/now" class={cls('now')}>Now</a>
   <a href="/prints" class={cls('prints')}>Prints</a>
   <a href="/questions" class={cls('questions')}>Questions</a>

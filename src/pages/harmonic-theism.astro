@@ -82,7 +82,7 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
 ]
 ---
 
-<BaseLayout title="Harmonic Theism" active="harmonic-theism" description="Harmonic Theism: Symphony No. I — Creatio ex Concordia and the Divine Arrangement of Worlds, by Christopher Shenefelt.">
+<BaseLayout title="Harmonic Theism" active="writing" subActive="harmonic-theism" description="Harmonic Theism: Symphony No. I — Creatio ex Concordia and the Divine Arrangement of Worlds, by Christopher Shenefelt.">
   {/* ── HERO ─────────────────────────────────────────────────────── */}
   <section class="ht-hero">
     <div class="ht-hero__cover">
@@ -357,7 +357,9 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
   /* ── Excerpts ───────────────────────────────────────────────── */
   .ht-excerpt {
     margin: 0 0 28px 0;
-    padding: 24px 28px 22px;
+    /* Generous left padding so the italic text breathes away from the
+       oxblood border instead of leaning into it. */
+    padding: 24px 32px 22px 44px;
     border-left: 3px solid var(--accent-2);
     background: rgba(224, 212, 177, 0.35);
     border-radius: 0 6px 6px 0;
