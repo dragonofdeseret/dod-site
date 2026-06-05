@@ -84,7 +84,9 @@ export const POST: APIRoute = async ({ request, url }) => {
   const artworkUrl = `${origin}/${data.type === 'photo' ? 'photography' : 'art'}/${artworkId}`
 
   const stripe = stripeServer()
-  const session = await stripe.checkout.sessions.create({
+  let session
+  try {
+    session = await stripe.checkout.sessions.create({
     mode: 'payment',
     payment_method_types: ['card'],
     // Apple Pay and Google Pay are surfaced automatically when the
@@ -128,7 +130,14 @@ export const POST: APIRoute = async ({ request, url }) => {
       artworkUrl,
       size: printSize,
     },
-  })
+    })
+  } catch (err) {
+    // Surface Stripe-side errors verbatim so the public client shows
+    // the real cause instead of a generic 500 page.
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('[checkout] Stripe error:', msg, err)
+    return json({ error: `Stripe error: ${msg}` }, 500)
+  }
 
   if (!session.url) {
     return json({ error: 'Stripe did not return a checkout URL.' }, 500)

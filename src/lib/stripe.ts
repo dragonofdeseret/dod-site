@@ -19,9 +19,12 @@ let cached: Stripe | null = null
 export function stripeServer(): Stripe {
   if (!cached) {
     cached = new Stripe(getStripeSecret(), {
-      // Pinned API version → no silent breakage when Stripe ships a new
-      // default. Bump intentionally when we upgrade.
-      apiVersion: '2025-09-30.acacia' as Stripe.LatestApiVersion,
+      // No apiVersion pin — the SDK validates the version string against
+      // its own known-versions list client-side, and pinning an unknown
+      // codename ("acacia" etc) throws "The string did not match the
+      // expected pattern" before any request reaches Stripe. Letting the
+      // SDK auto-negotiate uses the version your Stripe account has set
+      // as default in the dashboard (visible at Developers → API keys).
       typescript: true,
       appInfo: {
         name: 'DoD-site',
