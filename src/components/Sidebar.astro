@@ -14,6 +14,7 @@ interface Props {
     | 'archive'
     | 'art'
     | 'writing'
+    | 'harmonic-theism'
     | 'now'
     | 'prints'
     | 'questions'
@@ -60,6 +61,7 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
     </>
   )}
 
+  <a href="/harmonic-theism" class={cls('harmonic-theism')}>Harmonic Theism</a>
   <a href="/now" class={cls('now')}>Now</a>
   <a href="/prints" class={cls('prints')}>Prints</a>
   <a href="/questions" class={cls('questions')}>Questions</a>

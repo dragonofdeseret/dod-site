@@ -1,0 +1,499 @@
+---
+// Static prerender — built at deploy time.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /harmonic-theism — dedicated landing for the book Harmonic Theism:
+// Symphony No. I. Hero with cover and Buy button, long-form blurb,
+// curated excerpts, the symphonic table of contents as a window into the
+// book's structure, and a final CTA. Linked from the homepage card, the
+// writing-page banner, and the sidebar.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const AMAZON_URL = 'https://www.amazon.com/Harmonic-Theism-Symphony-No-Arrangement/dp/B0G2G8R523/'
+
+// Symphonic structure — drawn from the book's actual table of contents.
+const movements: Array<{ key: string; title: string; subtitle: string; description: string }> = [
+  {
+    key: 'Prelude',
+    title: 'Prelude of Light',
+    subtitle: 'The Silent Flames of Genesis',
+    description:
+      'A meditation on what precedes meaning. Before Light there was Resonance; before Resonance, Listening; before Harmony, Attention.',
+  },
+  {
+    key: 'Suite I',
+    title: 'The Semantics of Heaven',
+    subtitle: 'Sonatas on the Still Point',
+    description:
+      'The crisis of change in classical divinity, and the four new harmonic attributes that replace the Omnis — Symnoesence, Symphoaenia, Sympraxence, and Harmonia.',
+  },
+  {
+    key: 'Suite II',
+    title: 'The Harmonization of Heaven and Earth',
+    subtitle: 'Hymns on the Heavens',
+    description:
+      'The Veil of Divine Condescension. How God can enter time without losing divinity by filtering and retuning rather than diminishing.',
+  },
+  {
+    key: 'Suite III',
+    title: 'Creatio ex Concordia',
+    subtitle: 'Concertos on Cosmologies',
+    description:
+      'The central proposal. Creation read not ex nihilo nor strictly ex materia, but as ongoing arrangement of eternally coexisting intelligences into harmonic relation. Mormonism as a Cosmos of Concord.',
+  },
+  {
+    key: 'Suite IV',
+    title: 'The Syntax-driven Lights of Heaven',
+    subtitle: 'Etudes on Intelligence',
+    description:
+      'The eternal tabernacle of God and the architecture of intelligence. Where Daoist acosmotism meets Mormon ontology and yields ars concordialis — the art of concord.',
+  },
+  {
+    key: 'Suite V',
+    title: 'The Mind-Body Problem',
+    subtitle: 'Arias of Actualization',
+    description:
+      'Consciousness as structured, meaningful valence. Christ as the Compass, the radiant axis, the still point around which every true motion dances.',
+  },
+  {
+    key: 'Finale',
+    title: 'The Divine Arrangement of Worlds',
+    subtitle: '',
+    description:
+      'The summative movement. God Almighty as Eternal Ground; God the Father as fully realized participant; Christ as guardian of the threshold. "This is not a theory of God. It is a rediscovery of His Divine Arrangement."',
+  },
+  {
+    key: 'Encore',
+    title: 'I’ve a Mother There',
+    subtitle: 'Nocturnes on Mother',
+    description:
+      'A devotional turn toward the Heavenly Mother — the Tree of Harmony, the Musical Tonic, the Center of Gravity — and the Daughters of God who carry her cadence. Closes with a personal testimony of her appearance amid the Carina Nebula.',
+  },
+  {
+    key: 'Postlude',
+    title: 'Postlude of Sound',
+    subtitle: 'Benedictive Meditations',
+    description:
+      'A closing benediction and meditations for the reader to carry forward.',
+  },
+]
+---
+
+<BaseLayout title="Harmonic Theism" active="harmonic-theism" description="Harmonic Theism: Symphony No. I — Creatio ex Concordia and the Divine Arrangement of Worlds, by Christopher Shenefelt.">
+  {/* ── HERO ─────────────────────────────────────────────────────── */}
+  <section class="ht-hero">
+    <div class="ht-hero__cover">
+      <img
+        src="/images/book/ht-cover.png"
+        alt="Harmonic Theism: Symphony No. I — book cover"
+        width="360"
+        height="540"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="ht-hero__body">
+      <div class="ht-hero__kicker">Symphony No. I · Now in print</div>
+      <h1 class="ht-hero__title">Harmonic Theism</h1>
+      <p class="ht-hero__subtitle">
+        <em>Creatio ex Concordia and the Divine Arrangement of Worlds</em>
+      </p>
+      <p class="ht-hero__author">by Christopher M. Shenefelt</p>
+      <ul class="ht-hero__meta">
+        <li>345 pages</li>
+        <li>Hardcover · 11 May 2026</li>
+        <li>ISBN 9798274252225</li>
+      </ul>
+      <a class="ht-hero__cta" href={AMAZON_URL} target="_blank" rel="noopener">
+        Purchase on Amazon ↗
+      </a>
+    </div>
+  </section>
+
+  {/* ── BLURB ────────────────────────────────────────────────────── */}
+  <section class="ht-section">
+    <div class="ht-section__kicker">About the Book</div>
+    <div class="ht-blurb">
+      <p class="ht-blurb__lead">
+        A symphonic theology in eight movements.
+      </p>
+      <p>
+        The first volume of <em>Harmonic Theism</em> reframes the central
+        attributes of God not as static absolutes but as living harmonics.
+        Omniscience becomes <em>symnoesence</em>, the resonance of shared
+        knowing. Omnipresence becomes <em>symphoaenia</em>, manifest harmony
+        at every scale. Omnipotence becomes <em>sympraxence</em>, power
+        through collaboration rather than coercion. Eternity becomes
+        <em>harmonia</em>, the cadence that sustains both time and the
+        timeless.
+      </p>
+      <p>
+        From this rescoring follows a new doctrine of creation —
+        <em>creatio ex concordia</em>, creation from concord — that threads
+        between classical Christianity's <em>creatio ex nihilo</em> and
+        Mormonism's <em>creatio ex materia</em>, weaving them into a
+        participatory cosmology where God arranges rather than commands and
+        where intelligences co-compose the worlds without end.
+      </p>
+      <p>
+        Along the way, the work draws from Joseph Smith and Dōgen, Lao Tzu
+        and T.S. Eliot, Wittgenstein and Stephen Sondheim, the Daodejing and
+        the Doctrine and Covenants, the Carina Nebula and the still point of
+        the turning world. The final movement, the Encore, is devoted
+        entirely to the Heavenly Mother — her sustaining presence, the
+        Daughters who carry her cadence, and a personal testimony of her
+        appearance in the Cosmic Cliffs.
+      </p>
+      <p class="ht-blurb__closing">
+        For readers willing to listen carefully, this is not a theory of God.
+        It is a rediscovery of His Divine Arrangement.
+      </p>
+    </div>
+  </section>
+
+  {/* ── EXCERPTS ─────────────────────────────────────────────────── */}
+  <section class="ht-section">
+    <div class="ht-section__kicker">From the pages</div>
+
+    <figure class="ht-excerpt">
+      <blockquote>
+        <p>Before meaning, there was Light.</p>
+        <p>Before Light, there was Resonance.</p>
+        <p>Before Resonance, there was Listening.</p>
+        <p>There was Attention before Harmony.</p>
+      </blockquote>
+      <figcaption>Prelude of Light · The Silent Flames of Genesis</figcaption>
+    </figure>
+
+    <figure class="ht-excerpt">
+      <blockquote>
+        <p>
+          God Almighty doesn't <em>know</em>, He is the act of knowing
+          itself — a neural flutter between every synapse and every star.
+          Symnoesence is the capacity to feel-through and perceive all
+          perspectives simultaneously; knowledge is not a static repository
+          but the resonant coherence of the universe's interweaving
+          patterns — its divine moiré.
+        </p>
+      </blockquote>
+      <figcaption>Suite I · The Semantics of Heaven</figcaption>
+    </figure>
+
+    <figure class="ht-excerpt">
+      <blockquote>
+        <p>
+          The universe is not ruled, it resonates. God does not stand over
+          creation, He composes its ongoing music. He conducts and
+          harmonizes with every participating intelligence who dares to
+          play their instrumental part; He tunes, orients, and sustains
+          them. Creation does not obey its Conductor by coercion; it joins
+          His harmony by compositional alignment, by annotated heed, and by
+          responding resonance with the First-Person Light.
+        </p>
+      </blockquote>
+      <figcaption>Finale · The Divine Arrangement of Worlds</figcaption>
+    </figure>
+
+    <figure class="ht-excerpt">
+      <blockquote>
+        <p>
+          I saw etched into the entire scene of these Cosmic Cliffs:
+          <strong>Mother</strong>. There she gracefully lay in and as a
+          cosmic ocean of harmonic contentment, resting peacefully as a
+          rippling sea of nebulous, fiery serpents — mighty dragons —
+          blanket and guard her. There she was simultaneously arranged at
+          the center of the cliffs — the triune hamsa face of a concerned,
+          caring, and contemplative mother.
+        </p>
+      </blockquote>
+      <figcaption>Encore · I've a Mother There</figcaption>
+    </figure>
+  </section>
+
+  {/* ── TABLE OF CONTENTS ────────────────────────────────────────── */}
+  <section class="ht-section">
+    <div class="ht-section__kicker">Structure</div>
+    <p class="ht-toc__intro">
+      Eight movements that move from the silent flames of Genesis to the
+      radiant interior of the Heavenly Mother.
+    </p>
+    <ol class="ht-toc">
+      {movements.map((m) => (
+        <li class="ht-toc__row">
+          <div class="ht-toc__label">{m.key}</div>
+          <div class="ht-toc__body">
+            <div class="ht-toc__title">{m.title}</div>
+            {m.subtitle && <div class="ht-toc__sub"><em>{m.subtitle}</em></div>}
+            <p class="ht-toc__desc">{m.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {/* ── FINAL CTA ────────────────────────────────────────────────── */}
+  <section class="ht-final-cta">
+    <p>Available now in hardcover.</p>
+    <a class="ht-hero__cta" href={AMAZON_URL} target="_blank" rel="noopener">
+      Purchase on Amazon ↗
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────────── */
+  .ht-hero {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 48px;
+    align-items: start;
+    margin: 0 0 56px 0;
+    padding: 40px 44px;
+    background-color: rgba(236, 226, 197, 0.6);
+    background-image:
+      linear-gradient(180deg, rgba(58, 14, 42, 0.05) 0%, rgba(58, 14, 42, 0.1) 100%),
+      url('/dragon-scales.svg');
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
+                0 4px 20px rgba(58, 14, 42, 0.08);
+  }
+  .ht-hero__cover {
+    aspect-ratio: 2 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(31, 26, 16, 0.32),
+                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  .ht-hero__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ht-hero__kicker {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    color: var(--accent-2);
+    margin-bottom: 8px;
+  }
+  .ht-hero__title {
+    font-family: 'Marcellus', serif;
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 0 0 8px 0;
+    color: var(--ink);
+    letter-spacing: 0.005em;
+  }
+  .ht-hero__subtitle {
+    font-family: 'Marcellus', serif;
+    color: var(--ink-soft);
+    font-size: 18px;
+    margin: 0 0 18px 0;
+    line-height: 1.4;
+  }
+  .ht-hero__author {
+    color: var(--ink);
+    font-size: 14px;
+    margin: 0 0 24px 0;
+  }
+  .ht-hero__meta {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.04em;
+  }
+  .ht-hero__cta {
+    display: inline-block;
+    padding: 13px 28px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 999px;
+    font-family: 'Marcellus', serif;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    box-shadow: 0 2px 0 rgba(58, 14, 42, 0.2);
+    transition: background-color 0.15s, transform 0.08s, box-shadow 0.12s;
+  }
+  .ht-hero__cta:hover {
+    background: var(--accent-2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(58, 14, 42, 0.22);
+  }
+
+  /* ── Sections ───────────────────────────────────────────────── */
+  .ht-section {
+    margin: 0 0 56px 0;
+  }
+  .ht-section__kicker {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.14em;
+    font-size: 12px;
+    color: var(--accent-2);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ht-blurb {
+    max-width: 680px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .ht-blurb p { margin: 0 0 16px 0; }
+  .ht-blurb em { color: var(--ink); font-style: italic; }
+  .ht-blurb__lead {
+    font-family: 'Marcellus', serif;
+    font-size: 22px;
+    color: var(--ink);
+    font-style: italic;
+    margin: 0 0 20px 0 !important;
+  }
+  .ht-blurb__closing {
+    margin-top: 24px !important;
+    font-family: 'Marcellus', serif;
+    font-style: italic;
+    color: var(--accent-2);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  /* ── Excerpts ───────────────────────────────────────────────── */
+  .ht-excerpt {
+    margin: 0 0 28px 0;
+    padding: 24px 28px 22px;
+    border-left: 3px solid var(--accent-2);
+    background: rgba(224, 212, 177, 0.35);
+    border-radius: 0 6px 6px 0;
+  }
+  .ht-excerpt blockquote {
+    margin: 0 0 12px 0;
+    padding: 0;
+    font-family: 'Marcellus', serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .ht-excerpt blockquote p { margin: 0 0 6px 0; }
+  .ht-excerpt blockquote em {
+    font-style: normal;
+    color: var(--accent-2);
+  }
+  .ht-excerpt blockquote strong {
+    font-weight: normal;
+    color: var(--accent-2);
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+  }
+  .ht-excerpt figcaption {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  /* ── Table of contents ──────────────────────────────────────── */
+  .ht-toc__intro {
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 0 0 24px 0;
+    max-width: 680px;
+  }
+  .ht-toc {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: movement;
+  }
+  .ht-toc__row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(168, 149, 106, 0.25);
+  }
+  .ht-toc__row:last-child { border-bottom: none; }
+  .ht-toc__label {
+    font-family: 'Marcellus', serif;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    color: var(--accent-2);
+    padding-top: 4px;
+  }
+  .ht-toc__title {
+    font-family: 'Marcellus', serif;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .ht-toc__sub {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .ht-toc__desc {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* ── Final CTA ──────────────────────────────────────────────── */
+  .ht-final-cta {
+    margin: 48px 0 0 0;
+    padding: 36px 28px;
+    text-align: center;
+    background-color: rgba(236, 226, 197, 0.55);
+    background-image:
+      linear-gradient(180deg, rgba(58, 14, 42, 0.04) 0%, rgba(58, 14, 42, 0.09) 100%),
+      url('/dragon-scales.svg');
+    border: 1px solid var(--paper-edge);
+    border-radius: var(--radius-lg);
+  }
+  .ht-final-cta p {
+    margin: 0 0 16px 0;
+    font-family: 'Marcellus', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .ht-hero {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 28px 22px;
+    }
+    .ht-hero__cover {
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .ht-hero__title { font-size: 40px; text-align: center; }
+    .ht-hero__subtitle,
+    .ht-hero__author,
+    .ht-hero__kicker { text-align: center; }
+    .ht-hero__meta { justify-content: center; }
+    .ht-hero__cta { display: block; text-align: center; }
+    .ht-toc__row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>
