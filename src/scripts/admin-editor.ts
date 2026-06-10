@@ -233,17 +233,6 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
   const path = `${year}/${id}${ext}`
   const sizeKb = Math.round(file.size / 1024)
   setStatus(`Uploading ${file.name} (${sizeKb} KB)…`, 'info')
-  // Confirm we have an authenticated session before attempting the
-  // upload — Supabase Storage uses the session JWT for the RLS check,
-  // and on mobile Safari (Prevent Cross-Site Tracking, third-party
-  // cookie restrictions) the session sometimes doesn't propagate to
-  // the browser client.
-  const { data: sessionData } = await supabase.auth.getSession()
-  if (!sessionData?.session) {
-    throw new Error(
-      'Not signed in. Sign in again at /admin/login and retry. (Mobile Safari sometimes drops the session — close the tab and re-open.)',
-    )
-  }
   const { error } = await supabase.storage.from(bucket).upload(path, file, {
     upsert: true,
     cacheControl: '31536000', // 1 year — images are content-addressed by id
@@ -263,9 +252,32 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
   return data.publicUrl
 }
 
+// Hydrate the browser-side Supabase client with the access + refresh
+// tokens the server injected into window.__SUPA_SESSION__. Without
+// this, the browser client has no JWT and every Storage upload fails
+// the bucket's RLS check as an anonymous user.
+async function hydrateSession(): Promise<void> {
+  const injected = (window as unknown as { __SUPA_SESSION__?: { accessToken: string; refreshToken: string } }).__SUPA_SESSION__
+  if (!injected?.accessToken || !injected?.refreshToken) return
+  const supabase = getBrowserSupabase()
+  try {
+    await supabase.auth.setSession({
+      access_token: injected.accessToken,
+      refresh_token: injected.refreshToken,
+    })
+  } catch (err) {
+    // Don't block init; if hydration fails the upload step will throw
+    // with the real Supabase error.
+    console.error('[admin-editor] setSession failed', err)
+  }
+}
+
 function init(): void {
   const form = document.getElementById('admin-editor-form') as HTMLFormElement | null
   if (!form) return
+  // Fire and forget — uploads await internally and any click before
+  // hydration completes will simply attach the new session mid-flight.
+  void hydrateSession()
   const collection = form.dataset.collection as FormContext['collection']
   const isNew = form.dataset.isNew === 'true'
 

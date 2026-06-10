@@ -13,6 +13,7 @@
 
 import '../styles/global.css'
 import '../styles/admin.css'
+import { getServerSupabase } from '../lib/supabase'
 
 interface Props {
   title: string
@@ -23,6 +24,14 @@ interface Props {
 const { title, active } = Astro.props
 const user = Astro.locals.user
 const fullTitle = `${title} — Admin`
+
+// Pull the live session server-side so we can hand the access + refresh
+// tokens to the browser-side Supabase client. Our auth cookie is
+// httpOnly (XSS defense), so the browser client can't read it from
+// document.cookie — without these injected tokens, every browser-side
+// Supabase Storage call would hit RLS as an anonymous user and fail.
+const supabase = getServerSupabase(Astro.cookies, Astro.request)
+const { data: { session } } = await supabase.auth.getSession()
 
 function cls(key: NonNullable<Props['active']>) {
   return active === key ? 'admin-nav__link active' : 'admin-nav__link'
@@ -39,6 +48,22 @@ function cls(key: NonNullable<Props['active']>) {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="admin-body">
+    {/* Hydrate the browser-side Supabase client with the session tokens
+        from the server. Without this, the browser client renders with
+        no session and every Storage upload fails RLS as an anonymous
+        user. This is a small XSS attack surface — the tokens live in
+        the HTML for the duration of the page — but it's gated by the
+        admin auth middleware, so only the authenticated admin ever
+        sees them. */}
+    {session && (
+      <script
+        is:inline
+        set:html={`window.__SUPA_SESSION__ = ${JSON.stringify({
+          accessToken: session.access_token,
+          refreshToken: session.refresh_token,
+        })};`}
+      />
+    )}
     <header class="admin-topbar">
       <div class="admin-topbar__title">
         <a href="/admin">Archive</a>
