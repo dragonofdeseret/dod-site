@@ -213,7 +213,7 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
   })
 }
 
-async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string | null> {
+async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string> {
   const supabase = getBrowserSupabase()
   // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
   setStatus('Preparing file…', 'info')
@@ -233,13 +233,30 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
   const path = `${year}/${id}${ext}`
   const sizeKb = Math.round(file.size / 1024)
   setStatus(`Uploading ${file.name} (${sizeKb} KB)…`, 'info')
+  // Confirm we have an authenticated session before attempting the
+  // upload — Supabase Storage uses the session JWT for the RLS check,
+  // and on mobile Safari (Prevent Cross-Site Tracking, third-party
+  // cookie restrictions) the session sometimes doesn't propagate to
+  // the browser client.
+  const { data: sessionData } = await supabase.auth.getSession()
+  if (!sessionData?.session) {
+    throw new Error(
+      'Not signed in. Sign in again at /admin/login and retry. (Mobile Safari sometimes drops the session — close the tab and re-open.)',
+    )
+  }
   const { error } = await supabase.storage.from(bucket).upload(path, file, {
     upsert: true,
     cacheControl: '31536000', // 1 year — images are content-addressed by id
+    contentType: file.type || undefined,
   })
   if (error) {
+    // Bubble the actual Supabase error message up so the caller can
+    // display it inline. Common ones to recognize for the user:
+    //   • "new row violates row-level security policy"  → RLS / auth
+    //   • "The resource already exists"                  → upsert race
+    //   • "Payload too large"                            → size limit
     setStatus(`Upload failed: ${error.message}`, 'error')
-    return null
+    throw new Error(error.message)
   }
   const { data } = supabase.storage.from(bucket).getPublicUrl(path)
   setStatus('Upload complete.', 'success')
@@ -322,21 +339,21 @@ function init(): void {
       const id = idEl?.value || slugify(file.name.replace(/\.[^.]+$/, ''))
       try {
         const url = await uploadMedia(file, bucket, year, id)
-        if (url) {
-          mediaUrlEl.value = url
-          if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
-            mediaPreview.src = url
-            mediaPreview.style.display = 'block'
-          }
-          const kind = file.type.startsWith('application/pdf') ? 'PDF ready' : 'Image ready'
-          setUploadStatus(`✓ ${kind}`, 'success')
-        } else {
-          // uploadMedia returned null = it logged its own failure to
-          // the top-of-form status. Mirror it inline so the user
-          // actually sees it.
-          setUploadStatus('✗ Upload failed. Try again with a different file or smaller size.', 'error')
+        mediaUrlEl.value = url
+        if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
+          mediaPreview.src = url
+          mediaPreview.style.display = 'block'
         }
+        const kind = file.type.startsWith('application/pdf') ? 'PDF ready' : 'Image ready'
+        setUploadStatus(`✓ ${kind}`, 'success')
       } catch (err) {
+        // Surface the actual Supabase / auth error verbatim so the
+        // user can tell us what's actually wrong. Common ones:
+        //   • "new row violates row-level security policy"  → log out
+        //     and back in (session lost), OR the admin_emails table
+        //     doesn't have your email in it.
+        //   • Auth error from session check → mobile Safari dropped
+        //     the cookie; retry on desktop or close the tab + retry.
         const msg = err instanceof Error ? err.message : String(err)
         setUploadStatus(`✗ Upload failed: ${msg}`, 'error')
       }
