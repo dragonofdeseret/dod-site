@@ -215,6 +215,22 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
 
 async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string> {
   const supabase = getBrowserSupabase()
+  // Wait for session hydration to complete before sending bytes.
+  // Without this, an upload that fires before hydration finishes goes
+  // out with no JWT, Supabase Storage rejects it as anonymous, and the
+  // RLS check returns "new row violates row-level security policy".
+  setStatus('Checking session…', 'info')
+  const hydration = await startHydration()
+  if (!hydration.ok) {
+    throw new Error(hydration.reason ?? 'Browser session could not be established. Reload the page.')
+  }
+  // Belt-and-suspenders: verify the singleton actually has a session
+  // before the upload. If somehow it doesn't, fail loudly instead of
+  // sending an anonymous request that would hit RLS later.
+  const { data: sessionData } = await supabase.auth.getSession()
+  if (!sessionData.session) {
+    throw new Error('Browser Supabase client has no session even after hydration. Reload the page and sign in again.')
+  }
   // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
   setStatus('Preparing file…', 'info')
   let file: File
@@ -256,28 +272,49 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
 // tokens the server injected into window.__SUPA_SESSION__. Without
 // this, the browser client has no JWT and every Storage upload fails
 // the bucket's RLS check as an anonymous user.
-async function hydrateSession(): Promise<void> {
-  const injected = (window as unknown as { __SUPA_SESSION__?: { accessToken: string; refreshToken: string } }).__SUPA_SESSION__
-  if (!injected?.accessToken || !injected?.refreshToken) return
-  const supabase = getBrowserSupabase()
-  try {
-    await supabase.auth.setSession({
-      access_token: injected.accessToken,
-      refresh_token: injected.refreshToken,
-    })
-  } catch (err) {
-    // Don't block init; if hydration fails the upload step will throw
-    // with the real Supabase error.
-    console.error('[admin-editor] setSession failed', err)
-  }
+//
+// Stored as a shared promise so uploadMedia can `await` it — that way
+// any upload that fires before hydration completes still gets the
+// session attached, instead of racing ahead with no JWT.
+type Injected = { accessToken: string; refreshToken: string }
+let hydrationPromise: Promise<{ ok: boolean; reason?: string }> | null = null
+
+function startHydration(): Promise<{ ok: boolean; reason?: string }> {
+  if (hydrationPromise) return hydrationPromise
+  hydrationPromise = (async () => {
+    const injected = (window as unknown as { __SUPA_SESSION__?: Injected }).__SUPA_SESSION__
+    if (!injected?.accessToken || !injected?.refreshToken) {
+      console.warn('[admin-editor] No window.__SUPA_SESSION__ — server did not inject tokens.')
+      return { ok: false, reason: 'No session tokens injected by the server. Reload the page.' }
+    }
+    const supabase = getBrowserSupabase()
+    try {
+      const { error } = await supabase.auth.setSession({
+        access_token: injected.accessToken,
+        refresh_token: injected.refreshToken,
+      })
+      if (error) {
+        console.error('[admin-editor] setSession error:', error.message)
+        return { ok: false, reason: `Session refresh failed: ${error.message}` }
+      }
+      return { ok: true }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      console.error('[admin-editor] setSession threw', err)
+      return { ok: false, reason: `Session refresh threw: ${msg}` }
+    }
+  })()
+  return hydrationPromise
 }
 
 function init(): void {
   const form = document.getElementById('admin-editor-form') as HTMLFormElement | null
   if (!form) return
-  // Fire and forget — uploads await internally and any click before
-  // hydration completes will simply attach the new session mid-flight.
-  void hydrateSession()
+  // Kick hydration immediately so it overlaps the user's slow steps
+  // (typing the title, picking the date, etc). uploadMedia awaits the
+  // shared promise — guarantees the session is attached before any
+  // upload request leaves the browser.
+  void startHydration()
   const collection = form.dataset.collection as FormContext['collection']
   const isNew = form.dataset.isNew === 'true'
 
