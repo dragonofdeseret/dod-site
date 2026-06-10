@@ -564,6 +564,35 @@
   margin-bottom: 8px;
 }
 
+/* Inline upload status — sits under the file picker, shows current
+   transfer state (uploading / success / error). Color shifts with
+   data-state so it's unmissable on mobile where the top-of-form
+   flash message is scrolled out of view. */
+.upload-status {
+  margin: 8px 0 0 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Marcellus', Georgia, serif;
+  letter-spacing: 0.02em;
+}
+.upload-status[hidden] { display: none; }
+.upload-status[data-state="uploading"] {
+  background: rgba(28, 53, 80, 0.1);
+  color: var(--accent, #1c3550);
+  border: 1px solid rgba(28, 53, 80, 0.35);
+}
+.upload-status[data-state="success"] {
+  background: rgba(60, 95, 70, 0.12);
+  color: #2a4a32;
+  border: 1px solid rgba(107, 142, 110, 0.5);
+}
+.upload-status[data-state="error"] {
+  background: rgba(108, 40, 32, 0.1);
+  color: var(--accent-2, #6b2820);
+  border: 1px solid rgba(108, 40, 32, 0.45);
+}
+
 /* Upload widget */
 .admin-upload {
   border: 1px dashed var(--paper-edge, #c9b88f);

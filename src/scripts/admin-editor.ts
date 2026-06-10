@@ -291,19 +291,54 @@ function init(): void {
   const mediaPreview = form.querySelector<HTMLImageElement>('#media-preview')
   const bucket = form.dataset.mediaBucket
 
+  // Inline upload indicator + Save lockout. We write status directly into
+  // the [data-upload-status] block under the file input so mobile users
+  // see what's happening where they're looking, and we disable the Save
+  // button while a transfer is in flight — so the form can't be
+  // submitted half-done with an empty `image` / `file` field.
+  const uploadStatus = form.querySelector<HTMLElement>('[data-upload-status]')
+  const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')
+  function setUploadStatus(text: string, state: 'uploading' | 'success' | 'error' | 'idle'): void {
+    if (uploadStatus) {
+      uploadStatus.textContent = text
+      uploadStatus.dataset.state = state
+      uploadStatus.hidden = !text
+    }
+    if (submitBtn) {
+      const lock = state === 'uploading'
+      submitBtn.disabled = lock
+      submitBtn.textContent = lock
+        ? 'Uploading… please wait'
+        : (isNew ? 'Publish' : 'Save changes')
+    }
+  }
+
   if (mediaFileEl && mediaUrlEl && bucket) {
     mediaFileEl.addEventListener('change', async () => {
       const file = mediaFileEl.files?.[0]
       if (!file) return
+      setUploadStatus(`Uploading ${file.name}…`, 'uploading')
       const year = yearEl?.value || String(new Date().getFullYear())
       const id = idEl?.value || slugify(file.name.replace(/\.[^.]+$/, ''))
-      const url = await uploadMedia(file, bucket, year, id)
-      if (url) {
-        mediaUrlEl.value = url
-        if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
-          mediaPreview.src = url
-          mediaPreview.style.display = 'block'
+      try {
+        const url = await uploadMedia(file, bucket, year, id)
+        if (url) {
+          mediaUrlEl.value = url
+          if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
+            mediaPreview.src = url
+            mediaPreview.style.display = 'block'
+          }
+          const kind = file.type.startsWith('application/pdf') ? 'PDF ready' : 'Image ready'
+          setUploadStatus(`✓ ${kind}`, 'success')
+        } else {
+          // uploadMedia returned null = it logged its own failure to
+          // the top-of-form status. Mirror it inline so the user
+          // actually sees it.
+          setUploadStatus('✗ Upload failed. Try again with a different file or smaller size.', 'error')
         }
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err)
+        setUploadStatus(`✗ Upload failed: ${msg}`, 'error')
       }
     })
   }

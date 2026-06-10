@@ -188,6 +188,14 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
             <input type="file" name="media-file" accept="image/*" class="admin-input" />
           )}
           <input type="hidden" name="image" value={f.image} />
+          {/* Inline upload status — sits right under the file picker so
+              mobile users see it where they're looking, not at the top
+              of the form they already scrolled past. The script writes
+              status here and disables the Save button while a transfer
+              is in flight so the form can't be submitted half-done. */}
+          <div class="upload-status" data-upload-status data-state={f.image ? 'success' : 'idle'} hidden={!f.image}>
+            {f.image ? '✓ Image ready' : ''}
+          </div>
           {f.image && (
             <img
               id="media-preview"
@@ -200,7 +208,13 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
           {!f.image && (
             <img id="media-preview" alt="preview" class="admin-upload__preview" style="display: none;" />
           )}
-          <span class="admin-hint">Upload an image; the URL is filled in automatically.</span>
+          <span class="admin-hint">
+            Upload an image; the URL is filled in automatically.
+            <strong>iPhone note:</strong> photos taken with the iPhone camera
+            are usually HEIC. The uploader converts them to JPEG before sending —
+            which can take a few seconds longer on cellular. <em>Wait for the
+            green "Image ready" indicator before saving.</em>
+          </span>
         </div>
 
         <div class="admin-field">
@@ -314,8 +328,14 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
             <input type="file" name="media-file" accept="application/pdf" class="admin-input" />
           )}
           <input type="hidden" name="file" value={f.file} />
+          <div class="upload-status" data-upload-status data-state={f.file ? 'success' : 'idle'} hidden={!f.file}>
+            {f.file ? '✓ PDF ready' : ''}
+          </div>
           {f.file && <p class="admin-hint">Current: <code>{f.file}</code></p>}
-          <span class="admin-hint">Upload a PDF; the URL is filled in automatically.</span>
+          <span class="admin-hint">
+            Upload a PDF; the URL is filled in automatically. Wait for the
+            green "PDF ready" indicator before saving.
+          </span>
         </div>
 
         <div class="admin-field">
