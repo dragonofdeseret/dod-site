@@ -311,6 +311,21 @@ function init(): void {
   // ── 3. Submit ──────────────────────────────────────────────────────
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
+    // Required-image gate for art and photo. If the file picker never
+    // resolved (slow Supabase upload, mobile Safari permissions denied,
+    // upload errored out), the hidden image field is empty and the
+    // server would commit an unschema-valid markdown entry that breaks
+    // the next build. Stop the user here instead.
+    if (collection === 'art' || collection === 'photo') {
+      const imageVal = form.querySelector<HTMLInputElement>('input[name="image"]')?.value ?? ''
+      if (!imageVal.trim()) {
+        setStatus(
+          'Image required. Pick a file in the Image field above — wait for the "Upload complete" status before clicking Save.',
+          'error',
+        )
+        return
+      }
+    }
     setStatus('Saving…', 'info')
     const payload = readForm({ form, collection, isNew })
     try {

@@ -34,6 +34,29 @@ export const POST: APIRoute = async ({ request, locals }) => {
       { status: 400, headers: { 'content-type': 'application/json' } },
     )
   }
+  // Server-side schema floor — if the client validator was bypassed
+  // (older bundle in cache, JS disabled), we still won't commit a
+  // markdown file that we know will fail Astro's content-collection
+  // validation at build time and kill the next deploy.
+  const p = body.payload as { type: string; image?: string; file?: string }
+  if ((p.type === 'art' || p.type === 'photo') && !p.image?.trim()) {
+    return new Response(
+      JSON.stringify({
+        error:
+          'Image required for art/photo entries. Upload a file and wait for the "Upload complete" status before saving.',
+      }),
+      { status: 400, headers: { 'content-type': 'application/json' } },
+    )
+  }
+  if (p.type === 'writing' && !p.file?.trim()) {
+    return new Response(
+      JSON.stringify({
+        error:
+          'PDF required for writing entries. Upload a file and wait for the "Upload complete" status before saving.',
+      }),
+      { status: 400, headers: { 'content-type': 'application/json' } },
+    )
+  }
   try {
     const result = await saveEntry(body.payload, Boolean(body.isNew))
     return new Response(JSON.stringify({ ok: true, ...result }), {
