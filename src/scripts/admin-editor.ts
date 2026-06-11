@@ -13,8 +13,6 @@
 // script handles every collection's editor.
 // ──────────────────────────────────────────────────────────────────────────────
 
-import { getBrowserSupabase } from '@/lib/supabase'
-
 function slugify(s: string): string {
   return s
     .toLowerCase()
@@ -213,6 +211,13 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
   })
 }
 
+// Vercel Hobby plan caps serverless function request bodies at 4.5MB.
+// Files under this comfortably proxy through /admin/api/upload (faster,
+// single round-trip). Anything bigger goes browser → Supabase Storage
+// directly via a signed upload URL minted by /admin/api/upload-url
+// (two round-trips but unbounded size, useful for large PDFs etc).
+const PROXY_LIMIT_BYTES = 4_000_000 // ~4MB — leaves headroom for multipart overhead
+
 async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string> {
   // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
   setStatus('Preparing file…', 'info')
@@ -233,12 +238,25 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
   const sizeKb = Math.round(file.size / 1024)
   setStatus(`Uploading ${file.name} (${sizeKb} KB)…`, 'info')
 
-  // Server-side upload proxy. The /admin/** middleware authenticates us
-  // via the same httpOnly cookies that let us reach this admin page; the
-  // server then uses the service-role Supabase client to write to
-  // Storage. No browser-side Supabase session juggling required, which
-  // sidesteps iOS Safari's intelligent-tracking-prevention quirks
-  // entirely.
+  try {
+    const publicUrl = file.size > PROXY_LIMIT_BYTES
+      ? await uploadViaSignedUrl(file, bucket, path)
+      : await uploadViaProxy(file, bucket, path)
+    setStatus('Upload complete.', 'success')
+    return publicUrl
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    setStatus(`Upload failed: ${msg}`, 'error')
+    throw err
+  }
+}
+
+/**
+ * Small/medium files — proxy through our Vercel function. Server uses
+ * the service-role Supabase client (auth via the same middleware that
+ * gated this admin page) so RLS doesn't matter. One round-trip.
+ */
+async function uploadViaProxy(file: File, bucket: string, path: string): Promise<string> {
   const formData = new FormData()
   formData.append('file', file)
   formData.append('bucket', bucket)
@@ -249,78 +267,79 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
     res = await fetch('/admin/api/upload', {
       method: 'POST',
       body: formData,
-      // Explicit so behaviour matches across browsers — the cookie
-      // tags along and the server can authenticate the request.
       credentials: 'same-origin',
     })
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err)
-    setStatus(`Upload failed (network): ${msg}`, 'error')
-    throw new Error(msg)
+    throw new Error(`network: ${err instanceof Error ? err.message : String(err)}`)
   }
 
   let payload: { url?: string; error?: string }
   try {
     payload = (await res.json()) as { url?: string; error?: string }
   } catch {
-    payload = { error: `Server returned a non-JSON response (HTTP ${res.status}).` }
+    throw new Error(`Server returned a non-JSON response (HTTP ${res.status}).`)
   }
   if (!res.ok || !payload.url) {
-    const msg = payload.error ?? `Upload failed with HTTP ${res.status}.`
-    setStatus(`Upload failed: ${msg}`, 'error')
-    throw new Error(msg)
+    throw new Error(payload.error ?? `Upload failed with HTTP ${res.status}.`)
   }
-  setStatus('Upload complete.', 'success')
   return payload.url
 }
 
-// Hydrate the browser-side Supabase client with the access + refresh
-// tokens the server injected into window.__SUPA_SESSION__. Without
-// this, the browser client has no JWT and every Storage upload fails
-// the bucket's RLS check as an anonymous user.
-//
-// Stored as a shared promise so uploadMedia can `await` it — that way
-// any upload that fires before hydration completes still gets the
-// session attached, instead of racing ahead with no JWT.
-type Injected = { accessToken: string; refreshToken: string }
-let hydrationPromise: Promise<{ ok: boolean; reason?: string }> | null = null
+/**
+ * Large files — ask our server for a signed upload URL, then PUT the
+ * file straight to Supabase Storage. Two round-trips but no Vercel
+ * body limit applies. Used for files over PROXY_LIMIT_BYTES (~4MB).
+ */
+async function uploadViaSignedUrl(file: File, bucket: string, path: string): Promise<string> {
+  setStatus(`Preparing direct upload for ${Math.round(file.size / 1024)} KB file…`, 'info')
 
-function startHydration(): Promise<{ ok: boolean; reason?: string }> {
-  if (hydrationPromise) return hydrationPromise
-  hydrationPromise = (async () => {
-    const injected = (window as unknown as { __SUPA_SESSION__?: Injected }).__SUPA_SESSION__
-    if (!injected?.accessToken || !injected?.refreshToken) {
-      console.warn('[admin-editor] No window.__SUPA_SESSION__ — server did not inject tokens.')
-      return { ok: false, reason: 'No session tokens injected by the server. Reload the page.' }
-    }
-    const supabase = getBrowserSupabase()
-    try {
-      const { error } = await supabase.auth.setSession({
-        access_token: injected.accessToken,
-        refresh_token: injected.refreshToken,
-      })
-      if (error) {
-        console.error('[admin-editor] setSession error:', error.message)
-        return { ok: false, reason: `Session refresh failed: ${error.message}` }
-      }
-      return { ok: true }
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err)
-      console.error('[admin-editor] setSession threw', err)
-      return { ok: false, reason: `Session refresh threw: ${msg}` }
-    }
-  })()
-  return hydrationPromise
+  let urlRes: Response
+  try {
+    urlRes = await fetch('/admin/api/upload-url', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ bucket, path }),
+      credentials: 'same-origin',
+    })
+  } catch (err) {
+    throw new Error(`network requesting signed URL: ${err instanceof Error ? err.message : String(err)}`)
+  }
+  let urlPayload: { signedUrl?: string; publicUrl?: string; error?: string }
+  try {
+    urlPayload = (await urlRes.json()) as typeof urlPayload
+  } catch {
+    throw new Error(`Server returned a non-JSON response getting signed URL (HTTP ${urlRes.status}).`)
+  }
+  if (!urlRes.ok || !urlPayload.signedUrl || !urlPayload.publicUrl) {
+    throw new Error(urlPayload.error ?? `Could not get signed URL (HTTP ${urlRes.status}).`)
+  }
+
+  setStatus(`Uploading ${file.name} direct to storage…`, 'info')
+  let putRes: Response
+  try {
+    putRes = await fetch(urlPayload.signedUrl, {
+      method: 'PUT',
+      headers: {
+        'content-type': file.type || 'application/octet-stream',
+        'x-upsert': 'true',
+        'cache-control': '31536000',
+      },
+      body: file,
+    })
+  } catch (err) {
+    throw new Error(`network uploading to storage: ${err instanceof Error ? err.message : String(err)}`)
+  }
+  if (!putRes.ok) {
+    const text = await putRes.text().catch(() => '')
+    throw new Error(`Storage rejected the upload (HTTP ${putRes.status}): ${text.slice(0, 200)}`)
+  }
+
+  return urlPayload.publicUrl
 }
 
 function init(): void {
   const form = document.getElementById('admin-editor-form') as HTMLFormElement | null
   if (!form) return
-  // Kick hydration immediately so it overlaps the user's slow steps
-  // (typing the title, picking the date, etc). uploadMedia awaits the
-  // shared promise — guarantees the session is attached before any
-  // upload request leaves the browser.
-  void startHydration()
   const collection = form.dataset.collection as FormContext['collection']
   const isNew = form.dataset.isNew === 'true'
 
