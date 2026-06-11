@@ -214,23 +214,6 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
 }
 
 async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string> {
-  const supabase = getBrowserSupabase()
-  // Wait for session hydration to complete before sending bytes.
-  // Without this, an upload that fires before hydration finishes goes
-  // out with no JWT, Supabase Storage rejects it as anonymous, and the
-  // RLS check returns "new row violates row-level security policy".
-  setStatus('Checking session…', 'info')
-  const hydration = await startHydration()
-  if (!hydration.ok) {
-    throw new Error(hydration.reason ?? 'Browser session could not be established. Reload the page.')
-  }
-  // Belt-and-suspenders: verify the singleton actually has a session
-  // before the upload. If somehow it doesn't, fail loudly instead of
-  // sending an anonymous request that would hit RLS later.
-  const { data: sessionData } = await supabase.auth.getSession()
-  if (!sessionData.session) {
-    throw new Error('Browser Supabase client has no session even after hydration. Reload the page and sign in again.')
-  }
   // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
   setStatus('Preparing file…', 'info')
   let file: File
@@ -249,23 +232,46 @@ async function uploadMedia(rawFile: File, bucket: string, year: string, id: stri
   const path = `${year}/${id}${ext}`
   const sizeKb = Math.round(file.size / 1024)
   setStatus(`Uploading ${file.name} (${sizeKb} KB)…`, 'info')
-  const { error } = await supabase.storage.from(bucket).upload(path, file, {
-    upsert: true,
-    cacheControl: '31536000', // 1 year — images are content-addressed by id
-    contentType: file.type || undefined,
-  })
-  if (error) {
-    // Bubble the actual Supabase error message up so the caller can
-    // display it inline. Common ones to recognize for the user:
-    //   • "new row violates row-level security policy"  → RLS / auth
-    //   • "The resource already exists"                  → upsert race
-    //   • "Payload too large"                            → size limit
-    setStatus(`Upload failed: ${error.message}`, 'error')
-    throw new Error(error.message)
+
+  // Server-side upload proxy. The /admin/** middleware authenticates us
+  // via the same httpOnly cookies that let us reach this admin page; the
+  // server then uses the service-role Supabase client to write to
+  // Storage. No browser-side Supabase session juggling required, which
+  // sidesteps iOS Safari's intelligent-tracking-prevention quirks
+  // entirely.
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('bucket', bucket)
+  formData.append('path', path)
+
+  let res: Response
+  try {
+    res = await fetch('/admin/api/upload', {
+      method: 'POST',
+      body: formData,
+      // Explicit so behaviour matches across browsers — the cookie
+      // tags along and the server can authenticate the request.
+      credentials: 'same-origin',
+    })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    setStatus(`Upload failed (network): ${msg}`, 'error')
+    throw new Error(msg)
   }
-  const { data } = supabase.storage.from(bucket).getPublicUrl(path)
+
+  let payload: { url?: string; error?: string }
+  try {
+    payload = (await res.json()) as { url?: string; error?: string }
+  } catch {
+    payload = { error: `Server returned a non-JSON response (HTTP ${res.status}).` }
+  }
+  if (!res.ok || !payload.url) {
+    const msg = payload.error ?? `Upload failed with HTTP ${res.status}.`
+    setStatus(`Upload failed: ${msg}`, 'error')
+    throw new Error(msg)
+  }
   setStatus('Upload complete.', 'success')
-  return data.publicUrl
+  return payload.url
 }
 
 // Hydrate the browser-side Supabase client with the access + refresh
