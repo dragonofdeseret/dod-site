@@ -37,7 +37,12 @@ const artOrPhoto = z.object({
   // Path RELATIVE TO public/, e.g. "images/art/2026/2026-05-03.webp".
   // The Image component resolves this against public/; build-time Sharp
   // produces the responsive variants we used to pre-bake.
+  //
+  // For multi-image entries, `image` is the cover (== images[0]); the
+  // full ordered list is in `images`. Single-image legacy entries have
+  // only `image` set and read as a one-element gallery at render time.
   image: z.string(),
+  images: z.array(z.string()).optional(),
   sideNoteTitle: z.string().optional(),
   sideNote: z.string().optional(), // HTML string; rendered with set:html
   tags: z.array(z.string()).optional(),

@@ -53,6 +53,12 @@ const f = {
   date: String(d.date ?? ''),
   year: d.year ? Number(d.year) : new Date().getFullYear(),
   image: String(d.image ?? ''),
+  // Multi-image gallery — if the entry has an `images` array, use that
+  // as the ordered list; otherwise fall back to the single `image`
+  // field so legacy entries render as a one-element gallery.
+  images: Array.isArray(d.images) && (d.images as unknown[]).length > 0
+    ? (d.images as string[])
+    : (d.image ? [String(d.image)] : []),
   file: String(d.file ?? ''),
   sideNoteTitle: String(d.sideNoteTitle ?? 'Details'),
   sideNote: String(d.sideNote ?? ''),
@@ -183,37 +189,65 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     {(col === 'art' || col === 'photo') && (
       <>
         <div class="admin-field">
-          <label class="admin-label">Image</label>
+          <label class="admin-label">Images</label>
           {bucket && (
-            <input type="file" name="media-file" accept="image/*" class="admin-input" />
-          )}
-          <input type="hidden" name="image" value={f.image} />
-          {/* Inline upload status — sits right under the file picker so
-              mobile users see it where they're looking, not at the top
-              of the form they already scrolled past. The script writes
-              status here and disables the Save button while a transfer
-              is in flight so the form can't be submitted half-done. */}
-          <div class="upload-status" data-upload-status data-state={f.image ? 'success' : 'idle'} hidden={!f.image}>
-            {f.image ? '✓ Image ready' : ''}
-          </div>
-          {f.image && (
-            <img
-              id="media-preview"
-              src={f.image.startsWith('http') ? f.image : `/${f.image}`}
-              alt="preview"
-              class="admin-upload__preview"
-              style="display: block;"
+            <input
+              type="file"
+              name="media-file"
+              accept="image/*"
+              multiple
+              class="admin-input"
+              data-multi-file
             />
           )}
-          {!f.image && (
-            <img id="media-preview" alt="preview" class="admin-upload__preview" style="display: none;" />
-          )}
+          {/* Inline upload status — sits right under the file picker so
+              mobile users see it where they're looking, not at the top
+              of the form they already scrolled past. */}
+          <div class="upload-status" data-upload-status data-state={f.images.length > 0 ? 'success' : 'idle'} hidden={f.images.length === 0}>
+            {f.images.length > 0 ? `✓ ${f.images.length} image${f.images.length === 1 ? '' : 's'} ready` : ''}
+          </div>
+
+          {/* Thumbnail grid — one row per attached image with ↑ ↓ × controls.
+              The script appends rows on upload and rewrites the hidden
+              `image` + `images` fields whenever the user reorders or
+              removes a thumb. First image is the cover used in the
+              public gallery's index. */}
+          <div class="image-grid" data-image-grid>
+            {f.images.map((url, i) => (
+              <div class="image-grid__row" data-image-row data-url={url}>
+                <img
+                  src={url.startsWith('http') ? url : `/${url}`}
+                  alt={`image ${i + 1}`}
+                  class="image-grid__thumb"
+                />
+                <div class="image-grid__meta">
+                  <span class="image-grid__label">
+                    {i === 0 ? 'Cover' : `#${i + 1}`}
+                  </span>
+                  <div class="image-grid__controls">
+                    <button type="button" class="image-grid__btn" data-image-up aria-label="Move up">↑</button>
+                    <button type="button" class="image-grid__btn" data-image-down aria-label="Move down">↓</button>
+                    <button type="button" class="image-grid__btn image-grid__btn--danger" data-image-remove aria-label="Remove">×</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Hidden field carries the cover image URL (= images[0]) for
+              backward compat with consumers that read `image` directly.
+              The hidden `images` field carries the full JSON array. The
+              admin-editor script keeps both in sync as the user edits. */}
+          <input type="hidden" name="image" value={f.images[0] ?? ''} data-image-cover />
+          <input type="hidden" name="images" value={JSON.stringify(f.images)} data-images-json />
+
           <span class="admin-hint">
-            Upload an image; the URL is filled in automatically.
+            Pick one or many images at once. Re-order with the ↑ ↓ buttons;
+            the first thumbnail is the cover used on the gallery index.
             <strong>iPhone note:</strong> photos taken with the iPhone camera
             are usually HEIC. The uploader converts them to JPEG before sending —
-            which can take a few seconds longer on cellular. <em>Wait for the
-            green "Image ready" indicator before saving.</em>
+            which can take a few seconds longer per photo on cellular.
+            <em>Wait for the green "images ready" indicator before saving.</em>
           </span>
         </div>
 

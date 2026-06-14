@@ -19,7 +19,8 @@ export interface ArtOrPhotoPayload {
   title: string
   date: string
   year: number
-  image: string // path stored in frontmatter (Supabase public URL or images/... legacy path)
+  image: string // cover (== images[0]); also written for back-compat with single-image consumers
+  images?: string[] // full ordered gallery; only emitted when there's more than one
   sideNoteTitle?: string
   sideNote?: string
   tags?: string[]
@@ -96,6 +97,7 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'date',          kind: 'string', value: p.date },
           { key: 'year',          kind: 'number', value: p.year },
           { key: 'image',         kind: 'string', value: p.image },
+          { key: 'images',        kind: 'array',  value: p.images && p.images.length > 1 ? p.images : undefined },
           { key: 'sideNoteTitle', kind: 'string', value: p.sideNoteTitle },
           { key: 'sideNote',      kind: 'block',  value: p.sideNote },
           { key: 'tags',          kind: 'array',  value: p.tags },

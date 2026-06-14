@@ -435,6 +435,81 @@
   color: var(--accent, #1c3550);
 }
 
+/* Image grid — the multi-image gallery editor on art/photo entries.
+   One row per attached image: small thumbnail on the left, a label
+   plus ↑ ↓ × controls on the right. First row is the cover used as
+   the gallery index thumbnail. Tap × to remove, ↑ ↓ to reorder. */
+.image-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+}
+.image-grid:empty {
+  display: none;
+}
+.image-grid__row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--paper-edge, #c9b88f);
+  background: rgba(236, 226, 197, 0.45);
+  border-radius: 6px;
+}
+.image-grid__thumb {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  background: rgba(58, 14, 42, 0.05);
+}
+.image-grid__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.image-grid__label {
+  font-family: 'Marcellus', Georgia, serif;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+  color: var(--accent-2, #6b2820);
+}
+.image-grid__controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.image-grid__btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--paper-edge, #c9b88f);
+  background: transparent;
+  color: var(--ink-soft, #5a4d33);
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.image-grid__btn:hover {
+  background: var(--ink, #1f1a10);
+  color: var(--paper, #ece2c5);
+  border-color: var(--ink, #1f1a10);
+}
+.image-grid__btn--danger {
+  color: var(--accent-2, #6b2820);
+}
+.image-grid__btn--danger:hover {
+  background: var(--accent-2, #6b2820);
+  color: var(--paper, #ece2c5);
+  border-color: var(--accent-2, #6b2820);
+}
+
 /* Tag suggestions — appear below tag inputs. Each pill is a button
    that toggles the tag in the comma-separated input. The "--on" class
    means the tag is currently in the field. */

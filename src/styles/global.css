@@ -582,6 +582,25 @@ code, kbd, samp, .mono {
   color: var(--ink-soft);
   line-height: 1.55;
 }
+
+/* Multi-image gallery stack — rendered beneath the cover image when
+   an art/photo entry has more than one image. Each photo gets its own
+   row with breathing room so the eye can rest before moving on.
+   Same hairline border + radius as the cover so the page reads as a
+   single composed gallery. Lightbox clicks open any image. */
+.gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 32px;
+}
+.gallery-stack__item img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--paper-edge);
+  border-radius: var(--radius);
+  display: block;
+}
 .media-note h3 {
   font-family: 'Source Serif 4', serif;
   font-variant: small-caps;

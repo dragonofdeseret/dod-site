@@ -66,17 +66,36 @@ function readForm(ctx: FormContext): Record<string, unknown> {
   const readHidden = () =>
     !!ctx.form.querySelector<HTMLInputElement>('input[name="hidden"]')?.checked
 
+  // Parse the hidden `images` JSON field (rewritten by the admin script
+  // whenever the user adds, removes, or reorders an image). Returns the
+  // ordered list; empty array if the field is missing or invalid.
+  const readImages = (): string[] => {
+    const raw = ctx.form.querySelector<HTMLInputElement>('input[name="images"]')?.value ?? ''
+    if (!raw) return []
+    try {
+      const parsed = JSON.parse(raw)
+      return Array.isArray(parsed) ? parsed.filter((s) => typeof s === 'string') : []
+    } catch {
+      return []
+    }
+  }
+
   switch (ctx.collection) {
     case 'art':
     case 'photo': {
       const forSale = !!ctx.form.querySelector<HTMLInputElement>('[data-prints-toggle]')?.checked
+      const images = readImages()
       return {
         id: get('id'),
         type: ctx.collection,
         title: get('title'),
         date: get('date'),
         year: getNumber('year'),
-        image: get('image'),
+        // `image` is the cover (= images[0]) for back-compat with code
+        // that reads only the single field; `images` carries the full
+        // ordered gallery for the multi-image case.
+        image: images[0] ?? get('image'),
+        images: images.length > 0 ? images : undefined,
         sideNoteTitle: getOptional('sideNoteTitle'),
         sideNote: getOptional('sideNote'),
         tags: getArray('tags'),
@@ -378,15 +397,21 @@ function init(): void {
 
   // ── 2. Media upload ────────────────────────────────────────────────
   const mediaFileEl = form.querySelector<HTMLInputElement>('input[name="media-file"]')
-  const mediaUrlEl = form.querySelector<HTMLInputElement>('input[name="image"], input[name="file"]')
-  const mediaPreview = form.querySelector<HTMLImageElement>('#media-preview')
   const bucket = form.dataset.mediaBucket
+  const isMulti = !!mediaFileEl?.dataset.multiFile
 
-  // Inline upload indicator + Save lockout. We write status directly into
-  // the [data-upload-status] block under the file input so mobile users
-  // see what's happening where they're looking, and we disable the Save
-  // button while a transfer is in flight — so the form can't be
-  // submitted half-done with an empty `image` / `file` field.
+  // Single-file flow (writing PDFs): bound to the hidden #file input.
+  const fileUrlEl = form.querySelector<HTMLInputElement>('input[name="file"]')
+  const mediaPreview = form.querySelector<HTMLImageElement>('#media-preview')
+
+  // Multi-file flow (art + photo): bound to a thumbnail grid + a pair of
+  // hidden fields — `image` (the cover, == images[0]) and `images` (the
+  // full JSON array). The grid is the source of truth; the hidden fields
+  // are rewritten whenever the grid changes.
+  const imageGrid = form.querySelector<HTMLElement>('[data-image-grid]')
+  const coverEl = form.querySelector<HTMLInputElement>('[data-image-cover]')
+  const imagesJsonEl = form.querySelector<HTMLInputElement>('[data-images-json]')
+
   const uploadStatus = form.querySelector<HTMLElement>('[data-upload-status]')
   const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')
   function setUploadStatus(text: string, state: 'uploading' | 'success' | 'error' | 'idle'): void {
@@ -404,30 +429,117 @@ function init(): void {
     }
   }
 
-  if (mediaFileEl && mediaUrlEl && bucket) {
+  // ── Multi-image grid management ────────────────────────────────────
+  // The visible grid is the source of truth: rebuild the hidden cover
+  // + JSON array fields from its DOM order each time anything changes.
+  function syncHiddenFromGrid(): void {
+    if (!imageGrid || !coverEl || !imagesJsonEl) return
+    const rows = Array.from(imageGrid.querySelectorAll<HTMLElement>('[data-image-row]'))
+    const urls = rows.map((row) => row.dataset.url ?? '')
+    coverEl.value = urls[0] ?? ''
+    imagesJsonEl.value = JSON.stringify(urls)
+    // Re-label rows (Cover / #2 / #3 …) after any reorder/remove.
+    rows.forEach((row, i) => {
+      const label = row.querySelector<HTMLElement>('.image-grid__label')
+      if (label) label.textContent = i === 0 ? 'Cover' : `#${i + 1}`
+    })
+    // Status text reflects how many images are attached.
+    if (uploadStatus && uploadStatus.dataset.state !== 'uploading') {
+      if (urls.length === 0) {
+        uploadStatus.textContent = ''
+        uploadStatus.dataset.state = 'idle'
+        uploadStatus.hidden = true
+      } else {
+        uploadStatus.textContent = `✓ ${urls.length} image${urls.length === 1 ? '' : 's'} ready`
+        uploadStatus.dataset.state = 'success'
+        uploadStatus.hidden = false
+      }
+    }
+  }
+
+  function appendImageRow(url: string): void {
+    if (!imageGrid) return
+    const row = document.createElement('div')
+    row.className = 'image-grid__row'
+    row.setAttribute('data-image-row', '')
+    row.dataset.url = url
+    const safeUrl = url.startsWith('http') ? url : `/${url}`
+    row.innerHTML = `
+      <img src="${safeUrl}" alt="image" class="image-grid__thumb" />
+      <div class="image-grid__meta">
+        <span class="image-grid__label">Cover</span>
+        <div class="image-grid__controls">
+          <button type="button" class="image-grid__btn" data-image-up aria-label="Move up">↑</button>
+          <button type="button" class="image-grid__btn" data-image-down aria-label="Move down">↓</button>
+          <button type="button" class="image-grid__btn image-grid__btn--danger" data-image-remove aria-label="Remove">×</button>
+        </div>
+      </div>
+    `
+    imageGrid.appendChild(row)
+    syncHiddenFromGrid()
+  }
+
+  // Click handlers on the grid: ↑ swap with previous, ↓ swap with next,
+  // × remove. Event delegation so dynamically appended rows just work.
+  imageGrid?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    const row = target.closest<HTMLElement>('[data-image-row]')
+    if (!row) return
+    if (target.matches('[data-image-up]')) {
+      const prev = row.previousElementSibling
+      if (prev) imageGrid.insertBefore(row, prev)
+      syncHiddenFromGrid()
+    } else if (target.matches('[data-image-down]')) {
+      const next = row.nextElementSibling
+      if (next) imageGrid.insertBefore(next, row)
+      syncHiddenFromGrid()
+    } else if (target.matches('[data-image-remove]')) {
+      row.remove()
+      syncHiddenFromGrid()
+    }
+  })
+
+  if (mediaFileEl && bucket) {
     mediaFileEl.addEventListener('change', async () => {
-      const file = mediaFileEl.files?.[0]
-      if (!file) return
-      setUploadStatus(`Uploading ${file.name}…`, 'uploading')
+      const files = Array.from(mediaFileEl.files ?? [])
+      if (files.length === 0) return
       const year = yearEl?.value || String(new Date().getFullYear())
-      const id = idEl?.value || slugify(file.name.replace(/\.[^.]+$/, ''))
+      const baseId = idEl?.value || slugify(files[0].name.replace(/\.[^.]+$/, ''))
+
       try {
-        const url = await uploadMedia(file, bucket, year, id)
-        mediaUrlEl.value = url
-        if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
-          mediaPreview.src = url
-          mediaPreview.style.display = 'block'
+        if (isMulti) {
+          // Multi-photo: upload each file sequentially, append a thumb
+          // for each successful upload. Subsequent files get a numeric
+          // suffix so paths don't collide in the Storage bucket.
+          const existingCount = imageGrid?.querySelectorAll('[data-image-row]').length ?? 0
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i]
+            const slot = existingCount + i
+            // Cover (slot 0) keeps the base id; subsequent uploads get
+            // -2, -3, … so the year/<id>.<ext> paths stay unique.
+            const id = slot === 0 ? baseId : `${baseId}-${slot + 1}`
+            setUploadStatus(`Uploading ${file.name} (${i + 1} / ${files.length})…`, 'uploading')
+            const url = await uploadMedia(file, bucket, year, id)
+            appendImageRow(url)
+          }
+          // Reset the file input so the same files can be re-picked.
+          mediaFileEl.value = ''
+          setUploadStatus('', 'success')
+          syncHiddenFromGrid() // re-trigger label sync + status text
+        } else {
+          // Single-file flow (writing PDFs).
+          const file = files[0]
+          setUploadStatus(`Uploading ${file.name}…`, 'uploading')
+          const url = await uploadMedia(file, bucket, year, baseId)
+          if (fileUrlEl) fileUrlEl.value = url
+          if (mediaPreview && /\.(jpe?g|png|webp|gif|avif)$/i.test(url)) {
+            mediaPreview.src = url
+            mediaPreview.style.display = 'block'
+          }
+          const kind = file.type.startsWith('application/pdf') ? 'PDF ready' : 'File ready'
+          setUploadStatus(`✓ ${kind}`, 'success')
         }
-        const kind = file.type.startsWith('application/pdf') ? 'PDF ready' : 'Image ready'
-        setUploadStatus(`✓ ${kind}`, 'success')
       } catch (err) {
-        // Surface the actual Supabase / auth error verbatim so the
-        // user can tell us what's actually wrong. Common ones:
-        //   • "new row violates row-level security policy"  → log out
-        //     and back in (session lost), OR the admin_emails table
-        //     doesn't have your email in it.
-        //   • Auth error from session check → mobile Safari dropped
-        //     the cookie; retry on desktop or close the tab + retry.
         const msg = err instanceof Error ? err.message : String(err)
         setUploadStatus(`✗ Upload failed: ${msg}`, 'error')
       }
@@ -443,10 +555,12 @@ function init(): void {
     // server would commit an unschema-valid markdown entry that breaks
     // the next build. Stop the user here instead.
     if (collection === 'art' || collection === 'photo') {
+      // Cover image lives on the hidden `image` field (kept in sync by
+      // syncHiddenFromGrid). At least one image is required.
       const imageVal = form.querySelector<HTMLInputElement>('input[name="image"]')?.value ?? ''
       if (!imageVal.trim()) {
         setStatus(
-          'Image required. Pick a file in the Image field above — wait for the "Upload complete" status before clicking Save.',
+          'At least one image is required. Pick file(s) in the Images field above — wait for the green "images ready" indicator before clicking Save.',
           'error',
         )
         return

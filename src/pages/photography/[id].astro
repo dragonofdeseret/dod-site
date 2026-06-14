@@ -30,6 +30,14 @@ export const getStaticPaths = (async () => {
 const { item, prev, next } = Astro.props
 const fromParam = Astro.url.searchParams.get('from') ?? 'photography'
 
+// Derived gallery list: prefer the explicit `images` array if present,
+// otherwise wrap the legacy single `image` for a one-element gallery.
+const gallery: string[] = Array.isArray(item.data.images) && item.data.images.length > 0
+  ? item.data.images
+  : [item.data.image]
+const cover = gallery[0]
+const additional = gallery.slice(1)
+
 const back =
   fromParam === 'archive'
     ? { href: '/archive', text: 'Back to Archive' }
@@ -60,17 +68,19 @@ const nextUrl = next ? `/photography/${next.data.id}?from=${fromParam}` : ''
     )}
 
     <div id="art-layout">
+      {/* Cover image — keeps the existing side-note layout when present;
+          additional gallery images stack vertically below, full-width. */}
       {item.data.sideNote ? (
         <div class="media-row">
           <div class="media-image">
             <img
               id="art-image"
-              src={viewerSrc(item.data.image)}
-              srcset={viewerSrcset(item.data.image)}
+              src={viewerSrc(cover)}
+              srcset={viewerSrcset(cover)}
               sizes={VIEWER_SIZES}
               decoding="async"
               alt={item.data.title}
-              data-lightbox={originalSrc(item.data.image)}
+              data-lightbox={originalSrc(cover)}
               style="cursor: zoom-in"
             />
           </div>
@@ -83,14 +93,33 @@ const nextUrl = next ? `/photography/${next.data.id}?from=${fromParam}` : ''
         <div class="art-image">
           <img
             id="art-image"
-            src={viewerSrc(item.data.image)}
-            srcset={viewerSrcset(item.data.image)}
+            src={viewerSrc(cover)}
+            srcset={viewerSrcset(cover)}
             sizes={VIEWER_SIZES}
             decoding="async"
             alt={item.data.title}
-            data-lightbox={originalSrc(item.data.image)}
+            data-lightbox={originalSrc(cover)}
             style="cursor: zoom-in"
           />
+        </div>
+      )}
+
+      {additional.length > 0 && (
+        <div class="gallery-stack">
+          {additional.map((src, i) => (
+            <div class="gallery-stack__item">
+              <img
+                src={viewerSrc(src)}
+                srcset={viewerSrcset(src)}
+                sizes={VIEWER_SIZES}
+                decoding="async"
+                loading="lazy"
+                alt={`${item.data.title} — ${i + 2}`}
+                data-lightbox={originalSrc(src)}
+                style="cursor: zoom-in"
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>
