@@ -47,13 +47,43 @@ if (Astro.request.method === 'POST') {
     const allowedEmail = getAdminEmail().toLowerCase()
     prefillEmail = email
 
+    const supabase = getServerSupabase(Astro.cookies, Astro.request)
+
+    // Shared success path: set the public-site presence cookie (for the
+    // Edit pill) and bounce to the admin. @supabase/ssr already wrote the
+    // httpOnly session cookies via its setAll handler in getServerSupabase.
+    const completeSignIn = () => {
+      Astro.cookies.set('cs-admin-present', '1', {
+        maxAge: 60 * 60 * 24 * 7,
+        sameSite: 'lax',
+        secure: import.meta.env.PROD,
+        httpOnly: false,
+        path: '/',
+      })
+      return Astro.redirect(nextParam)
+    }
+
+    // Idempotency guard. The email OTP is single-use, but this form can be
+    // submitted more than once for a single sign-in (a duplicate POST). The
+    // first verify consumes the code and establishes the session; a second
+    // verify then fails with otp_expired and would surface a misleading
+    // "token has expired or is invalid" error even though sign-in already
+    // succeeded. So if a valid admin session already exists, just complete.
+    {
+      const {
+        data: { user: current },
+      } = await supabase.auth.getUser()
+      if (current && (current.email ?? '').toLowerCase() === allowedEmail) {
+        return completeSignIn()
+      }
+    }
+
     if (!email) {
       formError = 'Email required.'
     } else if (email !== allowedEmail) {
       formError = 'This email is not authorized for admin access.'
     } else if (!code) {
       // ── Step 1: request a code ───────────────────────────────────
-      const supabase = getServerSupabase(Astro.cookies, Astro.request)
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -71,31 +101,29 @@ if (Astro.request.method === 'POST') {
       }
     } else {
       // ── Step 2: verify the code ──────────────────────────────────
-      const supabase = getServerSupabase(Astro.cookies, Astro.request)
       const { error } = await supabase.auth.verifyOtp({
         email,
         token: code,
         type: 'email',
       })
-      if (error) {
-        formError = `Sign-in failed: ${error.message}`
-        // Keep step 2 visible so the user can retry the code without
-        // re-requesting one.
-        codeSent = true
-        console.error('[admin/login] verifyOtp error', error)
-      } else {
-        // Success — Supabase wrote the session cookies via @supabase/ssr's
-        // setAll handler in getServerSupabase. Set the presence cookie
-        // for the public-site Edit pill, then redirect.
-        Astro.cookies.set('cs-admin-present', '1', {
-          maxAge: 60 * 60 * 24 * 7,
-          sameSite: 'lax',
-          secure: import.meta.env.PROD,
-          httpOnly: false,
-          path: '/',
-        })
-        return Astro.redirect(nextParam)
+      if (!error) {
+        return completeSignIn()
       }
+      // verifyOtp failed. A racing/duplicate verify may have already
+      // consumed the single-use code AND created the session. If a valid
+      // admin session now exists, treat this as success rather than showing
+      // the misleading otp_expired error.
+      const {
+        data: { user: afterUser },
+      } = await supabase.auth.getUser()
+      if (afterUser && (afterUser.email ?? '').toLowerCase() === allowedEmail) {
+        return completeSignIn()
+      }
+      formError = `Sign-in failed: ${error.message}`
+      // Keep step 2 visible so the user can retry the code without
+      // re-requesting one.
+      codeSent = true
+      console.error('[admin/login] verifyOtp error', error)
     }
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err)
