@@ -8,7 +8,7 @@ export const prerender = true
 // buildWritingIndex(): each row is itself an <a> (whole-row clickable),
 // title + inline tag pills on top, date on the right.
 //
-// Trip reports are filtered OUT here (they live on /altered-states), per
+// Trip reports are filtered OUT here (they live on /exotic-states-of-consciousness), per
 // legacy behavior.
 // ──────────────────────────────────────────────────────────────────────────────
 
@@ -19,7 +19,7 @@ import { groupByYear, publicOnly } from '../lib/sort-group'
 
 const writing = publicOnly(await getCollection('writing'))
 
-// Trip reports (sections: ['trips']) belong on /altered-states, not here.
+// Trip reports (sections: ['trips']) belong on /exotic-states-of-consciousness, not here.
 const indexItems = writing.filter(
   (it) => !(Array.isArray(it.data.sections) && it.data.sections.includes('trips')),
 )

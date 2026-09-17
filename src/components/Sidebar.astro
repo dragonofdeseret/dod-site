@@ -5,7 +5,7 @@
 //
 //   <Sidebar active="archive" />
 //
-// `subActive` highlights a sub-nav link (e.g. "altered-states" under Writing).
+// `subActive` highlights a sub-nav link (e.g. "exotic-states" under Writing).
 // ──────────────────────────────────────────────────────────────────────────────
 
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
     | 'exhibits'
     | 'photo'
     // Writing sub-nav
-    | 'altered-states'
+    | 'exotic-states'
     | 'margins'
     | 'quotes'
     | 'harmonic-theism'
@@ -59,7 +59,7 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   {active === 'writing' && (
     <>
       <a href="/harmonic-theism" class={subCls('harmonic-theism')}>Harmonic Theism</a>
-      <a href="/altered-states" class={subCls('altered-states')}>Altered States</a>
+      <a href="/exotic-states-of-consciousness" class={subCls('exotic-states')}>Exotic States of Consciousness</a>
       <a href="/margins" class={subCls('margins')}>Margins &amp; Excerpts</a>
       <a href="/quotes" class={subCls('quotes')}>Quotes from Others</a>
     </>

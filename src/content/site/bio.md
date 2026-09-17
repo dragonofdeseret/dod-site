@@ -10,7 +10,7 @@ title: "Biography"
 - Traditions: Mormonism, Daoism, Zen
 - Methods: The method of returning the light through the celestial heart, zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
 - Conditions: Celiac's disease, PMBC dysfunction, chronic pain, clinical insomnia, clinical endocannabinoid deficiency, visual snow syndrome, transient Musicophilia.
-- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, altered states, embodiment, limits of language.
+- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, exotic states of consciousness, embodiment, limits of language.
 - Notes:
 
 ## background
@@ -38,14 +38,14 @@ Spring or Fall of 1996
 - Transient insomnia meanders
 
 Oct or Nov 1996
-- [Second Out-of-Body experience](/altered-states/TrampOBE)
-- [First Depersonalization](/altered-states/TrampOBE)
+- [Second Out-of-Body experience](/exotic-states-of-consciousness/TrampOBE)
+- [First Depersonalization](/exotic-states-of-consciousness/TrampOBE)
 
 March 29, 1997
 Baptized and confirmed a Latter-day Saint
 
 December 1999
-[Third recurring dream begins](/altered-states/Toyn)
+[Third recurring dream begins](/exotic-states-of-consciousness/Toyn)
 
 April 2003
 - Chronic pain begins
@@ -64,7 +64,7 @@ January 2009 – January 2014
 Stage Manager for Val A. Browning Center for the Performing Arts
 
 Summer, 2013
-"And it came to pass…": Primary recurring dream from [1996 - 2007](/altered-states/RD9607)
+"And it came to pass…": Primary recurring dream from [1996 - 2007](/exotic-states-of-consciousness/RD9607)
 
 2013 - 2015
 Stage Manager for Odyssey Dance Theatre's, "Thriller"; Kingsbury Hall
@@ -85,16 +85,16 @@ Loss of faith/belief
 Tesla employment
 
 May 11, 2019
-[First LSD Trip](/altered-states/AIW)
+[First LSD Trip](/exotic-states-of-consciousness/AIW)
 
 August 8, 2020
-[First Medical Cannabis Experience](/altered-states/SiA)
+[First Medical Cannabis Experience](/exotic-states-of-consciousness/SiA)
 
 June 19, 2022
 First DMT trip
 
 July 12, 2022
-[Second DMT Trip](/altered-states/IAMT)
+[Second DMT Trip](/exotic-states-of-consciousness/IAMT)
 
 June 30, 2024
-[Reconversion](/altered-states/FnHnSL)
+[Reconversion](/exotic-states-of-consciousness/FnHnSL)

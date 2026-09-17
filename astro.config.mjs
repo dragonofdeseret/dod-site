@@ -26,6 +26,14 @@ export default defineConfig({
     // as static files anyway; we don't need Vercel-side optimization.
     imageService: false,
   }),
+  // Permanent redirects from the former /altered-states path after the
+  // section was renamed to "Exotic States of Consciousness". Keeps old
+  // bookmarks, shared links, and search-engine results working. The
+  // dynamic entry preserves the [id] param and query string (?from=…).
+  redirects: {
+    '/altered-states': '/exotic-states-of-consciousness',
+    '/altered-states/[id]': '/exotic-states-of-consciousness/[id]',
+  },
   integrations: [
     sitemap({
       // Don't list admin routes in the sitemap.

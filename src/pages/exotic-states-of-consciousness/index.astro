@@ -4,7 +4,7 @@
 export const prerender = true
 
 // ──────────────────────────────────────────────────────────────────────────────
-// /altered-states — trip-report index (writing entries flagged with
+// /exotic-states-of-consciousness — trip-report index (writing entries flagged with
 // sections: ['trips']). Same row layout as /writing; the title differs
 // and the inline pills include `substance` in addition to `tags`.
 //
@@ -24,10 +24,10 @@ const trips = writing.filter(
 const grouped = groupByYear(trips)
 ---
 
-<BaseLayout title="Altered States" active="writing" subActive="altered-states">
+<BaseLayout title="Exotic States of Consciousness" active="writing" subActive="exotic-states">
   <AdminAdd collection="writing" label="Add trip report" />
   <header class="page-header">
-    <h1>Altered States</h1>
+    <h1>Exotic States of Consciousness</h1>
     <p class="page-intro">trip reports</p>
     <nav class="year-nav">
       {grouped.map((g) => <a href={`#year-${g.year}`}>{g.year}</a>)}
@@ -57,7 +57,7 @@ const grouped = groupByYear(trips)
           {g.items.map((it) => (
             <a
               class="archive-row"
-              href={`/altered-states/${it.data.id}?from=trips`}
+              href={`/exotic-states-of-consciousness/${it.data.id}?from=trips`}
               data-trip-tags={(it.data.tags ?? []).join(',')}
             >
               <div class="archive-title">

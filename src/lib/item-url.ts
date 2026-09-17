@@ -25,7 +25,7 @@ export function itemUrl(item: Item, from = 'archive'): string {
       return `/photography/${id}${q}`
     case 'writing': {
       const isTrip = Array.isArray(sections) && sections.includes('trips')
-      return isTrip ? `/altered-states/${id}${q}` : `/writing/${id}${q}`
+      return isTrip ? `/exotic-states-of-consciousness/${id}${q}` : `/writing/${id}${q}`
     }
     case 'margins':
       return `/margins#${id}`
