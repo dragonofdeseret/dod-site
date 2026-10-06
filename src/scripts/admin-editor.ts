@@ -551,21 +551,35 @@ function init(): void {
     e.preventDefault()
     // Required-image gate for art and photo. If the file picker never
     // resolved (slow Supabase upload, mobile Safari permissions denied,
-    // upload errored out), the hidden image field is empty and the
-    // server would commit an unschema-valid markdown entry that breaks
-    // the next build. Stop the user here instead.
+    // upload errored out), there's no attached image and the server would
+    // commit an un-schema-valid markdown entry that breaks the next build.
+    // Stop the user here instead.
+    //
+    // The IMAGE GRID is the source of truth — not the single hidden cover
+    // field, which can momentarily desync from the grid. Re-sync first,
+    // then validate against the actual attached image URLs so a correctly
+    // uploaded image is never rejected.
     if (collection === 'art' || collection === 'photo') {
-      // Cover image lives on the hidden `image` field (kept in sync by
-      // syncHiddenFromGrid). At least one image is required.
-      const imageVal = form.querySelector<HTMLInputElement>('input[name="image"]')?.value ?? ''
-      if (!imageVal.trim()) {
+      syncHiddenFromGrid()
+      const gridUrls = imageGrid
+        ? Array.from(imageGrid.querySelectorAll<HTMLElement>('[data-image-row]'))
+            .map((row) => (row.dataset.url ?? '').trim())
+            .filter(Boolean)
+        : []
+      // Fall back to the hidden cover field if, for any reason, the grid
+      // isn't present — so we never block a valid save.
+      const coverVal = form.querySelector<HTMLInputElement>('input[name="image"]')?.value.trim() ?? ''
+      const hasImage = gridUrls.length > 0 || !!coverVal
+      if (!hasImage) {
         setStatus(
-          'At least one image is required. Pick file(s) in the Images field above — wait for the green "images ready" indicator before clicking Save.',
+          'No image attached yet. Pick a file in the Images field above and wait for the green “✓ images ready” indicator. If it turned red, the upload failed — try that file again.',
           'error',
         )
         return
       }
     }
+    // Lock the submit button so a double-click can't fire two saves.
+    if (submitBtn) submitBtn.disabled = true
     setStatus('Saving…', 'info')
     const payload = readForm({ form, collection, isNew })
     try {
@@ -578,11 +592,22 @@ function init(): void {
       if (!res.ok || !data.ok) {
         throw new Error(data.error || `HTTP ${res.status}`)
       }
-      setStatus('Saved. Redirecting…', 'success')
-      window.location.href = `/admin/${collection}`
+      // Saved = committed to the repo. The public site AND this editor read
+      // content baked at build time, so the change won't appear until
+      // Vercel finishes rebuilding (~1–2 min). Tell the user plainly so an
+      // unchanged page afterwards doesn't look like a lost save, then
+      // return to the list once they've had a moment to read it.
+      setStatus(
+        'Saved ✓ — committed to the site. It’s rebuilding now; your change goes live in about 1–2 minutes. (The page and this editor may still show the old version until the rebuild finishes.)',
+        'success',
+      )
+      window.setTimeout(() => {
+        window.location.href = `/admin/${collection}`
+      }, 3500)
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
       setStatus(`Save failed: ${msg}`, 'error')
+      if (submitBtn) submitBtn.disabled = false
     }
   })
 
