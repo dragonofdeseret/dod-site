@@ -11,12 +11,11 @@ title: "Biography"
 - Methods: The method of returning the light through the celestial heart, zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
 - Conditions: Celiac's disease, PMBC dysfunction, chronic pain, insomnia, transient Musicophilia.
 - Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, exotic states of consciousness, phenomenology, embodiment, limits of language.
-- Notes:
 
 ## background
 
 - Previous: Professional stage management; technical and analytical support for NFLX, AAPL, TSLA.
-- Current: Artist. Writer. Contractor consultant, Chief of Staff.
+- Current: Painter, Writer, Independent Researcher, Mentor, Latter-day Saint Theologian.
 
 ## timeline
 
