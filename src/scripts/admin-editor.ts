@@ -230,6 +230,51 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
   })
 }
 
+/**
+ * Convert an Apple HEIC/HEIF photo (the iPhone camera default) to JPEG.
+ *
+ * Only Safari can decode HEIC natively, so in every other browser the
+ * canvas resize step silently no-ops and we'd upload a raw .heic that
+ * renders as a broken image everywhere on the public site. We detect
+ * HEIC by MIME type OR extension (some browsers report an empty type for
+ * .heic) and decode it with heic2any (libheif compiled for the browser),
+ * imported on demand so it never bloats the initial admin bundle.
+ *
+ * Throws a friendly error on failure so the caller aborts the upload
+ * instead of committing an unusable file.
+ */
+async function maybeConvertHeic(file: File): Promise<File> {
+  const isHeic =
+    /image\/hei[cf]/i.test(file.type) || /\.(heic|heif)$/i.test(file.name)
+  if (!isHeic) return file
+
+  setStatus('Converting HEIC photo to JPEG…', 'info')
+  try {
+    const mod = await import('heic2any')
+    const heic2any = (mod.default ?? mod) as (options: {
+      blob: Blob
+      toType?: string
+      quality?: number
+    }) => Promise<Blob | Blob[]>
+    const converted = await heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+      quality: 0.9,
+    })
+    const blob = Array.isArray(converted) ? converted[0] : converted
+    const baseName = file.name.replace(/\.[^.]+$/, '') || 'photo'
+    return new File([blob], `${baseName}.jpg`, {
+      type: 'image/jpeg',
+      lastModified: file.lastModified,
+    })
+  } catch (err) {
+    console.error('[admin-editor] HEIC conversion failed', err)
+    throw new Error(
+      'Could not convert this HEIC photo. Re-save or export it as JPEG, then upload again.',
+    )
+  }
+}
+
 // Vercel Hobby plan caps serverless function request bodies at 4.5MB.
 // Files under this comfortably proxy through /admin/api/upload (faster,
 // single round-trip). Anything bigger goes browser → Supabase Storage
@@ -238,16 +283,20 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
 const PROXY_LIMIT_BYTES = 4_000_000 // ~4MB — leaves headroom for multipart overhead
 
 async function uploadMedia(rawFile: File, bucket: string, year: string, id: string): Promise<string> {
-  // Resize first (no-op for PDFs, GIFs, SVGs, and already-small images).
   setStatus('Preparing file…', 'info')
-  let file: File
+  // 1. HEIC/HEIF (iPhone default) → JPEG. Must happen before anything
+  //    else: browsers outside Safari can't decode HEIC, so the resize
+  //    step would no-op and we'd upload a raw .heic that won't render.
+  //    If conversion fails this throws — we abort rather than upload an
+  //    unusable file.
+  let file = await maybeConvertHeic(rawFile)
+  // 2. Downscale oversized images. No-op for PDFs, GIFs, SVGs, and images
+  //    already under the max width. A resize failure here is non-fatal —
+  //    fall through with the (already HEIC-converted) file.
   try {
-    file = await maybeResizeImage(rawFile)
+    file = await maybeResizeImage(file)
   } catch (err) {
-    // Resize failed — log and fall through with the original. Better to
-    // upload a too-big image than to block the user entirely.
     console.warn('[admin-editor] resize failed, using original', err)
-    file = rawFile
   }
   // Path scheme: <year>/<id><ext>. Year-bucketed so big collections stay
   // legible in the Supabase Storage dashboard.
