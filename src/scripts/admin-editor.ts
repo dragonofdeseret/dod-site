@@ -447,7 +447,12 @@ function init(): void {
   // ── 2. Media upload ────────────────────────────────────────────────
   const mediaFileEl = form.querySelector<HTMLInputElement>('input[name="media-file"]')
   const bucket = form.dataset.mediaBucket
-  const isMulti = !!mediaFileEl?.dataset.multiFile
+  // NOTE: the template emits `data-multi-file` as a BARE attribute, so
+  // `dataset.multiFile` is the empty string "" — which is falsy. The old
+  // `!!dataset.multiFile` check was therefore always false and silently
+  // routed every art/photo upload down the single-file (PDF) path, which
+  // discarded the image URL. hasAttribute() is correct regardless of value.
+  const isMulti = !!mediaFileEl && mediaFileEl.hasAttribute('data-multi-file')
 
   // Single-file flow (writing PDFs): bound to the hidden #file input.
   const fileUrlEl = form.querySelector<HTMLInputElement>('input[name="file"]')
