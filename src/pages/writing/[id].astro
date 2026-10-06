@@ -16,6 +16,7 @@ import type { GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { publicOnly } from '../../lib/sort-group'
+import { fileUrl } from '../../lib/file-url'
 
 export const getStaticPaths = (async () => {
   const writing = publicOnly(await getCollection('writing'))
@@ -33,8 +34,8 @@ const backText = fromParam === 'archive' ? '← Back to Archive' : '← Back to 
 
 // PDF view tweaks — same fragment the legacy site appends so the embed
 // opens at page-width fit instead of the browser default.
-const pdfSrc = `/${item.data.file}#zoom=page-width&view=FitH`
-const pdfOpen = `/${item.data.file}`
+const pdfOpen = fileUrl(item.data.file)
+const pdfSrc = `${pdfOpen}#zoom=page-width&view=FitH`
 ---
 
 <BaseLayout title={item.data.title} active="writing">
