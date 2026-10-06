@@ -7,10 +7,10 @@ title: "Biography"
 
 - Type: Writer | Artist | Phenomenologist
 - Region: Salt Lake Valley, Utah, United States
-- Traditions: Mormonism, Daoism, Zen
+- Traditions: Mormonism, Dragon Gate Taoism, Zen
 - Methods: The method of returning the light through the celestial heart, zazen, The Headless Way, prayer, writing, painting, LSD, DMT, cannabis
-- Conditions: Celiac's disease, PMBC dysfunction, chronic pain, clinical insomnia, clinical endocannabinoid deficiency, visual snow syndrome, transient Musicophilia.
-- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, exotic states of consciousness, embodiment, limits of language.
+- Conditions: Celiac's disease, PMBC dysfunction, chronic pain, insomnia, transient Musicophilia.
+- Philosophical Interests: Consciousness, perception, comparative theology, symbolic order, metaphysics, identity, exotic states of consciousness, phenomenology, embodiment, limits of language.
 - Notes:
 
 ## background
@@ -33,16 +33,15 @@ First out-of-body experience
 Spring 1996
 First Derealization
 
-Spring or Fall of 1996
+Spring 1996
 - Recurring dreams begin
 - Transient insomnia meanders
 
-Oct or Nov 1996
-- [Second Out-of-Body experience](/exotic-states-of-consciousness/TrampOBE)
-- [First Depersonalization](/exotic-states-of-consciousness/TrampOBE)
+Fall 1996
+[Second Out-of-Body experience & First Depersonalization](/exotic-states-of-consciousness/TrampOBE)
 
 March 29, 1997
-Baptized and confirmed a Latter-day Saint
+Baptized and confirmed a member of the Church of Jesus Christ of Latter-day Saints
 
 December 1999
 [Third recurring dream begins](/exotic-states-of-consciousness/Toyn)
@@ -55,16 +54,16 @@ April 2003
 Recurring dreams come to an end
 
 August 2008
-Temple Endowment
+Temple Endowment, Ogden UT
 
 September 25, 2008
-- Mission to Cape Verde, Praia, Africa.
+Sleep Paralysis episode to begin Mission to Cape Verde, Praia, Africa.
 
 January 2009 – January 2014
 Stage Manager for Val A. Browning Center for the Performing Arts
 
 Summer, 2013
-"And it came to pass…": Primary recurring dream from [1996 - 2007](/exotic-states-of-consciousness/RD9607)
+Primary recurring dream from 1996 - 2007 comes to pass.
 
 2013 - 2015
 Stage Manager for Odyssey Dance Theatre's, "Thriller"; Kingsbury Hall
@@ -98,3 +97,6 @@ July 12, 2022
 
 June 30, 2024
 [Reconversion](/exotic-states-of-consciousness/FnHnSL)
+
+November 11, 2025
+A White Stone
