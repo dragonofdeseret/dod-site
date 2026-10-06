@@ -453,13 +453,10 @@ function init(): void {
   const fileUrlEl = form.querySelector<HTMLInputElement>('input[name="file"]')
   const mediaPreview = form.querySelector<HTMLImageElement>('#media-preview')
 
-  // Multi-file flow (art + photo): bound to a thumbnail grid + a pair of
-  // hidden fields — `image` (the cover, == images[0]) and `images` (the
-  // full JSON array). The grid is the source of truth; the hidden fields
-  // are rewritten whenever the grid changes.
-  const imageGrid = form.querySelector<HTMLElement>('[data-image-grid]')
-  const coverEl = form.querySelector<HTMLInputElement>('[data-image-cover]')
-  const imagesJsonEl = form.querySelector<HTMLInputElement>('[data-images-json]')
+  // Multi-file flow (art + photo): an in-memory URL array is the source
+  // of truth (declared below as `imageUrls`); the thumbnail grid and the
+  // hidden `image` (cover) + `images` (JSON array) fields are rendered
+  // from it on every change.
 
   const uploadStatus = form.querySelector<HTMLElement>('[data-upload-status]')
   const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')
@@ -478,72 +475,99 @@ function init(): void {
     }
   }
 
-  // ── Multi-image grid management ────────────────────────────────────
-  // The visible grid is the source of truth: rebuild the hidden cover
-  // + JSON array fields from its DOM order each time anything changes.
+  // ── Multi-image state (source of truth) ────────────────────────────
+  // The attached image URLs live in this in-memory array — NOT read back
+  // out of the DOM. We render the grid and (re-querying live) write the
+  // hidden `image` + `images` fields from it after every change, so a
+  // successful upload always reaches the form even if an element
+  // reference captured at init is stale or the grid lookup misbehaves.
+  let imageUrls: string[] = (() => {
+    const raw = form.querySelector<HTMLInputElement>('input[name="images"]')?.value ?? ''
+    try {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed)) {
+        const list = parsed.filter((s): s is string => typeof s === 'string' && !!s)
+        if (list.length) return list
+      }
+    } catch {
+      /* fall through to the single cover field */
+    }
+    const cover = form.querySelector<HTMLInputElement>('input[name="image"]')?.value.trim()
+    return cover ? [cover] : []
+  })()
+
+  // Write the hidden fields from state. Re-queried live every call so it
+  // never depends on a reference captured at init.
+  function writeImageHidden(): void {
+    const cover = form.querySelector<HTMLInputElement>('input[name="image"]')
+    const imagesJson = form.querySelector<HTMLInputElement>('input[name="images"]')
+    if (cover) cover.value = imageUrls[0] ?? ''
+    if (imagesJson) imagesJson.value = JSON.stringify(imageUrls)
+  }
+
+  // Render the thumbnail grid + inline status FROM the state array. Kept
+  // named syncHiddenFromGrid for the existing call sites, but it now
+  // renders from `imageUrls` rather than reading the DOM.
   function syncHiddenFromGrid(): void {
-    if (!imageGrid || !coverEl || !imagesJsonEl) return
-    const rows = Array.from(imageGrid.querySelectorAll<HTMLElement>('[data-image-row]'))
-    const urls = rows.map((row) => row.dataset.url ?? '')
-    coverEl.value = urls[0] ?? ''
-    imagesJsonEl.value = JSON.stringify(urls)
-    // Re-label rows (Cover / #2 / #3 …) after any reorder/remove.
-    rows.forEach((row, i) => {
-      const label = row.querySelector<HTMLElement>('.image-grid__label')
-      if (label) label.textContent = i === 0 ? 'Cover' : `#${i + 1}`
-    })
-    // Status text reflects how many images are attached.
-    if (uploadStatus && uploadStatus.dataset.state !== 'uploading') {
-      if (urls.length === 0) {
-        uploadStatus.textContent = ''
-        uploadStatus.dataset.state = 'idle'
-        uploadStatus.hidden = true
+    writeImageHidden()
+    const grid = form.querySelector<HTMLElement>('[data-image-grid]')
+    if (grid) {
+      grid.innerHTML = imageUrls
+        .map((url, i) => {
+          const safe = url.startsWith('http') ? url : `/${url}`
+          const label = i === 0 ? 'Cover' : `#${i + 1}`
+          return `<div class="image-grid__row" data-image-row data-url="${url}">
+            <img src="${safe}" alt="image ${i + 1}" class="image-grid__thumb" />
+            <div class="image-grid__meta">
+              <span class="image-grid__label">${label}</span>
+              <div class="image-grid__controls">
+                <button type="button" class="image-grid__btn" data-image-up aria-label="Move up">↑</button>
+                <button type="button" class="image-grid__btn" data-image-down aria-label="Move down">↓</button>
+                <button type="button" class="image-grid__btn image-grid__btn--danger" data-image-remove aria-label="Remove">×</button>
+              </div>
+            </div>`
+        })
+        .join('')
+    }
+    const status = form.querySelector<HTMLElement>('[data-upload-status]')
+    if (status && status.dataset.state !== 'uploading') {
+      if (imageUrls.length === 0) {
+        status.textContent = ''
+        status.dataset.state = 'idle'
+        status.hidden = true
       } else {
-        uploadStatus.textContent = `✓ ${urls.length} image${urls.length === 1 ? '' : 's'} ready`
-        uploadStatus.dataset.state = 'success'
-        uploadStatus.hidden = false
+        status.textContent = `✓ ${imageUrls.length} image${imageUrls.length === 1 ? '' : 's'} ready`
+        status.dataset.state = 'success'
+        status.hidden = false
       }
     }
   }
 
   function appendImageRow(url: string): void {
-    if (!imageGrid) return
-    const row = document.createElement('div')
-    row.className = 'image-grid__row'
-    row.setAttribute('data-image-row', '')
-    row.dataset.url = url
-    const safeUrl = url.startsWith('http') ? url : `/${url}`
-    row.innerHTML = `
-      <img src="${safeUrl}" alt="image" class="image-grid__thumb" />
-      <div class="image-grid__meta">
-        <span class="image-grid__label">Cover</span>
-        <div class="image-grid__controls">
-          <button type="button" class="image-grid__btn" data-image-up aria-label="Move up">↑</button>
-          <button type="button" class="image-grid__btn" data-image-down aria-label="Move down">↓</button>
-          <button type="button" class="image-grid__btn image-grid__btn--danger" data-image-remove aria-label="Remove">×</button>
-        </div>
-      </div>
-    `
-    imageGrid.appendChild(row)
+    if (!url) return
+    imageUrls.push(url)
     syncHiddenFromGrid()
   }
 
-  // Click handlers on the grid: ↑ swap with previous, ↓ swap with next,
-  // × remove. Event delegation so dynamically appended rows just work.
-  imageGrid?.addEventListener('click', (e) => {
+  // Reorder / remove via event delegation on the FORM (always present, so
+  // this works regardless of when the grid is rendered). Operates on the
+  // state array by the clicked row's index, then re-renders.
+  form.addEventListener('click', (e) => {
     const target = e.target as HTMLElement
     const row = target.closest<HTMLElement>('[data-image-row]')
     if (!row) return
-    if (target.matches('[data-image-up]')) {
-      const prev = row.previousElementSibling
-      if (prev) imageGrid.insertBefore(row, prev)
+    const grid = form.querySelector<HTMLElement>('[data-image-grid]')
+    if (!grid) return
+    const idx = Array.from(grid.querySelectorAll<HTMLElement>('[data-image-row]')).indexOf(row)
+    if (idx < 0) return
+    if (target.matches('[data-image-up]') && idx > 0) {
+      ;[imageUrls[idx - 1], imageUrls[idx]] = [imageUrls[idx], imageUrls[idx - 1]]
       syncHiddenFromGrid()
-    } else if (target.matches('[data-image-down]')) {
-      const next = row.nextElementSibling
-      if (next) imageGrid.insertBefore(next, row)
+    } else if (target.matches('[data-image-down]') && idx < imageUrls.length - 1) {
+      ;[imageUrls[idx + 1], imageUrls[idx]] = [imageUrls[idx], imageUrls[idx + 1]]
       syncHiddenFromGrid()
     } else if (target.matches('[data-image-remove]')) {
-      row.remove()
+      imageUrls.splice(idx, 1)
       syncHiddenFromGrid()
     }
   })
@@ -557,13 +581,12 @@ function init(): void {
 
       try {
         if (isMulti) {
-          // Multi-photo: upload each file sequentially, append a thumb
-          // for each successful upload. Subsequent files get a numeric
-          // suffix so paths don't collide in the Storage bucket.
-          const existingCount = imageGrid?.querySelectorAll('[data-image-row]').length ?? 0
+          // Multi-photo: upload each file sequentially, pushing each
+          // successful URL into the state array. Subsequent files get a
+          // numeric suffix so paths don't collide in the Storage bucket.
           for (let i = 0; i < files.length; i++) {
             const file = files[i]
-            const slot = existingCount + i
+            const slot = imageUrls.length // grows as each upload succeeds
             // Cover (slot 0) keeps the base id; subsequent uploads get
             // -2, -3, … so the year/<id>.<ext> paths stay unique.
             const id = slot === 0 ? baseId : `${baseId}-${slot + 1}`
@@ -574,7 +597,7 @@ function init(): void {
           // Reset the file input so the same files can be re-picked.
           mediaFileEl.value = ''
           setUploadStatus('', 'success')
-          syncHiddenFromGrid() // re-trigger label sync + status text
+          syncHiddenFromGrid() // refresh status text now that state is 'success'
         } else {
           // Single-file flow (writing PDFs).
           const file = files[0]
@@ -609,17 +632,10 @@ function init(): void {
     // then validate against the actual attached image URLs so a correctly
     // uploaded image is never rejected.
     if (collection === 'art' || collection === 'photo') {
+      // The state array is the source of truth; make sure the hidden
+      // fields reflect it before we serialize the form.
       syncHiddenFromGrid()
-      const gridUrls = imageGrid
-        ? Array.from(imageGrid.querySelectorAll<HTMLElement>('[data-image-row]'))
-            .map((row) => (row.dataset.url ?? '').trim())
-            .filter(Boolean)
-        : []
-      // Fall back to the hidden cover field if, for any reason, the grid
-      // isn't present — so we never block a valid save.
-      const coverVal = form.querySelector<HTMLInputElement>('input[name="image"]')?.value.trim() ?? ''
-      const hasImage = gridUrls.length > 0 || !!coverVal
-      if (!hasImage) {
+      if (imageUrls.length === 0) {
         setStatus(
           'No image attached yet. Pick a file in the Images field above and wait for the green “✓ images ready” indicator. If it turned red, the upload failed — try that file again.',
           'error',
