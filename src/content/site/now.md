@@ -5,25 +5,21 @@ title: "Now"
 
 ## In the Studio
 
-- 4ft x 5ft canvas — concept phase
+- 3ft x 3ft Canvas; Oil x Acrylic "The Mind Mirror of the Mystic Pearl
+- 4ft x 5ft Canvas; Oil x Acrylic "Inna Gadda Da Vida"
 
 ## Writing Projects Ahead
 
 - Harmonic Theism: Symphony No. II
 – Book of Mormon Commentary
 - Siren Song
-- Screenplay for movie about LDS mission and visionary experiences
+- Screenplay for movie about LDS mission, visionary experiences, and dark night of the soul through atheism and back to Mormonism
 
 ## Currently Reading
 
-- The Secret of the Golden Flower — All Translations
-- the Taoist canon
-– Ayahtkuuhyaht Nemenhah: The Sacred Records of the Ancient Nemenhah
-– The Xenotext, Book I
-– The Chronicle's of the Children of Araneck; Restored Branch of Jesus Christ
-– 1491: New Revelations of the America's Before Columbus
+- The Taoist Classics
 
-## Always Returning
+## Always Reading
 
 - The Book of Mormon
 - Dao De Jing
