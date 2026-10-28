@@ -15,9 +15,20 @@ title: "Now"
 - Siren Song
 - Screenplay for movie about LDS mission, visionary experiences, and dark night of the soul through atheism and back to Mormonism
 
+## Other Projects
+
+- Valence Journal
+- faultlineutah, prepareutah, hivewatchutah
+
 ## Currently Reading
 
-- The Taoist Classics
+- The Taoist Classics - Thomas Cleary
+- The Cult of Narcissism by Christopher Lasch
+- Operation Gladio by Paul L. Williams
+- Answers to Job by C. G. Jung
+- The Constitution of the United States of America - Based Historical Figures
+- The Analects of Confucius - Ames & Hall
+- The Screwtape Letters by C.S. Lewis
 
 ## Always Reading
 
