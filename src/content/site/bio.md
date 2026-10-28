@@ -15,7 +15,7 @@ title: "Biography"
 ## background
 
 - Previous: Professional stage management; technical and analytical support for NFLX, AAPL, TSLA.
-- Current: Painter, Writer, Independent Researcher, Mentor, Latter-day Saint Theologian, President of the Rushing Waters Foundation and the Valence Research Institute.
+- Current: Painter, Writer, Independent Researcher, Mentor, Latter-day Saint Theologian.
 
 ## timeline
 
@@ -95,11 +95,7 @@ July 12, 2022
 [Second DMT Trip](/exotic-states-of-consciousness/IAMT)
 
 June 30, 2024
-[Reconversion](/exotic-states-of-consciousness/FnHnSL)
+Reconversion
 
 November 11, 2025
 A White Stone
-
-October 2026
-President, Rushing Waters Foundation; Valence Research Institute
-Creator of Valence Journal
