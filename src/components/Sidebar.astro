@@ -36,6 +36,13 @@ const cls = (key: NonNullable<Props['active']>) =>
   active === key ? 'active' : undefined
 const subCls = (key: NonNullable<Props['subActive']>) =>
   subActive === key ? 'nav-sub active' : 'nav-sub'
+
+const PROJECTS = [
+  'valencejournal.com',
+  'faultlineutah.com',
+  'prepareutah.com',
+  'hivewatchutah.com',
+]
 ---
 
 <nav class="sidebar">
@@ -70,9 +77,17 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   <a href="/questions" class={cls('questions')}>Questions</a>
   <a href="/bio" class={cls('bio')}>Biography</a>
 
-  {/* External links (Harmonic Theism, Dao De Zion, Instagram, X) all
-      live in the footer now — duplicating them in the sidebar muddied
-      the navigation. Sidebar is purely first-party site sections.
+  {/* Sister projects, pinned to the bottom of the column. Kept visually
+      apart from the site sections above so they don't read as nav. */}
+  <div class="sidebar-projects">
+    <span class="sidebar-projects__label">Other projects</span>
+    {PROJECTS.map((domain) => (
+      <a href={`https://${domain}`} target="_blank" rel="noopener">{domain}</a>
+    ))}
+  </div>
+
+  {/* Social links (Harmonic Theism, Dao De Zion, Instagram, X) live in
+      the footer.
 
       No visible Admin link — keeps the public surface clean. The
       admin is reachable by typing /admin/login directly. The middleware
@@ -137,5 +152,46 @@ const subCls = (key: NonNullable<Props['subActive']>) =>
   .sidebar :global(.nav-sub.active) {
     color: var(--paper, #ece2c5);
     font-weight: 600;
+  }
+
+  /* Other projects — pushed to the bottom of the full-height column. */
+  .sidebar-projects {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(236, 226, 197, 0.2);
+  }
+  .sidebar-projects__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(236, 226, 197, 0.55);
+  }
+  .sidebar-projects a {
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(236, 226, 197, 0.75);
+  }
+  .sidebar-projects a:hover {
+    color: #ffffff;
+  }
+
+  /* Phones: the sidebar becomes a wrapping top bar — keep the projects on
+     their own row below the section links. */
+  @media (max-width: 820px) {
+    .sidebar-projects {
+      width: 100%;
+      margin-top: 12px;
+      padding-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      align-items: baseline;
+    }
+    .sidebar-projects__label {
+      width: 100%;
+      margin-bottom: 0;
+    }
   }
 </style>
