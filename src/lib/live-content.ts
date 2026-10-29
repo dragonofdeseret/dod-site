@@ -55,9 +55,20 @@ function blobSha(content: string): string {
 export function parseContentFile(text: string): { data: Record<string, unknown>; body: string } | null {
   const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
   if (!m) return null
-  const data = (yaml.load(m[1], { schema: yaml.CORE_SCHEMA }) ?? {}) as Record<string, unknown>
+  let data: Record<string, unknown>
+  try {
+    const loaded = yaml.load(m[1], { schema: yaml.CORE_SCHEMA }) ?? {}
+    if (typeof loaded !== 'object' || Array.isArray(loaded)) return null
+    data = loaded as Record<string, unknown>
+  } catch {
+    return null // malformed frontmatter
+  }
   return { data, body: m[2].replace(/^\s*\n/, '').replace(/\s+$/, '') }
 }
+
+/** Overall deadline for one page's GitHub reads, so a slow GitHub falls back
+ *  to the build copy well inside the serverless function's time limit. */
+export const LIVE_READ_TIMEOUT_MS = 6000
 
 function toEntry(path: string, text: string): LiveEntry | null {
   const parsed = parseContentFile(text)
@@ -70,22 +81,38 @@ const inCollection = (path: string, col: Collection) => path.startsWith(`src/con
 
 /**
  * Entries for the given collections as they are on GitHub right now.
- * `live` is false when GitHub couldn't be reached and the build copy was
- * used instead.
+ *   • `live` is false when the listing itself couldn't be read (GitHub
+ *     unreachable, token expired, too slow) and the build copy was used.
+ *   • `failed` lists files that are on GitHub but couldn't be fetched or
+ *     parsed individually; those fall back to their build copy (or, if new,
+ *     are listed by filename) so one bad file never hides the rest.
  */
 export async function liveEntries(
   cols: Collection[],
-): Promise<{ live: boolean; byCollection: Record<string, LiveEntry[]> }> {
+): Promise<{ live: boolean; failed: string[]; byCollection: Record<string, LiveEntry[]> }> {
   const byCollection: Record<string, LiveEntry[]> = Object.fromEntries(cols.map((c) => [c, []]))
+  const failed: string[] = []
+  const signal = AbortSignal.timeout(LIVE_READ_TIMEOUT_MS)
   try {
-    const tree = await listContentTree()
+    const tree = await listContentTree(signal)
     const wanted = [...tree].filter(([path]) => cols.some((c) => inCollection(path, c)))
     const entries = await Promise.all(
-      wanted.map(async ([path, sha]) => {
+      wanted.map(async ([path, sha]): Promise<LiveEntry | null> => {
         const bundled = BUNDLED[path]
         if (bundled !== undefined && blobSha(bundled) === sha) return toEntry(path, bundled)
-        const fresh = await readFile(path)
-        return fresh ? toEntry(path, fresh.content) : null
+        try {
+          const fresh = await readFile(path, signal)
+          if (!fresh) return null // deleted between the listing and now
+          const e = toEntry(path, fresh.content)
+          if (e) return e
+        } catch (err) {
+          console.error('[live-content] could not read', path, err)
+        }
+        // Fetch or parse failed for this one file: keep it visible.
+        failed.push(path)
+        const fallback = bundled !== undefined ? toEntry(path, bundled) : null
+        const fileId = path.split('/').pop()!.replace(/\.md$/, '')
+        return fallback ?? { path, id: fileId, data: { id: fileId, title: `${fileId} (couldn't load)` }, body: '' }
       }),
     )
     for (const e of entries) {
@@ -93,7 +120,7 @@ export async function liveEntries(
       const col = cols.find((c) => inCollection(e.path, c))
       if (col) byCollection[col].push(e)
     }
-    return { live: true, byCollection }
+    return { live: true, failed, byCollection }
   } catch (err) {
     console.error('[live-content] GitHub unreachable, using build copy', err)
     for (const [path, text] of Object.entries(BUNDLED)) {
@@ -102,7 +129,7 @@ export async function liveEntries(
       const e = toEntry(path, text)
       if (e) byCollection[col].push(e)
     }
-    return { live: false, byCollection }
+    return { live: false, failed, byCollection }
   }
 }
 
@@ -111,8 +138,8 @@ export async function liveEntries(
  * created since the last deploy. Returns null if it doesn't exist (e.g.
  * deleted). Throws if GitHub can't be reached.
  */
-export async function findEntryPath(col: Collection, id: string): Promise<string | null> {
-  const tree = await listContentTree()
+export async function findEntryPath(col: Collection, id: string, signal?: AbortSignal): Promise<string | null> {
+  const tree = await listContentTree(signal)
   for (const path of tree.keys()) {
     if (inCollection(path, col) && path.endsWith(`/${id}.md`)) return path
   }

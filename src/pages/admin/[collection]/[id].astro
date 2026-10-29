@@ -14,7 +14,7 @@ export const prerender = false
 import { getCollection } from 'astro:content'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
 import { readFile } from '../../../lib/github-commit'
-import { findEntryPath, parseContentFile } from '../../../lib/live-content'
+import { findEntryPath, parseContentFile, LIVE_READ_TIMEOUT_MS } from '../../../lib/live-content'
 
 const { collection, id } = Astro.params
 
@@ -45,16 +45,31 @@ type RawEntry = {
 let entry: RawEntry | null = null
 let basePath = ''
 let baseSha = ''
-let liveLoadFailed = false
+let liveLoadFailed = false  // GitHub unreachable / too slow
+let liveParseFailed = false // reached GitHub, but its version of the file is malformed
 if (!isNew && id) {
+  const builtCopy = async () => {
+    const all = (await getCollection(col as never)) as unknown as RawEntry[]
+    return all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
+  }
   let reachedGithub = false
   try {
-    const path = await findEntryPath(col, id)
-    const live = path ? await readFile(path) : null
+    const signal = AbortSignal.timeout(LIVE_READ_TIMEOUT_MS)
+    const path = await findEntryPath(col, id, signal)
+    const live = path ? await readFile(path, signal) : null
     reachedGithub = true
-    const parsed = live ? parseContentFile(live.content) : null
-    if (path && live && parsed) {
-      entry = { id, data: parsed.data, body: parsed.body }
+    if (path && live) {
+      const parsed = parseContentFile(live.content)
+      if (parsed) {
+        entry = { id, data: parsed.data, body: parsed.body }
+      } else {
+        // The file exists but its frontmatter is broken (a manual commit —
+        // admin saves always write valid YAML). Show the last built copy,
+        // and keep the GitHub version's path + SHA so saving replaces the
+        // broken file (still conditional: nothing newer is overwritten).
+        liveParseFailed = true
+        entry = await builtCopy()
+      }
       basePath = path
       baseSha = live.sha
     }
@@ -63,8 +78,7 @@ if (!isNew && id) {
   }
   if (!reachedGithub) {
     liveLoadFailed = true
-    const all = (await getCollection(col as never)) as unknown as RawEntry[]
-    entry = all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
+    entry = await builtCopy()
   }
   if (!entry) {
     // Not on GitHub (e.g. deleted) — or, offline, not in the build either.
@@ -149,6 +163,13 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     <a href={`/admin/${col}`}>← Back to {col}</a>
   </p>
 
+  {liveParseFailed && (
+    <div class="admin-flash admin-flash--error">
+      The saved version of this entry on GitHub has malformed frontmatter and
+      couldn't be read, so this shows the version from the last site build.
+      Saving will replace the broken file with what's in this form.
+    </div>
+  )}
   {liveLoadFailed && (
     <div class="admin-flash admin-flash--error">
       Couldn't load the latest saved version from GitHub, so this shows the

@@ -37,7 +37,7 @@ type Row = {
   id: string
   data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string; hidden?: boolean }
 }
-const { live, byCollection } = await liveEntries([col])
+const { live, failed, byCollection } = await liveEntries([col])
 const raw = byCollection[col] as unknown as Row[]
 const items = [...raw].sort((a, b) => {
   const ad = Date.parse(a.data.date ?? '') || 0
@@ -59,6 +59,14 @@ const items = [...raw].sort((a, b) => {
     <div class="admin-flash admin-flash--error">
       Couldn't reach GitHub, so this list is from the last site build and may
       be missing entries saved in the last few minutes.
+    </div>
+  )}
+
+  {failed.length > 0 && (
+    <div class="admin-flash admin-flash--error">
+      {failed.length === 1 ? 'One file' : `${failed.length} files`} on GitHub couldn't be loaded,
+      so {failed.length === 1 ? "it's" : "they're"} shown from the last site build:{' '}
+      {failed.map((p) => p.replace('src/content/', '')).join(', ')}
     </div>
   )}
 

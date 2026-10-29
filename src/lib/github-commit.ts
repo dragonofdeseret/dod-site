@@ -45,10 +45,13 @@ export class FileConflictError extends Error {
  * editor — the content baked into the deployed build can lag behind the
  * repo until Vercel finishes rebuilding.
  */
-export async function readFile(path: string): Promise<{ content: string; sha: string } | null> {
+export async function readFile(
+  path: string,
+  signal?: AbortSignal,
+): Promise<{ content: string; sha: string } | null> {
   const { owner, repo, branch } = getGithubRepo()
   try {
-    const res = await client().repos.getContent({ owner, repo, path, ref: branch })
+    const res = await client().repos.getContent({ owner, repo, path, ref: branch, request: { signal } })
     if (Array.isArray(res.data) || !('content' in res.data)) return null
     return {
       content: Buffer.from(res.data.content, 'base64').toString('utf8'),
@@ -67,14 +70,14 @@ export async function readFile(path: string): Promise<{ content: string; sha: st
  * recursively. (The repo root tree is avoided on purpose: public/ holds
  * thousands of image variants.)
  */
-export async function listContentTree(): Promise<Map<string, string>> {
+export async function listContentTree(signal?: AbortSignal): Promise<Map<string, string>> {
   const { owner, repo, branch } = getGithubRepo()
   const gh = client()
-  const src = await gh.repos.getContent({ owner, repo, path: 'src', ref: branch })
+  const src = await gh.repos.getContent({ owner, repo, path: 'src', ref: branch, request: { signal } })
   if (!Array.isArray(src.data)) throw new Error('src is not a directory')
   const contentDir = src.data.find((e) => e.name === 'content' && e.type === 'dir')
   if (!contentDir) throw new Error('src/content not found on branch')
-  const tree = await gh.git.getTree({ owner, repo, tree_sha: contentDir.sha, recursive: 'true' })
+  const tree = await gh.git.getTree({ owner, repo, tree_sha: contentDir.sha, recursive: 'true', request: { signal } })
   if (tree.data.truncated) throw new Error('src/content tree listing was truncated')
   const out = new Map<string, string>()
   for (const item of tree.data.tree) {

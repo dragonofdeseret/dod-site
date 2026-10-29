@@ -12,7 +12,7 @@ export const prerender = false
 import AdminLayout from '../../layouts/AdminLayout.astro'
 import { liveEntries, type LiveEntry } from '../../lib/live-content'
 
-const { live, byCollection } = await liveEntries(['art', 'photo', 'writing', 'margins', 'quotes'])
+const { live, failed, byCollection } = await liveEntries(['art', 'photo', 'writing', 'margins', 'quotes'])
 const { art, photo, writing, margins, quotes } = byCollection as Record<string, LiveEntry[]>
 
 const totals = [
@@ -44,6 +44,14 @@ const allDated = [
     <div class="admin-flash admin-flash--error">
       Couldn't reach GitHub, so these counts are from the last site build and
       may not include changes from the last few minutes.
+    </div>
+  )}
+
+  {failed.length > 0 && (
+    <div class="admin-flash admin-flash--error">
+      {failed.length === 1 ? 'One file' : `${failed.length} files`} on GitHub couldn't be loaded,
+      so {failed.length === 1 ? "it's" : "they're"} shown from the last site build:{' '}
+      {failed.map((p) => p.replace('src/content/', '')).join(', ')}
     </div>
   )}
 
