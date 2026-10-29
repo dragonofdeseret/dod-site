@@ -78,8 +78,10 @@ export type AnyPayload =
   | SitePayload
 
 /** Build the repo path for the markdown file given an entry. Quotes
- *  and site entries are flat; everything else gets year-bucketed. */
-function pathFor(p: AnyPayload): string {
+ *  and site entries are flat; everything else gets year-bucketed. The
+ *  admin editor uses the same function to find the file it loads, so a
+ *  save always targets the file the editor read. */
+export function pathFor(p: { type: string; id: string; year?: number | string }): string {
   if (p.type === 'quotes') return `src/content/quotes/${p.id}.md`
   if (p.type === 'site')   return `src/content/site/${p.id}.md`
   return `src/content/${p.type}/${p.year}/${p.id}.md`
@@ -154,15 +156,35 @@ function build(p: AnyPayload): SerializeInput {
   }
 }
 
-export async function saveEntry(p: AnyPayload, isNew: boolean): Promise<{
+/**
+ * `base` is the version the editor loaded: the repo path and blob SHA it
+ * read from GitHub. It makes the save conditional, so a stale editor can
+ * never silently overwrite a newer commit (see commitFile's expectedSha):
+ *   • new entry            → the file must not exist yet
+ *   • edit, same path      → the file must still be at base.sha
+ *   • edit, path changed   → (year edited) the new path must not exist yet
+ *   • edit, no base known  → unconditional, as before (editor couldn't
+ *                            reach GitHub when it opened, and said so)
+ */
+export async function saveEntry(
+  p: AnyPayload,
+  isNew: boolean,
+  base?: { path: string; sha: string | null },
+): Promise<{
   path: string
   commitSha: string
+  contentSha: string
 }> {
   const path = pathFor(p)
   const md = serializeMarkdown(build(p))
   const message = `${isNew ? 'Add' : 'Update'} ${p.type}: ${
     'title' in p && p.title ? p.title : p.id
   }`
-  const { commitSha } = await commitFile({ path, content: md, message })
-  return { path, commitSha }
+  let expectedSha: string | null | undefined
+  if (isNew) expectedSha = null
+  else if (base && base.path === path) expectedSha = base.sha
+  else if (base) expectedSha = null
+  else expectedSha = undefined
+  const { commitSha, contentSha } = await commitFile({ path, content: md, message, expectedSha })
+  return { path, commitSha, contentSha }
 }

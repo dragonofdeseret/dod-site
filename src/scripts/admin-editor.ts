@@ -652,16 +652,29 @@ function init(): void {
     if (submitBtn) submitBtn.disabled = true
     setStatus('Saving…', 'info')
     const payload = readForm({ form, collection, isNew })
+    // The file version this editor was filled from (set server-side from
+    // GitHub). The server refuses the save if the file has changed since,
+    // instead of silently overwriting the newer version.
+    const basePath = form.dataset.basePath || undefined
+    const baseSha = form.dataset.baseSha || null
     try {
       const res = await fetch('/admin/api/save', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ payload, isNew }),
+        body: JSON.stringify({ payload, isNew, basePath, baseSha }),
       })
       const data = await res.json()
+      if (res.status === 409) {
+        setStatus(data.error || 'This entry changed since you opened it. Reload to get the latest version.', 'error')
+        if (submitBtn) submitBtn.disabled = false
+        return
+      }
       if (!res.ok || !data.ok) {
         throw new Error(data.error || `HTTP ${res.status}`)
       }
+      // This editor now holds the version just written.
+      if (data.path) form.dataset.basePath = data.path
+      if (data.contentSha) form.dataset.baseSha = data.contentSha
       // Saved = committed to the repo. The public site AND this editor read
       // content baked at build time, so the change won't appear until
       // Vercel finishes rebuilding (~1–2 min). Tell the user plainly so an

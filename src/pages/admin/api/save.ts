@@ -11,6 +11,7 @@ export const prerender = false
 
 import type { APIRoute } from 'astro'
 import { saveEntry, type AnyPayload } from '../../../lib/save-entry'
+import { FileConflictError } from '../../../lib/github-commit'
 
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.user) {
@@ -19,9 +20,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       headers: { 'content-type': 'application/json' },
     })
   }
-  let body: { payload: AnyPayload; isNew: boolean }
+  // basePath/baseSha: the file version the editor loaded from GitHub. When
+  // present the save is conditional and refuses to overwrite a newer commit.
+  let body: { payload: AnyPayload; isNew: boolean; basePath?: string; baseSha?: string | null }
   try {
-    body = (await request.json()) as { payload: AnyPayload; isNew: boolean }
+    body = (await request.json()) as typeof body
   } catch {
     return new Response(JSON.stringify({ error: 'Body must be JSON' }), {
       status: 400,
@@ -57,13 +60,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
       { status: 400, headers: { 'content-type': 'application/json' } },
     )
   }
+  const base =
+    typeof body.basePath === 'string' && body.basePath
+      ? { path: body.basePath, sha: typeof body.baseSha === 'string' && body.baseSha ? body.baseSha : null }
+      : undefined
   try {
-    const result = await saveEntry(body.payload, Boolean(body.isNew))
+    const result = await saveEntry(body.payload, Boolean(body.isNew), base)
     return new Response(JSON.stringify({ ok: true, ...result }), {
       status: 200,
       headers: { 'content-type': 'application/json' },
     })
   } catch (err) {
+    if (err instanceof FileConflictError) {
+      return new Response(JSON.stringify({ error: err.message, conflict: true }), {
+        status: 409,
+        headers: { 'content-type': 'application/json' },
+      })
+    }
     const msg = err instanceof Error ? err.message : String(err)
     console.error('[admin save] failed', msg)
     return new Response(JSON.stringify({ error: msg }), {

@@ -12,7 +12,10 @@
 export const prerender = false
 
 import { getEntry } from 'astro:content'
+import yaml from 'js-yaml'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
+import { readFile } from '../../../lib/github-commit'
+import { pathFor } from '../../../lib/save-entry'
 
 const { collection, id } = Astro.params
 
@@ -41,6 +44,44 @@ if (!isNew && id) {
   entry = all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
   if (!entry) {
     return Astro.redirect(`/admin/${col}`)
+  }
+}
+
+// The collection above is the content BAKED INTO THIS DEPLOYMENT, which
+// lags the repo until Vercel finishes rebuilding after a save. Editing from
+// it and saving the whole file silently reverted newer saves (a 12:15 bio
+// edit was wiped by a 12:22 save made from a stale form). So the form is
+// filled from the file's current version on GitHub, and that version's
+// path + SHA ride along with the save, which then refuses to overwrite
+// anything newer (see saveEntry / commitFile).
+let basePath = ''
+let baseSha = ''
+let liveLoadFailed = false
+if (entry) {
+  const d0 = entry.data as Record<string, unknown>
+  const path = pathFor({ type: col, id: String(d0.id ?? id), year: d0.year as number | undefined })
+  try {
+    const live = await readFile(path)
+    basePath = path
+    if (live) {
+      baseSha = live.sha
+      const m = live.content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
+      if (m) {
+        // CORE_SCHEMA: no YAML timestamp coercion, so dates stay strings.
+        const data = (yaml.load(m[1], { schema: yaml.CORE_SCHEMA }) ?? {}) as Record<string, unknown>
+        entry = {
+          id: entry.id,
+          data,
+          body: m[2].replace(/^\s*\n/, '').replace(/\s+$/, ''),
+        }
+      }
+    }
+  } catch (err) {
+    // GitHub unreachable: fall back to the built copy, warn, and send no
+    // base (the save is then unconditional, as before).
+    console.error('[admin editor] live load failed', path, err)
+    basePath = ''
+    liveLoadFailed = true
   }
 }
 
@@ -121,6 +162,14 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     <a href={`/admin/${col}`}>← Back to {col}</a>
   </p>
 
+  {liveLoadFailed && (
+    <div class="admin-flash admin-flash--error">
+      Couldn't load the latest saved version from GitHub, so this shows the
+      version from the last site build. If you saved this entry in the last
+      few minutes, wait and reload before editing — saving now could
+      overwrite that recent change.
+    </div>
+  )}
   <div id="save-status" class="admin-flash" style="display: none;"></div>
 
   <form
@@ -128,6 +177,8 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     data-collection={col}
     data-is-new={String(isNew)}
     data-media-bucket={bucket ?? ''}
+    data-base-path={basePath}
+    data-base-sha={baseSha}
   >
     {/* ── Common fields ─────────────────────────────────────────── */}
     {col !== 'quotes' && (

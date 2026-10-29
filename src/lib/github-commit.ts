@@ -26,41 +26,86 @@ function client(): Octokit {
 }
 
 /**
+ * Thrown when a write is refused because the file on the branch is no
+ * longer the version the editor was based on (someone — usually the same
+ * admin in another tab, or a save made before the site rebuilt — committed
+ * a newer version in between). Callers should tell the user to reload
+ * rather than overwrite.
+ */
+export class FileConflictError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'FileConflictError'
+  }
+}
+
+/**
+ * Read a file's current content + blob SHA from the branch. Returns null
+ * if the file doesn't exist. This is the source of truth for the admin
+ * editor — the content baked into the deployed build can lag behind the
+ * repo until Vercel finishes rebuilding.
+ */
+export async function readFile(path: string): Promise<{ content: string; sha: string } | null> {
+  const { owner, repo, branch } = getGithubRepo()
+  try {
+    const res = await client().repos.getContent({ owner, repo, path, ref: branch })
+    if (Array.isArray(res.data) || !('content' in res.data)) return null
+    return {
+      content: Buffer.from(res.data.content, 'base64').toString('utf8'),
+      sha: res.data.sha,
+    }
+  } catch (err: unknown) {
+    if ((err as { status?: number })?.status === 404) return null
+    throw err
+  }
+}
+
+/**
  * Commit a single file to the repo. `path` is repo-relative
  * (e.g. "src/content/art/2026/2026-05-03.md"). `content` is the raw
  * file body as a UTF-8 string; we base64 it for the API. `message` is
  * the commit subject — keep it terse + meaningful.
  *
- * Returns the new commit SHA + content SHA for the file. Callers
- * usually don't need these but they're handy for chained operations.
+ * `expectedSha` makes the write conditional (optimistic concurrency):
+ *   • a string — the blob SHA the caller's edit was based on. GitHub
+ *     rejects the write if the file has changed since, and we throw
+ *     FileConflictError instead of silently overwriting the newer version.
+ *   • null — the file must NOT exist yet (creating a new entry); an
+ *     existing file with the same path raises FileConflictError.
+ *   • undefined — unconditional: write over whatever is there (the old
+ *     behaviour; used when the caller has no base version to compare).
+ *
+ * Returns the new commit SHA + content SHA for the file.
  */
 export async function commitFile(args: {
   path: string
   content: string
   message: string
+  expectedSha?: string | null
 }): Promise<{ commitSha: string; contentSha: string }> {
   const { owner, repo, branch } = getGithubRepo()
   const gh = client()
 
-  // Look up the current SHA so an update goes through; a fresh path
-  // returns 404 which we treat as "no SHA, this is a create."
-  let existingSha: string | undefined
-  try {
-    const existing = await gh.repos.getContent({
-      owner,
-      repo,
-      path: args.path,
-      ref: branch,
-    })
-    // getContent returns either a single file or an array (for dirs).
-    // We only ever request file paths here, so single-file is expected.
-    if (!Array.isArray(existing.data) && 'sha' in existing.data) {
-      existingSha = existing.data.sha
+  let sha: string | undefined
+  if (args.expectedSha === undefined) {
+    // Unconditional write: look up the current SHA so an update goes
+    // through; a fresh path returns 404, which means "create".
+    try {
+      const existing = await gh.repos.getContent({
+        owner,
+        repo,
+        path: args.path,
+        ref: branch,
+      })
+      if (!Array.isArray(existing.data) && 'sha' in existing.data) {
+        sha = existing.data.sha
+      }
+    } catch (err: unknown) {
+      const status = (err as { status?: number })?.status
+      if (status !== 404) throw err
     }
-  } catch (err: unknown) {
-    // 404 is fine — it just means we're creating, not updating.
-    const status = (err as { status?: number })?.status
-    if (status !== 404) throw err
+  } else {
+    sha = args.expectedSha ?? undefined
   }
 
   // Base64-encode content. Buffer is available in Node runtimes (Vercel
@@ -68,19 +113,32 @@ export async function commitFile(args: {
   // + btoa.
   const encoded = Buffer.from(args.content, 'utf8').toString('base64')
 
-  const result = await gh.repos.createOrUpdateFileContents({
-    owner,
-    repo,
-    path: args.path,
-    branch,
-    message: args.message,
-    content: encoded,
-    sha: existingSha,
-  })
-
-  return {
-    commitSha: result.data.commit.sha ?? '',
-    contentSha: result.data.content?.sha ?? '',
+  try {
+    const result = await gh.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: args.path,
+      branch,
+      message: args.message,
+      content: encoded,
+      sha,
+    })
+    return {
+      commitSha: result.data.commit.sha ?? '',
+      contentSha: result.data.content?.sha ?? '',
+    }
+  } catch (err: unknown) {
+    // GitHub answers a stale SHA with 409, and a create over an existing
+    // file (no SHA supplied) or an update of a missing file with 422.
+    const status = (err as { status?: number })?.status
+    if (args.expectedSha !== undefined && (status === 409 || status === 422)) {
+      throw new FileConflictError(
+        args.expectedSha === null
+          ? 'An entry with this ID already exists. Choose a different ID, or edit the existing entry.'
+          : 'This entry was changed since you opened it (for example, saved from another tab). Your save was NOT applied, so nothing was overwritten. Reload the editor to get the latest version, then make your change again.',
+      )
+    }
+    throw err
   }
 }
 
