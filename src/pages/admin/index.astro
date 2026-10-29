@@ -1,21 +1,19 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
 // /admin — dashboard. Lists collections + per-collection entry counts +
-// the five most recently edited entries across the site.
+// the five most recently dated entries across the site.
+//
+// Read live from GitHub (lib/live-content) so counts and the recent list
+// reflect saves made since the last deploy.
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const prerender = false
 
-import { getCollection } from 'astro:content'
 import AdminLayout from '../../layouts/AdminLayout.astro'
+import { liveEntries, type LiveEntry } from '../../lib/live-content'
 
-const [art, photo, writing, margins, quotes] = await Promise.all([
-  getCollection('art'),
-  getCollection('photo'),
-  getCollection('writing'),
-  getCollection('margins'),
-  getCollection('quotes'),
-])
+const { live, byCollection } = await liveEntries(['art', 'photo', 'writing', 'margins', 'quotes'])
+const { art, photo, writing, margins, quotes } = byCollection as Record<string, LiveEntry[]>
 
 const totals = [
   { name: 'Artwork',     count: art.length,     href: '/admin/art' },
@@ -26,8 +24,14 @@ const totals = [
 ]
 
 // Five most-recent across everything that has a date.
-const allDated = [...art, ...photo, ...writing, ...margins]
-  .map((it) => ({ ...it, ts: Date.parse(it.data.date ?? '') || 0 }))
+const allDated = [
+  ...art.map((e) => ({ ...e, collection: 'art' })),
+  ...photo.map((e) => ({ ...e, collection: 'photo' })),
+  ...writing.map((e) => ({ ...e, collection: 'writing' })),
+  ...margins.map((e) => ({ ...e, collection: 'margins' })),
+]
+  .map((it) => ({ ...it, ts: Date.parse(String(it.data.date ?? '')) || 0 }))
+  .filter((it) => it.ts > 0)
   .sort((a, b) => b.ts - a.ts)
   .slice(0, 5)
 ---
@@ -35,6 +39,13 @@ const allDated = [...art, ...photo, ...writing, ...margins]
 <AdminLayout title="Dashboard" active="dashboard">
   <h1 class="admin-h1">Dashboard</h1>
   <p class="admin-subtitle">{`Signed in as ${Astro.locals.user?.email ?? 'admin'}`}</p>
+
+  {!live && (
+    <div class="admin-flash admin-flash--error">
+      Couldn't reach GitHub, so these counts are from the last site build and
+      may not include changes from the last few minutes.
+    </div>
+  )}
 
   <div class="admin-card">
     <h2 class="admin-card__title">Collections</h2>
@@ -56,10 +67,10 @@ const allDated = [...art, ...photo, ...writing, ...margins]
       <ul class="admin-list">
         {allDated.map((it) => (
           <li class="admin-list__row">
-            <a href={`/admin/${it.collection}/${it.data.id}`}>
-              {it.data.title} <span class="admin-list__meta">· {it.collection}</span>
+            <a href={`/admin/${it.collection}/${it.id}`}>
+              {String(it.data.title ?? it.id)} <span class="admin-list__meta">· {it.collection}</span>
             </a>
-            <span class="admin-list__meta">{it.data.date}</span>
+            <span class="admin-list__meta">{String(it.data.date)}</span>
           </li>
         ))}
       </ul>

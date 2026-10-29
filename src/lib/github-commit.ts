@@ -61,6 +61,31 @@ export async function readFile(path: string): Promise<{ content: string; sha: st
 }
 
 /**
+ * Every markdown file under src/content on the branch, as repo-relative
+ * path → blob SHA. Two API calls regardless of how many entries exist:
+ * list `src` to get the `content` tree's SHA, then read that tree
+ * recursively. (The repo root tree is avoided on purpose: public/ holds
+ * thousands of image variants.)
+ */
+export async function listContentTree(): Promise<Map<string, string>> {
+  const { owner, repo, branch } = getGithubRepo()
+  const gh = client()
+  const src = await gh.repos.getContent({ owner, repo, path: 'src', ref: branch })
+  if (!Array.isArray(src.data)) throw new Error('src is not a directory')
+  const contentDir = src.data.find((e) => e.name === 'content' && e.type === 'dir')
+  if (!contentDir) throw new Error('src/content not found on branch')
+  const tree = await gh.git.getTree({ owner, repo, tree_sha: contentDir.sha, recursive: 'true' })
+  if (tree.data.truncated) throw new Error('src/content tree listing was truncated')
+  const out = new Map<string, string>()
+  for (const item of tree.data.tree) {
+    if (item.type === 'blob' && item.path?.endsWith('.md') && item.sha) {
+      out.set(`src/content/${item.path}`, item.sha)
+    }
+  }
+  return out
+}
+
+/**
  * Commit a single file to the repo. `path` is repo-relative
  * (e.g. "src/content/art/2026/2026-05-03.md"). `content` is the raw
  * file body as a UTF-8 string; we base64 it for the API. `message` is

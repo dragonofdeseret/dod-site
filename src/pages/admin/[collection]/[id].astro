@@ -11,11 +11,10 @@
 
 export const prerender = false
 
-import { getEntry } from 'astro:content'
-import yaml from 'js-yaml'
+import { getCollection } from 'astro:content'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
 import { readFile } from '../../../lib/github-commit'
-import { pathFor } from '../../../lib/save-entry'
+import { findEntryPath, parseContentFile } from '../../../lib/live-content'
 
 const { collection, id } = Astro.params
 
@@ -27,61 +26,49 @@ if (!collection || !KNOWN.includes(collection as Known)) {
 const col = collection as Known
 const isNew = id === 'new'
 
-// Existing entry (when editing). getEntry resolves the slug as
-// `<year>/<id>` for year-bucketed collections; we don't have the year
-// here, so use the loader output instead.
+// Existing entry (when editing).
+//
+// The content collections are BAKED INTO THIS DEPLOYMENT and lag the repo
+// until Vercel finishes rebuilding after a save. Editing from that copy and
+// saving the whole file silently reverted newer saves (a 12:15 bio edit was
+// wiped by a 12:22 save made from a stale form), and an entry created since
+// the last deploy couldn't be opened at all. So the entry is located and
+// read on GitHub; that version's path + SHA ride along with the save, which
+// then refuses to overwrite anything newer (see saveEntry / commitFile).
+// The build copy is used only if GitHub can't be reached — with a warning,
+// and no base, so that save is unconditional as before.
 type RawEntry = {
   id: string
   body?: string
   data: Record<string, unknown>
 }
 let entry: RawEntry | null = null
-if (!isNew && id) {
-  // Try direct id; if not found, search via getCollection. getEntry
-  // wants the full slug (year/id) so we walk the collection instead.
-  const { getCollection } = await import('astro:content')
-  const all = (await getCollection(col as never)) as unknown as RawEntry[]
-  entry = all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
-  if (!entry) {
-    return Astro.redirect(`/admin/${col}`)
-  }
-}
-
-// The collection above is the content BAKED INTO THIS DEPLOYMENT, which
-// lags the repo until Vercel finishes rebuilding after a save. Editing from
-// it and saving the whole file silently reverted newer saves (a 12:15 bio
-// edit was wiped by a 12:22 save made from a stale form). So the form is
-// filled from the file's current version on GitHub, and that version's
-// path + SHA ride along with the save, which then refuses to overwrite
-// anything newer (see saveEntry / commitFile).
 let basePath = ''
 let baseSha = ''
 let liveLoadFailed = false
-if (entry) {
-  const d0 = entry.data as Record<string, unknown>
-  const path = pathFor({ type: col, id: String(d0.id ?? id), year: d0.year as number | undefined })
+if (!isNew && id) {
+  let reachedGithub = false
   try {
-    const live = await readFile(path)
-    basePath = path
-    if (live) {
+    const path = await findEntryPath(col, id)
+    const live = path ? await readFile(path) : null
+    reachedGithub = true
+    const parsed = live ? parseContentFile(live.content) : null
+    if (path && live && parsed) {
+      entry = { id, data: parsed.data, body: parsed.body }
+      basePath = path
       baseSha = live.sha
-      const m = live.content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/)
-      if (m) {
-        // CORE_SCHEMA: no YAML timestamp coercion, so dates stay strings.
-        const data = (yaml.load(m[1], { schema: yaml.CORE_SCHEMA }) ?? {}) as Record<string, unknown>
-        entry = {
-          id: entry.id,
-          data,
-          body: m[2].replace(/^\s*\n/, '').replace(/\s+$/, ''),
-        }
-      }
     }
   } catch (err) {
-    // GitHub unreachable: fall back to the built copy, warn, and send no
-    // base (the save is then unconditional, as before).
-    console.error('[admin editor] live load failed', path, err)
-    basePath = ''
+    console.error('[admin editor] live load failed', col, id, err)
+  }
+  if (!reachedGithub) {
     liveLoadFailed = true
+    const all = (await getCollection(col as never)) as unknown as RawEntry[]
+    entry = all.find((e) => (e.data?.id as string | undefined) === id || e.id === id) ?? null
+  }
+  if (!entry) {
+    // Not on GitHub (e.g. deleted) — or, offline, not in the build either.
+    return Astro.redirect(`/admin/${col}`)
   }
 }
 

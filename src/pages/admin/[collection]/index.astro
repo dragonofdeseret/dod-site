@@ -3,12 +3,16 @@
 // /admin/[collection] — browse view for one collection. Lists every entry
 // newest-first with edit + delete affordances. Works for all five
 // collections via the dynamic param.
+//
+// Read live from GitHub (lib/live-content), not from the content baked into
+// this deployment, so an entry saved, created or deleted a moment ago shows
+// correctly without waiting for Vercel to rebuild.
 // ──────────────────────────────────────────────────────────────────────────────
 
 export const prerender = false
 
-import { getCollection } from 'astro:content'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
+import { liveEntries } from '../../../lib/live-content'
 
 const { collection } = Astro.params
 
@@ -29,13 +33,12 @@ const LABELS: Record<Known, string> = {
   site: 'Site pages',
 }
 
-// `getCollection` is typed per-collection literal. Cast to a permissive
-// shape so we can iterate without a switch.
 type Row = {
   id: string
   data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string; hidden?: boolean }
 }
-const raw = (await getCollection(col as never)) as unknown as Row[]
+const { live, byCollection } = await liveEntries([col])
+const raw = byCollection[col] as unknown as Row[]
 const items = [...raw].sort((a, b) => {
   const ad = Date.parse(a.data.date ?? '') || 0
   const bd = Date.parse(b.data.date ?? '') || 0
@@ -51,6 +54,13 @@ const items = [...raw].sort((a, b) => {
     </div>
     <a class="admin-button" href={`/admin/${col}/new`}>+ New {col === 'quotes' ? 'quote' : col === 'margins' ? 'note' : col === 'writing' ? 'essay' : col}</a>
   </div>
+
+  {!live && (
+    <div class="admin-flash admin-flash--error">
+      Couldn't reach GitHub, so this list is from the last site build and may
+      be missing entries saved in the last few minutes.
+    </div>
+  )}
 
   <div class="admin-card">
     {items.length === 0 ? (
