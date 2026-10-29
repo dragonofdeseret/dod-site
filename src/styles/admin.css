@@ -13,7 +13,7 @@
   --danger-fill:    #A3372F;
   --danger-soft:    rgba(163, 55, 47, 0.10);
   --danger-border:  rgba(163, 55, 47, 0.45);
-  --success-text:   #2E7D4F;
+  --success-text:   #24663F;
   --success-soft:   rgba(46, 125, 79, 0.10);
   --success-border: rgba(46, 125, 79, 0.45);
 }
@@ -102,6 +102,11 @@ html.dark .admin-body {
   display: flex;
   flex-direction: column;
   gap: 1px;
+  position: sticky;
+  top: 51px;
+  align-self: start;
+  height: calc(100vh - 51px);
+  overflow-y: auto;
   padding: 20px 14px;
   background: var(--panel);
   border-right: 1px solid var(--panel-border);
@@ -132,7 +137,7 @@ html.dark .admin-body {
 }
 .admin-nav__link.active {
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 600;
 }
 .admin-nav__foot {
@@ -320,8 +325,8 @@ html.dark .admin-body {
   color: var(--text-faint);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
+.admin-list__row > .admin-list__meta { white-space: nowrap; }
 
 /* ── Login ────────────────────────────────────────────────────────────────── */
 .admin-login-wrap {
@@ -373,7 +378,7 @@ html.dark .admin-body {
 }
 .admin-flash--info {
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   border: 1px solid var(--accent-border);
 }
 
@@ -661,7 +666,7 @@ html.dark .admin-body {
 .upload-status[hidden] { display: none; }
 .upload-status[data-state='uploading'] {
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   border: 1px solid var(--accent-border);
 }
 .upload-status[data-state='success'] {
@@ -720,6 +725,9 @@ html.dark .admin-body {
   .admin-topbar__user { display: none; }
   .admin-layout { grid-template-columns: 1fr; min-height: 0; }
   .admin-nav {
+    position: static;
+    height: auto;
+    overflow: visible;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;

@@ -530,7 +530,8 @@ function init(): void {
                 <button type="button" class="image-grid__btn" data-image-down aria-label="Move down">↓</button>
                 <button type="button" class="image-grid__btn image-grid__btn--danger" data-image-remove aria-label="Remove">×</button>
               </div>
-            </div>`
+            </div>
+          </div>`
         })
         .join('')
     }

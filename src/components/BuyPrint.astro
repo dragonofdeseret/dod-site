@@ -137,10 +137,12 @@ const single = sortedPrints.length === 1 ? sortedPrints[0] : null
     font-size: 14px;
     transition: border-color 120ms ease;
   }
-  .buy-print__select:hover,
-  .buy-print__select:focus {
-    border-color: var(--accent-border);
-    outline: none;
+  .buy-print__select:hover { border-color: var(--accent-border); }
+  /* Keyboard focus gets the site-wide focus ring (distinct from hover). */
+  .buy-print__select:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 0;
+    border-color: var(--accent);
   }
   /* Primary button — Valence's hard-edged accent fill. */
   .buy-print__btn {

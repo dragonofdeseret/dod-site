@@ -4,19 +4,30 @@
 // a dark-mode visitor never sees a flash of the light page. Reads the saved
 // choice (localStorage `dod:theme`: "light" | "dark"); with none saved it
 // follows the OS setting. ThemeToggle.astro writes the same key.
+//
+// Storage is read in its own try: if it's blocked (privacy settings), we
+// still fall through to the OS setting instead of defaulting to light.
 // ──────────────────────────────────────────────────────────────────────────────
 ---
 
 <script is:inline>
   (function () {
+    var saved = null
     try {
-      var saved = localStorage.getItem('dod:theme')
-      var dark = saved
-        ? saved === 'dark'
-        : window.matchMedia('(prefers-color-scheme: dark)').matches
-      if (dark) document.documentElement.classList.add('dark')
+      saved = localStorage.getItem('dod:theme')
     } catch (e) {
-      /* storage blocked — stay light */
+      /* storage blocked — fall through to the OS setting */
     }
+    var dark
+    if (saved === 'light' || saved === 'dark') {
+      dark = saved === 'dark'
+    } else {
+      try {
+        dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      } catch (e) {
+        dark = false
+      }
+    }
+    if (dark) document.documentElement.classList.add('dark')
   })()
 </script>

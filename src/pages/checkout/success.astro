@@ -156,6 +156,7 @@ const sid = Astro.url.searchParams.get('sid')
     font-family: inherit;
     background: transparent;
     padding: 0;
+    overflow-wrap: anywhere; /* long Stripe session IDs wrap on phones */
   }
   @media (max-width: 600px) {
     .thanks { padding: 30px 22px 26px; margin: 24px 0; }

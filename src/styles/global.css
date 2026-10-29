@@ -42,12 +42,17 @@
   --accent-deep:   #17317F;
   --accent-soft:   rgba(36, 73, 184, 0.12);
   --accent-border: rgba(36, 73, 184, 0.45);
+  /* Accent for TEXT on an --accent-soft wash (active nav, info notes). Same
+     as --accent in light; lighter in dark so it clears AA on the wash. */
+  --accent-text:   #2449B8;
   --btn-edge:      #10245F;
   --on-accent:     #FFFFFF;
 
   --selection-bg: rgba(36, 73, 184, 0.18);
   --selection-fg: #1D1D1F;
-  --focus-ring:   rgba(36, 73, 184, 0.6);
+  /* Solid in light: at Valence's 0.6 alpha the ring was 2.9:1 on the
+     ground, under the 3:1 a focus indicator needs. */
+  --focus-ring:   #2449B8;
   --scrim:        rgba(17, 17, 20, 0.92);
 
   /* Legacy "Library" names → the system above */
@@ -110,6 +115,7 @@ html.dark {
   --accent-deep:   #7A9BFF;
   --accent-soft:   rgba(79, 124, 255, 0.16);
   --accent-border: rgba(122, 155, 255, 0.55);
+  --accent-text:   #7A9BFF;  /* Valence's --accent-cool in dark */
   --btn-edge:      #2E55C8;
 
   --selection-bg: rgba(79, 124, 255, 0.30);
@@ -172,6 +178,18 @@ a:hover {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
+}
+/* Links inside running text stay underlined: colour alone (2.2:1 against
+   body text) isn't enough to mark them, and touch has no hover. Scoped to
+   unclassed links in prose so nav, buttons and card-links stay clean. */
+:where(p, li, dd, blockquote, .timeline-text, .media-note, .archive-value, .quote-text, .question-answer) a:not([class]) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent-border);
+  text-underline-offset: 0.18em;
+}
+:where(p, li, dd, blockquote, .timeline-text, .media-note, .archive-value, .quote-text, .question-answer) a:not([class]):hover {
+  text-decoration-color: currentColor;
 }
 
 /* ── Typography ───────────────────────────────────────────────────────────── */
@@ -357,7 +375,7 @@ code, kbd, samp, .mono {
   text-decoration: none;
 }
 .sidebar-nav a.active {
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-soft);
   font-weight: 600;
 }
@@ -467,7 +485,7 @@ code, kbd, samp, .mono {
   text-decoration: none;
 }
 .year-nav a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
   background: var(--accent-soft);
   text-decoration: none;
 }
@@ -945,6 +963,10 @@ code, kbd, samp, .mono {
   box-shadow: var(--panel-shadow);
 }
 .question-meta {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
   font-size: var(--fs-xs);
   color: var(--text-faint);
   font-variant-numeric: tabular-nums;
