@@ -27,6 +27,7 @@ export const prerender = false
 
 import { getServerSupabase } from '../../lib/supabase'
 import { getAdminEmail } from '../../lib/env'
+import ThemeScript from '../../components/ThemeScript.astro'
 import '../../styles/global.css'
 import '../../styles/admin.css'
 
@@ -141,19 +142,28 @@ if (Astro.request.method === 'POST') {
     <meta name="robots" content="noindex, nofollow" />
     <title>Sign in — Admin</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <ThemeScript />
     <style>
-      body { background: #ece2c5; color: #1f1a10; font-family: Baskerville, Georgia, serif; margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; }
-      .login-card-fallback { max-width: 420px; width: 100%; background: rgba(224, 212, 177, 0.5); border: 1px solid #c9b88f; border-radius: 10px; padding: 32px; }
-      .login-card-fallback h1 { font-size: 22px; margin: 0 0 6px 0; font-family: 'Marcellus', Georgia, serif; }
-      .login-card-fallback p { color: #4a3f2a; font-size: 13px; margin: 0 0 24px 0; }
-      .login-card-fallback input { width: 100%; padding: 10px 14px; border: 1px solid #c9b88f; border-radius: 6px; font-family: inherit; font-size: 14px; background: #ece2c5; color: #1f1a10; box-sizing: border-box; }
-      .login-card-fallback input.code-input { font-family: 'IBM Plex Mono', Menlo, monospace; font-size: 22px; letter-spacing: 0.4em; text-align: center; padding: 14px; }
-      .login-card-fallback button { background: #1f1a10; color: #ece2c5; border: 0; border-radius: 999px; padding: 10px 22px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 14px; }
-      .login-card-fallback .msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 13px; }
-      .login-card-fallback .msg--ok { background: rgba(168, 244, 200, 0.15); border: 1px solid #6b8e6e; color: #2a4a32; }
-      .login-card-fallback .msg--err { background: rgba(244, 168, 168, 0.15); border: 1px solid #8e6b6b; color: #6b2820; }
-      .login-card-fallback .field-spacer { height: 14px; }
-      .login-card-fallback .restart-link { display: inline-block; margin-top: 12px; font-size: 12px; color: #6b2820; text-decoration: underline; }
+      /* Login-specific touches; the card, fields, buttons and messages
+         come from admin.css. */
+      .login-card-fallback .code-input {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        letter-spacing: 0.4em;
+        text-align: center;
+        padding: 14px;
+      }
+      .login-card-fallback .admin-button {
+        width: 100%;
+        margin-top: 4px;
+        padding: 10px 18px;
+      }
+      .login-card-fallback .restart-link {
+        display: inline-block;
+        margin-top: 14px;
+        font-size: 13px;
+        font-weight: 500;
+      }
     </style>
   </head>
   <body class="admin-body">

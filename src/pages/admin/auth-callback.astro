@@ -11,6 +11,9 @@
 export const prerender = false
 
 import { getServerSupabase } from '../../lib/supabase'
+import ThemeScript from '../../components/ThemeScript.astro'
+import '../../styles/global.css'
+import '../../styles/admin.css'
 
 const supabase = getServerSupabase(Astro.cookies, Astro.request)
 const url = Astro.url
@@ -59,7 +62,7 @@ if (code) {
     <meta name="robots" content="noindex, nofollow" />
     <title>Signing in…</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/global.css" />
+    <ThemeScript />
   </head>
   <body class="admin-body">
     <div class="admin-login-wrap">

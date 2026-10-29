@@ -1,16 +1,18 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
-// AdminLayout — shell for /admin/** pages. Same palette + serif as the
-// public site, but a dedicated admin chrome:
+// AdminLayout — shell for /admin/** pages. Same design system and theme as
+// the public site (global.css), with a dedicated admin chrome:
 //
 //   • Top bar with the page title + a "View site" link + "Sign out"
-//   • Left rail listing the five collections
+//   • Left rail listing the collections, with the theme switch at its foot
 //   • Main content slot
 //
 // Auth assumed; the middleware already gated access. Pages can read
 // the user via Astro.locals.user.
 // ──────────────────────────────────────────────────────────────────────────────
 
+import ThemeScript from '../components/ThemeScript.astro'
+import ThemeToggle from '../components/ThemeToggle.astro'
 import '../styles/global.css'
 import '../styles/admin.css'
 
@@ -35,6 +37,7 @@ function cls(key: NonNullable<Props['active']>) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
+    <ThemeScript />
     <title>{fullTitle}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
@@ -68,6 +71,9 @@ function cls(key: NonNullable<Props['active']>) {
         <div class="admin-nav__heading">Site pages</div>
         <a href="/admin/site/now" class={cls('site')}>Now</a>
         <a href="/admin/site/bio" class={cls('site')}>Biography</a>
+        <div class="admin-nav__foot">
+          <ThemeToggle />
+        </div>
       </nav>
 
       <main class="admin-main">
