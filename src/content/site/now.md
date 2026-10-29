@@ -22,12 +22,12 @@ title: "Now"
 
 ## Currently Reading
 
-- The Taoist Classics - Thomas Cleary
-- The Cult of Narcissism by Christopher Lasch
+- The Taoist Classics by Thomas Cleary
+- The Culture of Narcissism by Christopher Lasch
 - Operation Gladio by Paul L. Williams
 - Answers to Job by C. G. Jung
-- The Constitution of the United States of America - Based Historical Figures
-- The Analects of Confucius - Ames & Hall
+- The Constitution of the United States of America by Based Historical Figures
+- The Analects of Confucius by Ames & Hall
 - The Screwtape Letters by C.S. Lewis
 
 ## Always Reading
