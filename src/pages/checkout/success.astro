@@ -52,112 +52,105 @@ const sid = Astro.url.searchParams.get('sid')
 
 <style>
   .thanks {
-    max-width: 640px;
-    margin: 60px auto;
-    padding: 56px 56px 48px;
-    background-color: rgba(236, 226, 197, 0.6);
-    background-image:
-      linear-gradient(180deg, rgba(58, 14, 42, 0.04) 0%, rgba(58, 14, 42, 0.09) 100%),
-      url('/dragon-scales.svg');
-    border: 1px solid var(--paper-edge);
+    max-width: 620px;
+    margin: 48px auto;
+    padding: 44px 44px 36px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-lg);
-    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
-                0 4px 20px rgba(58, 14, 42, 0.06);
+    box-shadow: var(--panel-shadow);
     text-align: center;
   }
   .thanks__kicker {
-    font-family: 'Marcellus', serif;
-    font-variant: small-caps;
-    letter-spacing: 0.2em;
-    font-size: 12px;
-    color: var(--accent-2);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
     margin-bottom: 8px;
   }
   .thanks__title {
-    font-family: 'Marcellus', serif;
-    font-size: 46px;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     margin: 0 0 8px 0;
-    color: var(--ink);
-    letter-spacing: 0.01em;
   }
   .thanks__lead {
-    font-style: italic;
-    color: var(--ink-soft);
-    font-size: 18px;
-    margin: 0 0 28px 0;
+    color: var(--text-muted);
+    font-size: 17px;
+    margin: 0 0 24px 0;
   }
   .thanks__rule {
-    width: 56px;
+    width: 48px;
     height: 1px;
-    background: var(--rule);
-    margin: 0 auto 28px;
+    background: var(--border);
+    margin: 0 auto 24px;
   }
   .thanks__body {
-    color: var(--ink-soft);
-    font-size: 15.5px;
+    color: var(--text-muted);
+    font-size: 15px;
     line-height: 1.65;
-    margin: 0 0 14px 0;
+    margin: 0 auto 14px;
     text-align: left;
     max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
   }
   .thanks__signoff {
-    margin: 32px 0 36px 0;
-    font-family: 'Marcellus', serif;
-    font-style: italic;
-    color: var(--ink);
+    margin: 28px 0 32px 0;
+    color: var(--text);
     font-size: 15px;
+    font-weight: 600;
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
   .thanks__monicker {
-    font-variant: small-caps;
-    letter-spacing: 0.18em;
-    font-style: normal;
     font-size: 11px;
-    color: var(--accent-2);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
   .thanks__actions {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .thanks__btn {
     display: inline-block;
-    padding: 11px 22px;
-    background: var(--ink);
-    color: var(--paper);
+    padding: 9px 20px;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1.5px solid var(--btn-edge);
+    box-shadow: 0 2px 0 0 var(--btn-edge);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 999px;
-    font-family: 'Marcellus', serif;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    transition: background-color 0.15s, transform 0.08s;
+    transition: background-color 120ms ease;
   }
   .thanks__btn:hover {
-    background: var(--accent-2);
-    transform: translateY(-1px);
+    background: var(--accent-deep);
+    color: var(--on-accent);
+    text-decoration: none;
   }
   .thanks__btn--ghost {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--paper-edge);
+    background: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: none;
   }
   .thanks__btn--ghost:hover {
-    background: rgba(108, 40, 32, 0.08);
-    color: var(--accent-2);
-    border-color: var(--accent-2);
+    background: var(--panel);
+    color: var(--accent);
+    border-color: var(--accent-border);
   }
   .thanks__ref {
-    margin: 24px 0 0 0;
+    margin: 20px 0 0 0;
     font-size: 11px;
-    color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', monospace;
-    letter-spacing: 0.04em;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
   }
   .thanks__ref code {
     font-family: inherit;
@@ -165,7 +158,7 @@ const sid = Astro.url.searchParams.get('sid')
     padding: 0;
   }
   @media (max-width: 600px) {
-    .thanks { padding: 36px 24px 32px; margin: 30px 16px; }
-    .thanks__title { font-size: 36px; }
+    .thanks { padding: 30px 22px 26px; margin: 24px 0; }
+    .thanks__title { font-size: 32px; }
   }
 </style>

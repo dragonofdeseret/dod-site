@@ -1,12 +1,16 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
-// Sidebar — single nav definition, replaces the 18 copy-pasted sidebars in
-// the legacy site. Pass `active` to highlight the current top-level link.
+// Sidebar — single nav definition. Pass `active` to highlight the current
+// top-level link and `subActive` for a sub-nav link (e.g. "exotic-states"
+// under Writing).
 //
 //   <Sidebar active="archive" />
 //
-// `subActive` highlights a sub-nav link (e.g. "exotic-states" under Writing).
+// Styling lives in src/styles/global.css (.sidebar, .sidebar-nav,
+// .sidebar-foot) with the rest of the design system.
 // ──────────────────────────────────────────────────────────────────────────────
+
+import ThemeToggle from './ThemeToggle.astro'
 
 interface Props {
   active?:
@@ -31,7 +35,6 @@ interface Props {
 
 const { active, subActive } = Astro.props
 
-// Helper to flag the active class without polluting template-side logic.
 const cls = (key: NonNullable<Props['active']>) =>
   active === key ? 'active' : undefined
 const subCls = (key: NonNullable<Props['subActive']>) =>
@@ -45,153 +48,56 @@ const PROJECTS = [
 ]
 ---
 
-<nav class="sidebar">
+<nav class="sidebar" aria-label="Site">
   <h1>Christopher Shenefelt</h1>
 
-  <a href="/" class={cls('home')}>Home</a>
-  {/* Archive intentionally hidden from the sidebar for now — the page
-      itself still exists at /archive, just not linked. Restore by
-      uncommenting this line:
-      <a href="/archive" class={cls('archive')}>Archive</a> */}
+  <div class="sidebar-nav">
+    <a href="/" class={cls('home')}>Home</a>
+    {/* Archive intentionally hidden from the sidebar for now — the page
+        itself still exists at /archive, just not linked. Restore by
+        uncommenting this line:
+        <a href="/archive" class={cls('archive')}>Archive</a> */}
 
-  <a href="/art" class={cls('art')}>Artwork</a>
-  {active === 'art' && (
-    <>
-      <a href="/exhibits" class={subCls('exhibits')}>Exhibits</a>
-      <a href="/photography" class={subCls('photo')}>Photography</a>
-    </>
-  )}
+    <a href="/art" class={cls('art')}>Artwork</a>
+    {active === 'art' && (
+      <>
+        <a href="/exhibits" class={subCls('exhibits')}>Exhibits</a>
+        <a href="/photography" class={subCls('photo')}>Photography</a>
+      </>
+    )}
 
-  <a href="/writing" class={cls('writing')}>Writing</a>
-  {active === 'writing' && (
-    <>
-      <a href="/harmonic-theism" class={subCls('harmonic-theism')}>Harmonic Theism</a>
-      <a href="/exotic-states-of-consciousness" class={subCls('exotic-states')}>Exotic States of Consciousness</a>
-      <a href="/margins" class={subCls('margins')}>Margins &amp; Excerpts</a>
-      <a href="/quotes" class={subCls('quotes')}>Quotes from Others</a>
-    </>
-  )}
+    <a href="/writing" class={cls('writing')}>Writing</a>
+    {active === 'writing' && (
+      <>
+        <a href="/harmonic-theism" class={subCls('harmonic-theism')}>Harmonic Theism</a>
+        <a href="/exotic-states-of-consciousness" class={subCls('exotic-states')}>Exotic States of Consciousness</a>
+        <a href="/margins" class={subCls('margins')}>Margins &amp; Excerpts</a>
+        <a href="/quotes" class={subCls('quotes')}>Quotes from Others</a>
+      </>
+    )}
 
-  <a href="/now" class={cls('now')}>Now</a>
-  <a href="/prints" class={cls('prints')}>Prints</a>
-  <a href="/questions" class={cls('questions')}>Questions</a>
-  <a href="/bio" class={cls('bio')}>Biography</a>
-
-  {/* Sister projects, pinned to the bottom of the column. Kept visually
-      apart from the site sections above so they don't read as nav. */}
-  <div class="sidebar-projects">
-    <span class="sidebar-projects__label">Other projects</span>
-    {PROJECTS.map((domain) => (
-      <a href={`https://${domain}`} target="_blank" rel="noopener">{domain}</a>
-    ))}
+    <a href="/now" class={cls('now')}>Now</a>
+    <a href="/prints" class={cls('prints')}>Prints</a>
+    <a href="/questions" class={cls('questions')}>Questions</a>
+    <a href="/bio" class={cls('bio')}>Biography</a>
   </div>
 
-  {/* Social links (Harmonic Theism, Dao De Zion, Instagram, X) live in
-      the footer.
+  <div class="sidebar-foot">
+    <ThemeToggle />
 
-      No visible Admin link — keeps the public surface clean. The
-      admin is reachable by typing /admin/login directly. The middleware
-      gates everything underneath, so even if a visitor stumbles on
-      the URL they just see the login screen and can't get further. */}
+    {/* Sister projects, kept apart from the site sections above. */}
+    <div class="sidebar-projects">
+      <span class="sidebar-projects__label">Other projects</span>
+      {PROJECTS.map((domain) => (
+        <a href={`https://${domain}`} target="_blank" rel="noopener">{domain}</a>
+      ))}
+    </div>
+  </div>
+
+  {/* Social links (Harmonic Theism, Dao De Zion, Instagram, X) live in the
+      homepage footer.
+
+      No visible Admin link — keeps the public surface clean. The admin is
+      reachable by typing /admin/login directly; the middleware gates
+      everything underneath. */}
 </nav>
-
-<style>
-  /* Make the sidebar a flex column with full available height so
-     `margin-top: auto` on the admin link pushes it to the bottom.
-     Add a soft oxblood wash so the sidebar feels like the same warm
-     accent family as the admin topbar, without obscuring the dragon-
-     scale watermark or hurting text contrast. The gradient deepens
-     toward the bottom for a faint chiaroscuro. */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 48px);
-    /* Wine-plum wash. Shifted from the topbar's red-leaning
-       rgb(48,12,14) toward purple by lifting the B channel —
-       rgb(58,14,42) is a deep mulberry that reads as "wine with a
-       violet undertone" instead of pure red. Pushed deeper still at
-       the bottom so the column has gallery-wall weight. */
-    background-image: linear-gradient(
-      180deg,
-      rgba(58, 14, 42, 0.45) 0%,
-      rgba(58, 14, 42, 0.68) 40%,
-      rgba(58, 14, 42, 0.88) 100%
-    );
-    padding-right: 18px;
-    border-right: 1px solid rgba(58, 14, 42, 0.92);
-    box-shadow: inset -1px 0 0 rgba(58, 14, 42, 0.35);
-  }
-  /* Sidebar text legibility on the dark wine-plum wash. Default text
-     colors (var(--ink), var(--ink-soft), var(--ink-faint)) are too
-     dark to read at the deeper gradient stops; switching to paper-
-     leaning shades so every line is legible from top to bottom.
-     Hover and active states stay distinctly brighter than rest. */
-  .sidebar :global(h1 a) {
-    color: rgba(236, 226, 197, 0.95);
-  }
-  .sidebar :global(h1 a:hover) {
-    color: #ffffff;
-  }
-  .sidebar :global(> a) {
-    color: rgba(236, 226, 197, 0.78);
-  }
-  .sidebar :global(> a:hover) {
-    color: #ffffff;
-  }
-  .sidebar :global(> a.active) {
-    color: var(--paper, #ece2c5);
-    font-weight: 600;
-  }
-  .sidebar :global(.nav-sub) {
-    color: rgba(236, 226, 197, 0.7);
-    font-size: 13px;
-  }
-  .sidebar :global(.nav-sub:hover) {
-    color: #ffffff;
-  }
-  .sidebar :global(.nav-sub.active) {
-    color: var(--paper, #ece2c5);
-    font-weight: 600;
-  }
-
-  /* Other projects — pushed to the bottom of the full-height column. */
-  .sidebar-projects {
-    margin-top: auto;
-    padding-top: 18px;
-    border-top: 1px solid rgba(236, 226, 197, 0.2);
-  }
-  .sidebar-projects__label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(236, 226, 197, 0.55);
-  }
-  .sidebar-projects a {
-    font-size: 13px;
-    font-style: italic;
-    color: rgba(236, 226, 197, 0.75);
-  }
-  .sidebar-projects a:hover {
-    color: #ffffff;
-  }
-
-  /* Phones: the sidebar becomes a wrapping top bar — keep the projects on
-     their own row below the section links. */
-  @media (max-width: 820px) {
-    .sidebar-projects {
-      width: 100%;
-      margin-top: 12px;
-      padding-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 16px;
-      align-items: baseline;
-    }
-    .sidebar-projects__label {
-      width: 100%;
-      margin-bottom: 0;
-    }
-  }
-</style>

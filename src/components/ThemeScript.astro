@@ -1,0 +1,22 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// ThemeScript — goes in <head>. Applies the dark theme before first paint so
+// a dark-mode visitor never sees a flash of the light page. Reads the saved
+// choice (localStorage `dod:theme`: "light" | "dark"); with none saved it
+// follows the OS setting. ThemeToggle.astro writes the same key.
+// ──────────────────────────────────────────────────────────────────────────────
+---
+
+<script is:inline>
+  (function () {
+    try {
+      var saved = localStorage.getItem('dod:theme')
+      var dark = saved
+        ? saved === 'dark'
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (dark) document.documentElement.classList.add('dark')
+    } catch (e) {
+      /* storage blocked — stay light */
+    }
+  })()
+</script>

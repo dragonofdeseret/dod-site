@@ -1,0 +1,74 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// ThemeToggle — System / Light / Dark switch, as on Valence. "System" (the
+// default) follows the OS setting live; Light and Dark are saved in
+// localStorage `dod:theme`. ThemeScript.astro applies the choice before
+// first paint; this component keeps it in sync after load.
+// ──────────────────────────────────────────────────────────────────────────────
+---
+
+<div class="theme-switch" role="radiogroup" aria-label="Colour theme">
+  <button type="button" role="radio" data-theme-choice="system" aria-label="System theme" title="System">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect width="20" height="14" x="2" y="3" rx="2" />
+      <line x1="8" x2="16" y1="21" y2="21" />
+      <line x1="12" x2="12" y1="17" y2="21" />
+    </svg>
+  </button>
+  <button type="button" role="radio" data-theme-choice="light" aria-label="Light theme" title="Light">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </svg>
+  </button>
+  <button type="button" role="radio" data-theme-choice="dark" aria-label="Dark theme" title="Dark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </svg>
+  </button>
+</div>
+
+<script>
+  const KEY = 'dod:theme'
+  const media = window.matchMedia('(prefers-color-scheme: dark)')
+
+  function saved(): 'light' | 'dark' | null {
+    try {
+      const v = localStorage.getItem(KEY)
+      return v === 'light' || v === 'dark' ? v : null
+    } catch {
+      return null
+    }
+  }
+
+  function apply(): void {
+    const choice = saved()
+    const dark = choice ? choice === 'dark' : media.matches
+    document.documentElement.classList.toggle('dark', dark)
+    const current = choice ?? 'system'
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach((btn) => {
+      btn.setAttribute('aria-checked', String(btn.dataset.themeChoice === current))
+    })
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const choice = btn.dataset.themeChoice
+      try {
+        if (choice === 'light' || choice === 'dark') localStorage.setItem(KEY, choice)
+        else localStorage.removeItem(KEY)
+      } catch {
+        /* storage blocked — the choice lasts for this page only */
+        document.documentElement.classList.toggle('dark', choice === 'dark')
+      }
+      apply()
+    })
+  })
+
+  // While on "System", follow the OS live.
+  media.addEventListener('change', () => {
+    if (!saved()) apply()
+  })
+
+  apply()
+</script>

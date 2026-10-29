@@ -338,119 +338,98 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
 
 <style>
   /* ──────────────────────────────────────────────────────────────────────
-     Homepage-specific layout. Uses the same tokens as global.css.
-     Structure: centered single column, generous vertical rhythm, no
-     sidebar. Reads as a magazine cover.
+     Homepage. Valence register (see global.css): cards on the ground,
+     hairlines, one accent, the system face. Centred single column.
      ────────────────────────────────────────────────────────────────────── */
 
   .home {
     max-width: 760px;
     margin: 0 auto;
-    padding: 80px 32px 120px;
+    padding: 56px 0 96px;
+  }
+
+  /* Shared card surface for every block on the page. */
+  .home__book-link,
+  .home__featured,
+  .home__section-link,
+  .home__latest-row,
+  .home__quote {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--panel-shadow);
   }
 
   /* ── Masthead ──────────────────────────────────────────────────────── */
   .home__masthead {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
   }
   .home__name {
-    font-family: 'Marcellus', serif;
     font-size: var(--fs-display);
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
     margin: 0;
-    color: var(--ink);
   }
-  /* Monicker — identifying epithet under the name. Small caps in
-     oxblood, generous letter-spacing. Reads like a printed-book
-     subtitle line ("known as", "or"). */
   .home__monicker {
-    /* Sit a little further off the main name so the small caps don't
-       feel crammed against the descenders. */
-    margin: 1.1em 0 0 0;
-    font-family: 'Source Serif 4', serif;
-    font-variant: small-caps;
-    font-feature-settings: 'smcp', 'c2sc';
-    letter-spacing: 0.18em;
-    font-size: 13px;
-    color: var(--accent-2);
+    margin: 14px 0 0 0;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
     line-height: 1;
   }
-  .home__tagline {
-    margin: 1em 0 0 0;
-    font-style: italic;
-    color: var(--ink-soft);
-    font-size: var(--fs-lg);
-  }
   .home__rule {
-    width: 80px;
+    width: 48px;
     height: 1px;
-    background: var(--rule);
+    background: var(--border);
     margin: 28px auto 0;
   }
 
   /* ── Voice ─────────────────────────────────────────────────────────── */
   .home__voice {
-    margin: 0 0 64px 0;
+    margin: 0 0 48px 0;
     text-align: center;
   }
   .home__voice-lead {
-    font-family: 'Marcellus', serif;
-    font-style: italic;
-    font-size: 30px;
-    color: var(--accent-2);
-    margin: 0 0 0.5em 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    margin: 0 0 0.35em 0;
     line-height: 1.2;
   }
   .home__voice-text {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.55;
-    color: var(--ink-soft);
+    color: var(--text-muted);
     margin: 0;
-    font-style: italic;
   }
 
-  /* ── Featured book (Harmonic Theism) ───────────────────────────────────
-     Two-column on desktop: cover on the left, copy on the right. Same
-     palette as the featured-essay card so they read as a pair, but with
-     a slightly deeper paper fill + warmer hairline + a faint oxblood
-     glow so the book reads as the headline piece. Hover lifts the whole
-     card subtly. Stacks vertically on narrow viewports. */
-  .home__book {
-    margin: 0 0 36px 0;
-  }
+  /* ── Featured book (Harmonic Theism) ─────────────────────────────────── */
+  .home__book { margin: 0 0 20px 0; }
   .home__book-link {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 32px;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
     align-items: start;
-    padding: 32px 36px;
-    background-color: rgba(236, 226, 197, 0.6);
-    background-image:
-      linear-gradient(180deg, rgba(58, 14, 42, 0.05) 0%, rgba(58, 14, 42, 0.09) 100%),
-      url('/dragon-scales.svg');
-    border: 1px solid var(--paper-edge);
-    border-radius: var(--radius-lg);
-    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
-                0 2px 12px rgba(58, 14, 42, 0.06);
+    padding: 28px;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    transition: border-color 150ms ease;
   }
   .home__book-link:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent-2);
-    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
-                0 6px 22px rgba(58, 14, 42, 0.14);
+    border-color: var(--accent-border);
+    text-decoration: none;
   }
   .home__book-cover {
     aspect-ratio: 2 / 3;
-    border-radius: 4px;
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 4px 14px rgba(31, 26, 16, 0.28),
-                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+    box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.45);
   }
   .home__book-cover img {
     width: 100%;
@@ -461,212 +440,160 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
   .home__book-body {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
-  .home__book-eyebrow {
-    color: var(--accent-2);
-  }
+  .home__book-eyebrow { color: var(--accent); }
   .home__book-title {
-    font-family: 'Marcellus', serif;
-    font-size: 38px;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
     line-height: 1.1;
-    margin: 4px 0 0 0;
-    color: var(--ink);
-    letter-spacing: 0.01em;
+    margin: 2px 0 0 0;
   }
   .home__book-subtitle {
-    font-family: 'Marcellus', serif;
-    color: var(--ink-soft);
+    color: var(--text-muted);
     font-size: 16px;
-    margin: 4px 0 16px 0;
-    line-height: 1.35;
+    margin: 4px 0 14px 0;
+    line-height: 1.4;
   }
+  .home__book-subtitle em { font-style: normal; }
   .home__book-blurb {
     margin: 0 0 18px 0;
     font-size: 15px;
     line-height: 1.65;
-    color: var(--ink-soft);
+    color: var(--text-muted);
   }
   .home__book-blurb em {
-    color: var(--ink);
+    color: var(--text);
     font-style: italic;
   }
+  /* The whole card is the link; this reads as its primary button. */
   .home__book-cta {
     display: inline-block;
     align-self: start;
-    padding: 10px 22px;
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 999px;
-    font-family: 'Marcellus', serif;
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    transition: background-color 0.15s;
+    padding: 9px 18px;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1.5px solid var(--btn-edge);
+    box-shadow: 0 2px 0 0 var(--btn-edge);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 120ms ease;
   }
-  .home__book-link:hover .home__book-cta {
-    background: var(--accent-2);
-  }
-  @media (max-width: 640px) {
-    .home__book-link {
-      grid-template-columns: 1fr;
-      padding: 24px;
-      gap: 20px;
-    }
-    .home__book-cover {
-      max-width: 200px;
-      margin: 0 auto;
-    }
-    .home__book-title {
-      font-size: 30px;
-      text-align: center;
-    }
-    .home__book-subtitle,
-    .home__book-eyebrow {
-      text-align: center;
-    }
-  }
+  .home__book-link:hover .home__book-cta { background: var(--accent-deep); }
 
-  /* ── Featured ──────────────────────────────────────────────────────────
-     Semi-transparent pill fill — separates the featured essay from the
-     page rhythm visually, but lets the dragon-scale watermark show
-     through. The fill is `paper-warm` at ~55% alpha; the hairline border
-     keeps the shape definite. Rounded corners give the pill feel.
-     ───────────────────────────────────────────────────────────────────── */
+  /* ── Featured essay ────────────────────────────────────────────────── */
   .home__featured {
-    margin: 0 0 64px 0;
-    padding: 36px 44px;
-    background: rgba(224, 212, 177, 0.5);
-    border: 1px solid var(--paper-edge);
-    border-radius: var(--radius-lg);
+    margin: 0 0 48px 0;
+    padding: 28px 32px;
     text-align: center;
   }
-  .home__featured-eyebrow {
-    margin: 0 0 14px 0;
-  }
+  .home__featured-eyebrow { margin: 0 0 10px 0; }
   .home__featured-title {
-    font-family: 'Marcellus', serif;
-    font-size: 36px;
-    margin: 0 0 14px 0;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px 0;
     line-height: 1.15;
-    color: var(--ink);
   }
   .home__featured-title a {
-    color: var(--ink);
+    color: var(--text);
     text-decoration: none;
     display: inline-block;
   }
-  .home__featured-title a:hover { color: var(--accent-2); }
-  /* When the title carries a " | subtitle" tail, stack it: main title
-     stays one (visually unbroken) line, the subtitle drops to a softer
-     second line headed by the pipe — title-and-subtitle composition,
-     independent of the card's width. */
-  .home__featured-title-main {
-    display: block;
-  }
+  .home__featured-title a:hover { color: var(--accent); }
+  .home__featured-title-main { display: block; }
   .home__featured-title-sub {
     display: block;
     margin-top: 6px;
-    font-size: 0.7em;
-    font-style: italic;
-    color: var(--ink-soft, #5a4d33);
-    letter-spacing: 0.01em;
+    font-size: 0.62em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-muted);
   }
   .home__featured-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
     margin-bottom: 18px;
   }
   .home__tag {
-    font-variant: small-caps;
-    letter-spacing: 0.05em;
+    padding: 1px 9px;
+    background: var(--surface);
+    border-radius: 999px;
     font-size: 12px;
-    color: var(--ink-faint);
-    font-style: italic;
-    margin: 0 0.5em;
+    font-weight: 500;
+    color: var(--text-muted);
   }
   .home__featured-read {
-    display: inline-block;
-    font-variant: small-caps;
-    letter-spacing: 0.12em;
     font-size: var(--fs-sm);
-    color: var(--accent-2);
-    text-decoration: none;
-  }
-  .home__featured-read:hover {
+    font-weight: 600;
     color: var(--accent);
   }
 
-  /* ── Sections ──────────────────────────────────────────────────────── */
-  .home__sections {
-    margin: 0 0 64px 0;
-  }
+  /* ── Section header (Sections / Recently added) ────────────────────── */
   .home__section-header {
-    margin-bottom: 24px;
+    display: block;
+    margin-bottom: 14px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--border-soft);
   }
+
+  /* ── Sections ──────────────────────────────────────────────────────── */
+  .home__sections { margin: 0 0 48px 0; }
   .home__section-list {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 28px 36px;
-  }
-  .home__section-row {
-    /* placeholder for future per-row tweaks */
+    gap: 12px;
   }
   .home__section-link {
     display: block;
-    text-decoration: none;
-    color: var(--ink);
-    /* Pill-fill card so each section invitation reads as its own object.
-       Same semi-transparent paper fill as the featured essay so the
-       dragon-scale watermark bleeds through quietly. */
-    background: var(--paper-fill);
-    border: 1px solid var(--paper-edge);
-    border-radius: var(--radius-lg);
-    padding: 18px 22px;
     height: 100%;
-    transition: border-color 150ms ease, transform 150ms ease;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 150ms ease;
   }
   .home__section-link:hover {
-    border-color: var(--accent-2);
-    transform: translateY(-1px);
+    border-color: var(--accent-border);
+    text-decoration: none;
   }
   .home__section-eyebrow {
-    font-variant: small-caps;
-    letter-spacing: 0.1em;
     font-size: 11px;
-    color: var(--ink-faint);
-    margin-bottom: 2px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 4px;
   }
   .home__section-title {
-    font-family: 'Marcellus', serif;
-    font-size: 22px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     margin: 0 0 6px 0;
-    color: var(--ink);
-    line-height: 1.2;
+    line-height: 1.25;
   }
-  .home__section-link:hover .home__section-title {
-    color: var(--accent);
-  }
+  .home__section-link:hover .home__section-title { color: var(--accent); }
   .home__section-body {
-    margin: 0 0 8px 0;
-    color: var(--ink-soft);
-    font-size: 15px;
+    margin: 0 0 10px 0;
+    color: var(--text-muted);
+    font-size: 14px;
     line-height: 1.55;
   }
   .home__section-count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 300;
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
   }
 
   /* ── Latest ────────────────────────────────────────────────────────── */
-  .home__latest {
-    margin: 0 0 64px 0;
-  }
+  .home__latest { margin: 0 0 48px 0; }
   .home__latest-list {
     list-style: none;
     margin: 0;
@@ -677,152 +604,111 @@ const quoteOfDay = quotes.length > 0 ? quotes[dayIndex % quotes.length] : null
   }
   .home__latest-row {
     display: grid;
-    grid-template-columns: 84px 1fr auto;
+    grid-template-columns: 80px 1fr auto;
     align-items: baseline;
     gap: 14px;
-    /* Same semi-transparent pill treatment as everywhere else on the
-       homepage. */
-    padding: 14px 20px;
-    background: var(--paper-fill);
-    border: 1px solid var(--paper-edge);
-    border-radius: var(--radius);
+    padding: 12px 18px;
     transition: border-color 150ms ease;
   }
-  .home__latest-row:hover {
-    border-color: var(--accent-2);
-  }
+  .home__latest-row:hover { border-color: var(--accent-border); }
   .home__latest-kind {
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
     font-size: 11px;
-    color: var(--ink-faint);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
   .home__latest-title {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 16px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.35;
   }
-  .home__latest-title:hover {
-    color: var(--accent);
-    text-decoration-color: var(--rule);
-  }
+  .home__latest-title:hover { color: var(--accent); }
   .home__latest-date {
-    font-size: 11px;
-    color: var(--ink-faint);
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--text-faint);
   }
 
   /* ── Quote ─────────────────────────────────────────────────────────── */
   .home__quote {
-    margin: 0 0 64px 0;
-    /* Same pill treatment so the rotating quote feels like a curated
-       fragment in its own card, not floating prose. */
-    background: var(--paper-fill);
-    border: 1px solid var(--paper-edge);
-    border-radius: var(--radius-lg);
-    padding: 36px 44px;
+    margin: 0 0 48px 0;
+    padding: 30px 36px;
   }
   .home__quote-text {
-    font-style: italic;
-    font-size: 21px;
-    line-height: 1.5;
-    color: var(--ink);
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--text);
     border-left: none;
     padding: 0;
     margin: 0;
     text-align: center;
   }
-  .home__quote-text cite {
-    display: block;
-    margin-top: 14px;
-    font-variant: small-caps;
-    letter-spacing: 0.1em;
-    font-size: 12px;
-    font-style: normal;
-    color: var(--ink-faint);
-  }
-  .home__quote-source {
-    color: var(--ink-faint);
-  }
+  .home__quote-text cite { margin-top: 14px; }
 
   /* ── Colophon ──────────────────────────────────────────────────────── */
-  .home__colophon {
-    margin-top: 80px;
-  }
+  .home__colophon { margin-top: 64px; }
   .home__colophon-rule {
     height: 1px;
-    background: var(--rule);
-    margin-bottom: 28px;
+    background: var(--border-soft);
+    margin-bottom: 24px;
   }
   .home__colophon-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-bottom: 28px;
+    gap: 24px;
+    margin-bottom: 24px;
     font-size: 13px;
   }
-  .home__colophon-grid .eyebrow {
-    margin-bottom: 4px;
-    font-size: 10px;
-  }
+  .home__colophon-grid .eyebrow { margin-bottom: 4px; }
   .home__colophon-grid p {
     margin: 0;
-    color: var(--ink-soft);
-    line-height: 1.6;
+    color: var(--text-muted);
+    line-height: 1.7;
   }
-  .home__colophon-grid a {
-    color: var(--ink-soft);
-    text-decoration-color: transparent;
-  }
-  .home__colophon-grid a:hover {
-    color: var(--accent);
-    text-decoration-color: var(--rule);
-  }
+  .home__colophon-grid a { color: var(--text-muted); }
+  .home__colophon-grid a:hover { color: var(--accent); }
   .home__colophon-mark {
     text-align: center;
-    color: var(--ink-faint);
-    font-size: 11px;
-    letter-spacing: 0.02em;
+    color: var(--text-faint);
+    font-family: var(--font-sans);
+    font-size: 12px;
     line-height: 1.5;
   }
 
   /* ── Responsive ────────────────────────────────────────────────────── */
   @media (max-width: 700px) {
-    .home {
-      padding: 48px 24px 80px;
-    }
-    .home__name {
-      font-size: 40px;
-    }
-    .home__voice-text {
-      font-size: 17px;
-    }
-    .home__featured {
-      padding: 24px 22px;
-    }
-    .home__featured-title {
-      font-size: 24px;
-    }
-    .home__section-list {
+    .home { padding: 32px 0 64px; }
+    .home__name { font-size: 36px; }
+    .home__book-link {
       grid-template-columns: 1fr;
-      gap: 22px;
+      padding: 22px;
+      gap: 20px;
     }
+    .home__book-cover {
+      max-width: 180px;
+      margin: 0 auto;
+    }
+    .home__book-title { font-size: 26px; text-align: center; }
+    .home__book-subtitle,
+    .home__book-eyebrow { text-align: center; }
+    .home__book-cta { align-self: center; }
+    .home__featured { padding: 22px 20px; }
+    .home__featured-title { font-size: 22px; }
+    .home__section-list { grid-template-columns: 1fr; }
     .home__latest-row {
       grid-template-columns: 70px 1fr;
       grid-template-rows: auto auto;
-      padding: 12px 16px;
+      padding: 12px 14px;
     }
     .home__latest-date {
       grid-column: 2;
       grid-row: 2;
       margin-top: 2px;
     }
-    .home__colophon-grid {
-      grid-template-columns: 1fr 1fr;
-      /* 3-col → 2-col → third row stacks naturally */
-    }
-    .home__quote-text {
-      font-size: 18px;
-    }
+    .home__colophon-grid { grid-template-columns: 1fr 1fr; }
+    .home__quote { padding: 22px 20px; }
+    .home__quote-text { font-size: 17px; }
   }
 </style>

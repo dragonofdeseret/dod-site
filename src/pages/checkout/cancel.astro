@@ -24,20 +24,15 @@ const back = artwork ? `/art/${artwork}` : '/art'
 
 <style>
   .checkout-cancel {
-    max-width: 600px;
-    margin: 60px auto;
-    padding: 40px;
-    background: rgba(224, 212, 177, 0.55);
-    border: 1px solid var(--paper-edge);
+    max-width: 580px;
+    margin: 48px auto;
+    padding: 36px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-lg);
+    box-shadow: var(--panel-shadow);
     text-align: center;
   }
-  .checkout-cancel h1 {
-    font-family: 'Marcellus', serif;
-    color: var(--ink);
-    margin: 0 0 12px 0;
-  }
-  .checkout-cancel .back {
-    margin-top: 28px;
-  }
+  .checkout-cancel h1 { margin: 0 0 12px 0; }
+  .checkout-cancel .back { margin-top: 24px; }
 </style>

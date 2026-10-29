@@ -70,28 +70,23 @@
       'right: 18px',
       'bottom: 18px',
       'z-index: 9999',
-      'background: var(--ink, #1f1a10)',
-      'color: var(--paper, #ece2c5)',
+      'background: var(--accent)',
+      'color: var(--on-accent)',
       'padding: 8px 16px',
+      'border: 1.5px solid var(--btn-edge)',
       'border-radius: 999px',
-      'font-family: Baskerville, Georgia, serif',
+      'font-family: var(--font-sans)',
       'font-size: 13px',
       'font-weight: 600',
-      'letter-spacing: 0.02em',
       'text-decoration: none',
-      'box-shadow: 0 4px 14px rgba(31, 26, 16, 0.18)',
-      'transition: background-color 0.15s, transform 0.15s',
-      'opacity: 0.92',
+      'box-shadow: 0 2px 0 0 var(--btn-edge), 0 8px 20px -8px rgba(0, 0, 0, 0.35)',
+      'transition: background-color 0.12s',
     ].join(';')
     pill.addEventListener('mouseenter', () => {
-      pill.style.background = 'var(--accent-2, #6b2820)'
-      pill.style.transform = 'translateY(-1px)'
-      pill.style.opacity = '1'
+      pill.style.background = 'var(--accent-deep)'
     })
     pill.addEventListener('mouseleave', () => {
-      pill.style.background = 'var(--ink, #1f1a10)'
-      pill.style.transform = 'translateY(0)'
-      pill.style.opacity = '0.92'
+      pill.style.background = 'var(--accent)'
     })
     document.body.appendChild(pill)
   })()

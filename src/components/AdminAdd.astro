@@ -39,23 +39,25 @@ const href = `/admin/${collection}/new`
     display: none;
     align-items: center;
     gap: 10px;
-    padding: 10px 20px;
-    margin: 0 0 32px 0;
-    background: var(--ink, #1f1a10);
-    color: var(--paper, #ece2c5);
-    border: 0;
-    border-radius: 999px;
-    font-family: 'Marcellus', Georgia, serif;
+    padding: 9px 18px;
+    margin: 0 0 28px 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1.5px solid var(--btn-edge);
+    box-shadow: 0 2px 0 0 var(--btn-edge);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
     font-size: 14px;
-    letter-spacing: 0.04em;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.15s, color 0.15s;
+    transition: background-color 120ms ease;
     width: fit-content;
   }
   .admin-add:hover {
-    background: var(--accent-2, #6b2820);
-    color: var(--paper, #ece2c5);
+    background: var(--accent-deep);
+    color: var(--on-accent);
+    text-decoration: none;
   }
   .admin-add__plus {
     font-size: 18px;

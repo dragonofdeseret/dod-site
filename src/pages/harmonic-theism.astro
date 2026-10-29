@@ -227,29 +227,26 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
 </BaseLayout>
 
 <style>
+  /* Harmonic Theism book page — Valence register (see global.css). */
+
   /* ── Hero ───────────────────────────────────────────────────── */
   .ht-hero {
     display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 48px;
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
     align-items: start;
-    margin: 0 0 56px 0;
-    padding: 40px 44px;
-    background-color: rgba(236, 226, 197, 0.6);
-    background-image:
-      linear-gradient(180deg, rgba(58, 14, 42, 0.05) 0%, rgba(58, 14, 42, 0.1) 100%),
-      url('/dragon-scales.svg');
-    border: 1px solid var(--paper-edge);
+    margin: 0 0 48px 0;
+    padding: 32px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-lg);
-    box-shadow: inset 0 0 0 1px rgba(236, 226, 197, 0.5),
-                0 4px 20px rgba(58, 14, 42, 0.08);
+    box-shadow: var(--panel-shadow);
   }
   .ht-hero__cover {
     aspect-ratio: 2 / 3;
-    border-radius: 4px;
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(31, 26, 16, 0.32),
-                0 1px 0 rgba(255, 255, 255, 0.25) inset;
+    box-shadow: 0 10px 28px -12px rgba(0, 0, 0, 0.5);
   }
   .ht-hero__cover img {
     width: 100%;
@@ -257,224 +254,214 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
     object-fit: cover;
     display: block;
   }
-  .ht-hero__kicker {
-    font-family: 'Marcellus', serif;
-    font-variant: small-caps;
-    letter-spacing: 0.14em;
-    font-size: 12px;
-    color: var(--accent-2);
-    margin-bottom: 8px;
+  .ht-hero__kicker,
+  .ht-section__kicker,
+  .ht-toc__label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
+  .ht-hero__kicker { margin-bottom: 8px; }
   .ht-hero__title {
-    font-family: 'Marcellus', serif;
-    font-size: 56px;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     line-height: 1.05;
     margin: 0 0 8px 0;
-    color: var(--ink);
-    letter-spacing: 0.005em;
   }
   .ht-hero__subtitle {
-    font-family: 'Marcellus', serif;
-    color: var(--ink-soft);
+    color: var(--text-muted);
     font-size: 18px;
-    margin: 0 0 18px 0;
+    margin: 0 0 16px 0;
     line-height: 1.4;
   }
   .ht-hero__author {
-    color: var(--ink);
+    color: var(--text);
     font-size: 14px;
-    margin: 0 0 24px 0;
+    font-weight: 500;
+    margin: 0 0 22px 0;
   }
   .ht-hero__meta {
     list-style: none;
     padding: 0;
-    margin: 0 0 28px 0;
+    margin: 0 0 26px 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
+    gap: 6px;
+  }
+  .ht-hero__meta li {
+    padding: 2px 10px;
+    background: var(--surface);
+    border-radius: 999px;
     font-size: 12px;
-    color: var(--ink-faint);
-    font-family: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
-    letter-spacing: 0.04em;
+    font-weight: 500;
+    color: var(--text-muted);
   }
   .ht-hero__cta {
     display: inline-block;
-    padding: 13px 28px;
-    background: var(--ink);
-    color: var(--paper);
+    padding: 11px 24px;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1.5px solid var(--btn-edge);
+    box-shadow: 0 2px 0 0 var(--btn-edge);
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 999px;
-    font-family: 'Marcellus', serif;
-    font-size: 14px;
-    letter-spacing: 0.06em;
-    box-shadow: 0 2px 0 rgba(58, 14, 42, 0.2);
-    transition: background-color 0.15s, transform 0.08s, box-shadow 0.12s;
+    transition: background-color 120ms ease;
   }
   .ht-hero__cta:hover {
-    background: var(--accent-2);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 0 rgba(58, 14, 42, 0.22);
+    background: var(--accent-deep);
+    color: var(--on-accent);
+    text-decoration: none;
+  }
+  .ht-hero__cta:active {
+    transform: translateY(2px);
+    box-shadow: none;
   }
 
   /* ── Sections ───────────────────────────────────────────────── */
-  .ht-section {
-    margin: 0 0 56px 0;
-  }
+  .ht-section { margin: 0 0 48px 0; }
   .ht-section__kicker {
-    font-family: 'Marcellus', serif;
-    font-variant: small-caps;
-    letter-spacing: 0.14em;
-    font-size: 12px;
-    color: var(--accent-2);
     margin-bottom: 16px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--border-soft);
   }
   .ht-blurb {
     max-width: 680px;
     font-size: 16px;
-    line-height: 1.75;
-    color: var(--ink-soft);
+    line-height: 1.7;
+    color: var(--text-muted);
   }
   .ht-blurb p { margin: 0 0 16px 0; }
-  .ht-blurb em { color: var(--ink); font-style: italic; }
+  .ht-blurb em { color: var(--text); font-style: italic; }
   .ht-blurb__lead {
-    font-family: 'Marcellus', serif;
-    font-size: 22px;
-    color: var(--ink);
-    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    color: var(--text);
     margin: 0 0 20px 0 !important;
   }
   .ht-blurb__closing {
     margin-top: 24px !important;
-    font-family: 'Marcellus', serif;
-    font-style: italic;
-    color: var(--accent-2);
+    font-weight: 600;
+    color: var(--accent);
     font-size: 17px;
     line-height: 1.55;
   }
 
   /* ── Excerpts ───────────────────────────────────────────────── */
   .ht-excerpt {
-    margin: 0 0 28px 0;
-    padding: 24px 28px 22px 32px;
-    border-left: 3px solid var(--accent-2);
-    background: rgba(224, 212, 177, 0.35);
-    border-radius: 0 6px 6px 0;
+    margin: 0 0 16px 0;
+    padding: 20px 24px;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--panel-shadow);
   }
-  /* Override the global `blockquote` rule which adds its own
-     1px border-left and 1.4em padding-left — that was rendering as
-     a second thin vertical bar inside this card, crowded against the
-     text. Strip it back to zero so only the 3px oxblood bar on
-     `.ht-excerpt` remains. */
+  /* Neutralise the global blockquote's own left rule inside the card. */
   .ht-excerpt blockquote {
     margin: 0 0 12px 0;
     padding: 0;
     border: 0;
-    font-family: 'Marcellus', serif;
     font-size: 16px;
     line-height: 1.7;
-    color: var(--ink);
-    font-style: italic;
+    color: var(--text);
   }
   .ht-excerpt blockquote p { margin: 0 0 6px 0; }
   .ht-excerpt blockquote em {
-    font-style: normal;
-    color: var(--accent-2);
+    font-style: italic;
+    color: var(--accent);
   }
   .ht-excerpt blockquote strong {
-    font-weight: normal;
-    color: var(--accent-2);
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--accent);
   }
   .ht-excerpt figcaption {
-    font-family: 'Marcellus', serif;
-    font-variant: small-caps;
-    letter-spacing: 0.12em;
     font-size: 11px;
-    color: var(--ink-faint);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
 
   /* ── Table of contents ──────────────────────────────────────── */
   .ht-toc__intro {
-    font-style: italic;
-    color: var(--ink-soft);
-    margin: 0 0 24px 0;
+    color: var(--text-muted);
+    margin: 0 0 20px 0;
     max-width: 680px;
   }
   .ht-toc {
     list-style: none;
     padding: 0;
     margin: 0;
-    counter-reset: movement;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--panel-shadow);
   }
   .ht-toc__row {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 130px 1fr;
     gap: 24px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(168, 149, 106, 0.25);
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-soft);
   }
   .ht-toc__row:last-child { border-bottom: none; }
-  .ht-toc__label {
-    font-family: 'Marcellus', serif;
-    font-variant: small-caps;
-    letter-spacing: 0.12em;
-    font-size: 12px;
-    color: var(--accent-2);
-    padding-top: 4px;
-  }
+  .ht-toc__label { padding-top: 4px; }
   .ht-toc__title {
-    font-family: 'Marcellus', serif;
-    font-size: 19px;
-    color: var(--ink);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
     margin-bottom: 2px;
   }
   .ht-toc__sub {
-    color: var(--ink-soft);
+    color: var(--text-muted);
     font-size: 14px;
     margin-bottom: 8px;
   }
   .ht-toc__desc {
     margin: 0;
-    color: var(--ink-soft);
-    font-size: 14.5px;
+    color: var(--text-muted);
+    font-size: 14px;
     line-height: 1.6;
   }
 
   /* ── Final CTA ──────────────────────────────────────────────── */
   .ht-final-cta {
-    margin: 48px 0 0 0;
-    padding: 36px 28px;
+    margin: 40px 0 0 0;
+    padding: 32px 28px;
     text-align: center;
-    background-color: rgba(236, 226, 197, 0.55);
-    background-image:
-      linear-gradient(180deg, rgba(58, 14, 42, 0.04) 0%, rgba(58, 14, 42, 0.09) 100%),
-      url('/dragon-scales.svg');
-    border: 1px solid var(--paper-edge);
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-lg);
+    box-shadow: var(--panel-shadow);
   }
   .ht-final-cta p {
     margin: 0 0 16px 0;
-    font-family: 'Marcellus', serif;
     font-size: 18px;
-    font-style: italic;
-    color: var(--ink-soft);
+    font-weight: 600;
+    color: var(--text);
   }
 
   /* ── Responsive ─────────────────────────────────────────────── */
   @media (max-width: 720px) {
     .ht-hero {
       grid-template-columns: 1fr;
-      gap: 28px;
-      padding: 28px 22px;
+      gap: 24px;
+      padding: 22px;
     }
     .ht-hero__cover {
-      max-width: 260px;
+      max-width: 240px;
       margin: 0 auto;
     }
-    .ht-hero__title { font-size: 40px; text-align: center; }
+    .ht-hero__title { font-size: 36px; text-align: center; }
     .ht-hero__subtitle,
     .ht-hero__author,
     .ht-hero__kicker { text-align: center; }
@@ -482,7 +469,8 @@ const movements: Array<{ key: string; title: string; subtitle: string; descripti
     .ht-hero__cta { display: block; text-align: center; }
     .ht-toc__row {
       grid-template-columns: 1fr;
-      gap: 8px;
+      gap: 6px;
+      padding: 16px 18px;
     }
   }
 </style>

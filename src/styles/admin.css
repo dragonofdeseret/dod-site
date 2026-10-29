@@ -1,8 +1,29 @@
 /* ────────────────────────────────────────────────────────────────────────────
-   Admin styles. Layered on top of global.css; reuses the same palette
-   so the admin feels like the same site. Two-column shell (left rail
+   Admin styles. Layered on top of global.css. Two-column shell (left rail
    + main) with a sticky topbar.
+
+   The public site moved to the Valence design system (global.css); the
+   admin has NOT been redesigned yet. Until it is, it pins its own copy of
+   the previous "Library" palette and fonts below, so the shared token
+   names it reads (--paper, --ink, --accent-2 …) keep their old values here
+   instead of picking up the new public palette.
    ──────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&family=IBM+Plex+Mono:wght@300;400&display=swap');
+
+.admin-body {
+  --paper:        #ece2c5;
+  --paper-warm:   #e0d4b1;
+  --paper-fill:   rgba(224, 212, 177, 0.5);
+  --paper-edge:   #c9b88f;
+  --ink:          #1f1a10;
+  --ink-soft:     #4a3f2a;
+  --ink-faint:    #7a6e54;
+  --accent:       #1c3550;
+  --accent-2:     #6b2820;
+  --accent-hover: #6b2820;
+  --rule:         #a8956a;
+}
 
 .admin-body {
   font-family: Baskerville, 'Libre Baskerville', 'Times New Roman', serif;
