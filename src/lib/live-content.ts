@@ -30,7 +30,7 @@ const BUNDLED: Record<string, string> = Object.fromEntries(
   ).map(([k, v]) => [k.replace(/^\//, ''), v]),
 )
 
-export type Collection = 'art' | 'photo' | 'writing' | 'margins' | 'quotes' | 'site'
+export type Collection = 'art' | 'photo' | 'writing' | 'margins' | 'quotes' | 'video' | 'site'
 
 export interface LiveEntry {
   /** Repo-relative path, e.g. src/content/art/2026/2026-10-02.md */
@@ -144,4 +144,23 @@ export async function findEntryPath(col: Collection, id: string, signal?: AbortS
     if (inCollection(path, col) && path.endsWith(`/${id}.md`)) return path
   }
   return null
+}
+
+/**
+ * Is a Mux asset used by any video entry on GitHub right now (other than
+ * the file at `exceptPath`)? Asked before a Mux asset is permanently
+ * deleted, so a file that another entry still plays is never removed.
+ *   'yes' / 'no' — checked against the live entries
+ *   'unknown'    — GitHub couldn't be read reliably; callers must keep the
+ *                  asset (an unused file costs cents, a deleted one is gone)
+ */
+export async function videoAssetInUse(
+  assetId: string,
+  exceptPath?: string,
+): Promise<'yes' | 'no' | 'unknown'> {
+  const { live, failed, byCollection } = await liveEntries(['video'])
+  if (!live || failed.length > 0) return 'unknown'
+  return byCollection.video.some((e) => e.path !== exceptPath && e.data.muxAssetId === assetId)
+    ? 'yes'
+    : 'no'
 }

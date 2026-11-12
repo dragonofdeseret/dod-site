@@ -1,8 +1,8 @@
 ---
 // ──────────────────────────────────────────────────────────────────────────────
 // /admin/[collection] — browse view for one collection. Lists every entry
-// newest-first with edit + delete affordances. Works for all five
-// collections via the dynamic param.
+// newest-first with edit + delete affordances. Works for every
+// collection via the dynamic param.
 //
 // Read live from GitHub (lib/live-content), not from the content baked into
 // this deployment, so an entry saved, created or deleted a moment ago shows
@@ -16,7 +16,7 @@ import { liveEntries } from '../../../lib/live-content'
 
 const { collection } = Astro.params
 
-const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'site'] as const
+const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'video', 'site'] as const
 type Known = (typeof KNOWN)[number]
 
 if (!collection || !KNOWN.includes(collection as Known)) {
@@ -30,11 +30,13 @@ const LABELS: Record<Known, string> = {
   writing: 'Writing',
   margins: 'Margins',
   quotes: 'Quotes',
+  video: 'Video',
   site: 'Site pages',
 }
 
 type Row = {
   id: string
+  path?: string
   data: { id?: string; title?: string; date?: string; year?: number; author?: string; source?: string; hidden?: boolean }
 }
 const { live, failed, byCollection } = await liveEntries([col])
@@ -44,6 +46,17 @@ const items = [...raw].sort((a, b) => {
   const bd = Date.parse(b.data.date ?? '') || 0
   return bd - ad
 })
+
+// Two files should never share an id, but it can happen (e.g. a year change
+// whose clean-up failed half-way). Such rows would otherwise look identical
+// and both open the same file, so each one names its year folder and links
+// to its own file.
+const idCount = new Map<string, number>()
+for (const it of items) {
+  const id = it.data.id ?? it.id
+  idCount.set(id, (idCount.get(id) ?? 0) + 1)
+}
+const yearFolder = (path?: string) => path?.match(/\/(\d{4})\/[^/]+\.md$/)?.[1]
 ---
 
 <AdminLayout title={LABELS[col]} active={col}>
@@ -82,10 +95,12 @@ const items = [...raw].sort((a, b) => {
             (it.data.author && it.data.source
               ? `${it.data.author} — ${it.data.source}`
               : it.data.author || it.data.source || id)
+          const folder = (idCount.get(id) ?? 0) > 1 ? yearFolder(it.path) : undefined
           return (
             <li class="admin-list__row">
-              <a href={`/admin/${col}/${id}`}>
+              <a href={`/admin/${col}/${id}${folder ? `?y=${folder}` : ''}`}>
                 {title}
+                {folder && <span class="admin-hidden-badge">Duplicate · {folder} folder</span>}
                 {it.data.hidden && <span class="admin-hidden-badge">Hidden</span>}
               </a>
               <span class="admin-list__meta">{it.data.date ?? '—'}</span>

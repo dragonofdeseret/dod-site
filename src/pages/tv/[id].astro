@@ -1,0 +1,124 @@
+---
+// Static prerender — one page per public video, built at deploy time.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /tv/[id] — watch page: player, title, date, description, tags, and a few
+// more videos underneath.
+//
+// Playback is Mux Player (a web component, loaded only on this page). It
+// needs nothing but the entry's public playback ID. Until its script has
+// loaded, the frame shows the video's still image at the right shape, so
+// the page doesn't jump.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import type { GetStaticPaths } from 'astro'
+import { render } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import VideoCard from '../../components/VideoCard.astro'
+import { getPublicVideos } from '../../lib/video-collection'
+import { formatLongDate } from '../../lib/format-date'
+import { cssAspectRatio, formatDuration, isoDuration, muxThumb } from '../../lib/video'
+
+export const getStaticPaths = (async () => {
+  const videos = await getPublicVideos()
+  return videos.map((item) => ({
+    params: { id: item.data.id },
+    props: { item, more: videos.filter((v) => v.data.id !== item.data.id).slice(0, 3) },
+  }))
+}) satisfies GetStaticPaths
+
+const { item, more } = Astro.props
+const v = item.data
+const { Content } = await render(item)
+
+const poster = muxThumb(v.playbackId, { width: 1280, time: v.thumbnailTime })
+const shareImage = muxThumb(v.playbackId, { width: 1200, height: 630, time: v.thumbnailTime, format: 'jpg' })
+const duration = formatDuration(v.durationSec)
+
+// Plain-text summary for <meta description> and search results: the body
+// with markdown/HTML markers stripped, trimmed to a sentence or two.
+const plain = (item.body ?? '')
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/[*_`#>]/g, '')
+  .replace(/\s+/g, ' ')
+  .trim()
+const description = plain
+  ? (plain.length > 180 ? `${plain.slice(0, 177).trimEnd()}…` : plain)
+  : `${v.title} — video by Christopher Shenefelt.`
+
+// Structured data so search engines can list this as a video.
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: v.title,
+  description,
+  thumbnailUrl: [shareImage],
+  uploadDate: v.date,
+  duration: isoDuration(v.durationSec),
+  contentUrl: `https://stream.mux.com/${v.playbackId}.m3u8`,
+}).replace(/</g, '\\u003c')
+---
+
+<BaseLayout title={v.title} active="tv" description={description} ogImage={shareImage}>
+  <div class="art-back">
+    <a href="/tv">← Back to TV</a>
+  </div>
+
+  <div
+    class="tv-player"
+    style={`aspect-ratio: ${cssAspectRatio(v.aspectRatio)}; background-image: url('${poster}');`}
+  >
+    <mux-player
+      playback-id={v.playbackId}
+      stream-type="on-demand"
+      poster={poster}
+      video-title={v.title}
+      metadata-video-id={v.id}
+      metadata-video-title={v.title}
+      accent-color="#4F7CFF"
+      disable-cookies
+      playsinline
+    ></mux-player>
+    <noscript>
+      <video controls playsinline poster={poster} src={`https://stream.mux.com/${v.playbackId}.m3u8`}></video>
+    </noscript>
+  </div>
+
+  <header class="tv-meta">
+    {v.series && <span class="eyebrow">{v.series}</span>}
+    <h1>{v.title}</h1>
+    <p class="tv-meta__line">
+      <time datetime={v.date}>{formatLongDate(v.date)}</time>
+      {duration && <span> · {duration}</span>}
+    </p>
+  </header>
+
+  {plain && (
+    <div class="tv-description">
+      <Content />
+    </div>
+  )}
+
+  {v.tags && v.tags.length > 0 && (
+    <ul class="tv-tags" aria-label="Tags">
+      {v.tags.map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+
+  {more.length > 0 && (
+    <section class="tv-more" aria-labelledby="tv-more-heading">
+      <h2 id="tv-more-heading">More videos</h2>
+      <div class="tv-grid">
+        {more.map((m) => <VideoCard video={m} />)}
+      </div>
+    </section>
+  )}
+
+  <script type="application/ld+json" is:inline set:html={jsonLd} />
+
+  <script>
+    import '@mux/mux-player'
+  </script>
+</BaseLayout>

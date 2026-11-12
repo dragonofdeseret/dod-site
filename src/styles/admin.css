@@ -754,3 +754,32 @@ html.dark .admin-body {
     font-size: 16px;
   }
 }
+
+/* ── Video upload (progress + still preview) ──────────────────────────────── */
+.upload-progress {
+  margin-top: 8px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-warm);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+.upload-progress[hidden] { display: none; }
+.upload-progress__bar {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 200ms ease;
+}
+.video-preview {
+  display: block;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--surface-warm);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+}
+.video-preview[hidden] { display: none; }

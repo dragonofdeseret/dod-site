@@ -1,0 +1,43 @@
+---
+// Static prerender — built at deploy time.
+export const prerender = true
+
+// ──────────────────────────────────────────────────────────────────────────────
+// /tv — every public video, newest first. The latest one leads as a large
+// card; the rest follow in a grid.
+//
+// The video files live at Mux. This page only needs each entry's public
+// playback ID, which is enough to build still-image URLs — no API calls
+// and no player code are loaded here (the player lives on /tv/[id]).
+// ──────────────────────────────────────────────────────────────────────────────
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import AdminAdd from '../../components/AdminAdd.astro'
+import VideoCard from '../../components/VideoCard.astro'
+import { getPublicVideos } from '../../lib/video-collection'
+
+const videos = await getPublicVideos()
+const [latest, ...rest] = videos
+---
+
+<BaseLayout title="TV" active="tv" description="Video by Christopher Shenefelt.">
+  <AdminAdd collection="video" label="Add video" />
+  <header class="page-header">
+    <h1>TV</h1>
+  </header>
+
+  {videos.length === 0 ? (
+    <p class="tv-empty">No videos yet.</p>
+  ) : (
+    <>
+      <section class="tv-latest" aria-label="Latest video">
+        <VideoCard video={latest} featured />
+      </section>
+      {rest.length > 0 && (
+        <section class="tv-grid" aria-label="More videos">
+          {rest.map((v) => <VideoCard video={v} />)}
+        </section>
+      )}
+    </>
+  )}
+</BaseLayout>

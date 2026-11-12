@@ -39,6 +39,11 @@ export class FileConflictError extends Error {
   }
 }
 
+export const CONFLICT_EXISTS =
+  'An entry with this ID already exists. Choose a different ID, or edit the existing entry.'
+export const CONFLICT_CHANGED =
+  'This entry was changed since you opened it (for example, saved from another tab). Your save was NOT applied, so nothing was overwritten. Reload the editor to get the latest version, then make your change again.'
+
 /**
  * Read a file's current content + blob SHA from the branch. Returns null
  * if the file doesn't exist. This is the source of truth for the admin
@@ -160,11 +165,7 @@ export async function commitFile(args: {
     // file (no SHA supplied) or an update of a missing file with 422.
     const status = (err as { status?: number })?.status
     if (args.expectedSha !== undefined && (status === 409 || status === 422)) {
-      throw new FileConflictError(
-        args.expectedSha === null
-          ? 'An entry with this ID already exists. Choose a different ID, or edit the existing entry.'
-          : 'This entry was changed since you opened it (for example, saved from another tab). Your save was NOT applied, so nothing was overwritten. Reload the editor to get the latest version, then make your change again.',
-      )
+      throw new FileConflictError(args.expectedSha === null ? CONFLICT_EXISTS : CONFLICT_CHANGED)
     }
     throw err
   }
@@ -177,18 +178,25 @@ export async function commitFile(args: {
 export async function deleteFile(args: {
   path: string
   message: string
+  /** Only delete if the file is still at this blob SHA; GitHub refuses
+   *  (409) if it has changed since. Omit to delete whatever is there. */
+  expectedSha?: string
 }): Promise<{ commitSha: string }> {
   const { owner, repo, branch } = getGithubRepo()
   const gh = client()
 
-  const existing = await gh.repos.getContent({
-    owner,
-    repo,
-    path: args.path,
-    ref: branch,
-  })
-  if (Array.isArray(existing.data) || !('sha' in existing.data)) {
-    throw new Error(`Cannot delete: ${args.path} isn't a file`)
+  let sha = args.expectedSha
+  if (!sha) {
+    const existing = await gh.repos.getContent({
+      owner,
+      repo,
+      path: args.path,
+      ref: branch,
+    })
+    if (Array.isArray(existing.data) || !('sha' in existing.data)) {
+      throw new Error(`Cannot delete: ${args.path} isn't a file`)
+    }
+    sha = existing.data.sha
   }
 
   const result = await gh.repos.deleteFile({
@@ -197,7 +205,7 @@ export async function deleteFile(args: {
     path: args.path,
     branch,
     message: args.message,
-    sha: existing.data.sha,
+    sha,
   })
   return { commitSha: result.data.commit.sha ?? '' }
 }

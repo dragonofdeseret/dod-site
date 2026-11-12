@@ -1,0 +1,46 @@
+---
+// ──────────────────────────────────────────────────────────────────────────────
+// VideoCard — one video as a link card: still image with a duration badge,
+// then series label, title and date. `featured` makes it the large lead
+// card on /tv (image beside the text on wide screens).
+//
+// Still images come from Mux's image CDN by playback ID (lib/video.ts).
+// Styles: the "TV" section of src/styles/global.css.
+// ──────────────────────────────────────────────────────────────────────────────
+
+import type { CollectionEntry } from 'astro:content'
+import { formatLongDate } from '../lib/format-date'
+import { formatDuration, muxThumb } from '../lib/video'
+
+interface Props {
+  video: CollectionEntry<'video'>
+  featured?: boolean
+}
+
+const { video, featured = false } = Astro.props
+const v = video.data
+const w = featured ? 960 : 480
+const thumb = (width: number) =>
+  muxThumb(v.playbackId, { width, height: Math.round((width * 9) / 16), time: v.thumbnailTime })
+const duration = formatDuration(v.durationSec)
+---
+
+<a class:list={['tv-card', featured && 'tv-card--featured']} href={`/tv/${v.id}`}>
+  <div class="tv-card__thumb">
+    <img
+      src={thumb(w)}
+      srcset={`${thumb(w)} 1x, ${thumb(w * 2)} 2x`}
+      width={w}
+      height={Math.round((w * 9) / 16)}
+      loading={featured ? 'eager' : 'lazy'}
+      decoding="async"
+      alt=""
+    />
+    {duration && <span class="tv-card__duration">{duration}</span>}
+  </div>
+  <div class="tv-card__body">
+    {v.series && <span class="eyebrow">{v.series}</span>}
+    {featured ? <h2 class="tv-card__title">{v.title}</h2> : <h3 class="tv-card__title">{v.title}</h3>}
+    <span class="tv-card__date">{formatLongDate(v.date)}</span>
+  </div>
+</a>

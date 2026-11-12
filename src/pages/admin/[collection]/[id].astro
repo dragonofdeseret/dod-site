@@ -4,7 +4,7 @@
 // (id="new") and edit-existing (id=actual). Renders a form whose
 // fields match the collection's schema.
 //
-// All five collections share this route. The form fields vary per
+// Every collection shares this route. The form fields vary per
 // collection but the submit + media-upload flow is uniform (driven
 // by data-attributes the client script reads).
 // ──────────────────────────────────────────────────────────────────────────────
@@ -15,10 +15,14 @@ import { getCollection } from 'astro:content'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
 import { readFile } from '../../../lib/github-commit'
 import { findEntryPath, parseContentFile, LIVE_READ_TIMEOUT_MS } from '../../../lib/live-content'
+import { muxConfigured } from '../../../lib/env'
+import { MUX_NOT_CONFIGURED } from '../../../lib/mux'
+import { formatDuration, muxThumb } from '../../../lib/video'
+import { SAFE_ID, SAFE_ID_HELP } from '../../../lib/save-entry'
 
 const { collection, id } = Astro.params
 
-const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'site'] as const
+const KNOWN = ['art', 'photo', 'writing', 'margins', 'quotes', 'video', 'site'] as const
 type Known = (typeof KNOWN)[number]
 if (!collection || !KNOWN.includes(collection as Known)) {
   return Astro.redirect('/admin')
@@ -55,8 +59,18 @@ if (!isNew && id) {
   let reachedGithub = false
   try {
     const signal = AbortSignal.timeout(LIVE_READ_TIMEOUT_MS)
-    const path = await findEntryPath(col, id, signal)
-    const live = path ? await readFile(path, signal) : null
+    // `?y=2025` (only added by the list when two files share this id) picks
+    // the copy in that year's folder; otherwise the entry is found by id.
+    const y = Astro.url.searchParams.get('y') ?? ''
+    const hinted = /^\d{4}$/.test(y) && SAFE_ID.test(id)
+      ? `src/content/${col}/${y}/${id}.md`
+      : null
+    let path = hinted
+    let live = hinted ? await readFile(hinted, signal) : null
+    if (!live) {
+      path = await findEntryPath(col, id, signal)
+      live = path ? await readFile(path, signal) : null
+    }
     reachedGithub = true
     if (path && live) {
       const parsed = parseContentFile(live.content)
@@ -116,7 +130,15 @@ const f = {
     ? (d.prints as Array<{ size: string; priceCents: number }>)
     : [],
   hidden: d.hidden === true,
+  // Video
+  series: String(d.series ?? ''),
+  muxAssetId: String(d.muxAssetId ?? ''),
+  playbackId: String(d.playbackId ?? ''),
+  durationSec: typeof d.durationSec === 'number' ? d.durationSec : undefined,
+  aspectRatio: String(d.aspectRatio ?? ''),
+  thumbnailTime: typeof d.thumbnailTime === 'number' ? d.thumbnailTime : undefined,
 }
+const muxReady = col === 'video' ? muxConfigured() : true
 const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
 
 // Storage bucket per collection (drives the client uploader).
@@ -126,6 +148,7 @@ const BUCKETS: Record<Known, string | undefined> = {
   writing: 'pdf-files',
   margins: undefined,
   quotes: undefined,
+  video: undefined, // videos go to Mux, not Supabase Storage
   site: undefined,
 }
 const bucket = BUCKETS[col]
@@ -214,7 +237,17 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     {col !== 'site' && (
       <div class="admin-field">
         <label class="admin-label" for="id">ID (also the filename)</label>
-        <input class="admin-input" type="text" id="id" name="id" value={f.id} required readonly={!isNew} />
+        <input
+          class="admin-input"
+          type="text"
+          id="id"
+          name="id"
+          value={f.id}
+          required
+          readonly={!isNew}
+          pattern={isNew ? '[A-Za-z0-9][A-Za-z0-9._\\-]*' : undefined}
+          title={isNew ? SAFE_ID_HELP : undefined}
+        />
         <span class="admin-hint">{isNew ? 'Auto-filled from date or title. Edit if you want a custom slug.' : 'Renaming requires a delete + recreate; readonly when editing.'}</span>
       </div>
     )}
@@ -223,7 +256,7 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     )}
 
     {/* ── Visibility toggle ─────────────────────────────────────── */}
-    {(col === 'art' || col === 'photo' || col === 'writing') && (
+    {(col === 'art' || col === 'photo' || col === 'writing' || col === 'video') && (
       <div class="admin-field admin-visibility">
         <label class="admin-label">
           <input
@@ -441,6 +474,88 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
             <input type="checkbox" name="sections" value="trips" checked={f.sections.includes('trips')} />
             Exotic States of Consciousness (trip reports)
           </label>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="tags">Tags</label>
+          <input class="admin-input tag-input" type="text" id="tags" name="tags" value={f.tags} />
+          <span class="admin-hint">Comma-separated.</span>
+          {tagSuggestions.length > 0 && (
+            <div class="tag-suggest">
+              <div class="tag-suggest__label">Click to add:</div>
+              <div class="tag-suggest__row">
+                {tagSuggestions.map((t) => (
+                  <button type="button" class="tag-suggest__pill" data-tag-pill={t} data-target-input="tags">{t}</button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </>
+    )}
+
+    {col === 'video' && (
+      <>
+        <div class="admin-field">
+          <label class="admin-label" for="video-file">Video file</label>
+          {!muxReady && (
+            <div class="admin-flash admin-flash--error" style="margin: 0 0 8px 0;">{MUX_NOT_CONFIGURED}</div>
+          )}
+          <input
+            type="file"
+            id="video-file"
+            name="video-file"
+            accept="video/*,.mp4,.mov,.m4v,.mkv,.webm"
+            class="admin-input"
+            disabled={!muxReady}
+          />
+          <div class="upload-status" data-upload-status data-state={f.playbackId ? 'success' : 'idle'} hidden={!f.playbackId}>
+            {f.playbackId ? `✓ Video ready${f.durationSec ? ` (${formatDuration(f.durationSec)})` : ''}` : ''}
+          </div>
+          <div class="upload-progress" data-upload-progress hidden>
+            <div class="upload-progress__bar" data-upload-progress-bar></div>
+          </div>
+          <img
+            class="video-preview"
+            data-video-preview
+            src={f.playbackId ? muxThumb(f.playbackId, { width: 640, time: f.thumbnailTime }) : undefined}
+            alt="Still from the current video"
+            hidden={!f.playbackId}
+          />
+          <input type="hidden" name="muxAssetId" value={f.muxAssetId} />
+          <input type="hidden" name="playbackId" value={f.playbackId} />
+          <input type="hidden" name="durationSec" value={f.durationSec ?? ''} />
+          <input type="hidden" name="aspectRatio" value={f.aspectRatio} />
+          <span class="admin-hint">
+            Pick a video (MP4 or MOV work best). It uploads straight to Mux and
+            can be resumed if the connection drops — keep this page open until
+            the green "Video ready" appears, then save.
+            {!isNew && ' Choosing a new file replaces the current video; the old file is deleted from Mux when you save.'}
+          </span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="body">Description</label>
+          <textarea class="admin-textarea" id="body" name="body" rows="8">{f.body}</textarea>
+          <span class="admin-hint">
+            Optional. Shown under the video. Plain paragraphs; <code>**bold**</code>,
+            <code>_italic_</code> and <code>[link text](https://…)</code> work.
+          </span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="series">Series</label>
+          <input class="admin-input" type="text" id="series" name="series" value={f.series} />
+          <span class="admin-hint">Optional. A show or series name, shown as a small label above the title.</span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="thumbnailTime">Still image at (seconds)</label>
+          <input class="admin-input" type="number" id="thumbnailTime" name="thumbnailTime" value={f.thumbnailTime ?? ''} min="0" step="1" />
+          <span class="admin-hint">
+            Optional. Which moment of the video to use as its still image. Leave
+            blank and Mux uses the middle of the video.
+          </span>
         </div>
 
         <div class="admin-field">

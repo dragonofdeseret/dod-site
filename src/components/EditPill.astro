@@ -42,14 +42,15 @@
         '/exotic-states-of-consciousness': '/admin/writing',
         '/margins': '/admin/margins',
         '/quotes': '/admin/quotes',
+        '/tv': '/admin/video',
         '/archive': '/admin',
       }
       if (lists[p]) return lists[p]
 
       // Detail pages: /art/<id>, /photography/<id>, /writing/<id>.
-      const detail = p.match(/^\/(art|photography|writing|margins|quotes)\/([^/]+)$/)
+      const detail = p.match(/^\/(art|photography|writing|margins|quotes|tv)\/([^/]+)$/)
       if (detail) {
-        const col = detail[1] === 'photography' ? 'photo' : detail[1]
+        const col = detail[1] === 'photography' ? 'photo' : detail[1] === 'tv' ? 'video' : detail[1]
         const id = detail[2]
         return `/admin/${col}/${id}`
       }

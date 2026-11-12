@@ -27,6 +27,8 @@ interface ImportMetaEnv {
   readonly GITHUB_REPO: string
   readonly GITHUB_BRANCH?: string
   readonly ADMIN_EMAIL: string
+  readonly MUX_TOKEN_ID?: string
+  readonly MUX_TOKEN_SECRET?: string
 }
 
 interface ImportMeta {

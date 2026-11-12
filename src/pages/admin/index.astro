@@ -12,8 +12,8 @@ export const prerender = false
 import AdminLayout from '../../layouts/AdminLayout.astro'
 import { liveEntries, type LiveEntry } from '../../lib/live-content'
 
-const { live, failed, byCollection } = await liveEntries(['art', 'photo', 'writing', 'margins', 'quotes'])
-const { art, photo, writing, margins, quotes } = byCollection as Record<string, LiveEntry[]>
+const { live, failed, byCollection } = await liveEntries(['art', 'photo', 'writing', 'margins', 'quotes', 'video'])
+const { art, photo, writing, margins, quotes, video } = byCollection as Record<string, LiveEntry[]>
 
 const totals = [
   { name: 'Artwork',     count: art.length,     href: '/admin/art' },
@@ -21,6 +21,7 @@ const totals = [
   { name: 'Writing',     count: writing.length, href: '/admin/writing' },
   { name: 'Margins',     count: margins.length, href: '/admin/margins' },
   { name: 'Quotes',      count: quotes.length,  href: '/admin/quotes' },
+  { name: 'Video',       count: video.length,   href: '/admin/video' },
 ]
 
 // Five most-recent across everything that has a date.
@@ -29,6 +30,7 @@ const allDated = [
   ...photo.map((e) => ({ ...e, collection: 'photo' })),
   ...writing.map((e) => ({ ...e, collection: 'writing' })),
   ...margins.map((e) => ({ ...e, collection: 'margins' })),
+  ...video.map((e) => ({ ...e, collection: 'video' })),
 ]
   .map((it) => ({ ...it, ts: Date.parse(String(it.data.date ?? '')) || 0 }))
   .filter((it) => it.ts > 0)

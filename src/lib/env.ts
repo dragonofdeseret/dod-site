@@ -90,3 +90,22 @@ export function getResendFrom(): string {
   // Optional override; default to the auth sender domain.
   return optional('RESEND_FROM') ?? 'orders@dragonofdeseret.com'
 }
+
+// ── Mux (video hosting for /tv) ────────────────────────────────────────────
+// An API access token from the Mux dashboard (Settings → Access Tokens) with
+// Mux Video read + write. Used only by the admin's video upload/status/delete
+// routes; public pages need just the playback ID stored in each entry.
+
+/** True when both Mux values are set — lets the admin explain what's missing
+ *  instead of failing mid-upload. */
+export function muxConfigured(): boolean {
+  return Boolean(optional('MUX_TOKEN_ID') && optional('MUX_TOKEN_SECRET'))
+}
+
+export function getMuxTokenId(): string {
+  return required('MUX_TOKEN_ID')
+}
+
+export function getMuxTokenSecret(): string {
+  return required('MUX_TOKEN_SECRET')
+}

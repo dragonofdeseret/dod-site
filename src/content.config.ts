@@ -100,6 +100,30 @@ const quotes = z.object({
   source: z.string().optional(),
 })
 
+// Videos for /tv. The file itself lives at Mux; an entry stores the IDs
+// needed to play it. The markdown body is the description.
+const video = z.object({
+  id: z.string(),
+  type: z.literal('video'),
+  title: z.string(),
+  date: z.string(),
+  year: z.number(),
+  // Optional show/series name, shown as a small label above the title.
+  series: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  // Mux identifiers. `playbackId` is what the player and thumbnails use
+  // (public); `muxAssetId` is the handle for deleting/replacing the file.
+  // Plain alphanumerics only — these are placed inside URLs.
+  muxAssetId: z.string().regex(/^[A-Za-z0-9]+$/),
+  playbackId: z.string().regex(/^[A-Za-z0-9]+$/),
+  durationSec: z.number().optional(),
+  aspectRatio: z.string().optional(), // "16:9"
+  // Which moment of the video to use as the still image (seconds). Mux
+  // picks the middle of the video when unset.
+  thumbnailTime: z.number().optional(),
+  hidden: z.boolean().optional(),
+})
+
 // Single-entry "site" content — pages whose entire shape is one editable
 // document. /now is the only one for now; future additions (an "about"
 // blurb, the homepage voice paragraph) can land here.
@@ -128,6 +152,15 @@ export const collections = {
   quotes: defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/quotes' }),
     schema: quotes,
+  }),
+  // NOTE: src/content/video/ only exists while there is at least one video
+  // — don't add a .gitkeep to hold it open. Astro's glob loader skips its
+  // clean-up when the folder exists but is empty, so with a cached build
+  // the last deleted video would stay on the site; with the folder absent
+  // it clears properly (and just logs a harmless "does not exist" warning).
+  video: defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/content/video' }),
+    schema: video,
   }),
   site: defineCollection({
     loader: glob({ pattern: '**/*.md', base: './src/content/site' }),

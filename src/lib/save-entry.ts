@@ -11,7 +11,14 @@
 import { commitFile } from './github-commit'
 import { serializeMarkdown, type SerializeInput } from './markdown-serialize'
 
-export type Collection = 'art' | 'photo' | 'writing' | 'margins' | 'quotes'
+/** What an entry id may look like. Ids are filenames and URL segments, so:
+ *  letters, digits, dot, dash, underscore; starting with a letter or digit.
+ *  Enforced when an entry is created (every existing id already fits). */
+export const SAFE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]*$/
+export const SAFE_ID_HELP =
+  'The ID may only contain letters, numbers, dots, dashes and underscores (no spaces), and must start with a letter or number.'
+
+export type Collection = 'art' | 'photo' | 'writing' | 'margins' | 'quotes' | 'video'
 
 export interface ArtOrPhotoPayload {
   id: string
@@ -63,6 +70,23 @@ export interface QuotesPayload {
   body: string
 }
 
+export interface VideoPayload {
+  id: string
+  type: 'video'
+  title: string
+  date: string
+  year: number
+  series?: string
+  tags?: string[]
+  muxAssetId: string
+  playbackId: string
+  durationSec?: number
+  aspectRatio?: string
+  thumbnailTime?: number
+  hidden?: boolean
+  body: string // description (markdown)
+}
+
 export interface SitePayload {
   id: string
   type: 'site'
@@ -75,6 +99,7 @@ export type AnyPayload =
   | WritingPayload
   | MarginsPayload
   | QuotesPayload
+  | VideoPayload
   | SitePayload
 
 /** Build the repo path for the markdown file given an entry. Quotes
@@ -142,6 +167,25 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'type',   kind: 'string', value: p.type },
           { key: 'author', kind: 'string', value: p.author },
           { key: 'source', kind: 'string', value: p.source },
+        ],
+        body: p.body,
+      }
+    case 'video':
+      return {
+        fields: [
+          { key: 'id',            kind: 'string', value: p.id },
+          { key: 'type',          kind: 'string', value: p.type },
+          { key: 'title',         kind: 'string', value: p.title },
+          { key: 'date',          kind: 'string', value: p.date },
+          { key: 'year',          kind: 'number', value: p.year },
+          { key: 'series',        kind: 'string', value: p.series },
+          { key: 'tags',          kind: 'array',  value: p.tags },
+          { key: 'muxAssetId',    kind: 'string', value: p.muxAssetId },
+          { key: 'playbackId',    kind: 'string', value: p.playbackId },
+          { key: 'durationSec',   kind: 'number', value: p.durationSec },
+          { key: 'aspectRatio',   kind: 'string', value: p.aspectRatio },
+          { key: 'thumbnailTime', kind: 'number', value: p.thumbnailTime },
+          { key: 'hidden',        kind: 'bool',   value: p.hidden },
         ],
         body: p.body,
       }
