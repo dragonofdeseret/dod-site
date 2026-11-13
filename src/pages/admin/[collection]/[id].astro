@@ -14,10 +14,10 @@ export const prerender = false
 import { getCollection } from 'astro:content'
 import AdminLayout from '../../../layouts/AdminLayout.astro'
 import { readFile } from '../../../lib/github-commit'
-import { findEntryPath, parseContentFile, LIVE_READ_TIMEOUT_MS } from '../../../lib/live-content'
+import { findEntryPath, liveEntries, parseContentFile, LIVE_READ_TIMEOUT_MS } from '../../../lib/live-content'
 import { muxConfigured } from '../../../lib/env'
 import { MUX_NOT_CONFIGURED } from '../../../lib/mux'
-import { formatDuration, muxThumb } from '../../../lib/video'
+import { formatDuration, isPosterUrl, muxThumb, POSTER_BUCKET, POSTER_FOLDER } from '../../../lib/video'
 import { SAFE_ID, SAFE_ID_HELP } from '../../../lib/save-entry'
 
 const { collection, id } = Astro.params
@@ -137,6 +137,28 @@ const f = {
   durationSec: typeof d.durationSec === 'number' ? d.durationSec : undefined,
   aspectRatio: String(d.aspectRatio ?? ''),
   thumbnailTime: typeof d.thumbnailTime === 'number' ? d.thumbnailTime : undefined,
+  poster: isPosterUrl(d.poster) ? d.poster : '',
+  posterThumb: isPosterUrl(d.posterThumb) ? d.posterThumb : '',
+  essay: String(d.essay ?? ''),
+}
+
+// Essays a video can be linked to: every Writing entry, newest first, read
+// live so one published a minute ago is already in the list.
+let essayOptions: Array<{ id: string; title: string; hidden: boolean }> = []
+if (col === 'video') {
+  const { byCollection } = await liveEntries(['writing'])
+  essayOptions = byCollection.writing
+    .map((e) => ({
+      id: String(e.data.id ?? e.id),
+      title: String(e.data.title ?? e.id),
+      hidden: e.data.hidden === true,
+      ts: Date.parse(String(e.data.date ?? '')) || 0,
+    }))
+    .sort((a, b) => b.ts - a.ts)
+  // Keep a saved link selectable even if that essay can't be found now.
+  if (f.essay && !essayOptions.some((o) => o.id === f.essay)) {
+    essayOptions.unshift({ id: f.essay, title: `${f.essay} (not found)`, hidden: false })
+  }
 }
 const muxReady = col === 'video' ? muxConfigured() : true
 const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
@@ -550,11 +572,57 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
         </div>
 
         <div class="admin-field">
+          <label class="admin-label" for="essay">Related essay</label>
+          <select class="admin-select" id="essay" name="essay">
+            <option value="" selected={!f.essay}>— None —</option>
+            {essayOptions.map((o) => (
+              <option value={o.id} selected={o.id === f.essay}>
+                {o.title}{o.hidden ? ' (hidden)' : ''}
+              </option>
+            ))}
+          </select>
+          <span class="admin-hint">
+            Optional. Pick a Writing entry this video goes with. The video's
+            page then links to the essay, and the essay's page gets a
+            "Watch the video" link. (A hidden essay is never linked.)
+          </span>
+        </div>
+
+        <div class="admin-field">
+          <label class="admin-label" for="poster-file">Thumbnail image</label>
+          <input
+            type="file"
+            id="poster-file"
+            name="poster-file"
+            accept="image/*,.heic,.heif"
+            class="admin-input"
+            data-poster-bucket={POSTER_BUCKET}
+            data-poster-folder={POSTER_FOLDER}
+          />
+          <div class="upload-status" data-poster-status data-state={f.poster ? 'success' : 'idle'} hidden={!f.poster}>
+            {f.poster ? '✓ Custom thumbnail in use' : ''}
+          </div>
+          <div class="poster-preview" data-poster-preview-wrap hidden={!f.poster}>
+            <img class="video-preview" data-poster-preview src={f.posterThumb || f.poster || undefined} alt="Custom thumbnail" />
+            <button type="button" class="admin-button admin-button--ghost" data-poster-remove>Remove custom thumbnail</button>
+          </div>
+          <input type="hidden" name="poster" value={f.poster} />
+          <input type="hidden" name="posterThumb" value={f.posterThumb} />
+          <span class="admin-hint">
+            Optional. Upload your own image (ideally 16:9, e.g. 1920×1080) to
+            use as this video's thumbnail on the TV page, in the player before
+            it starts, and in link previews. Without one, a frame from the
+            video is used.
+          </span>
+        </div>
+
+        <div class="admin-field">
           <label class="admin-label" for="thumbnailTime">Still image at (seconds)</label>
           <input class="admin-input" type="number" id="thumbnailTime" name="thumbnailTime" value={f.thumbnailTime ?? ''} min="0" step="1" />
           <span class="admin-hint">
-            Optional. Which moment of the video to use as its still image. Leave
-            blank and Mux uses the middle of the video.
+            Optional, and only used when there is no custom thumbnail above:
+            which moment of the video to use as its still image. Leave blank
+            and Mux uses the middle of the video.
           </span>
         </div>
 

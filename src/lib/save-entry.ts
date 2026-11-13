@@ -83,6 +83,9 @@ export interface VideoPayload {
   durationSec?: number
   aspectRatio?: string
   thumbnailTime?: number
+  poster?: string
+  posterThumb?: string
+  essay?: string
   hidden?: boolean
   body: string // description (markdown)
 }
@@ -185,6 +188,9 @@ function build(p: AnyPayload): SerializeInput {
           { key: 'durationSec',   kind: 'number', value: p.durationSec },
           { key: 'aspectRatio',   kind: 'string', value: p.aspectRatio },
           { key: 'thumbnailTime', kind: 'number', value: p.thumbnailTime },
+          { key: 'poster',        kind: 'string', value: p.poster },
+          { key: 'posterThumb',   kind: 'string', value: p.posterThumb },
+          { key: 'essay',         kind: 'string', value: p.essay },
           { key: 'hidden',        kind: 'bool',   value: p.hidden },
         ],
         body: p.body,

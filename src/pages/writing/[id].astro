@@ -17,6 +17,7 @@ import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import { publicOnly } from '../../lib/sort-group'
 import { fileUrl } from '../../lib/file-url'
+import { videosForEssay } from '../../lib/video-collection'
 
 export const getStaticPaths = (async () => {
   const writing = publicOnly(await getCollection('writing'))
@@ -28,6 +29,8 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 const { item } = Astro.props
+// Videos that were linked to this essay in the admin (Video → Related essay).
+const videos = await videosForEssay(item.data.id)
 const fromParam = Astro.url.searchParams.get('from') ?? 'writing'
 const backHref = fromParam === 'archive' ? '/archive' : '/writing'
 const backText = fromParam === 'archive' ? '← Back to Archive' : '← Back to Writing'
@@ -45,6 +48,11 @@ const pdfSrc = `${pdfOpen}#zoom=page-width&view=FitH`
 
   <div class="writing-actions">
     <a href={backHref}>{backText}</a>
+    {videos.map((v) => (
+      <a class="watch-link" href={`/tv/${v.data.id}`}>
+        ▶ {videos.length === 1 ? 'Watch the video' : `Watch: ${v.data.title}`}
+      </a>
+    ))}
     <a href={pdfOpen} target="_blank" rel="noopener">Enter Fullscreen</a>
   </div>
 

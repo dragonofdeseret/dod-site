@@ -28,6 +28,7 @@ import {
 import { findEntryPath, parseContentFile, videoAssetInUse, type Collection } from '../../../lib/live-content'
 import { muxConfigured } from '../../../lib/env'
 import { deleteAsset, getAsset, MuxError, MUX_ID, MUX_NOT_CONFIGURED } from '../../../lib/mux'
+import { isPosterUrl } from '../../../lib/video'
 
 export const POST: APIRoute = async ({ request, locals }) => {
   if (!locals.user) {
@@ -102,6 +103,21 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }),
       { status: 400, headers: { 'content-type': 'application/json' } },
     )
+  }
+  if (p.type === 'video') {
+    // Optional extras. A thumbnail must be one of our own uploaded images
+    // (anything else is dropped rather than published); the related essay
+    // must look like an entry id.
+    const v = body.payload as VideoPayload
+    if (!isPosterUrl(v.poster)) {
+      v.poster = undefined
+      v.posterThumb = undefined
+    } else if (!isPosterUrl(v.posterThumb)) {
+      v.posterThumb = undefined
+    }
+    if (v.essay !== undefined && !(typeof v.essay === 'string' && SAFE_ID.test(v.essay))) {
+      v.essay = undefined
+    }
   }
   const base =
     typeof body.basePath === 'string' && body.basePath

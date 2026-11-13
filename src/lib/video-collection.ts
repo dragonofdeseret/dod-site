@@ -20,3 +20,8 @@ export async function getPublicVideos(): Promise<CollectionEntry<'video'>[]> {
   if (VIDEO_FILES.length === 0) return []
   return sortByDateDesc(publicOnly(await getCollection('video')))
 }
+
+/** Public videos that name this Writing entry as their essay, newest first. */
+export async function videosForEssay(essayId: string): Promise<CollectionEntry<'video'>[]> {
+  return (await getPublicVideos()).filter((v) => v.data.essay === essayId)
+}

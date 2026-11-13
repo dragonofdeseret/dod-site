@@ -121,6 +121,15 @@ const video = z.object({
   // Which moment of the video to use as the still image (seconds). Mux
   // picks the middle of the video when unset.
   thumbnailTime: z.number().optional(),
+  // A custom thumbnail uploaded in the admin (full URLs in Supabase
+  // Storage). `poster` is the large image for the player and link previews;
+  // `posterThumb` a 960px copy for the cards on /tv. When set they replace
+  // the Mux-generated still everywhere.
+  poster: z.string().optional(),
+  posterThumb: z.string().optional(),
+  // id of a Writing entry this video goes with. The watch page links to the
+  // essay and the essay's page links back to the video.
+  essay: z.string().optional(),
   hidden: z.boolean().optional(),
 })
 

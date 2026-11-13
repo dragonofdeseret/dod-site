@@ -49,3 +49,49 @@ export function isoDuration(seconds: number | undefined | null): string | undefi
   const sec = s % 60
   return `PT${h ? `${h}H` : ''}${m ? `${m}M` : ''}${sec || (!h && !m) ? `${sec}S` : ''}`
 }
+
+/** Where custom video thumbnails are stored: bucket + folder prefix. */
+export const POSTER_BUCKET = 'art-images'
+export const POSTER_FOLDER = 'tv'
+
+/**
+ * Is this a thumbnail URL the admin uploader could have produced — an https
+ * address of a file under the posters folder of our public storage bucket,
+ * with nothing in it that could break out of an HTML attribute or a CSS
+ * url()? Anything else is ignored and the Mux still is used instead.
+ */
+export function isPosterUrl(url: unknown): url is string {
+  return (
+    typeof url === 'string' &&
+    new RegExp(
+      `^https://[A-Za-z0-9.-]+/storage/v1/object/public/${POSTER_BUCKET}/${POSTER_FOLDER}/[A-Za-z0-9._/-]+$`,
+    ).test(url) &&
+    !url.includes('..')
+  )
+}
+
+type StillSource = {
+  playbackId: string
+  thumbnailTime?: number
+  poster?: string
+  posterThumb?: string
+}
+
+/**
+ * The image that stands for a video, in the size a given spot needs:
+ *   'card'   — small, 16:9, for the cards on /tv (pass the pixel width)
+ *   'poster' — large, for the player frame before playback starts
+ *   'share'  — 1200×630 JPEG for link previews
+ * A custom uploaded thumbnail wins everywhere; otherwise it's a frame from
+ * the video, served by Mux (at `thumbnailTime` if one was chosen).
+ */
+export function videoStill(v: StillSource, kind: 'card' | 'poster' | 'share', width = 480): string {
+  if (isPosterUrl(v.poster)) {
+    if (kind === 'card' && width <= 960 && isPosterUrl(v.posterThumb)) return v.posterThumb
+    return v.poster
+  }
+  const time = v.thumbnailTime
+  if (kind === 'card') return muxThumb(v.playbackId, { width, height: Math.round((width * 9) / 16), time })
+  if (kind === 'share') return muxThumb(v.playbackId, { width: 1200, height: 630, time, format: 'jpg' })
+  return muxThumb(v.playbackId, { width: 1280, time })
+}

@@ -681,8 +681,15 @@ code, kbd, samp, .mono {
 }
 .writing-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 6px 18px;
+}
+/* "Watch the video" — shown when a video was linked to this essay. */
+.writing-actions a.watch-link {
+  color: var(--accent-text);
+  font-weight: 600;
 }
 .art-navigation .nav-left   { text-align: left; }
 .art-navigation .nav-center { text-align: center; color: var(--text-faint); }
@@ -934,6 +941,34 @@ code, kbd, samp, .mono {
   line-height: var(--leading-body);
 }
 .tv-description > :last-child { margin-bottom: 0; }
+/* Link from a video to the essay it goes with. */
+.tv-essay {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--measure);
+  margin-top: var(--rhythm);
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--panel-shadow);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 150ms ease;
+}
+.tv-essay:hover {
+  border-color: var(--accent-border);
+  color: var(--text);
+  text-decoration: none;
+}
+.tv-essay .eyebrow { margin-bottom: 0.3em; }
+.tv-essay__title {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.tv-essay:hover .tv-essay__title { color: var(--accent-text); }
+
 .tv-tags {
   display: flex;
   flex-wrap: wrap;

@@ -13,7 +13,7 @@
 // script handles every collection's editor.
 // ──────────────────────────────────────────────────────────────────────────────
 
-import { formatDuration, muxThumb } from '../lib/video'
+import { formatDuration, isPosterUrl, muxThumb } from '../lib/video'
 
 function slugify(s: string): string {
   return s
@@ -151,6 +151,9 @@ function readForm(ctx: FormContext): Record<string, unknown> {
         durationSec: getNumber('durationSec'),
         aspectRatio: getOptional('aspectRatio'),
         thumbnailTime: getNumber('thumbnailTime'),
+        poster: getOptional('poster'),
+        posterThumb: getOptional('posterThumb'),
+        essay: getOptional('essay'),
         hidden: readHidden(),
         body: get('body'),
       }
@@ -262,12 +265,14 @@ async function maybeResizeImage(file: File, maxWidth = 2000): Promise<File> {
  * Throws a friendly error on failure so the caller aborts the upload
  * instead of committing an unusable file.
  */
-async function maybeConvertHeic(file: File): Promise<File> {
+type Report = (text: string, kind?: 'info' | 'error' | 'success') => void
+
+async function maybeConvertHeic(file: File, report: Report = setStatus): Promise<File> {
   const isHeic =
     /image\/hei[cf]/i.test(file.type) || /\.(heic|heif)$/i.test(file.name)
   if (!isHeic) return file
 
-  setStatus('Converting HEIC photo to JPEG…', 'info')
+  report('Converting HEIC photo to JPEG…', 'info')
   try {
     const mod = await import('heic2any')
     const heic2any = (mod.default ?? mod) as (options: {
@@ -291,6 +296,52 @@ async function maybeConvertHeic(file: File): Promise<File> {
     throw new Error(
       'Could not convert this HEIC photo. Re-save or export it as JPEG, then upload again.',
     )
+  }
+}
+
+/**
+ * Turn any image the browser can open into a JPEG no wider than `maxWidth`,
+ * for a video thumbnail. Unlike maybeResizeImage this ALWAYS re-encodes: a
+ * thumbnail is fetched on every visit to /tv, so a multi-megabyte PNG, an
+ * animated GIF or a format other browsers can't show must never be stored
+ * as-is. Throws (with a message fit to show) if the file can't be opened.
+ */
+async function encodePoster(file: File, maxWidth: number): Promise<File> {
+  const url = URL.createObjectURL(file)
+  let img: HTMLImageElement
+  try {
+    img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image()
+      i.onload = () => resolve(i)
+      i.onerror = () => reject(new Error('undecodable'))
+      i.src = url
+    })
+  } catch {
+    URL.revokeObjectURL(url)
+    throw new Error('this browser can’t open that image. Use a JPEG or PNG')
+  }
+  try {
+    if (!img.naturalWidth || !img.naturalHeight) {
+      throw new Error('that image has no size. Use a JPEG or PNG')
+    }
+    const scale = Math.min(1, maxWidth / img.naturalWidth)
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, Math.round(img.naturalWidth * scale))
+    canvas.height = Math.max(1, Math.round(img.naturalHeight * scale))
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('the image couldn’t be prepared in this browser')
+    // JPEG has no transparency: put see-through areas on black, like the
+    // player frame behind it.
+    ctx.fillStyle = '#000'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.86))
+    if (!blob) throw new Error('the image couldn’t be prepared in this browser')
+    return new File([blob], 'thumbnail.jpg', { type: 'image/jpeg' })
+  } finally {
+    URL.revokeObjectURL(url)
   }
 }
 
@@ -377,8 +428,13 @@ async function uploadViaProxy(file: File, bucket: string, path: string): Promise
  * file straight to Supabase Storage. Two round-trips but no Vercel
  * body limit applies. Used for files over PROXY_LIMIT_BYTES (~4MB).
  */
-async function uploadViaSignedUrl(file: File, bucket: string, path: string): Promise<string> {
-  setStatus(`Preparing direct upload for ${Math.round(file.size / 1024)} KB file…`, 'info')
+async function uploadViaSignedUrl(
+  file: File,
+  bucket: string,
+  path: string,
+  report: Report = setStatus,
+): Promise<string> {
+  report(`Preparing direct upload for ${Math.round(file.size / 1024)} KB file…`, 'info')
 
   let urlRes: Response
   try {
@@ -401,7 +457,7 @@ async function uploadViaSignedUrl(file: File, bucket: string, path: string): Pro
     throw new Error(urlPayload.error ?? `Could not get signed URL (HTTP ${urlRes.status}).`)
   }
 
-  setStatus(`Uploading ${file.name} direct to storage…`, 'info')
+  report(`Uploading ${file.name} direct to storage…`, 'info')
   let putRes: Response
   try {
     putRes = await fetch(urlPayload.signedUrl, {
@@ -1014,6 +1070,98 @@ function init(): void {
     })
   }
 
+  // ── 2c. Custom video thumbnail (→ Supabase Storage) ────────────────
+  // An ordinary image upload, in two sizes: a large one for the player
+  // frame and link previews, and a small one for the cards on /tv. Each
+  // upload gets a fresh filename (storage is cached for a year, so a
+  // replaced image must not reuse the old address).
+  const posterFileEl = form.querySelector<HTMLInputElement>('input[name="poster-file"]')
+  const posterStatus = form.querySelector<HTMLElement>('[data-poster-status]')
+  const posterWrap = form.querySelector<HTMLElement>('[data-poster-preview-wrap]')
+  const posterImg = form.querySelector<HTMLImageElement>('[data-poster-preview]')
+  let posterBusy = false
+  let posterRun = 0
+  function setPosterStatus(text: string, state: 'uploading' | 'success' | 'error' | 'idle'): void {
+    if (!posterStatus) return
+    posterStatus.textContent = text
+    posterStatus.dataset.state = state
+    posterStatus.hidden = !text
+  }
+  function showPoster(poster: string, thumb: string): void {
+    const posterField = form.querySelector<HTMLInputElement>('input[name="poster"]')
+    const thumbField = form.querySelector<HTMLInputElement>('input[name="posterThumb"]')
+    if (posterField) posterField.value = poster
+    if (thumbField) thumbField.value = thumb
+    if (posterImg && (thumb || poster)) posterImg.src = thumb || poster
+    if (posterWrap) posterWrap.hidden = !poster
+  }
+  if (posterFileEl) {
+    posterFileEl.addEventListener('change', async () => {
+      const picked = posterFileEl.files?.[0]
+      if (!picked) return
+      const bucket = posterFileEl.dataset.posterBucket ?? ''
+      const folder = posterFileEl.dataset.posterFolder ?? ''
+      const looksLikeImage = picked.type.startsWith('image/') || /\.(heic|heif)$/i.test(picked.name)
+      if (!bucket || !folder || !looksLikeImage) {
+        // Refused before it becomes "the current upload", so an upload
+        // already in progress carries on undisturbed.
+        posterFileEl.value = ''
+        if (!posterBusy) setPosterStatus('✗ That file isn’t an image. Choose a JPEG or PNG.', 'error')
+        return
+      }
+      const run = ++posterRun
+      posterBusy = true
+      setPosterStatus(`Uploading ${picked.name}…`, 'uploading')
+      // This upload reports only on its own line under the field — never in
+      // the form's main status, where it could be mistaken for the video
+      // upload or the save.
+      const quiet: Report = () => {}
+      const send = (file: File, path: string) =>
+        file.size > PROXY_LIMIT_BYTES
+          ? uploadViaSignedUrl(file, bucket, path, quiet)
+          : uploadViaProxy(file, bucket, path)
+      try {
+        // iPhone HEIC → JPEG first, then two JPEG sizes: a large one for the
+        // player and link previews, a 960px one for the cards on /tv.
+        const source = await maybeConvertHeic(picked, quiet)
+        const largeFile = await encodePoster(source, 1920)
+        const smallFile = await encodePoster(source, 960)
+        const year = yearEl?.value || String(new Date().getFullYear())
+        const base = slugify(idEl?.value || titleEl?.value || 'video') || 'video'
+        const name = `${base}-thumb-${Date.now().toString(36)}`
+        const large = await send(largeFile, `${folder}/${year}/${name}.jpg`)
+        const small = await send(smallFile, `${folder}/${year}/${name}-960.jpg`)
+        if (run !== posterRun) return // a newer pick (or Remove) took over
+        if (!isPosterUrl(large) || !isPosterUrl(small)) {
+          throw new Error('the storage address came back in an unexpected form. Check the Year field is a 4-digit year and try again')
+        }
+        showPoster(large, small)
+        setPosterStatus('✓ Custom thumbnail ready — save to use it', 'success')
+      } catch (err) {
+        if (run !== posterRun) return
+        const raw = (err instanceof Error ? err.message : String(err)).trim()
+        const msg = /[.!?…]$/.test(raw) ? raw : `${raw}.`
+        const had = !!form.querySelector<HTMLInputElement>('input[name="poster"]')?.value
+        setPosterStatus(
+          `✗ Thumbnail upload failed: ${msg}${had ? ' The current thumbnail is unchanged.' : ''}`,
+          'error',
+        )
+      } finally {
+        if (run === posterRun) {
+          posterBusy = false
+          posterFileEl.value = ''
+        }
+      }
+    })
+    form.querySelector<HTMLButtonElement>('[data-poster-remove]')?.addEventListener('click', () => {
+      posterRun++ // also abandons an upload still in progress
+      posterBusy = false
+      posterFileEl.value = ''
+      showPoster('', '')
+      setPosterStatus('Custom thumbnail removed — save to apply. A frame from the video will be used.', 'idle')
+    })
+  }
+
   // ── 3. Submit ──────────────────────────────────────────────────────
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -1021,6 +1169,10 @@ function init(): void {
     if (collection === 'video') {
       if (videoBusy) {
         setStatus('The video is still uploading or processing. Wait for the green “✓ Video ready”, then save.', 'error')
+        return
+      }
+      if (posterBusy) {
+        setStatus('The thumbnail image is still uploading. Wait for it to finish, then save.', 'error')
         return
       }
       const playbackId = form.querySelector<HTMLInputElement>('input[name="playbackId"]')?.value.trim()
@@ -1062,6 +1214,14 @@ function init(): void {
     if (videoFileEl) videoFileEl.disabled = true
     const deleteBtnEl = document.getElementById('admin-delete-btn') as HTMLButtonElement | null
     if (deleteBtnEl) deleteBtnEl.disabled = true
+    // The form has been read; a thumbnail picked or removed now would not
+    // be part of this save. Lock those controls until the answer is back.
+    const posterControls = [
+      posterFileEl,
+      form.querySelector<HTMLButtonElement>('[data-poster-remove]'),
+    ].filter((el): el is HTMLInputElement | HTMLButtonElement => !!el)
+    const lockPoster = (locked: boolean) => posterControls.forEach((el) => (el.disabled = locked))
+    lockPoster(true)
     // The server said no (nothing was saved): the upload is unsaved again.
     const saveRefused = () => {
       saving = false
@@ -1069,6 +1229,7 @@ function init(): void {
       if (videoFileEl) videoFileEl.disabled = false
       if (deleteBtnEl) deleteBtnEl.disabled = false
       if (submitBtn) submitBtn.disabled = false
+      lockPoster(false)
     }
     setStatus('Saving…', 'info')
     const payload = readForm({ form, collection, isNew })
@@ -1126,6 +1287,7 @@ function init(): void {
       if (videoFileEl) videoFileEl.disabled = false
       if (deleteBtnEl) deleteBtnEl.disabled = false
       if (submitBtn) submitBtn.disabled = false
+      lockPoster(false)
     }
   })
 

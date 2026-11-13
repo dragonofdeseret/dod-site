@@ -783,3 +783,12 @@ html.dark .admin-body {
   border-radius: var(--radius-md);
 }
 .video-preview[hidden] { display: none; }
+
+/* Custom video thumbnail: preview + remove */
+.poster-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+.poster-preview[hidden] { display: none; }

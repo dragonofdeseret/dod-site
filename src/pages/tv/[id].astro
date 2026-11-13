@@ -3,8 +3,8 @@
 export const prerender = true
 
 // ──────────────────────────────────────────────────────────────────────────────
-// /tv/[id] — watch page: player, title, date, description, tags, and a few
-// more videos underneath.
+// /tv/[id] — watch page: player, title, date, description, a link to the
+// essay it goes with (if any), tags, and a few more videos underneath.
 //
 // Playback is Mux Player (a web component, loaded only on this page). It
 // needs nothing but the entry's public playback ID. Until its script has
@@ -13,27 +13,36 @@ export const prerender = true
 // ──────────────────────────────────────────────────────────────────────────────
 
 import type { GetStaticPaths } from 'astro'
-import { render } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import VideoCard from '../../components/VideoCard.astro'
 import { getPublicVideos } from '../../lib/video-collection'
 import { formatLongDate } from '../../lib/format-date'
-import { cssAspectRatio, formatDuration, isoDuration, muxThumb } from '../../lib/video'
+import { cssAspectRatio, formatDuration, isoDuration, videoStill } from '../../lib/video'
+import { publicOnly } from '../../lib/sort-group'
+import { itemUrl } from '../../lib/item-url'
 
 export const getStaticPaths = (async () => {
   const videos = await getPublicVideos()
+  // Essays a video can point at (hidden ones are never linked).
+  const essays = publicOnly(await getCollection('writing'))
   return videos.map((item) => ({
     params: { id: item.data.id },
-    props: { item, more: videos.filter((v) => v.data.id !== item.data.id).slice(0, 3) },
+    props: {
+      item,
+      more: videos.filter((v) => v.data.id !== item.data.id).slice(0, 3),
+      essay: item.data.essay ? essays.find((e) => e.data.id === item.data.essay) : undefined,
+    },
   }))
 }) satisfies GetStaticPaths
 
-const { item, more } = Astro.props
+const { item, more, essay } = Astro.props
 const v = item.data
 const { Content } = await render(item)
 
-const poster = muxThumb(v.playbackId, { width: 1280, time: v.thumbnailTime })
-const shareImage = muxThumb(v.playbackId, { width: 1200, height: 630, time: v.thumbnailTime, format: 'jpg' })
+// Custom uploaded thumbnail if there is one, else a frame from the video.
+const poster = videoStill(v, 'poster')
+const shareImage = videoStill(v, 'share')
 const duration = formatDuration(v.durationSec)
 
 // Plain-text summary for <meta description> and search results: the body
@@ -99,6 +108,13 @@ const jsonLd = JSON.stringify({
     <div class="tv-description">
       <Content />
     </div>
+  )}
+
+  {essay && (
+    <a class="tv-essay" href={itemUrl(essay, '')}>
+      <span class="eyebrow">Read the essay</span>
+      <span class="tv-essay__title">{essay.data.title}</span>
+    </a>
   )}
 
   {v.tags && v.tags.length > 0 && (

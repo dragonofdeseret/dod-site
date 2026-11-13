@@ -4,13 +4,14 @@
 // then series label, title and date. `featured` makes it the large lead
 // card on /tv (image beside the text on wide screens).
 //
-// Still images come from Mux's image CDN by playback ID (lib/video.ts).
+// The image is the video's custom thumbnail if one was uploaded, otherwise
+// a frame served by Mux's image CDN (lib/video.ts → videoStill).
 // Styles: the "TV" section of src/styles/global.css.
 // ──────────────────────────────────────────────────────────────────────────────
 
 import type { CollectionEntry } from 'astro:content'
 import { formatLongDate } from '../lib/format-date'
-import { formatDuration, muxThumb } from '../lib/video'
+import { formatDuration, videoStill } from '../lib/video'
 
 interface Props {
   video: CollectionEntry<'video'>
@@ -20,8 +21,7 @@ interface Props {
 const { video, featured = false } = Astro.props
 const v = video.data
 const w = featured ? 960 : 480
-const thumb = (width: number) =>
-  muxThumb(v.playbackId, { width, height: Math.round((width * 9) / 16), time: v.thumbnailTime })
+const thumb = (width: number) => videoStill(v, 'card', width)
 const duration = formatDuration(v.durationSec)
 ---
 
@@ -29,7 +29,7 @@ const duration = formatDuration(v.durationSec)
   <div class="tv-card__thumb">
     <img
       src={thumb(w)}
-      srcset={`${thumb(w)} 1x, ${thumb(w * 2)} 2x`}
+      srcset={thumb(w) === thumb(w * 2) ? undefined : `${thumb(w)} 1x, ${thumb(w * 2)} 2x`}
       width={w}
       height={Math.round((w * 9) / 16)}
       loading={featured ? 'eager' : 'lazy'}
