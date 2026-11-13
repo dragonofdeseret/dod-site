@@ -10,6 +10,9 @@ muxAssetId: "m0101kequ4UHCr1mGiVkaPDea5f1i7yO02LnF1tV73GtBM"
 playbackId: "VfGDYynNGx02pTSNXbf6UWVgqecIi4qpnVXpKr55vANk"
 durationSec: 1815
 aspectRatio: "16:9"
+poster: "https://twcuqldvujayqezjpvpt.supabase.co/storage/v1/object/public/art-images/tv/2026/the-golden-heart-of-the-eternal-god-an-interpretation-of-lehi-s-dream-thumb-mwe9k7br.jpg"
+posterThumb: "https://twcuqldvujayqezjpvpt.supabase.co/storage/v1/object/public/art-images/tv/2026/the-golden-heart-of-the-eternal-god-an-interpretation-of-lehi-s-dream-thumb-mwe9k7br-960.jpg"
+essay: "HotEG"
 ---
 
 An interpretation of Lehi's Dream, which is a vision of the Heart of the Eternal God. An Excerpt from Harmonic Theism
