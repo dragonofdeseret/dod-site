@@ -3,8 +3,9 @@
 export const prerender = true
 
 // ──────────────────────────────────────────────────────────────────────────────
-// /tv/[id] — watch page: player, title, date, description, a link to the
-// essay it goes with (if any), tags, and a few more videos underneath.
+// /tv/[id] — watch page: player, title, date, view count and like button
+// (scripts/video-stats.ts), description, a link to the essay it goes with
+// (if any), tags, and a few more videos underneath.
 //
 // Playback is Mux Player (a web component, loaded only on this page). It
 // needs nothing but the entry's public playback ID. Until its script has
@@ -89,6 +90,7 @@ const jsonLd = JSON.stringify({
       accent-color="#4F7CFF"
       disable-cookies
       playsinline
+      data-count-views={v.id}
     ></mux-player>
     <noscript>
       <video controls playsinline poster={poster} src={`https://stream.mux.com/${v.playbackId}.m3u8`}></video>
@@ -98,10 +100,19 @@ const jsonLd = JSON.stringify({
   <header class="tv-meta">
     {v.series && <span class="eyebrow">{v.series}</span>}
     <h1>{v.title}</h1>
-    <p class="tv-meta__line">
-      <time datetime={v.date}>{formatLongDate(v.date)}</time>
-      {duration && <span> · {duration}</span>}
-    </p>
+    <div class="tv-meta__row">
+      <p class="tv-meta__line">
+        <time datetime={v.date}>{formatLongDate(v.date)}</time>
+        {duration && <span> · {duration}</span>}
+        <span class="tv-views" data-views-for={v.id} data-views-format="full" hidden></span>
+      </p>
+      <button type="button" class="tv-like" data-like={v.id} aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2 0 3.6 1.1 5.2 3 1.6-1.9 3.2-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" />
+        </svg>
+        <span data-likes>0</span>
+      </button>
+    </div>
   </header>
 
   {plain && (
@@ -136,5 +147,6 @@ const jsonLd = JSON.stringify({
 
   <script>
     import '@mux/mux-player'
+    import '../../scripts/video-stats.ts'
   </script>
 </BaseLayout>

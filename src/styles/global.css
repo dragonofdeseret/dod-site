@@ -921,6 +921,50 @@ code, kbd, samp, .mono {
   color: var(--text-muted);
   font-size: var(--fs-sm);
 }
+.tv-meta__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+/* View count (filled in by scripts/video-stats.ts) — after the date. */
+.tv-views::before { content: ' · '; }
+
+/* Like button */
+.tv-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  font: 600 var(--fs-sm) / 1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+}
+.tv-like[hidden] { display: none; }
+.tv-like svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  transition: fill 120ms ease, transform 120ms ease;
+}
+.tv-like:hover { border-color: var(--accent-border); }
+.tv-like:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.tv-like[aria-pressed='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+.tv-like[aria-pressed='true'] svg { fill: currentColor; }
+.tv-like:active svg { transform: scale(0.88); }
+.tv-like[aria-busy='true'] { cursor: progress; }
 .tv-description {
   max-width: var(--measure);
   line-height: var(--leading-body);

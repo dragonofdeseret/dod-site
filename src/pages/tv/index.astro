@@ -31,4 +31,9 @@ const videos = await getPublicVideos()
       {videos.map((v, i) => <VideoCard video={v} level={2} eager={i < 3} />)}
     </section>
   )}
+  {videos.length > 0 && (
+    <script>
+      import '../../scripts/video-stats.ts'
+    </script>
+  )}
 </BaseLayout>

@@ -45,6 +45,9 @@ const duration = formatDuration(v.durationSec)
   <div class="tv-card__body">
     {v.series && <span class="eyebrow">{v.series}</span>}
     <Heading class="tv-card__title">{v.title}</Heading>
-    <span class="tv-card__date">{formatLongDate(v.date)}</span>
+    <span class="tv-card__date">
+      {formatLongDate(v.date)}
+      <span class="tv-views" data-views-for={v.id} hidden></span>
+    </span>
   </div>
 </a>
