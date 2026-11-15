@@ -820,10 +820,9 @@ code, kbd, samp, .mono {
 
 .tv-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 20px;
 }
-.tv-latest { margin-bottom: calc(var(--rhythm) * 1.5); }
 
 .tv-card {
   display: flex;
@@ -869,6 +868,7 @@ code, kbd, samp, .mono {
   font-variant-numeric: tabular-nums;
 }
 .tv-card__body {
+  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 14px 16px 16px;
@@ -883,26 +883,11 @@ code, kbd, samp, .mono {
 }
 .tv-card:hover .tv-card__title { color: var(--accent-text); }
 .tv-card__date {
+  /* Pinned to the bottom, so dates line up across a row of cards whose
+     titles wrap to different lengths. */
+  margin-top: auto;
   font-size: var(--fs-sm);
   color: var(--text-muted);
-}
-
-/* Lead card on /tv: still image beside the text on wide screens. */
-.tv-card--featured .tv-card__title {
-  font-size: var(--fs-h2);
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-@media (min-width: 1000px) {
-  .tv-card--featured {
-    flex-direction: row;
-    align-items: stretch;
-  }
-  .tv-card--featured .tv-card__thumb { flex: 0 0 62%; }
-  .tv-card--featured .tv-card__body {
-    justify-content: center;
-    padding: 24px 28px;
-  }
 }
 
 /* Watch page */

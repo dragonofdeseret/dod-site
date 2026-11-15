@@ -3,8 +3,7 @@
 export const prerender = true
 
 // ──────────────────────────────────────────────────────────────────────────────
-// /tv — every public video, newest first. The latest one leads as a large
-// card; the rest follow in a grid.
+// /tv — every public video, newest first, as a grid of identical cards.
 //
 // The video files live at Mux. This page only needs each entry's public
 // playback ID, which is enough to build still-image URLs — no API calls
@@ -17,7 +16,6 @@ import VideoCard from '../../components/VideoCard.astro'
 import { getPublicVideos } from '../../lib/video-collection'
 
 const videos = await getPublicVideos()
-const [latest, ...rest] = videos
 ---
 
 <BaseLayout title="TV" active="tv" description="Video by Christopher Shenefelt.">
@@ -29,15 +27,8 @@ const [latest, ...rest] = videos
   {videos.length === 0 ? (
     <p class="tv-empty">No videos yet.</p>
   ) : (
-    <>
-      <section class="tv-latest" aria-label="Latest video">
-        <VideoCard video={latest} featured />
-      </section>
-      {rest.length > 0 && (
-        <section class="tv-grid" aria-label="More videos">
-          {rest.map((v) => <VideoCard video={v} />)}
-        </section>
-      )}
-    </>
+    <section class="tv-grid" aria-label="Videos">
+      {videos.map((v, i) => <VideoCard video={v} level={2} eager={i < 3} />)}
+    </section>
   )}
 </BaseLayout>
