@@ -669,6 +669,11 @@ html.dark .admin-body {
   color: var(--accent-text);
   border: 1px solid var(--accent-border);
 }
+.upload-status[data-state='note'] {
+  background: var(--accent-soft);
+  color: var(--text);
+  border: 1px solid var(--accent-border);
+}
 .upload-status[data-state='success'] {
   background: var(--success-soft);
   color: var(--success-text);

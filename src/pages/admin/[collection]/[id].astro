@@ -161,6 +161,11 @@ if (col === 'video') {
   }
 }
 const muxReady = col === 'video' ? muxConfigured() : true
+// Identifies this entry to the editor script (it remembers an unfinished
+// video upload per entry). The id alone, except when two files share an id
+// — then the list links each with ?y=<year>, and the year keeps them apart.
+const yHint = Astro.url.searchParams.get('y') ?? ''
+const entryKey = isNew ? '' : /^\d{4}$/.test(yHint) ? `${yHint}/${id}` : String(id ?? '')
 const PRINT_SIZES = ['8x10', '11x14', '16x20', '24x30'] as const
 
 // Storage bucket per collection (drives the client uploader).
@@ -231,6 +236,7 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
     data-is-new={String(isNew)}
     data-media-bucket={bucket ?? ''}
     data-base-path={basePath}
+    data-entry-id={entryKey}
     data-base-sha={baseSha}
   >
     {/* ── Common fields ─────────────────────────────────────────── */}

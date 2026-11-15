@@ -15,7 +15,6 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vercel": "^8.0.0",
     "@mux/mux-player": "^3.14.1",
-    "@mux/upchunk": "^3.5.0",
     "@octokit/rest": "^21.0.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.46.0",

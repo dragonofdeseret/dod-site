@@ -14,6 +14,7 @@
 // ──────────────────────────────────────────────────────────────────────────────
 
 import { formatDuration, isPosterUrl, muxThumb } from '../lib/video'
+import { sendToMux, UploadFailed } from './mux-upload'
 
 function slugify(s: string): string {
   return s
@@ -540,7 +541,9 @@ function init(): void {
 
   const uploadStatus = form.querySelector<HTMLElement>('[data-upload-status]')
   const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')
-  function setUploadStatus(text: string, state: 'uploading' | 'success' | 'error' | 'idle'): void {
+  // 'note' = an informational message that, unlike 'uploading', doesn't
+  // lock the Save button.
+  function setUploadStatus(text: string, state: 'uploading' | 'success' | 'error' | 'idle' | 'note'): void {
     if (uploadStatus) {
       uploadStatus.textContent = text
       uploadStatus.dataset.state = state
@@ -701,12 +704,20 @@ function init(): void {
 
   // ── 2b. Video upload (→ Mux) ───────────────────────────────────────
   // Videos don't go to Supabase Storage. The server asks Mux for a one-off
-  // upload URL, the browser sends the file there in resumable chunks
-  // (UpChunk retries a failed chunk and waits out a dropped connection),
-  // and then we poll until Mux has made it playable. Only then are the
-  // hidden muxAssetId / playbackId fields filled in — until that moment
-  // they hold the entry's saved video (or nothing, for a new one), so a
-  // failed or abandoned upload never leaves the form half-updated.
+  // upload URL, the browser sends the file there piece by piece straight
+  // from disk (scripts/mux-upload.ts), and then we poll until Mux has made
+  // it playable. Only then are the hidden muxAssetId / playbackId fields
+  // filled in — until that moment they hold the entry's saved video (or
+  // nothing, for a new one), so an unfinished upload never leaves the form
+  // half-updated.
+  //
+  // Long videos take a long time to send, so nothing here assumes the page
+  // survives the whole upload. Every upload is remembered in this browser
+  // (localStorage) along with how much of it Mux has confirmed. If the page
+  // is reloaded, closed, or the laptop sleeps:
+  //   • not fully sent yet → choosing the same file again carries on from
+  //     the last confirmed byte (Mux keeps the upload open for 24 hours);
+  //   • fully sent → reopening this editor picks it up by itself.
   const videoFileEl = form.querySelector<HTMLInputElement>('input[name="video-file"]')
   const progressEl = form.querySelector<HTMLElement>('[data-upload-progress]')
   const progressBar = form.querySelector<HTMLElement>('[data-upload-progress-bar]')
@@ -745,14 +756,122 @@ function init(): void {
   let videoBusy = false // an upload is being sent or processed
   let videoRun = 0 // bumps on every file pick; older runs see it and stop
   let activeUpload: { abort: () => void } | null = null
-  // An upload that has been started at Mux but isn't part of a saved entry
-  // yet. If it is superseded, fails, or the page is left, it is discarded
-  // so the file doesn't sit at Mux unused (and billed).
+  // The upload this page is handling that isn't part of a saved entry yet.
+  // Replaced by a different file → discarded at Mux.
   let pendingUploadId: string | null = null
   // A save is on its way to the server. Its upload is no longer "pending"
   // (it is about to become part of a saved entry), and until the answer is
   // back nothing may discard it or swap the file.
   let saving = false
+
+  // ── The remembered upload ──────────────────────────────────────────
+  // One per editor: the new-video editor, or a given existing entry —
+  // identified by its id, which is known even when GitHub couldn't be
+  // reached and doesn't change when the entry moves to another year. `url`
+  // is the Mux upload address: only usable for this one upload, and only
+  // until Mux closes it after 24 hours.
+  interface UploadRecord {
+    uploadId: string
+    url: string
+    name: string
+    size: number
+    lastModified: number
+    /** Bytes Mux has confirmed as stored. */
+    stored: number
+    startedAt: number
+  }
+  const entryKey = isNew ? 'new' : form.dataset.entryId ? `id:${form.dataset.entryId}` : ''
+  const RECORD_KEY = entryKey ? `dod:video-upload:${collection}:${entryKey}` : ''
+  // An unfinished upload is closed by Mux 24 hours after it was created;
+  // a little under that, it is treated as gone. (A FINISHED upload never
+  // expires — its video stays at Mux until it is used or discarded.)
+  const RECORD_MAX_AGE_MS = 23 * 60 * 60_000
+  const isUrl = (s: string) => {
+    try {
+      new URL(s)
+      return true
+    } catch {
+      return false
+    }
+  }
+  function readRecord(): UploadRecord | null {
+    if (!RECORD_KEY) return null
+    try {
+      const r = JSON.parse(localStorage.getItem(RECORD_KEY) ?? 'null') as UploadRecord | null
+      if (
+        !r ||
+        typeof r.uploadId !== 'string' ||
+        !/^[A-Za-z0-9]+$/.test(r.uploadId) ||
+        typeof r.url !== 'string' ||
+        !isUrl(r.url) ||
+        typeof r.size !== 'number' ||
+        typeof r.stored !== 'number' ||
+        typeof r.startedAt !== 'number'
+      ) {
+        return null
+      }
+      return r
+    } catch {
+      return null
+    }
+  }
+  function writeRecord(r: UploadRecord | null): void {
+    if (!RECORD_KEY) return
+    try {
+      if (r) localStorage.setItem(RECORD_KEY, JSON.stringify(r))
+      else localStorage.removeItem(RECORD_KEY)
+    } catch {
+      /* private browsing or storage full: the upload just can't be resumed */
+    }
+  }
+  const isSameFile = (r: UploadRecord, f: File) =>
+    r.name === f.name && r.size === f.size && r.lastModified === f.lastModified
+  const isFresh = (r: UploadRecord) => Date.now() - r.startedAt < RECORD_MAX_AGE_MS
+
+  const pct = (part: number, whole: number) => (whole > 0 ? Math.floor((part / whole) * 100) : 0)
+  const fmtBytes = (n: number) =>
+    n >= 1e9 ? `${(n / 1e9).toFixed(n >= 1e10 ? 0 : 1)} GB` : `${Math.max(1, Math.round(n / 1e6))} MB`
+  const fmtMinutes = (ms: number) => {
+    const m = Math.max(1, Math.round(ms / 60_000))
+    return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${m % 60} min`
+  }
+
+  // ── Keep the computer awake while a video is uploading ─────────────
+  // An hour-long upload outlasts most sleep timers. A screen wake lock
+  // holds off sleep while this tab is in front (the browser drops it when
+  // the tab is hidden; it's taken again when the tab comes back).
+  type WakeLockHandle = EventTarget & { release: () => Promise<void> }
+  let wakeLock: WakeLockHandle | null = null
+  async function holdAwake(): Promise<void> {
+    const api = (navigator as Navigator & { wakeLock?: { request: (t: 'screen') => Promise<WakeLockHandle> } }).wakeLock
+    if (!api || wakeLock || document.visibilityState !== 'visible') return
+    try {
+      const lock = await api.request('screen')
+      if (!videoBusy) {
+        void lock.release().catch(() => {})
+        return
+      }
+      wakeLock = lock
+      lock.addEventListener('release', () => {
+        if (wakeLock === lock) wakeLock = null
+      })
+    } catch {
+      /* not allowed right now (e.g. low battery); uploading works anyway */
+    }
+  }
+  function letSleep(): void {
+    const lock = wakeLock
+    wakeLock = null
+    void lock?.release().catch(() => {})
+  }
+  function setBusy(busy: boolean): void {
+    videoBusy = busy
+    if (busy) void holdAwake()
+    else letSleep()
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (videoBusy && document.visibilityState === 'visible') void holdAwake()
+  })
 
   function setProgress(percent: number | null): void {
     if (!progressEl || !progressBar) return
@@ -775,27 +894,26 @@ function init(): void {
     })
   }
 
-  // Leaving now would throw away an upload (in flight, or finished but not
-  // saved) — make the browser ask first…
+  // Leaving now would interrupt an upload, or leave a finished one unsaved
+  // — make the browser ask first. (If the page is left anyway, nothing is
+  // lost: the upload is remembered, see above.)
   window.addEventListener('beforeunload', (e) => {
     if (!videoBusy && !pendingUploadId) return
     e.preventDefault()
     e.returnValue = ''
   })
-  // …and if the page really is left, clean the unsaved upload up.
   window.addEventListener('pagehide', () => {
-    if (!pendingUploadId) return
+    if (!activeUpload && !videoBusy) return
+    // Stop sending; the remembered upload carries on from here next time.
     activeUpload?.abort()
     activeUpload = null
-    discardUpload(pendingUploadId)
-    pendingUploadId = null
-    // Should the browser bring this page back as it was (Back button), it
-    // must not still claim the discarded upload.
     videoRun++
-    videoBusy = false
-    setProgress(null)
-    showSavedVideo()
-    setUploadStatus(savedVideo.fields.playbackId ? '✓ Video ready' : '', savedVideo.fields.playbackId ? 'success' : 'idle')
+    setBusy(false)
+  })
+  // Brought back by the Back button with an upload interrupted mid-way:
+  // start over from a clean page, which picks the upload back up.
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted && readRecord()) window.location.reload()
   })
 
   const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms))
@@ -811,37 +929,99 @@ function init(): void {
     return { res, data }
   }
 
-  if (videoFileEl) {
-    videoFileEl.addEventListener('change', async () => {
-      const file = videoFileEl.files?.[0]
-      if (!file) return
-      if (saving) {
-        videoFileEl.value = ''
-        return
-      }
-      // A newer pick supersedes whatever came before it: stop an upload
-      // still being sent, discard an unsaved one (in flight, processing, or
-      // ready), and put the form back on the saved video meanwhile.
-      const run = ++videoRun
-      activeUpload?.abort()
-      activeUpload = null
-      if (pendingUploadId) {
-        discardUpload(pendingUploadId)
-        pendingUploadId = null
-      }
-      showSavedVideo()
-      stillBeforeUpload = videoField('thumbnailTime')?.value ?? ''
-      const current = () => run === videoRun
-      const hadVideo = !!savedVideo.fields.playbackId
-      let uploadId: string | null = null
+  interface VideoStatus {
+    state?: 'waiting' | 'processing' | 'ready' | 'failed'
+    assetId?: string
+    playbackId?: string
+    durationSec?: number
+    aspectRatio?: string
+    inUse?: boolean
+    error?: string
+  }
+  async function videoStatus(uploadId: string, checkUse = false): Promise<VideoStatus> {
+    const { res, data } = await fetchJson<VideoStatus>(
+      `/admin/api/video-status?uploadId=${encodeURIComponent(uploadId)}${checkUse ? '&checkUse=1' : ''}`,
+    )
+    if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+    return data
+  }
 
-      videoBusy = true
-      setStatus('', 'info')
-      setProgress(0)
-      setUploadStatus('Preparing upload…', 'uploading')
-      try {
-        // 1. One-off upload URL from Mux (via our server; the API token
-        //    never reaches the browser).
+  /** The processing wait gave up asking; the upload itself is fine. */
+  class StatusUnavailable extends Error {}
+
+  /**
+   * One upload run: send `file` (fresh, or continuing the remembered upload
+   * of the same file), then wait for Mux to finish processing. With
+   * `pickUp`, the remembered upload is already fully at Mux: just wait.
+   */
+  async function runUpload(source: { file: File } | { pickUp: UploadRecord }): Promise<void> {
+    if (!videoFileEl) return
+    const file = 'file' in source ? source.file : null
+    // A newer run supersedes whatever came before it.
+    const run = ++videoRun
+    activeUpload?.abort()
+    activeUpload = null
+    const current = () => run === videoRun
+
+    // Carry on with the remembered upload if this is the same file (or a
+    // pick-up); anything else remembered is replaced, so discard it.
+    const remembered = readRecord()
+    let record: UploadRecord | null =
+      'pickUp' in source
+        ? source.pickUp
+        : remembered && file && isSameFile(remembered, file)
+          ? remembered
+          : null
+    if (remembered && !record) {
+      discardUpload(remembered.uploadId)
+      writeRecord(null)
+    }
+    if (pendingUploadId && pendingUploadId !== record?.uploadId) discardUpload(pendingUploadId)
+    pendingUploadId = null
+
+    showSavedVideo()
+    stillBeforeUpload = videoField('thumbnailTime')?.value ?? ''
+    const hadVideo = !!savedVideo.fields.playbackId
+    const name = file?.name ?? record?.name ?? 'the video'
+
+    setBusy(true)
+    setStatus('', 'info')
+    setProgress(record ? pct(record.stored, record.size) : 0)
+    setUploadStatus(
+      record
+        ? `Picking up your upload of ${name} (${pct(record.stored, record.size)}% sent)…`
+        : 'Preparing upload…',
+      'uploading',
+    )
+    try {
+      // 1. Is the remembered upload already complete at Mux? (A finished
+      //    upload is used whatever its age; an unfinished one only while
+      //    Mux still keeps it open.)
+      let needToSend = !!file
+      if (record && file) {
+        let st: VideoStatus | null = null
+        try {
+          st = await videoStatus(record.uploadId)
+        } catch {
+          /* couldn't ask — sending will find out where it got to */
+        }
+        if (!current()) return
+        if (st?.state === 'processing' || st?.state === 'ready') {
+          needToSend = false
+        } else if (st?.state === 'failed' || (st?.state === 'waiting' && !isFresh(record))) {
+          // Mux closed it (or is about to): start a new one. Only on a clear
+          // answer — if Mux couldn't be asked, sending finds out where the
+          // upload stands, and a closed one is then replaced.
+          discardUpload(record.uploadId)
+          writeRecord(null)
+          record = null
+        }
+      }
+
+      // 2. A new upload: get a one-off upload URL from Mux (via our server;
+      //    the API token never reaches the browser).
+      if (!record) {
+        if (!file) return
         const { res: startRes, data: start } = await fetchJson<{
           uploadId?: string
           uploadUrl?: string
@@ -860,214 +1040,225 @@ function init(): void {
           discardUpload(start.uploadId)
           return
         }
-        uploadId = start.uploadId
-        pendingUploadId = uploadId
-
-        // 2. Send the file to Mux in chunks.
-        const { createUpload } = await import('@mux/upchunk')
-        if (!current()) return
-        const sizeMb = Math.max(1, Math.round(file.size / 1_048_576))
-        await new Promise<void>((resolve, reject) => {
-          const upload = createUpload({
-            endpoint: start.uploadUrl!,
-            file,
-            chunkSize: 30720, // KB
-            // 0 is what a dropped connection looks like mid-chunk. Treating
-            // it as retryable makes UpChunk hold the chunk and resend it
-            // once back online, instead of failing the whole upload.
-            retryCodes: [0, 408, 502, 503, 504],
-            attempts: 8,
-            delayBeforeAttempt: 2,
-          })
-          // UpChunk keeps listening for the browser going offline/online for
-          // as long as the page lives. Once this transfer is over (done,
-          // failed or replaced) it must neither touch the form's status
-          // again nor resume.
-          let sending = true
-          const live = () => sending && current()
-          // Connection drops. Left to itself UpChunk restarts its send loop
-          // the instant the browser reports "online" — even when the chunk
-          // that was in flight is still being sent or is waiting to be
-          // retried — which would put two loops on one upload, sending
-          // chunks under the wrong byte ranges. So: pause on "offline" (which
-          // makes that automatic restart a no-op), and resume by hand only
-          // once nothing is in flight and its retry timer has had time to
-          // hand the unsent chunk back.
-          let inFlight = false
-          let lastActivity = Date.now()
-          let resumeTimer: number | undefined
-          const QUIET_MS = 2000 /* delayBeforeAttempt */ + 1500
-          const touch = (busy: boolean) => {
-            inFlight = busy
-            lastActivity = Date.now()
-          }
-          upload.on('attempt', () => touch(true))
-          upload.on('attemptFailure', () => touch(false))
-          upload.on('chunkSuccess', () => touch(false))
-          const tryResume = () => {
-            resumeTimer = undefined
-            if (!live() || !upload.paused) return
-            if (navigator.onLine === false) return // the next "online" tries again
-            if (inFlight || Date.now() - lastActivity < QUIET_MS) {
-              resumeTimer = window.setTimeout(tryResume, 500)
-              return
-            }
-            upload.resume()
-          }
-          const settle = () => {
-            sending = false
-            window.clearTimeout(resumeTimer)
-            upload.abort()
-            if (activeUpload === handle) activeUpload = null
-          }
-          // What the rest of the editor holds on to. Stopping the transfer
-          // from outside (a newer pick, leaving the page, deleting the
-          // entry) must END it — not merely pause it, or the resume logic
-          // above could start it again later — and let this run finish.
-          // Every caller bumps videoRun in the same breath, so the run then
-          // stops at its next `current()` check.
-          const handle = {
-            abort: () => {
-              settle()
-              resolve()
-            },
-          }
-          activeUpload = handle
-          upload.on('progress', (ev: { detail: number }) => {
-            if (!live()) return
-            const pct = Math.floor(ev.detail)
-            setProgress(pct)
-            setUploadStatus(`Uploading ${file.name} — ${pct}% of ${sizeMb} MB`, 'uploading')
-          })
-          upload.on('offline', () => {
-            if (!live()) return
-            upload.pause()
-            if (live()) setUploadStatus('Connection lost — the upload will resume when you’re back online…', 'uploading')
-          })
-          upload.on('online', () => {
-            if (!live()) return
-            setUploadStatus(`Back online — resuming ${file.name}…`, 'uploading')
-            window.clearTimeout(resumeTimer)
-            resumeTimer = window.setTimeout(tryResume, 500)
-          })
-          upload.on('error', (ev: { detail?: { message?: string } }) => {
-            if (!sending) return
-            settle()
-            const raw = ev.detail?.message ?? ''
-            reject(
-              new Error(
-                /responded with 0\b/.test(raw)
-                  ? 'The connection to Mux kept failing. Check your internet connection and try the file again.'
-                  : raw || 'The upload was interrupted.',
-              ),
-            )
-          })
-          upload.on('success', () => {
-            if (!sending) return
-            settle()
-            resolve()
-          })
-        })
-        if (!current()) return
-        setProgress(100)
-
-        // 3. Wait for Mux to make it playable. Short clips take seconds;
-        //    long videos can take a few minutes.
-        setUploadStatus('Upload finished. Mux is processing the video…', 'uploading')
-        const startedAt = Date.now()
-        // Time spent on checks that actually failed while online. Time
-        // offline or asleep doesn't count: the file is safe at Mux, and the
-        // answer is only delayed.
-        let failingMs = 0
-        let lastFailAt: number | null = null
-        for (;;) {
-          await sleep(Date.now() - startedAt < 120_000 ? 3000 : 8000)
-          if (!current()) return
-          if (navigator.onLine === false) {
-            failingMs = 0
-            lastFailAt = null
-            setUploadStatus('Connection lost — still waiting for Mux to finish processing…', 'uploading')
-            continue
-          }
-          let status: {
-            state?: 'waiting' | 'processing' | 'ready' | 'failed'
-            assetId?: string
-            playbackId?: string
-            durationSec?: number
-            aspectRatio?: string
-            error?: string
-          }
-          try {
-            const { res, data } = await fetchJson<typeof status>(
-              `/admin/api/video-status?uploadId=${encodeURIComponent(uploadId)}`,
-            )
-            if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
-            status = data
-            failingMs = 0
-            lastFailAt = null
-          } catch (err) {
-            // A blip while checking isn't a failed upload. Keep waiting, and
-            // only give up after five minutes' worth of failed checks (a gap
-            // longer than one check interval — the machine slept — counts
-            // as a single interval).
-            const now = Date.now()
-            failingMs += lastFailAt === null ? 0 : Math.min(now - lastFailAt, 15_000)
-            lastFailAt = now
-            if (failingMs > 5 * 60_000) throw err
-            continue
-          }
-          if (!current()) return
-          if (status.state === 'failed') {
-            throw new Error(status.error ?? 'Mux could not process this file.')
-          }
-          if (status.state === 'ready' && status.assetId && status.playbackId) {
-            setVideoField('muxAssetId', status.assetId)
-            setVideoField('playbackId', status.playbackId)
-            setVideoField('durationSec', typeof status.durationSec === 'number' ? String(status.durationSec) : '')
-            setVideoField('aspectRatio', status.aspectRatio ?? '')
-            // A "still image at" time saved with the previous file doesn't
-            // apply to this one. (Anything typed since is the user's: keep it.)
-            if ((videoField('thumbnailTime')?.value ?? '') === savedVideo.thumbnailTime) {
-              setVideoField('thumbnailTime', '')
-            }
-            if (videoPreview) {
-              videoPreview.src = muxThumb(status.playbackId, { width: 640 })
-              videoPreview.hidden = false
-            }
-            const duration = formatDuration(status.durationSec)
-            const length = duration ? ` (${duration})` : ''
-            videoBusy = false
-            setProgress(null)
-            setUploadStatus(`✓ Video ready${length} — now save to publish it`, 'success')
-            videoFileEl.value = ''
-            return
-          }
-          // Mux has just told us it still isn't done. Only now may the long
-          // wait limit apply — never on a check that didn't get an answer.
-          if (Date.now() - startedAt > 45 * 60_000) {
-            throw new Error('Mux is still processing after 45 minutes. Check the video in the Mux dashboard, then try again.')
-          }
-          const waited = Math.round((Date.now() - startedAt) / 1000)
-          setUploadStatus(`Upload finished. Mux is processing the video… (${waited}s)`, 'uploading')
+        record = {
+          uploadId: start.uploadId,
+          url: start.uploadUrl,
+          name: file.name,
+          size: file.size,
+          lastModified: file.lastModified,
+          stored: 0,
+          startedAt: Date.now(),
         }
-      } catch (err) {
+        writeRecord(record)
+      }
+      const uploadId = record.uploadId
+      pendingUploadId = uploadId
+
+      // 3. Send the file (or what's left of it).
+      if (needToSend && file) {
+        const controller = new AbortController()
+        const handle = { abort: () => controller.abort() }
+        activeUpload = handle
+        // Recent (time, bytes) samples for a time-left estimate.
+        const samples: Array<[number, number]> = []
+        const timeLeft = (bytes: number): string => {
+          const now = Date.now()
+          samples.push([now, bytes])
+          while (samples.length > 2 && now - samples[0][0] > 90_000) samples.shift()
+          const [t0, b0] = samples[0]
+          if (now - t0 < 20_000 || bytes <= b0) return ''
+          const rate = (bytes - b0) / (now - t0)
+          return ` · about ${fmtMinutes((file.size - bytes) / rate)} left`
+        }
+        await sendToMux({
+          url: record.url,
+          file,
+          resumeFrom: record.stored,
+          signal: controller.signal,
+          onProgress: (bytes) => {
+            if (!current()) return
+            setProgress((bytes / file.size) * 100)
+            setUploadStatus(
+              `Uploading ${file.name} — ${pct(bytes, file.size)}% (${fmtBytes(bytes)} of ${fmtBytes(file.size)})${timeLeft(bytes)}`,
+              'uploading',
+            )
+          },
+          onStored: (bytes) => {
+            const r = readRecord()
+            if (r && r.uploadId === uploadId) writeRecord({ ...r, stored: bytes })
+          },
+          onState: (state) => {
+            if (!current()) return
+            if (state === 'offline') {
+              setUploadStatus('Connection lost — the upload will continue when you’re back online…', 'uploading')
+            } else if (state === 'retrying') {
+              setUploadStatus('Connection trouble — retrying…', 'uploading')
+            }
+          },
+        })
+        if (activeUpload === handle) activeUpload = null
         if (!current()) return
-        activeUpload?.abort()
-        activeUpload = null
-        if (uploadId) discardUpload(uploadId)
-        if (pendingUploadId === uploadId) pendingUploadId = null
-        videoBusy = false
-        setProgress(null)
-        videoFileEl.value = ''
-        showSavedVideo()
-        const raw = err instanceof Error ? err.message : String(err)
-        const msg = /[.!?…]$/.test(raw.trim()) ? raw.trim() : `${raw.trim()}.`
+      }
+      setProgress(100)
+
+      // 4. Wait for Mux to make it playable. Short clips take seconds; long
+      //    or unusual files can take much longer. There is no time limit:
+      //    the file is safe at Mux, and if this page is closed the next
+      //    visit to this editor picks it up.
+      setUploadStatus('Upload finished. Mux is processing the video…', 'uploading')
+      const startedAt = Date.now()
+      // Time spent on checks that actually failed while online. Time
+      // offline or asleep doesn't count.
+      let failingMs = 0
+      let lastFailAt: number | null = null
+      for (;;) {
+        const waited = Date.now() - startedAt
+        await sleep(waited < 120_000 ? 3000 : waited < 30 * 60_000 ? 8000 : 20_000)
+        if (!current()) return
+        if (navigator.onLine === false) {
+          failingMs = 0
+          lastFailAt = null
+          setUploadStatus('Connection lost — still waiting for Mux to finish processing…', 'uploading')
+          continue
+        }
+        let status: VideoStatus
+        try {
+          status = await videoStatus(uploadId)
+          failingMs = 0
+          lastFailAt = null
+        } catch {
+          const now = Date.now()
+          failingMs += lastFailAt === null ? 0 : Math.min(now - lastFailAt, 30_000)
+          lastFailAt = now
+          if (failingMs > 5 * 60_000) throw new StatusUnavailable()
+          continue
+        }
+        if (!current()) return
+        if (status.state === 'failed') {
+          throw new Error(status.error ?? 'Mux could not process this file.')
+        }
+        if (status.state === 'ready' && status.assetId && status.playbackId) {
+          setVideoField('muxAssetId', status.assetId)
+          setVideoField('playbackId', status.playbackId)
+          setVideoField('durationSec', typeof status.durationSec === 'number' ? String(status.durationSec) : '')
+          setVideoField('aspectRatio', status.aspectRatio ?? '')
+          // A "still image at" time saved with the previous file doesn't
+          // apply to this one. (Anything typed since is the user's: keep it.)
+          if ((videoField('thumbnailTime')?.value ?? '') === savedVideo.thumbnailTime) {
+            setVideoField('thumbnailTime', '')
+          }
+          if (videoPreview) {
+            videoPreview.src = muxThumb(status.playbackId, { width: 640 })
+            videoPreview.hidden = false
+          }
+          const duration = formatDuration(status.durationSec)
+          setBusy(false)
+          setProgress(null)
+          setUploadStatus(`✓ Video ready${duration ? ` (${duration})` : ''} — now save to publish it`, 'success')
+          videoFileEl.value = ''
+          return
+        }
+        const elapsed = formatDuration((Date.now() - startedAt) / 1000)
         setUploadStatus(
-          `✗ Video upload failed: ${msg}${hadVideo ? ' The current video is unchanged.' : ''}`,
-          'error',
+          Date.now() - startedAt < 10 * 60_000
+            ? `Upload finished. Mux is processing the video… (${elapsed})`
+            : `Upload finished. Mux is still processing the video (${elapsed}) — long videos can take a while. You can leave this page; opening this editor again picks it up.`,
+          'uploading',
         )
       }
+    } catch (err) {
+      if (!current()) return
+      activeUpload?.abort()
+      activeUpload = null
+      setBusy(false)
+      setProgress(null)
+      videoFileEl.value = ''
+      showSavedVideo()
+      const keepUpload = (err instanceof UploadFailed && err.resumable) || err instanceof StatusUnavailable
+      if (keepUpload) {
+        // The upload is fine where it is: keep it remembered so it can be
+        // continued, rather than throwing away what was already sent.
+        pendingUploadId = null
+        const r = readRecord()
+        if (err instanceof StatusUnavailable) {
+          setUploadStatus(
+            '✗ Couldn’t check on the video for several minutes. Your upload is safe at Mux — reload this page to pick it up again.',
+            'error',
+          )
+        } else {
+          setUploadStatus(
+            `✗ The upload paused: ${err instanceof Error ? err.message : String(err)}${
+              r ? ` ${pct(r.stored, r.size)}% is safely at Mux.` : ''
+            } Choose the same file again to continue from there.${hadVideo ? ' The current video is unchanged.' : ''}`,
+            'error',
+          )
+        }
+        return
+      }
+      const failed = pendingUploadId
+      if (failed) discardUpload(failed)
+      pendingUploadId = null
+      writeRecord(null)
+      const raw = (err instanceof Error ? err.message : String(err)).trim()
+      const msg = /[.!?…]$/.test(raw) ? raw : `${raw}.`
+      setUploadStatus(`✗ Video upload failed: ${msg}${hadVideo ? ' The current video is unchanged.' : ''}`, 'error')
+    }
+  }
+
+  if (videoFileEl) {
+    videoFileEl.addEventListener('change', () => {
+      const file = videoFileEl.files?.[0]
+      if (!file) return
+      if (saving) {
+        videoFileEl.value = ''
+        return
+      }
+      void runUpload({ file })
     })
+
+    // ── On opening the editor: an earlier upload to pick up? ─────────
+    void (async () => {
+      const r = readRecord()
+      if (!r || videoFileEl.disabled) return
+      let st: VideoStatus
+      try {
+        st = await videoStatus(r.uploadId, true)
+      } catch {
+        if (videoRun > 0) return // the user has already picked a file
+        setUploadStatus(
+          `An earlier upload of ${r.name} (${pct(r.stored, r.size)}% sent) can be continued: choose the same file again.`,
+          'note',
+        )
+        return
+      }
+      if (videoRun > 0) return // the user has already picked a file
+      if (st.inUse) {
+        writeRecord(null) // it's part of a saved entry already
+        return
+      }
+      if (st.state === 'processing' || st.state === 'ready') {
+        void runUpload({ pickUp: r })
+        return
+      }
+      if (st.state === 'failed') {
+        discardUpload(r.uploadId)
+        writeRecord(null)
+        setUploadStatus(`✗ Your earlier upload of ${r.name} didn’t work (${st.error ?? 'Mux closed it'}). Choose the file again to start over.`, 'error')
+        return
+      }
+      // Not fully sent yet.
+      if (!isFresh(r)) {
+        // Mux closes unfinished uploads after 24 hours.
+        discardUpload(r.uploadId)
+        writeRecord(null)
+        setUploadStatus(`Your earlier upload of ${r.name} was never finished and has expired. Choose the file again to start over.`, 'note')
+        return
+      }
+      setUploadStatus(
+        `Your upload of ${r.name} stopped at ${pct(r.stored, r.size)}%. Choose the same file again to continue from there.`,
+        'note',
+      )
+    })()
   }
 
   // ── 2c. Custom video thumbnail (→ Supabase Storage) ────────────────
@@ -1256,6 +1447,10 @@ function init(): void {
         return
       }
       saving = false
+      // The uploaded video is part of the saved entry now: forget it, so it
+      // isn't offered for pick-up again. (A different, paused upload stays
+      // remembered — it wasn't part of this save.)
+      if (savingUploadId && readRecord()?.uploadId === savingUploadId) writeRecord(null)
       // This editor now holds the version just written.
       if (data.path) form.dataset.basePath = data.path
       if (data.contentSha) form.dataset.baseSha = data.contentSha
@@ -1392,11 +1587,17 @@ function init(): void {
         if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`)
         // An upload made on this page but never saved goes with the entry.
         activeUpload?.abort()
+        activeUpload = null
         videoRun++
-        videoBusy = false
+        setBusy(false)
         if (pendingUploadId) {
           discardUpload(pendingUploadId)
           pendingUploadId = null
+        }
+        const remembered = readRecord()
+        if (remembered) {
+          discardUpload(remembered.uploadId)
+          writeRecord(null)
         }
         // e.g. the entry is gone but the Mux file couldn't be removed.
         if (data.warning) alert(data.warning)

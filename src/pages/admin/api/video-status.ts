@@ -6,6 +6,8 @@
 //
 //   { state: 'waiting' }                      Mux hasn't registered the file yet
 //   { state: 'processing', assetId }          Mux is preparing it for playback
+//   (with ?checkUse=1, processing/ready also carry `inUse`: a saved entry
+//   already plays this video)
 //   { state: 'ready', assetId, playbackId,    playable — safe to save the entry
 //     durationSec, aspectRatio }
 //   { state: 'failed', error }                Mux couldn't use the file
@@ -18,12 +20,16 @@ export const prerender = false
 import type { APIRoute } from 'astro'
 import { muxConfigured } from '../../../lib/env'
 import { getAsset, getUpload, MUX_ID, MUX_NOT_CONFIGURED } from '../../../lib/mux'
+import { videoAssetInUse } from '../../../lib/live-content'
 
 export const GET: APIRoute = async ({ locals, url }) => {
   if (!locals.user) return json({ error: 'Not authorized' }, 401)
   if (!muxConfigured()) return json({ error: MUX_NOT_CONFIGURED }, 503)
 
   const uploadId = url.searchParams.get('uploadId') ?? ''
+  // `checkUse=1`: also say whether a saved entry already plays this video
+  // (the editor asks when offering to pick up an earlier upload).
+  const checkUse = url.searchParams.get('checkUse') === '1'
   if (!MUX_ID.test(uploadId)) return json({ error: 'Missing or invalid "uploadId".' }, 400)
 
   try {
@@ -39,6 +45,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
     }
 
     const asset = await getAsset(upload.assetId)
+    const inUse = checkUse ? (await videoAssetInUse(asset.id)) === 'yes' : undefined
     if (asset.status === 'errored') {
       return json(
         { state: 'failed', error: asset.error ?? "Mux couldn't process this file. Try exporting it as an MP4 and uploading again." },
@@ -46,7 +53,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
       )
     }
     if (asset.status !== 'ready' || !asset.playbackId) {
-      return json({ state: 'processing', assetId: asset.id }, 200)
+      return json({ state: 'processing', assetId: asset.id, inUse }, 200)
     }
     return json(
       {
@@ -55,6 +62,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
         playbackId: asset.playbackId,
         durationSec: asset.durationSec,
         aspectRatio: asset.aspectRatio,
+        inUse,
       },
       200,
     )
