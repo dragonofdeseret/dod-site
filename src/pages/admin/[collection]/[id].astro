@@ -210,7 +210,7 @@ const title = isNew ? `New ${col}` : (f.title || f.id || id)
 <AdminLayout title={title} active={col}>
   <h1 class="admin-h1">{isNew ? `New ${col}` : title}</h1>
   <p class="admin-subtitle">
-    <a href={`/admin/${col}`}>← Back to {col}</a>
+    <a href={`/admin/${col}`}>← Back to {col === 'video' ? 'TV' : col}</a>
   </p>
 
   {liveParseFailed && (

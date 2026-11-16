@@ -21,7 +21,7 @@ const totals = [
   { name: 'Writing',     count: writing.length, href: '/admin/writing' },
   { name: 'Margins',     count: margins.length, href: '/admin/margins' },
   { name: 'Quotes',      count: quotes.length,  href: '/admin/quotes' },
-  { name: 'Video',       count: video.length,   href: '/admin/video' },
+  { name: 'TV',          count: video.length,   href: '/admin/video' },
 ]
 
 // Five most-recent across everything that has a date.
@@ -78,7 +78,7 @@ const allDated = [
         {allDated.map((it) => (
           <li class="admin-list__row">
             <a href={`/admin/${it.collection}/${it.id}`}>
-              {String(it.data.title ?? it.id)} <span class="admin-list__meta">· {it.collection}</span>
+              {String(it.data.title ?? it.id)} <span class="admin-list__meta">· {it.collection === 'video' ? 'TV' : it.collection}</span>
             </a>
             <span class="admin-list__meta">{String(it.data.date)}</span>
           </li>
