@@ -2,7 +2,7 @@
 id: "a-skin-of-metzora-disease-and-inflammation-in-the-promised-land"
 type: "video"
 title: "A Skin of Metzora: Disease and Inflammation in the Promised Land"
-date: "2026-11-05"
+date: "2026-10-27"
 year: 2026
 tags: ["Book of Mormon", "racism", "ableism"]
 muxAssetId: "4s85xoeEQg02fvP7pIOr2arzzSpsWfbs15PLVis91FVk"
