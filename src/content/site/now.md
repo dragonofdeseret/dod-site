@@ -11,14 +11,15 @@ title: "Now"
 ## Writing Projects Ahead
 
 - Harmonic Theism: Symphony No. II
-– Book of Mormon Commentary
 - Siren Song
-- Screenplay for movie about LDS mission, visionary experiences, and dark night of the soul through atheism and back to Mormonism
+- Screenplay of LDS Mission
 
 ## Other Projects
 
-- Valence Journal
+- Valence Research Institute and Valence Journal
+- Taoist Canon Library
 - faultlineutah, prepareutah, hivewatchutah
+- The Cube Atlas
 
 ## Currently Reading
 
@@ -28,7 +29,6 @@ title: "Now"
 - Answers to Job by C. G. Jung
 - The Constitution of the United States of America by Based Historical Figures
 - The Analects of Confucius by Ames & Hall
-- The Screwtape Letters by C.S. Lewis
 
 ## Always Reading
 
