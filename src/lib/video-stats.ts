@@ -30,8 +30,15 @@ export interface VideoCounts {
   liked: boolean
 }
 
-/** The stats database isn't reachable or hasn't been set up yet. */
-export class StatsUnavailable extends Error {}
+/** The stats database isn't reachable or hasn't been set up yet. `code` is
+ *  the database's short error code (e.g. PGRST202 = function not found). */
+export class StatsUnavailable extends Error {
+  code: string
+  constructor(message: string, code = '') {
+    super(message)
+    this.code = code
+  }
+}
 
 /** One-way, keyed hash of an IP address for the hourly limit. Includes the
  *  UTC date, so the same address hashes differently each day. */
@@ -52,7 +59,7 @@ async function call(fn: string, args: Record<string, unknown>): Promise<Row[]> {
   if (error) {
     // e.g. PGRST202 (function not found) before the setup script was run.
     console.error(`[video-stats] ${fn} failed`, error.code, error.message)
-    throw new StatsUnavailable(error.message)
+    throw new StatsUnavailable(error.message, String(error.code ?? ''))
   }
   return (Array.isArray(data) ? data : []) as Row[]
 }

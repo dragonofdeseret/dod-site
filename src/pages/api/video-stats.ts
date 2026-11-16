@@ -7,7 +7,8 @@
 //        → { available: true, ok, counts: { views, likes, liked } }
 //
 // `available: false` means the stats database isn't set up or reachable;
-// the page then simply doesn't show any numbers.
+// the page then simply doesn't show any numbers. `reason` carries the
+// database's short error code (never the message) to make that diagnosable.
 //
 // Only ids of public videos are accepted, so nothing can be counted for
 // videos that don't exist. Counting rules live in the database (see
@@ -60,9 +61,9 @@ export const GET: APIRoute = async ({ url }) => {
   try {
     return json({ available: true, counts: await countsFor(ids, viewer) })
   } catch (err) {
-    if (err instanceof StatsUnavailable) return json({ available: false })
+    if (err instanceof StatsUnavailable) return json({ available: false, reason: err.code || 'unavailable' })
     console.error('[api/video-stats] GET', err)
-    return json({ available: false })
+    return json({ available: false, reason: 'server' })
   }
 }
 
